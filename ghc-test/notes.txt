@@ -1,0 +1,10 @@
+
+Needed packages:
+
+  -     Cabal : "pacman -S cabal-install
+
+  -	GHC.Paths : "cabal install ghc-paths"
+
+Compile using:
+
+  -	ghc --make -package ghc <filename>
