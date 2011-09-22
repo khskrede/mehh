@@ -31,9 +31,16 @@ An introduction to virtual machine (VM) construction with python\cite{pypy}.
 
 \subsection{Motivation}
 
-blah blah
+The motiviation behind the project is to see if a statically typed functional 
+programming language can benefit from just-in-time (JIT) compilation.
 
 \section{Implementation}
+
+The system will use the GHC haskell library to generate the haskell Core language
+and a simple haskell program to perform preprocessing on this language.
+
+The resulting code will then be parsed by a python program that generates code for the
+PyPy haskell interpreter.
 
 \subsection{Generating Core haskell}
 
