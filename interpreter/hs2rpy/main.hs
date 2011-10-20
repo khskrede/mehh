@@ -6,7 +6,6 @@ import DynFlags
 import System                       ( getArgs )
 
 -- CoreModule
-
 import HscTypes                     ( CoreModule(..), TypeEnv )
 import qualified CoreSyn as Hs
 import Var
@@ -14,19 +13,20 @@ import Name
 import SimplCore
 import CoreUtils
 
--- Module
+import Literal
+import FastString
+import Data.Char
 
-import Module                       ( ModuleName )
+import Module                       ( ModuleName, moduleNameString, packageIdString )
 
+import Text.JSON
+import Text.JSON.Pretty
+import Text.JSON.Generic
 
-
-
---
--- Main compiler function
---
-
+-- Main compiler functions
 main = do (inFile:outFile:_) <- getArgs
           compile inFile outFile
+
 
 compile :: FilePath -> FilePath -> IO ()
 compile inFile outFile = 
@@ -36,6 +36,8 @@ compile inFile outFile =
         writeFile outFile progString
         --writeFile outFile (showSDoc (ppr core))
 
+        putStrLn $ show $ pp_value $ getJSCore core
+
 getCore :: FilePath -> IO CoreModule
 getCore path = runGhc (Just libdir) $ do
                 dflags <- getSessionDynFlags
@@ -43,68 +45,32 @@ getCore path = runGhc (Just libdir) $ do
                 -- parse, typecheck, desugar, simplify
                 compileToCoreSimplified path 
 
---
--- Traverse CoreModule and generate output
---
 
+getJSCore :: CoreModule -> JSValue
+getJSCore (CoreModule name typeenv binds imports) = 
+    JSString $ toJSString "whaat"
+
+
+-- Traverse CoreModule and generate output
 getString :: CoreModule -> String
 getString (CoreModule name typeenv binds imports) = 
     "Module(\n\n"
-    ++ (getNameString name) ++ "\n\n" 
-    ++ (getTypeEnvString typeenv) ++ "\n\n"
-    ++ (getBindsString binds) ++ "\n\n"
-    ++ (getImportsString imports) ++ "\n\n"
+    ++ (getNameString name) ++ ", \n\n" 
+    ++ (getImportsString imports) ++ ", \n\n"
+    ++ (getTypeEnvString typeenv) ++ ", \n\n"
+    ++ (getBindsString binds) ++ ", \n\n"
     ++ ") "
 
---
--- Generate string for module name
---
 
+-- Generate string from module name
 getNameString :: Module -> String
 getNameString theModule = 
-    "ModuleName( " ++ (moduleNameString $ moduleName theModule) ++ " )"
-
---
--- Generate string for type env
---
-
-getTypeEnvString :: TypeEnv -> String
-getTypeEnvString typeenv = 
-    "TypeEnv( " ++ (getTypeEnvString' typeenv) ++ ")"
-
-getTypeEnvString' :: TypeEnv -> String
-getTypeEnvString' typeenv = 
-    "mehblehbleh"
-
---
--- Generate string for binds
---
-
-getBindsString :: [Hs.CoreBind] -> String
-getBindsString binds = 
-    "Binds( " ++ (getBindsString' binds) ++ " )"
-
-getBindsString' :: [Hs.CoreBind] -> String
-getBindsString' []      = []
-getBindsString' (x:xs)  = getBindString x ++ getBindsString' xs
-
-getBindString :: Hs.CoreBind -> String
-getBindString (Hs.NonRec name expr)     = ""--getNonRecString (Hs.NonRec name expr) 
-getBindString (Hs.Rec [(name,expr)])    = ""--getRecString (Hs.Rec [(name,expr)])
-getBindString (Hs.Rec _)                = error "getBindString"
-
---getNonRecString :: Hs.NonRec -> String
---getNonRecString meh = ""
-
---getRecString :: Hs.Rec -> String
---getRecString meh = ""
+    "ModuleName( " ++ 
+    (moduleNameString $ moduleName theModule) ++ ", " ++ 
+    (packageIdString $ modulePackageId theModule) ++ " )"
 
 
-
---
--- Generate string of imports
---
-
+-- Generate string from imports
 getImportsString :: [Module] -> String
 getImportsString imports = 
     "Imports( " ++ (getImportsString' imports) ++ " )"
@@ -114,9 +80,79 @@ getImportsString' []        = []
 getImportsString' (x:xs)    = (getNameString x) ++ " " ++ getImportsString' xs
 
 
+-- Generate string from type env
+getTypeEnvString :: TypeEnv -> String
+getTypeEnvString typeenv = 
+    "TypeEnv( " ++ (getTypeEnvString' typeenv) ++ " )"
+
+getTypeEnvString' :: TypeEnv -> String
+getTypeEnvString' typeenv = 
+    "mehblehbleh"
 
 
+-- Generate string from binds
+getBindsString :: [Hs.CoreBind] -> String
+getBindsString binds = 
+    "Binds( " ++ (getBindsString' binds) ++ " )"
 
+getBindsString' :: [Hs.CoreBind] -> String
+getBindsString' []      = []
+getBindsString' (x:xs)  = getBindString x ++ ", " ++ getBindsString' xs
+
+getBindString :: Hs.CoreBind -> String
+getBindString (Hs.NonRec name expr)     = getNonRecString (Hs.NonRec name expr) 
+getBindString (Hs.Rec [(name,expr)])    = getRecString (Hs.Rec [(name, expr)])
+getBindString (Hs.Rec _)                = error "getBindString"
+
+getNonRecString :: Hs.CoreBind -> String
+getNonRecString (Hs.NonRec name expr) = getExprString expr
+
+getRecString :: Hs.CoreBind -> String
+getRecString (Hs.Rec [(name,expr)]) = getExprString expr
+
+
+-- Generate string from expression
+getExprString :: Hs.CoreExpr -> String
+getExprString (Hs.App f arg) = 
+    "App( " ++ (getExprString f) ++ "," ++ (getExprString arg) ++  " )"
+getExprString (Hs.Lam var rhs) = 
+    "Lam()"
+getExprString (Hs.Case expr var typ alts) = 
+    "Case()"
+getExprString (Hs.Let _ _) = 
+    "Let()"
+getExprString (Hs.Cast _ _) = 
+    "Cast()"
+getExprString (Hs.Note _ _) = 
+    "Note()"
+getExprString (Hs.Type _) =
+    "Type"
+getExprString (Hs.Var var) =
+    "Var( " ++ (getOccString var) ++ " )"
+getExprString (Hs.Lit lit) =
+    "Lit( " ++ (getLitString lit) ++ " )"
+
+getLitString :: Literal -> String
+getLitString (MachChar char) = 
+    "Char( \'" ++ char:"\' )"
+getLitString (MachStr str) = 
+    "Str( \"" ++ unpackFS str ++ "\" )"
+getLitString (MachNullAddr) = 
+    "NullAddr()"
+getLitString (MachInt int) = 
+    "Int( " ++ (show int) ++ " )"
+getLitString (MachInt64 int) = 
+    "Int64( " ++ (show int) ++ " )"
+getLitString (MachWord word) = 
+    "Word( " ++ (show word) ++ " )"
+getLitString (MachWord64 word) = 
+    "Word64( " ++ (show word) ++ " )"
+getLitString (MachFloat float) = 
+    "Float( " ++ (show float) ++ " )"
+getLitString (MachDouble double) = 
+    "Double( " ++ (show double) ++ " )"
+getLitString (MachLabel meh meh2 meh3) = 
+    "Label()"
 
 --simType :: CoreModule -> CoreModule
 --simType (CoreModule name typeenv binds imports) =
