@@ -4,7 +4,7 @@
 \usepackage{verbatim}
 \usepackage{cite}
 \usepackage{parskip}
-
+\usepackage{longtable}
 
 \begin{document}
 
@@ -63,64 +63,197 @@ representing the language.
 
 \subsection{Core language definition}
 
-Definition of Core grammar:
+In this paper we use the following semantics to define grammar:
 
-TODO: Write definition of Core
+\begin{tabular}{ l l }
 
+$[$ pat $]$		& optional			\\
+$\{$ pat $\}$		& zero or more repetitions	\\
+$\{$ pat $\}^{+}$	& one or more repetitions	\\
+$pat_{1}|pat_{2}$	& choice			\\
 
-
-\begin{tabular}{ r c l }
-$module$	& $ \rightarrow $ 	& \%module $mident$ $\{ tdefg ; \}$ $\{ vdefg ; \}$	\\
-$tdefg$ 	& $ \rightarrow $	& \%data $qtycon$ $\{ tbind \}$  =  $ \{ [ cdef \{ ; cdef \} ] \} $ \\
-		& $ | $			& \%newtype $qtycon$ $qtycon$ $\{ tbind \}$ = $ty$	\\
-$pair$		& $ \rightarrow $	& $string$ : $value$ 		\\
-$array$		& $ \rightarrow $	& [ ]				\\
-		& $ | $			& [ $elements$ ]		\\
-$elements$ 	& $ \rightarrow $	& $value$			\\
-		& $ | $			& $value$ , $elements$		\\
-$value$		& $ \rightarrow $	& $string$			\\
-		& $ | $			& $number$			\\
-		& $ | $			& $object$			\\
-		& $ | $			& $array$			\\
-		& $ | $			& true				\\
-		& $ | $			& false				\\
-		& $ | $			& null				\\
-$string$	& $ \rightarrow $	& ""				\\
-		& $ | $			& " $chars$ "			\\
-$chars$		& $ \rightarrow $	& $char$			\\
-		& $ | $			& $char$ $chars$		\\
-
-$char$		& $ \rightarrow $	& any Unicode character except $"$ \\ 
-		&			& or $\backslash$ or control characters: \\
-		&			& $\backslash\backslash$	\\
-		&			& $\backslash /$ 		\\
-		&			& $\backslash b$ 		\\
-		& 			& $\backslash f$ 		\\
-		&			& $\backslash n$		\\
-		& 			& $\backslash r$ 		\\
-		& 			& $\backslash t$ 		\\
-		& 			& $\backslash u$ four-hex digits\\
-$number$	& $ \rightarrow $ 	& $int$ 			\\
-		& $ | $			& $int$ $frac$			\\
-		& $ | $			& $int$ $exp$			\\
-		& $ | $			& $int$ $frac$ $exp$		\\
-$int$		& $ \rightarrow$ 	& $digit$			\\
-		& $ | $ 		& $digit1-9$ $digits$		\\
-		& $ | $ 		& - $digit$			\\
-		& $ | $ 		& - $digit1-9$ $digits$	\\
-$frac$ 		& $ \rightarrow $ 	& . $digits$ 		\\
-$exp$		& $ \rightarrow $ 	& $e$ $digits$ 			\\
-$digits$	& $ \rightarrow $ 	& $digit$			\\
-		& $ | $ 		& $digit$ $digits$		\\
-$e$		& $ \rightarrow $ 	& e				\\
-		& $ | $ 		& e+				\\
-		& $ | $ 		& e- 				\\
-		& $ | $ 		& E				\\
-		& $ | $ 		& E+				\\
-		& $ | $ 		& E-				\\
 \end{tabular}
 
+Following is a formal definition of the Core grammar as descriped by \cite{jones1992implementing}.
+For a more detailed description, see \cite{jones1992implementing}.
 
+\begin{small}
+\begin{longtable}{ l r c l }
+\centering
+
+Module 		&
+$module$	& $ \rightarrow $ 	& \%module $mident$ $\{$ $tdefg$ ; $\}$ $\{$ $vdefg$ ; $\}$				\\
+
+Type def.&
+$tdefg$ 	& $ \rightarrow $	& \%data $qtycon$ $\{$ $tbind$ $\}$  = $\{$ $[$ $cdef$ $\{$ ; $cdef$ $\}$ $]$ $\}$	\\
+		&
+		& $ | $			& \%newtype $qtycon$ $qtycon$ $\{ tbind \}$ = $ty$					\\
+
+Constr. defn. 	&
+$cdef$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $aty$ $\}^{+}$ 					\\
+
+Value defn.	&
+$vdefg$		& $ \rightarrow $	& \%rec $\{$ $vdef$ $\{$ ; $vdef$ $\}$ $\}$						\\
+		&
+		& $ | $			& $vdef$										\\
+		&
+$vdef$ 		& $ \rightarrow $	& $qvar$ :: $ty$ = $exp$								\\
+
+Atomic expr.	&
+$aexp$		& $ \rightarrow $	& $qvar$										\\
+		&
+		& $ | $			& $qdcon$										\\
+		&
+		& $ | $			& $lit$											\\
+		&
+		& $ | $			& ( $exp$ ) 										\\
+
+Expression	& 
+$exp$		& $ \rightarrow $	& $aexp$										\\
+		&
+		& $ | $			& $aexp$ $\{$ $arg$ $\}^{+}$ 								\\
+		&
+		& $ | $			& $\backslash$ $\{$ $binder$ $\}$ -$>$ $exp$						\\
+		&
+		& $ | $			& \%let	$vdefg$ \%in $exp$								\\
+		&
+		& $ | $			& \%case ( $aty$ ) $exp$ \%of $vbind$ $\{$ $alt$ $\{$ ; $alt$ $\}$ $\}$			\\
+		&
+		& $ | $			& \%cast $exp$ $aty$									\\
+		&
+		& $ | $			& \%note "  $\{$ $char$ $\}$ " $exp$							\\
+		&
+		& $ | $			& \%external ccal " $\{$ $char$ $\}$ " $aty$						\\
+		&
+		& $ | $			& \%dynexternal ccal $aty$								\\
+		&
+		& $ | $			& \%label " $\{$ $char$ $\}$ "								\\
+
+Argument	&
+$arg$		& $ \rightarrow $	& @ $aty$										\\
+		&
+		& $ | $			& $aexp$										\\
+
+Case alt.	&
+$alt$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $vbind$ $\}$						\\
+		&
+		& $ | $			& $lit$ -$>$ $exp$									\\
+		&
+		& $ | $			& \%\_ -$>$ $exp$									\\
+
+Binder		&
+$bider$		& $ \rightarrow $	& @ $tbind$										\\
+		&
+		& $ | $			& $vbind$										\\
+
+Type binder	&
+$tbind$		& $ \rightarrow $	& $tyvar$										\\
+		&
+		& $ | $			& ( $tyvar$ :: $kind$ )									\\
+
+Value binder	&
+$vbind$		& $ \rightarrow $	& ( $var$ :: $ty$ )									\\
+
+Literal		&
+$lit$		& $ \rightarrow $	& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ :: $ty$ )						\\ 
+		&
+		& $ | $			& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ \% $\{$ $digit$ $\}^{+}$ :: $ty$ )			\\
+		&
+		& $ | $			& ( ' $char$ ' :: $ty$ )								\\
+		&
+		& $ | $			& ( " $\{$ $char$ $\}$ " :: $ty$ )							\\
+Character	&
+$char$		& $ \rightarrow $	& Any ASCII character in range 0x20-0x7E except 0x22, 0x27, 0x5c			\\
+		&
+		& $ | $			& $\backslash$x $hex$ $hex$								\\
+		&
+$hex$		& $ \rightarrow $	& 0 $|$ ... $|$ 9 $|$ a $|$ ... f							\\
+
+Atomic type	&
+$aty$		& $ \rightarrow $	& $tyvar$										\\
+		&
+		& $ | $			& $qtycon$										\\
+		&
+		& $ | $ 		& ( $ty$ )										\\
+
+Basic type	&
+$bty$		& $ \rightarrow $	& $aty$											\\
+		&
+		& $ | $			& $bty$ $aty$										\\
+		&
+		& $ | $			& \%trans $aty$ $aty$									\\
+		&
+		& $ | $			& \%sym	$aty$										\\
+		&
+		& $ | $			& \%unsafe $aty$ $aty$									\\
+		&
+		& $ | $			& \%left $aty$										\\
+		&
+		& $ | $			& \%right $aty$										\\
+		&
+		& $ | $			& \%inst $aty$ $aty$									\\
+
+Type		&
+$ty$		& $ \rightarrow $	& $bty$											\\
+		&
+		& $ | $			& \%forall $\{$ $tbind$ $\}^{+}$ . $ty$							\\
+		& 
+		& $ | $			& $bty$ -$>$ $ty$									\\
+
+Atomic kind	&
+$akind$		& $ \rightarrow $	& $*$											\\
+		&
+		& $ | $			& \#											\\
+		&
+		& $ | $			& ?											\\
+		&
+		& $ | $			& $bty$ :=: $bty$									\\
+		&
+		& $ | $			& ( $kind$ ) 										\\
+
+Kind		&
+$kind$		& $ \rightarrow $	& $akind$										\\
+		&
+		& $ | $			& $akind$ -$>$ $kind$									\\
+
+Identifier	&
+$mident$	& $ \rightarrow $	& $pname$ : $uname$									\\
+		&
+$tycon$		& $ \rightarrow $	& $uname$										\\
+		&
+$qtycon$	& $ \rightarrow $	& $mident$ . $tycon$									\\
+		&
+$tyvar$		& $ \rightarrow $	& $lname$										\\
+		&
+$dcon$		& $ \rightarrow $	& $uname$										\\
+		&
+$qdcon$		& $ \rightarrow $	& $mident$ . $dcon$									\\
+		&
+$var$		& $ \rightarrow $	& $lname$										\\
+		&
+$qvar$		& $ \rightarrow $	& $[$ $mident$ . $]$ $var$								\\
+
+Name		&
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								\\
+		&
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								\\
+		&
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								\\
+		&
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							\\
+		&
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									\\
+		&
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$										\\
+		&
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9										\\
+
+\end{longtable}
+\end{small}
+
+%\caption{Formal definition of Core grammar}
+
+%\end{figure}
 
 
 
@@ -153,57 +286,117 @@ TODO: Write about z-encoding of Core.
 
 Definition of JSON grammar:
 
-\begin{tabular}{ r c l }
-$object$	& $ \rightarrow $ 	& \{ \}				\\
- 		& $ | $			& \{ $members$ \} 		\\
-$members$ 	& $ \rightarrow $	& $pair$			\\
-		& $ | $			& $pair$ , $members$ 		\\
-$pair$		& $ \rightarrow $	& $string$ : $value$ 		\\
-$array$		& $ \rightarrow $	& [ ]				\\
-		& $ | $			& [ $elements$ ]		\\
-$elements$ 	& $ \rightarrow $	& $value$			\\
-		& $ | $			& $value$ , $elements$		\\
-$value$		& $ \rightarrow $	& $string$			\\
-		& $ | $			& $number$			\\
-		& $ | $			& $object$			\\
-		& $ | $			& $array$			\\
-		& $ | $			& true				\\
-		& $ | $			& false				\\
-		& $ | $			& null				\\
-$string$	& $ \rightarrow $	& ""				\\
-		& $ | $			& " $chars$ "			\\
-$chars$		& $ \rightarrow $	& $char$			\\
-		& $ | $			& $char$ $chars$		\\
+\begin{small}
 
+\centering
+
+\begin{longtable}{ l r c l }
+
+Object		&
+$object$	& $ \rightarrow $ 	& \{ \}				\\
+		&
+ 		& $ | $			& \{ $members$ \} 		\\
+		&
+$members$ 	& $ \rightarrow $	& $pair$			\\
+		&
+		& $ | $			& $pair$ , $members$ 		\\
+		&
+$pair$		& $ \rightarrow $	& $string$ : $value$ 		\\
+
+Array		&
+$array$		& $ \rightarrow $	& [ ]				\\
+		&
+		& $ | $			& [ $elements$ ]		\\
+		&
+$elements$ 	& $ \rightarrow $	& $value$			\\
+		&
+		& $ | $			& $value$ , $elements$		\\
+
+Value		&
+$value$		& $ \rightarrow $	& $string$			\\
+		&
+		& $ | $			& $number$			\\
+		&
+		& $ | $			& $object$			\\
+		&
+		& $ | $			& $array$			\\
+		&
+		& $ | $			& true				\\
+		&
+		& $ | $			& false				\\
+		&
+		& $ | $			& null				\\
+
+String		&
+$string$	& $ \rightarrow $	& ""				\\
+		&
+		& $ | $			& " $chars$ "			\\
+		&
+$chars$		& $ \rightarrow $	& $char$			\\
+		&
+		& $ | $			& $char$ $chars$		\\
+		&
 $char$		& $ \rightarrow $	& any Unicode character except $"$ \\ 
+		&
 		&			& or $\backslash$ or control characters: \\
+		&
 		&			& $\backslash\backslash$	\\
+		&
 		&			& $\backslash /$ 		\\
+		&
 		&			& $\backslash b$ 		\\
+		&
 		& 			& $\backslash f$ 		\\
+		&
 		&			& $\backslash n$		\\
+		&
 		& 			& $\backslash r$ 		\\
-		& 			& $\backslash t$ 		\\
+		&
+		&			& $\backslash t$ 		\\
+		&
 		& 			& $\backslash u$ four-hex digits\\
+
+Number		&
 $number$	& $ \rightarrow $ 	& $int$ 			\\
+		&
 		& $ | $			& $int$ $frac$			\\
+		&
 		& $ | $			& $int$ $exp$			\\
+		&
 		& $ | $			& $int$ $frac$ $exp$		\\
+		&
 $int$		& $ \rightarrow$ 	& $digit$			\\
+		&
 		& $ | $ 		& $digit1-9$ $digits$		\\
+		&
 		& $ | $ 		& - $digit$			\\
+		&
 		& $ | $ 		& - $digit1-9$ $digits$	\\
+		&
 $frac$ 		& $ \rightarrow $ 	& . $digits$ 		\\
+		&
 $exp$		& $ \rightarrow $ 	& $e$ $digits$ 			\\
+		&
 $digits$	& $ \rightarrow $ 	& $digit$			\\
+		&
 		& $ | $ 		& $digit$ $digits$		\\
+		&
 $e$		& $ \rightarrow $ 	& e				\\
+		&
 		& $ | $ 		& e+				\\
+		&
 		& $ | $ 		& e- 				\\
+		&
 		& $ | $ 		& E				\\
+		&
 		& $ | $ 		& E+				\\
+		&
 		& $ | $ 		& E-				\\
-\end{tabular}
+
+
+\end{longtable}
+
+\end{small}
 
 \subsection{JSON representation of Core}
 
