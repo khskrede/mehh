@@ -5,11 +5,12 @@
 \usepackage{cite}
 \usepackage{parskip}
 \usepackage{longtable}
-
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
 \begin{document}
 
-\title{Title}
-\author{Author}
+\title{Just in time compilation of haskell using PyPy and GHC}
+\author{Knut Halvor Skrede}
 \maketitle
 
 \begin{abstract}
@@ -49,6 +50,19 @@ short overview of the key aspects of haskell.
 
 For a technical overview of the glasgow haskell compiler (ghc) \cite{ghc}.
 
+
+\subsection{Types and typeclasses}
+
+\subsection{Higher order functions}
+
+\subsection{Modules}
+
+\subsection{Functors}
+
+\subsection{Monads}
+
+\subsection{++}
+
 \section{Core}
 
 Core haskell is an intermediate language used by GHC (glasgow haskell compiler),
@@ -63,207 +77,188 @@ representing the language.
 
 \subsection{Core language definition}
 
-In this paper we use the following semantics to define grammar:
+We use the following semantics to define the Core grammar:
 
-\begin{tabular}{ l l }
+\begin{tabular}{ l c l }
 
-$[$ pat $]$		& optional			\\
-$\{$ pat $\}$		& zero or more repetitions	\\
-$\{$ pat $\}^{+}$	& one or more repetitions	\\
-$pat_{1}|pat_{2}$	& choice			\\
+$[$ pat $]$		& :	& optional			\\
+$\{$ pat $\}$		& :	& zero or more repetitions	\\
+$\{$ pat $\}^{+}$	& :	& one or more repetitions	\\
+$pat_{1}|pat_{2}$	& :	& choice			\\
 
 \end{tabular}
 
 Following is a formal definition of the Core grammar as descriped by \cite{jones1992implementing}.
 For a more detailed description, see \cite{jones1992implementing}.
 
-\begin{small}
-\begin{longtable}{ l r c l }
-\centering
+\begin{footnotesize}
+\begin{longtable}{ r c l r }
 
-Module 		&
-$module$	& $ \rightarrow $ 	& \%module $mident$ $\{$ $tdefg$ ; $\}$ $\{$ $vdefg$ ; $\}$				\\
+\multicolumn{4}{l}{Module}			 \\
+\\[0.01in]
+$module$	& $ \rightarrow $ 	& \%module $mident$ $\{$ $tdefg$ ; $\}$ $\{$ $vdefg$ ; $\}$				&			\\
+\\[0.01in]
 
-Type def.&
-$tdefg$ 	& $ \rightarrow $	& \%data $qtycon$ $\{$ $tbind$ $\}$  = $\{$ $[$ $cdef$ $\{$ ; $cdef$ $\}$ $]$ $\}$	\\
-		&
-		& $ | $			& \%newtype $qtycon$ $qtycon$ $\{ tbind \}$ = $ty$					\\
+\multicolumn{4}{l}{Type defn.}			 \\
+\\[0.01in]
+$tdefg$ 	& $ \rightarrow $	& \%data $qtycon$ $\{$ $tbind$ $\}$  = $\{$ $[$ $cdef$ $\{$ ; $cdef$ $\}$ $]$ $\}$	& algebraic type	\\
+		& $ | $			& \%newtype $qtycon$ $qtycon$ $\{ tbind \}$ = $ty$					& newtype		\\
+\\[0.01in]
 
-Constr. defn. 	&
-$cdef$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $aty$ $\}^{+}$ 					\\
+\multicolumn{4}{l}{Constr. defn.}			 \\
+\\[0.01in]
+$cdef$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $aty$ $\}^{+}$ 					& 			\\
+\\[0.01in]
 
-Value defn.	&
-$vdefg$		& $ \rightarrow $	& \%rec $\{$ $vdef$ $\{$ ; $vdef$ $\}$ $\}$						\\
-		&
-		& $ | $			& $vdef$										\\
-		&
-$vdef$ 		& $ \rightarrow $	& $qvar$ :: $ty$ = $exp$								\\
+\multicolumn{4}{l}{Value defn.}			 \\
+\\[0.01in]
+$vdefg$		& $ \rightarrow $	& \%rec $\{$ $vdef$ $\{$ ; $vdef$ $\}$ $\}$						& recursive		\\
+		& $ | $			& $vdef$										& non-recursive		\\
+$vdef$ 		& $ \rightarrow $	& $qvar$ :: $ty$ = $exp$								& 			\\
+\\[0.01in]
 
-Atomic expr.	&
-$aexp$		& $ \rightarrow $	& $qvar$										\\
-		&
-		& $ | $			& $qdcon$										\\
-		&
-		& $ | $			& $lit$											\\
-		&
-		& $ | $			& ( $exp$ ) 										\\
+\multicolumn{4}{l}{Atomic expr.}			 \\
+\\[0.01in]
+$aexp$		& $ \rightarrow $	& $qvar$										& variable		\\
+		& $ | $			& $qdcon$										& data constructor	\\
+		& $ | $			& $lit$											& literal		\\
+		& $ | $			& ( $exp$ ) 										& nested expr.		\\
+\\[0.01in]
 
-Expression	& 
-$exp$		& $ \rightarrow $	& $aexp$										\\
-		&
-		& $ | $			& $aexp$ $\{$ $arg$ $\}^{+}$ 								\\
-		&
-		& $ | $			& $\backslash$ $\{$ $binder$ $\}$ -$>$ $exp$						\\
-		&
-		& $ | $			& \%let	$vdefg$ \%in $exp$								\\
-		&
-		& $ | $			& \%case ( $aty$ ) $exp$ \%of $vbind$ $\{$ $alt$ $\{$ ; $alt$ $\}$ $\}$			\\
-		&
-		& $ | $			& \%cast $exp$ $aty$									\\
-		&
-		& $ | $			& \%note "  $\{$ $char$ $\}$ " $exp$							\\
-		&
-		& $ | $			& \%external ccal " $\{$ $char$ $\}$ " $aty$						\\
-		&
-		& $ | $			& \%dynexternal ccal $aty$								\\
-		&
-		& $ | $			& \%label " $\{$ $char$ $\}$ "								\\
+\multicolumn{4}{l}{Expression}			 \\
+\\[0.01in]
+$exp$		& $ \rightarrow $	& $aexp$										& atomic expr.		\\
+		& $ | $			& $aexp$ $\{$ $arg$ $\}^{+}$ 								& application		\\
+		& $ | $			& $\backslash$ $\{$ $binder$ $\}$ -$>$ $exp$						& abstraction		\\
+		& $ | $			& \%let	$vdefg$ \%in $exp$								& local definition	\\
+		& $ | $			& \%case ( $aty$ ) $exp$ \%of $vbind$ $\{$ $alt$ $\{$ ; $alt$ $\}$ $\}$			& case expr.		\\
+		& $ | $			& \%cast $exp$ $aty$									& type coercion		\\
+		& $ | $			& \%note "  $\{$ $char$ $\}$ " $exp$							& expression note	\\
+		& $ | $			& \%external ccal " $\{$ $char$ $\}$ " $aty$						& external reference	\\
+		& $ | $			& \%dynexternal ccal $aty$								& external reference (dynamic)	\\
+		& $ | $			& \%label " $\{$ $char$ $\}$ "								& external label	\\
+\\[0.01in]
 
-Argument	&
-$arg$		& $ \rightarrow $	& @ $aty$										\\
-		&
-		& $ | $			& $aexp$										\\
+\multicolumn{4}{l}{Argument}			 \\
+\\[0.01in]
+$arg$		& $ \rightarrow $	& @ $aty$										& type argument		\\
+		& $ | $			& $aexp$										& value argument	\\
+\\[0.01in]
 
-Case alt.	&
-$alt$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $vbind$ $\}$						\\
-		&
-		& $ | $			& $lit$ -$>$ $exp$									\\
-		&
-		& $ | $			& \%\_ -$>$ $exp$									\\
+\multicolumn{4}{l}{Case alt}			 \\
+\\[0.01in]
+$alt$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $vbind$ $\}$ -$>$ $exp$				& constructor alternative \\
+		& $ | $			& $lit$ -$>$ $exp$									& literal alternative 	\\
+		& $ | $			& \%\_ -$>$ $exp$									& default alternative	\\
+\\[0.01in]
 
-Binder		&
-$bider$		& $ \rightarrow $	& @ $tbind$										\\
-		&
-		& $ | $			& $vbind$										\\
+\multicolumn{4}{l}{Binder}			 \\
+\\[0.01in]
+$bider$		& $ \rightarrow $	& @ $tbind$										& type binder		\\
+		& $ | $			& $vbind$										& value binder		\\
+\\[0.01in]
 
-Type binder	&
-$tbind$		& $ \rightarrow $	& $tyvar$										\\
-		&
-		& $ | $			& ( $tyvar$ :: $kind$ )									\\
+\multicolumn{4}{l}{Type binder}			 \\
+\\[0.01in]
+$tbind$		& $ \rightarrow $	& $tyvar$										& implicit of kind * 	\\
+		& $ | $			& ( $tyvar$ :: $kind$ )									& explicitly kinded	\\
+\\[0.01in]
 
-Value binder	&
-$vbind$		& $ \rightarrow $	& ( $var$ :: $ty$ )									\\
+\multicolumn{4}{l}{Value binder}			 \\
+\\[0.01in]
+$vbind$		& $ \rightarrow $	& ( $var$ :: $ty$ )									& \\
+\\[0.01in]
 
-Literal		&
-$lit$		& $ \rightarrow $	& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ :: $ty$ )						\\ 
-		&
-		& $ | $			& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ \% $\{$ $digit$ $\}^{+}$ :: $ty$ )			\\
-		&
-		& $ | $			& ( ' $char$ ' :: $ty$ )								\\
-		&
-		& $ | $			& ( " $\{$ $char$ $\}$ " :: $ty$ )							\\
-Character	&
-$char$		& $ \rightarrow $	& Any ASCII character in range 0x20-0x7E except 0x22, 0x27, 0x5c			\\
-		&
-		& $ | $			& $\backslash$x $hex$ $hex$								\\
-		&
-$hex$		& $ \rightarrow $	& 0 $|$ ... $|$ 9 $|$ a $|$ ... f							\\
+\multicolumn{4}{l}{Literal}			 \\
+\\[0.01in]
+$lit$		& $ \rightarrow $	& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ :: $ty$ )						& integer 		\\ 
+		& $ | $			& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ \% $\{$ $digit$ $\}^{+}$ :: $ty$ )			& rational		\\
+		& $ | $			& ( ' $char$ ' :: $ty$ )								& character		\\
+		& $ | $			& ( " $\{$ $char$ $\}$ " :: $ty$ )							& string		\\
+\\[0.01in]
 
-Atomic type	&
-$aty$		& $ \rightarrow $	& $tyvar$										\\
-		&
-		& $ | $			& $qtycon$										\\
-		&
-		& $ | $ 		& ( $ty$ )										\\
+\multicolumn{4}{l}{Character}			 \\
+\\[0.01in]
+$char$		& $ \rightarrow $	& \multicolumn{2}{l}{Any ASCII character in range 0x20-0x7E except 0x22, 0x27, 0x5c}			 \\
+		& $ | $			& $\backslash$x $hex$ $hex$								& ASCII code escape sequence \\
+$hex$		& $ \rightarrow $	& 0 $|$ ... $|$ 9 $|$ a $|$ ... f							& \\
+\\[0.01in]
 
-Basic type	&
-$bty$		& $ \rightarrow $	& $aty$											\\
-		&
-		& $ | $			& $bty$ $aty$										\\
-		&
-		& $ | $			& \%trans $aty$ $aty$									\\
-		&
-		& $ | $			& \%sym	$aty$										\\
-		&
-		& $ | $			& \%unsafe $aty$ $aty$									\\
-		&
-		& $ | $			& \%left $aty$										\\
-		&
-		& $ | $			& \%right $aty$										\\
-		&
-		& $ | $			& \%inst $aty$ $aty$									\\
+\multicolumn{4}{l}{Atomic type}			 \\
+\\[0.01in]
+$aty$		& $ \rightarrow $	& $tyvar$										& type variable 	\\
+		& $ | $			& $qtycon$										& type constructor	\\
+		& $ | $ 		& ( $ty$ )										& nested type 		\\
+\\[0.01in]
 
-Type		&
-$ty$		& $ \rightarrow $	& $bty$											\\
-		&
-		& $ | $			& \%forall $\{$ $tbind$ $\}^{+}$ . $ty$							\\
-		& 
-		& $ | $			& $bty$ -$>$ $ty$									\\
+\multicolumn{4}{l}{Basic type}			 \\
+\\[0.01in]
+$bty$		& $ \rightarrow $	& $aty$											& atomic type		\\
+		& $ | $			& $bty$ $aty$										& type application	\\
+		& $ | $			& \%trans $aty$ $aty$									& transitive coercion 	\\
+		& $ | $			& \%sym	$aty$										& symmetric coercion	\\
+		& $ | $			& \%unsafe $aty$ $aty$									& unsafe coercion	\\
+		& $ | $			& \%left $aty$										& left coercion		\\
+		& $ | $			& \%right $aty$										& right coercion	\\
+		& $ | $			& \%inst $aty$ $aty$									& instantiation coercion \\
+\\[0.01in]
 
-Atomic kind	&
-$akind$		& $ \rightarrow $	& $*$											\\
-		&
-		& $ | $			& \#											\\
-		&
-		& $ | $			& ?											\\
-		&
-		& $ | $			& $bty$ :=: $bty$									\\
-		&
-		& $ | $			& ( $kind$ ) 										\\
+\multicolumn{4}{l}{Type}			 \\
+\\[0.01in]
+$ty$		& $ \rightarrow $	& $bty$											& basic type 		\\
+		& $ | $			& \%forall $\{$ $tbind$ $\}^{+}$ . $ty$							& type abstraction	\\
+		& $ | $			& $bty$ -$>$ $ty$									& arrow type construction \\
+\\[0.01in]
 
-Kind		&
-$kind$		& $ \rightarrow $	& $akind$										\\
-		&
-		& $ | $			& $akind$ -$>$ $kind$									\\
+\multicolumn{4}{l}{Atomic kind}			 \\
+\\[0.01in]
+$akind$		& $ \rightarrow $	& $*$											& lifted kind 		\\
+		& $ | $			& \#											& unlifted kind 	\\
+		& $ | $			& ?											& open kind 		\\
+		& $ | $			& $bty$ :=: $bty$									& equality kind 	\\
+		& $ | $			& ( $kind$ ) 										& nested kind 		\\
+\\[0.01in]
 
-Identifier	&
-$mident$	& $ \rightarrow $	& $pname$ : $uname$									\\
-		&
-$tycon$		& $ \rightarrow $	& $uname$										\\
-		&
-$qtycon$	& $ \rightarrow $	& $mident$ . $tycon$									\\
-		&
-$tyvar$		& $ \rightarrow $	& $lname$										\\
-		&
-$dcon$		& $ \rightarrow $	& $uname$										\\
-		&
-$qdcon$		& $ \rightarrow $	& $mident$ . $dcon$									\\
-		&
-$var$		& $ \rightarrow $	& $lname$										\\
-		&
-$qvar$		& $ \rightarrow $	& $[$ $mident$ . $]$ $var$								\\
+\multicolumn{4}{l}{Kind}			 \\
+\\[0.01in]
+$kind$		& $ \rightarrow $	& $akind$										& atomic kind		\\
+		& $ | $			& $akind$ -$>$ $kind$									& arrow kind		\\
+\\[0.01in]
 
-Name		&
-$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								\\
-		&
-$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								\\
-		&
-$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								\\
-		&
-$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							\\
-		&
-$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									\\
-		&
-$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$										\\
-		&
-$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9										\\
+\multicolumn{4}{l}{Identifier}			 \\
+\\[0.01in]
+$mident$	& $ \rightarrow $	& $pname$ : $uname$									& module		\\
+$tycon$		& $ \rightarrow $	& $uname$										& type constr.		\\
+$qtycon$	& $ \rightarrow $	& $mident$ . $tycon$									& qualified type constr.\\
+$tyvar$		& $ \rightarrow $	& $lname$										& type variable		\\
+$dcon$		& $ \rightarrow $	& $uname$										& data constr.		\\
+$qdcon$		& $ \rightarrow $	& $mident$ . $dcon$									& qualified data constr.\\
+$var$		& $ \rightarrow $	& $lname$										& variable		\\
+$qvar$		& $ \rightarrow $	& $[$ $mident$ . $]$ $var$								& optionally qualified variable\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Name}			 \\
+\\[0.01in]
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								& \\
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								& \\
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								& \\
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							& \\
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									& \\
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
+\\[0.01in]
+
+\caption{Core grammar}
 
 \end{longtable}
-\end{small}
-
-%\caption{Formal definition of Core grammar}
-
-%\end{figure}
-
-
-
-
-
+\end{footnotesize}
 
 
 \subsection{Generating Core}
 
 Core is easily generated using the GHC API.
+
+TODO: Write some more stuff...
 
 \section{JSON representation of Core}
 
@@ -279,132 +274,353 @@ The JSON format was used for serializing and deserializing Core from haskell to 
 Following is a description of this process
 
 
-TODO: Write about z-encoding of Core.
-
-
 \subsection{Definition of JSON}
 
 Definition of JSON grammar:
 
-\begin{small}
+\begin{footnotesize}
 
-\centering
 
-\begin{longtable}{ l r c l }
+\begin{longtable}{ l r c l r }
 
 Object		&
-$object$	& $ \rightarrow $ 	& \{ \}				\\
+$object$	& $ \rightarrow $ 	& \{ \}					& \\
 		&
- 		& $ | $			& \{ $members$ \} 		\\
+ 		& $ | $			& \{ $members$ \} 			& \\
 		&
-$members$ 	& $ \rightarrow $	& $pair$			\\
+$members$ 	& $ \rightarrow $	& $pair$				& \\
 		&
-		& $ | $			& $pair$ , $members$ 		\\
+		& $ | $			& $pair$ , $members$ 			& \\
 		&
-$pair$		& $ \rightarrow $	& $string$ : $value$ 		\\
+$pair$		& $ \rightarrow $	& $string$ : $value$ 			& \\
+\\[0.01in]
 
 Array		&
-$array$		& $ \rightarrow $	& [ ]				\\
+$array$		& $ \rightarrow $	& [ ]					& \\
 		&
-		& $ | $			& [ $elements$ ]		\\
+		& $ | $			& [ $elements$ ]			& \\
 		&
-$elements$ 	& $ \rightarrow $	& $value$			\\
+$elements$ 	& $ \rightarrow $	& $value$				& \\
 		&
-		& $ | $			& $value$ , $elements$		\\
+		& $ | $			& $value$ , $elements$			& \\
+\\[0.01in]
 
 Value		&
-$value$		& $ \rightarrow $	& $string$			\\
+$value$		& $ \rightarrow $	& $string$				& \\
 		&
-		& $ | $			& $number$			\\
+		& $ | $			& $number$				& \\
 		&
-		& $ | $			& $object$			\\
+		& $ | $			& $object$				& \\
 		&
-		& $ | $			& $array$			\\
+		& $ | $			& $array$				& \\
 		&
-		& $ | $			& true				\\
+		& $ | $			& true					& \\
 		&
-		& $ | $			& false				\\
+		& $ | $			& false					& \\
 		&
-		& $ | $			& null				\\
+		& $ | $			& null					& \\
+\\[0.01in]
 
 String		&
-$string$	& $ \rightarrow $	& ""				\\
+$string$	& $ \rightarrow $	& ""					& \\
 		&
-		& $ | $			& " $chars$ "			\\
+		& $ | $			& " $chars$ "				& \\
 		&
-$chars$		& $ \rightarrow $	& $char$			\\
+$chars$		& $ \rightarrow $	& $char$				& \\
 		&
-		& $ | $			& $char$ $chars$		\\
+		& $ | $			& $char$ $chars$			& \\
 		&
-$char$		& $ \rightarrow $	& any Unicode character except $"$ \\ 
+$char$		& $ \rightarrow $	& any Unicode character except $"$ 	& \\ 
 		&
-		&			& or $\backslash$ or control characters: \\
+		&			& or $\backslash$ or control characters: & \\
 		&
-		&			& $\backslash\backslash$	\\
+		&			& $\backslash\backslash$		& \\
 		&
-		&			& $\backslash /$ 		\\
+		&			& $\backslash /$ 			& \\
 		&
-		&			& $\backslash b$ 		\\
+		&			& $\backslash b$ 			& \\
 		&
-		& 			& $\backslash f$ 		\\
+		& 			& $\backslash f$ 			& \\
 		&
-		&			& $\backslash n$		\\
+		&			& $\backslash n$			& \\
 		&
-		& 			& $\backslash r$ 		\\
+		& 			& $\backslash r$ 			& \\
 		&
-		&			& $\backslash t$ 		\\
+		&			& $\backslash t$ 			& \\
 		&
 		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
 
 Number		&
-$number$	& $ \rightarrow $ 	& $int$ 			\\
+$number$	& $ \rightarrow $ 	& $int$ 				& \\
 		&
-		& $ | $			& $int$ $frac$			\\
+		& $ | $			& $int$ $frac$				& \\
 		&
-		& $ | $			& $int$ $exp$			\\
+		& $ | $			& $int$ $exp$				& \\
 		&
-		& $ | $			& $int$ $frac$ $exp$		\\
+		& $ | $			& $int$ $frac$ $exp$			& \\
 		&
-$int$		& $ \rightarrow$ 	& $digit$			\\
+$int$		& $ \rightarrow$ 	& $digit$				& \\
 		&
-		& $ | $ 		& $digit1-9$ $digits$		\\
+		& $ | $ 		& $digit1-9$ $digits$			& \\
 		&
-		& $ | $ 		& - $digit$			\\
+		& $ | $ 		& - $digit$				& \\
 		&
-		& $ | $ 		& - $digit1-9$ $digits$	\\
+		& $ | $ 		& - $digit1-9$ $digits$			& \\
 		&
-$frac$ 		& $ \rightarrow $ 	& . $digits$ 		\\
+$frac$ 		& $ \rightarrow $ 	& . $digits$ 				& \\
 		&
-$exp$		& $ \rightarrow $ 	& $e$ $digits$ 			\\
+$exp$		& $ \rightarrow $ 	& $e$ $digits$ 				& \\
 		&
-$digits$	& $ \rightarrow $ 	& $digit$			\\
+$digits$	& $ \rightarrow $ 	& $digit$				& \\
 		&
-		& $ | $ 		& $digit$ $digits$		\\
+		& $ | $ 		& $digit$ $digits$			& \\
 		&
-$e$		& $ \rightarrow $ 	& e				\\
+$e$		& $ \rightarrow $ 	& e					& \\
 		&
-		& $ | $ 		& e+				\\
+		& $ | $ 		& e+					& \\
 		&
-		& $ | $ 		& e- 				\\
+		& $ | $ 		& e- 					& \\
 		&
-		& $ | $ 		& E				\\
+		& $ | $ 		& E					& \\
 		&
-		& $ | $ 		& E+				\\
+		& $ | $ 		& E+					& \\
 		&
-		& $ | $ 		& E-				\\
+		& $ | $ 		& E-					& \\
+\\[0.01in]
 
+
+\caption{JSON grammar}
 
 \end{longtable}
 
-\end{small}
+\end{footnotesize}
 
 \subsection{JSON representation of Core}
 
-TODO: Write definition for Core JSON grammar.
+\begin{itemize}
+\item A module is represented as a list of 3 objects.
+	\begin{itemize}
+	\item Module identifier 
+	\item Type definitions (Array) 
+	\item Value definitions (Array)
+	\item TODO: Do we include the import-list in the CoreModule?
+	\end{itemize}
 
-\subsection{Correctness}
+\item A type definition is represented as a list of 3 objects. 
+\end{itemize}
 
-Show how a sample program is correctly translated here...
+In the following grammar, we use the following definitions:
+
+\begin{footnotesize}
+\begin{tabular}{ l c l }
+
+$[$ $pat$ $]$ 		& : 	& Zero or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\
+$[$ $pat$ $]^{+}$ 	& : 	& One or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\ 
+$\{$ $pat$ $\}$		& :	& Represents a JSON Object, $pat$ is a JSON $members$.						\\
+$pat_{1}$ $|$ $pat_{2}$	& :	& Choice.											\\
+$||$ $pat$ $||$ 	& :	& Optional											\\
+" $pat$ "		& :	& A (JSON) string \\
+
+\end{tabular}
+\end{footnotesize}
+
+Most of the rhs. of the grammar evaluates to JSON Values. 
+Even though the grammar is changed to support JSON, an effort was made to
+keep it similar to the original Core grammar for easy referencing. The size
+of the resulting files was not considered to be an issue.
+
+\begin{footnotesize}
+\begin{longtable}{ r c l r }
+
+\multicolumn{4}{l}{Module}		\\
+$module$	& $ \rightarrow $ 	& $\{$ "\%module" : $mident$ , "tdefg" : $[$ $tdefg$ $]$ , "vdefg" : $[$ $vdefg$ $]$ $\}$				&			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type defn.}		\\
+$tdefg$ 	& $ \rightarrow $	& $\{$ "\%data" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ $\}$							& algebraic type	\\
+		& $ | $			& $\{$ "\%newtype" : $qtycon$ , "qtycon" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ , "ty" : $ty$ $\}$ 		& newtype		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Constr. defn.}	\\
+\\[0.01in]
+$cdef$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $ ]$ , "aty" : $[$aty$]^{+}$ $\}$ 				& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value defn.}		\\
+\\[0.01in]
+$vdefg$		& $ \rightarrow $	& $\{$ "\%rec" : $[$ $vdef$ $]^{+}$ $\}$    									& recursive		\\
+		& $ | $			& $vdef$													& non-recursive		\\
+$vdef$ 		& $ \rightarrow $	& $\{$ "qvar" : $qvar$ , "ty" : $ty$ , "exp" : $exp$ $\}$ 							& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic expr.}	\\
+\\[0.01in]
+$aexp$		& $ \rightarrow $	& $qvar$													& variable		\\
+		& $ | $			& $qdcon$													& data constructor	\\
+		& $ | $			& $lit$														& literal		\\
+		& $ | $			& $\{$ "exp" : $exp$ $\}$ 											& nested expr.		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Expression}			 \\
+\\[0.01in]
+$exp$		& $ \rightarrow $	& $aexp$													& atomic expr.		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ , "args" : $[$ $arg$ $]^{+}$ $\}$ 							& application		\\
+		& $ | $			& $\{$ "lambda" : $[$ $binder$ $]$ , "exp" : $exp$ $\}$								& abstraction		\\
+		& $ | $			& $\{$ "\%let" : $vdefg$ , "\%in" : $exp$ $\}$									& local definition	\\
+		& $ | $			& $\{$ "\%case" : $aty$ , "exp" : $exp$ , "\%of" : $vbind$, "alt" : $[$ $alt$ $]^{+}$ $\}$			& case expr.		\\
+		& $ | $			& $\{$ "\%cast" : $exp$ , "aty" : $aty$	$\}$									& type coercion		\\
+		& $ | $			& $\{$ "\%note" : "  $\{$ $char$ $\}$ " , "exp" : $exp$	$\}$							& expression note	\\
+		& $ | $			& $\{$ "\%external ccal" : " $\{$ $char$ $\}$ " , "aty" : $aty$ $\}$						& external reference	\\
+		& $ | $			& $\{$ "\%dynexternal ccal" : $aty$ $\}$									& external reference (dynamic)	\\
+		& $ | $			& $\{$ "\%label" : " $\{$ $char$ $\}$ " $\}$									& external label	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Argument}			 \\
+\\[0.01in]
+$arg$		& $ \rightarrow $	& $\{$ "aty" : $aty$ $\}$											& type argument		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ $\}$											& value argument	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Case alt}			 \\
+\\[0.01in]
+$alt$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $]$ , "vbind" : $[$ $vbind$ $]$ , "exp" : $exp$ $\}$		& constructor alternative \\
+		& $ | $			& $\{$ "lit" : $lit$ , "exp" : $exp$ $\}$									& literal alternative 	\\
+		& $ | $			& $\{$ "\%\_" : $exp$ $\}$											& default alternative	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Binder}			 \\
+\\[0.01in]
+$bider$		& $ \rightarrow $	& $\{$ "tbind" : $tbind$ $\}$											& type binder		\\
+		& $ | $			& $\{$ "vbind" : $vbind$ $\}$											& value binder		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type binder}			 \\
+\\[0.01in]
+$tbind$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& implicit of kind * 	\\
+		& $ | $			& $\{$ "tyvar" : $tyvar$ , "kind" : $kind$ $\}$									& explicitly kinded	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value binder}			 \\
+\\[0.01in]
+$vbind$		& $ \rightarrow $	& $\{$ "var" : $var$ , "ty" $ty$ $\}$ 										& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Literal}			 \\
+\\[0.01in]
+$lit$		& $ \rightarrow $	& $jsstring$													& string 		\\ 
+		& $ | $			& $jsnumber$													& number		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON String}			 \\
+\\[0.01in]
+$jsstring$	& $ \rightarrow $	& ""														& \\
+		& $ | $			& " $jschars$ "													& \\
+$jschars$	& $ \rightarrow $	& $jschar$													& \\
+		& $ | $			& $jschar$ $jschars$												& \\
+$jschar$	& $ \rightarrow $	& any Unicode character except $"$ 										& \\ 
+		&			& or $\backslash$ or control characters: 									& \\
+		&			& $\backslash\backslash$											& \\
+		&			& $\backslash /$ 												& \\
+		&			& $\backslash b$ 												& \\
+		& 			& $\backslash f$ 												& \\
+		&			& $\backslash n$												& \\
+		& 			& $\backslash r$ 												& \\
+		&			& $\backslash t$ 												& \\
+		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON Number}			 \\
+\\[0.01in]
+$jsnumber$	& $ \rightarrow $ 	& $jsint$ 													& \\
+		& $ | $			& $jsint$ $jsfrac$												& \\
+		& $ | $			& $jsint$ $jsexp$												& \\
+		& $ | $			& $jsint$ $jsfrac$ $jsexp$											& \\
+$jsint$		& $ \rightarrow$ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit1-9$ $jsdigits$											& \\
+		& $ | $ 		& - $jsdigit$													& \\
+		& $ | $ 		& - $jsdigit1-9$ $jsdigits$											& \\
+$jsfrac$ 	& $ \rightarrow $ 	& . $jsdigits$ 													& \\
+$jsexp$		& $ \rightarrow $ 	& $jse$ $jsdigits$ 												& \\
+$jsdigits$	& $ \rightarrow $ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit$ $jsdigits$												& \\
+$jse$		& $ \rightarrow $ 	& e														& \\
+		& $ | $ 		& e+														& \\
+		& $ | $ 		& e- 														& \\
+		& $ | $ 		& E														& \\
+		& $ | $ 		& E+														& \\
+		& $ | $ 		& E-														& \\
+\\[0.01in]
+
+
+\multicolumn{4}{l}{Atomic type}			 \\
+\\[0.01in]
+$aty$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& type variable 	\\
+		& $ | $			& $\{$ "qtycon" : $qtycon$ $\}$											& type constructor	\\
+		& $ | $ 		& $\{$ "ty" : $ty$ $\}$												& nested type 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Basic type}			 \\
+\\[0.01in]
+$bty$		& $ \rightarrow $	& $aty$														& atomic type		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "aty" , $aty$ $\}$									& type application	\\
+		& $ | $			& $\{$ "\%trans" : $aty$ , "aty" : $aty$ $\}$									& transitive coercion 	\\
+		& $ | $			& $\{$ "\%sym" : $aty$ $\}$											& symmetric coercion	\\
+		& $ | $			& $\{$ "\%unsafe" : $aty$ , "aty" : $aty$ $\}$									& unsafe coercion	\\
+		& $ | $			& $\{$ "\%left" : $aty$ $\}$											& left coercion		\\
+		& $ | $			& $\{$ "\%right" : $aty$ $\}$											& right coercion	\\
+		& $ | $			& $\{$ "\%inst" : $aty$ , "aty" : $aty$ $\}$									& instantiation coercion \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type}			 \\
+\\[0.01in]
+$ty$		& $ \rightarrow $	& $bty$														& basic type 		\\
+		& $ | $			& $\{$ "\%forall" :  $[$ $tbind$ $]^{+}$ , "ty" : $ty$ $\}$							& type abstraction	\\
+		& $ | $			& $\{$ "bty" $bty$ , "ty" : $ty$ $\}$										& arrow type construction \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic kind}			 \\
+\\[0.01in]
+$akind$		& $ \rightarrow $	& $*$														& lifted kind 		\\
+		& $ | $			& \#														& unlifted kind 	\\
+		& $ | $			& ?														& open kind 		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "bty" : $bty$ $\}$									& equality kind 	\\
+		& $ | $			& $\{$ "kind" : $kind$ $\}$ 											& nested kind 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Kind}			 \\
+\\[0.01in]
+$kind$		& $ \rightarrow $	& $\{$ "akind" : $akind$ $\}$											& atomic kind		\\
+		& $ | $			& $\{$ "akind" : $akind$ , "kind" : $kind$ $\}$									& arrow kind		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Identifier}			 \\
+\\[0.01in]
+$mident$	& $ \rightarrow $	& " $pname$ : $uname$ "												& module		\\
+$tycon$		& $ \rightarrow $	& " $uname$ "													& type constr.		\\
+$qtycon$	& $ \rightarrow $	& " $mident$ . $tycon$ "											& qualified type constr.\\
+$tyvar$		& $ \rightarrow $	& " $lname$ "													& type variable		\\
+$dcon$		& $ \rightarrow $	& " $uname$ "													& data constr.		\\
+$qdcon$		& $ \rightarrow $	& " $mident$ . $dcon$ "												& qualified data constr.\\
+$var$		& $ \rightarrow $	& " $lname$ "													& variable		\\
+$qvar$		& $ \rightarrow $	& " $||$ $mident$ . $||$ $var$ "										& optionally qualified variable\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Name}			 \\
+\\[0.01in]
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								& \\
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								& \\
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								& \\
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							& \\
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									& \\
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
+\\[0.01in]
+
+\caption{JSON Core grammar} 
+\end{longtable}
+\end{footnotesize}
+
 
 \section{PyPy}
 
@@ -469,5 +685,16 @@ TODO: Show benchmarks???
 \begin{enumerate}
 \item XXX
 \end{enumerate}
+
+
+
+\appendix
+
+\section{Code listings}
+
+\subsection{Haskell program converting Haskell to JSON}
+
+\lstset{language=Haskell}
+\lstinputlisting{../interpreter/hs2json/hs2json.hs}
 
 \end{document}
