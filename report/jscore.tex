@@ -1,0 +1,398 @@
+
+\section{JSON representation of Core}
+
+"JSON (JavaScript Object Notation) is a lightweight data interchange format."
+
+Since libraries exist for haskell and python this makes it ideal for our use,
+in adition, the haskell library contains a pretty printer that makes the resulting
+representation of Core easier to inspect.
+
+Since most programming languages has libraries for JSON serialization
+
+The JSON format was used for serializing and deserializing Core from haskell to RPython.
+Following is a description of this process
+
+
+\subsection{Definition of JSON}
+
+Definition of JSON grammar:
+
+\begin{footnotesize}
+\begin{longtable}{ r c l r }
+
+\multicolumn{4}{l}{Object}		\\
+\\[0.01in]
+$object$	& $ \rightarrow $ 	& \{ \}					& \\
+ 		& $ | $			& \{ $members$ \} 			& \\
+$members$ 	& $ \rightarrow $	& $pair$				& \\
+		& $ | $			& $pair$ , $members$ 			& \\
+$pair$		& $ \rightarrow $	& $string$ : $value$ 			& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Array}		\\
+$array$		& $ \rightarrow $	& [ ]					& \\
+		& $ | $			& [ $elements$ ]			& \\
+$elements$ 	& $ \rightarrow $	& $value$				& \\
+		& $ | $			& $value$ , $elements$			& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value}		\\
+$value$		& $ \rightarrow $	& $string$				& \\
+		& $ | $			& $number$				& \\
+		& $ | $			& $object$				& \\
+		& $ | $			& $array$				& \\
+		& $ | $			& true					& \\
+		& $ | $			& false					& \\
+		& $ | $			& null					& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{String}		\\
+$string$	& $ \rightarrow $	& ""					& \\
+		& $ | $			& " $chars$ "				& \\
+$chars$		& $ \rightarrow $	& $char$				& \\
+		& $ | $			& $char$ $chars$			& \\
+$char$		& $ \rightarrow $	& any Unicode character except $"$ 	& \\ 
+		&			& or $\backslash$ or control characters: & \\
+		&			& $\backslash\backslash$		& \\
+		&			& $\backslash /$ 			& \\
+		&			& $\backslash b$ 			& \\
+		& 			& $\backslash f$ 			& \\
+		&			& $\backslash n$			& \\
+		& 			& $\backslash r$ 			& \\
+		&			& $\backslash t$ 			& \\
+		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Number}		\\
+$number$	& $ \rightarrow $ 	& $int$ 				& \\
+		& $ | $			& $int$ $frac$				& \\
+		& $ | $			& $int$ $exp$				& \\
+		& $ | $			& $int$ $frac$ $exp$			& \\
+$int$		& $ \rightarrow$ 	& $digit$				& \\
+		& $ | $ 		& $digit1-9$ $digits$			& \\
+		& $ | $ 		& - $digit$				& \\
+		& $ | $ 		& - $digit1-9$ $digits$			& \\
+$frac$ 		& $ \rightarrow $ 	& . $digits$ 				& \\
+$exp$		& $ \rightarrow $ 	& $e$ $digits$ 				& \\
+$digits$	& $ \rightarrow $ 	& $digit$				& \\
+		& $ | $ 		& $digit$ $digits$			& \\
+$e$		& $ \rightarrow $ 	& e					& \\
+		& $ | $ 		& e+					& \\
+		& $ | $ 		& e- 					& \\
+		& $ | $ 		& E					& \\
+		& $ | $ 		& E+					& \\
+		& $ | $ 		& E-					& \\
+\\[0.01in]
+
+\end{longtable}
+
+\end{footnotesize}
+
+\subsection{JSON representation of Core}
+
+%\begin{itemize}
+%\item A module is represented as a list of 3 objects.
+%	\begin{itemize}
+%	\item Module identifier 
+%	\item Type definitions (Array) 
+%	\item Value definitions (Array)
+%	\item TODO: Do we include the import-list in the CoreModule?
+%	\end{itemize}
+
+%\item A type definition is represented as a list of 3 objects. 
+%\end{itemize}
+
+Most of the rhs. of the grammar evaluates to JSON Values. 
+Even though the grammar is changed to support JSON, an effort was made to
+keep it similar to the original Core grammar for easy referencing. The size
+of the resulting files was not considered to be an issue.
+
+In the following grammar, we use the following definitions:
+
+
+
+\begin{footnotesize}
+\begin{longtable}{ c c l }
+
+
+$[$ $pat$ $]$ 		& : 	& Zero or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\
+$[$ $pat$ $]^{+}$ 	& : 	& One or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\ 
+$\{$ $pat$ $\}$		& :	& Represents a JSON Object, $pat$ is a JSON $members$.						\\
+$pat_{1}$ $|$ $pat_{2}$	& :	& Choice.											\\
+$||$ $pat$ $||$ 	& :	& Optional											\\
+\\[0.01in]
+
+\end{longtable}
+\end{footnotesize}
+
+JSON Core grammar:
+
+\begin{footnotesize}
+\begin{longtable}{ r c l r }
+
+\\[0.01in]
+\multicolumn{4}{l}{Module}		\\
+$module$	& $ \rightarrow $ 	& $\{$ "\%module" : $mident$ , "tdefg" : $[$ $tdefg$ $]$ , "vdefg" : $[$ $vdefg$ $]$ $\}$			&			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type defn.}		\\
+$tdefg$ 	& $ \rightarrow $	& $\{$ "\%data" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ $\}$							& algebraic type	\\
+		& $ | $			& $\{$ "\%newtype" : $qtycon$ , "qtycon" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ , "ty" : $ty$ $\}$ 		& newtype		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Constr. defn.}	\\
+\\[0.01in]
+$cdef$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $ ]$ , "aty" : $[$aty$]^{+}$ $\}$ 				& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value defn.}		\\
+\\[0.01in]
+$vdefg$		& $ \rightarrow $	& $\{$ "\%rec" : $[$ $vdef$ $]^{+}$ $\}$    									& recursive		\\
+		& $ | $			& $vdef$													& non-recursive		\\
+$vdef$ 		& $ \rightarrow $	& $\{$ "qvar" : $qvar$ , "ty" : $ty$ , "exp" : $exp$ $\}$ 							& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic expr.}	\\
+\\[0.01in]
+$aexp$		& $ \rightarrow $	& $qvar$													& variable		\\
+		& $ | $			& $qdcon$													& data constructor	\\
+		& $ | $			& $lit$														& literal		\\
+		& $ | $			& $\{$ "exp" : $exp$ $\}$ 											& nested expr.		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Expression}			 \\
+\\[0.01in]
+$exp$		& $ \rightarrow $	& $aexp$													& atomic expr.		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ , "args" : $[$ $arg$ $]^{+}$ $\}$ 							& application		\\
+		& $ | $			& $\{$ "lambda" : $[$ $binder$ $]$ , "exp" : $exp$ $\}$								& abstraction		\\
+		& $ | $			& $\{$ "\%let" : $vdefg$ , "\%in" : $exp$ $\}$									& local definition	\\
+		& $ | $			& $\{$ "\%case" : $aty$ , "exp" : $exp$ , "\%of" : $vbind$, "alt" : $[$ $alt$ $]^{+}$ $\}$			& case expr.		\\
+		& $ | $			& $\{$ "\%cast" : $exp$ , "aty" : $aty$	$\}$									& type coercion		\\
+		& $ | $			& $\{$ "\%note" : "  $\{$ $char$ $\}$ " , "exp" : $exp$	$\}$							& expression note	\\
+		& $ | $			& $\{$ "\%external ccal" : " $\{$ $char$ $\}$ " , "aty" : $aty$ $\}$						& external reference	\\
+		& $ | $			& $\{$ "\%dynexternal ccal" : $aty$ $\}$									& external reference (dynamic)	\\
+		& $ | $			& $\{$ "\%label" : " $\{$ $char$ $\}$ " $\}$									& external label	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Argument}			 \\
+\\[0.01in]
+$arg$		& $ \rightarrow $	& $\{$ "aty" : $aty$ $\}$											& type argument		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ $\}$											& value argument	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Case alt}			 \\
+\\[0.01in]
+$alt$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $]$ , "vbind" : $[$ $vbind$ $]$ , "exp" : $exp$ $\}$		& constructor alternative \\
+		& $ | $			& $\{$ "lit" : $lit$ , "exp" : $exp$ $\}$									& literal alternative 	\\
+		& $ | $			& $\{$ "\%\_" : $exp$ $\}$											& default alternative	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Binder}			 \\
+\\[0.01in]
+$bider$		& $ \rightarrow $	& $\{$ "tbind" : $tbind$ $\}$											& type binder		\\
+		& $ | $			& $\{$ "vbind" : $vbind$ $\}$											& value binder		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type binder}			 \\
+\\[0.01in]
+$tbind$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& implicit of kind * 	\\
+		& $ | $			& $\{$ "tyvar" : $tyvar$ , "kind" : $kind$ $\}$									& explicitly kinded	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value binder}			 \\
+\\[0.01in]
+$vbind$		& $ \rightarrow $	& $\{$ "var" : $var$ , "ty" $ty$ $\}$ 										& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Literal}			 \\
+\\[0.01in]
+$lit$		& $ \rightarrow $	& $jsstring$													& string 		\\ 
+		& $ | $			& $jsnumber$													& number		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON String}			 \\
+\\[0.01in]
+$jsstring$	& $ \rightarrow $	& ""														& \\
+		& $ | $			& " $jschars$ "													& \\
+$jschars$	& $ \rightarrow $	& $jschar$													& \\
+		& $ | $			& $jschar$ $jschars$												& \\
+$jschar$	& $ \rightarrow $	& any Unicode character except $"$ 										& \\ 
+		&			& or $\backslash$ or control characters: 									& \\
+		&			& $\backslash\backslash$											& \\
+		&			& $\backslash /$ 												& \\
+		&			& $\backslash b$ 												& \\
+		& 			& $\backslash f$ 												& \\
+		&			& $\backslash n$												& \\
+		& 			& $\backslash r$ 												& \\
+		&			& $\backslash t$ 												& \\
+		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON Number}			 \\
+\\[0.01in]
+$jsnumber$	& $ \rightarrow $ 	& $jsint$ 													& \\
+		& $ | $			& $jsint$ $jsfrac$												& \\
+		& $ | $			& $jsint$ $jsexp$												& \\
+		& $ | $			& $jsint$ $jsfrac$ $jsexp$											& \\
+$jsint$		& $ \rightarrow$ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit1-9$ $jsdigits$											& \\
+		& $ | $ 		& - $jsdigit$													& \\
+		& $ | $ 		& - $jsdigit1-9$ $jsdigits$											& \\
+$jsfrac$ 	& $ \rightarrow $ 	& . $jsdigits$ 													& \\
+$jsexp$		& $ \rightarrow $ 	& $jse$ $jsdigits$ 												& \\
+$jsdigits$	& $ \rightarrow $ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit$ $jsdigits$												& \\
+$jse$		& $ \rightarrow $ 	& e														& \\
+		& $ | $ 		& e+														& \\
+		& $ | $ 		& e- 														& \\
+		& $ | $ 		& E														& \\
+		& $ | $ 		& E+														& \\
+		& $ | $ 		& E-														& \\
+\\[0.01in]
+
+
+\multicolumn{4}{l}{Atomic type}			 \\
+\\[0.01in]
+$aty$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& type variable 	\\
+		& $ | $			& $\{$ "qtycon" : $qtycon$ $\}$											& type constructor	\\
+		& $ | $ 		& $\{$ "ty" : $ty$ $\}$												& nested type 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Basic type}			 \\
+\\[0.01in]
+$bty$		& $ \rightarrow $	& $aty$														& atomic type		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "aty" , $aty$ $\}$									& type application	\\
+		& $ | $			& $\{$ "\%trans" : $aty$ , "aty" : $aty$ $\}$									& transitive coercion 	\\
+		& $ | $			& $\{$ "\%sym" : $aty$ $\}$											& symmetric coercion	\\
+		& $ | $			& $\{$ "\%unsafe" : $aty$ , "aty" : $aty$ $\}$									& unsafe coercion	\\
+		& $ | $			& $\{$ "\%left" : $aty$ $\}$											& left coercion		\\
+		& $ | $			& $\{$ "\%right" : $aty$ $\}$											& right coercion	\\
+		& $ | $			& $\{$ "\%inst" : $aty$ , "aty" : $aty$ $\}$									& instantiation coercion \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type}			 \\
+\\[0.01in]
+$ty$		& $ \rightarrow $	& $bty$														& basic type 		\\
+		& $ | $			& $\{$ "\%forall" :  $[$ $tbind$ $]^{+}$ , "ty" : $ty$ $\}$							& type abstraction	\\
+		& $ | $			& $\{$ "bty" $bty$ , "ty" : $ty$ $\}$										& arrow type construction \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic kind}			 \\
+\\[0.01in]
+$akind$		& $ \rightarrow $	& $*$														& lifted kind 		\\
+		& $ | $			& \#														& unlifted kind 	\\
+		& $ | $			& ?														& open kind 		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "bty" : $bty$ $\}$									& equality kind 	\\
+		& $ | $			& $\{$ "kind" : $kind$ $\}$ 											& nested kind 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Kind}			 \\
+\\[0.01in]
+$kind$		& $ \rightarrow $	& $\{$ "akind" : $akind$ $\}$											& atomic kind		\\
+		& $ | $			& $\{$ "akind" : $akind$ , "kind" : $kind$ $\}$									& arrow kind		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Identifier}			 \\
+\\[0.01in]
+$mident$	& $ \rightarrow $	& " $pname$ : $uname$ "												& module		\\
+$tycon$		& $ \rightarrow $	& " $uname$ "													& type constr.		\\
+$qtycon$	& $ \rightarrow $	& " $mident$ . $tycon$ "											& qualified type constr.\\
+$tyvar$		& $ \rightarrow $	& " $lname$ "													& type variable		\\
+$dcon$		& $ \rightarrow $	& " $uname$ "													& data constr.		\\
+$qdcon$		& $ \rightarrow $	& " $mident$ . $dcon$ "												& qualified data constr.\\
+$var$		& $ \rightarrow $	& " $lname$ "													& variable		\\
+$qvar$		& $ \rightarrow $	& " $||$ $mident$ . $||$ $var$ "										& optionally qualified variable\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Name}			 \\
+\\[0.01in]
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								& \\
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								& \\
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								& \\
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							& \\
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									& \\
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
+\\[0.01in]
+
+\end{longtable}
+\end{footnotesize}
+
+\section{PyPy}
+
+\subsection{A quick overview}
+
+The PyPy project is basically two things:
+
+\begin{enumerate}
+
+\item The RPython toolchain; a set of compiler tools for programs written in 
+RPython.
+
+\item An implementation of Python using these tools.
+
+\end{enumerate}
+
+In this paper PyPy refers to former.
+
+The basic concept of PyPy is to use a high-level language to allow rapid for
+development of interpreters for a variety of platforms. By implementing a compiler
+for RPython, interpreters for other languages can be written in RPython and 
+compiled to any platform supported by the PyPy toolchain.
+
+\subsection{RPython}
+
+RPython is a restricted proper subset of Python, this enables easy analyzis 
+as well as efficient compilation.
+
+\subsection{Translation toolchain}
+
+
+\subsection{Just-in-time compilation}
+
+The reason why PyPy is able to compete with other language implementations
+on speed is it's tracing, or rather meta-tracing, JIT. The JIT is implemented
+for RPython, but through a set of compiler hints, it is able to trace the 
+execution of the application interpreted by the RPython program.
+
+An introduction to virtual machine (VM) construction with python \cite{pypy}.
+
+
+\subsection{Interpreting Core}
+
+TODO: The haskell interpreter was allready written. Write about how it works.
+
+\subsection{PyPy haskell libraries}
+
+Describe implemented library functions. Most likely some small subset of the Base package.
+
+\section{Testing}
+
+TODO: Show tests???
+
+\section{Benchmarks}
+
+TODO: Show benchmarks???
+
+\bibliographystyle{unsrt}
+
+\bibliography{papers}
+
+\begin{enumerate}
+\item XXX
+\end{enumerate}
+
+
+
+%\appendix
+
+%\section{Code listings}
+
+%\subsection{Haskell program converting Haskell to JSON}
+
+%\lstset{language=Haskell}
+%\lstinputlisting{../interpreter/hs2json/hs2json.hs}
+
+\end{document}
+
+
