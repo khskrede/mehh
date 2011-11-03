@@ -6,10 +6,11 @@
 \usepackage{parskip}
 \usepackage{longtable}
 \usepackage{listings}
+\usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
 \begin{document}
 
-\title{Just in time compilation of haskell using PyPy and GHC}
+\title{An atempt at Just-In-Time compilation\\of haskell using PyPy and GHC}
 \author{Knut Halvor Skrede}
 \maketitle
 
@@ -17,7 +18,7 @@
 Abstract
 \end{abstract}
 
-%\clearpage
+\clearpage
 
 \tableofcontents
 
@@ -29,6 +30,10 @@ Abstract
 % Introduction
 
 \input{intro.tex}
+
+% PYPY
+
+\input{pypy.tex}
 
 % Haskell
 
@@ -42,9 +47,7 @@ Abstract
 
 \input{jscore.tex}
 
-% PYPY
-
-\input{pypy.tex}
-
+\bibliographystyle{plain}
+\bibliography{papers}
 
 \end{document}
