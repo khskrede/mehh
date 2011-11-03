@@ -61,7 +61,7 @@ tdefgJS (Newtype tcon1 tcon2 tbind ty) =
         [("%newtype", qtyconJS tcon1), 
          ("qtycon", qtyconJS tcon2), 
          ("tbind", JSArray $ map tbindJS tbind),
-         ("ty", toJSON $ show ty)] --todo
+         ("ty", tyJS ty)]
 
 
 --
@@ -73,7 +73,7 @@ cdefJS (Constr qual tbinds tys) =
     JSObject $ toJSObject
         [("qdcon", qdconJS qual),
          ("tbind", JSArray $ map tbindJS tbinds),
-         ("aty", toJSON $ show tys)] --todo
+         ("aty", JSArray $ map tyJS tys)]
 
 
 --
@@ -95,7 +95,7 @@ vdefJS (Vdef (qvar, ty, exp)) =
 
 
 --
--- Atomic expression && Expression
+-- Atomic expression && Expression && Argument
 --
 
 expJS :: Exp -> JSValue
@@ -109,23 +109,44 @@ expJS (Lit lit) = litJS lit
 expJS (App exp1 exp2) =
     JSObject $ toJSObject
         [("aexp", expJS exp1),
-         ("args", JSNull)] --todo
+         ("args", expJS exp2)] --todo ?
 
-expJS (Appt exp ty) = JSNull --todo
+expJS (Appt exp ty) =
+    JSObject $ toJSObject
+        [("aexp", expJS exp),
+         ("args", tyJS ty)] -- todo ?
 
 expJS (Lam bind exp) =
     JSObject $ toJSObject
-        [("lambda", JSNull)] --todo
+        [("lambda", binderJS bind),
+         ("exp", expJS exp)] --todo ?
 
-expJS (Let vdefg exp) = JSNull --todo
+expJS (Let vdefg exp) =
+    JSObject $ toJSObject
+        [("%let", vdefgJS vdefg),
+         ("%in", expJS exp)]
 
-expJS (Case exp vbind ty alts) = JSNull --todo
+expJS (Case exp vbind ty alts) =
+    JSObject $ toJSObject
+        [("%case", tyJS ty),
+         ("exp", expJS exp),
+         ("%of", vbindJS vbind),
+         ("alt", JSArray $ map altJS alts)]
 
-expJS (Cast exp ty) = JSNull --todo
+expJS (Cast exp ty) =
+    JSObject $ toJSObject
+        [("%cast", expJS exp),
+         ("aty", tyJS ty)]
 
-expJS (Note string exp) = JSNull --todo
+expJS (Note string exp) =
+    JSObject $ toJSObject
+        [("%note", toJSON string),
+         ("exp", expJS exp)]
 
-expJS (External string ty) = JSNull --todo
+expJS (External string ty) =
+    JSObject $ toJSObject
+        [("%external ccal", toJSON string), 
+         ("aty", tyJS ty)]
 
 
 --
@@ -139,11 +160,35 @@ expJS (External string ty) = JSNull --todo
 --
 
 
+altJS :: Alt -> JSValue
+altJS (Acon qdcon tbinds vbinds exp) =
+    JSObject $ toJSObject
+        [("qdcon", qdconJS qdcon),
+         ("tbind", JSArray $ map tbindJS tbinds),
+         ("vbind", JSArray $ map vbindJS vbinds),
+         ("exp", expJS exp)]
+
+altJS (Alit lit exp) =
+    JSObject $ toJSObject
+        [("lit", litJS lit),
+         ("exp", expJS exp)]
+
+altJS (Adefault exp) =
+    JSObject $ toJSObject
+        [("%_", expJS exp)]
+
 
 --
 -- Binder
 --
 
+binderJS :: Bind -> JSValue
+binderJS (Vb vbind) =
+    JSObject $ toJSObject
+        [("vbind", vbindJS vbind)]
+binderJS (Tb tbind) = 
+    JSObject $ toJSObject
+        [("tbind", tbindJS tbind)]
 
 
 --
@@ -158,11 +203,22 @@ tbindJS (tvar, kind) =
 
 
 --
+-- Value binder
+--
+
+vbindJS :: Vbind -> JSValue
+vbindJS (var, ty) =
+    JSObject $ toJSObject
+        [("var", varJS var),
+         ("ty", tyJS ty)]
+
+
+--
 -- Literal
 --
 
 litJS :: Lit -> JSValue
-litJS (Literal corelit ty) = corelitJS corelit
+litJS (Literal corelit ty) = corelitJS corelit --todo?
 
 corelitJS :: CoreLit -> JSValue
 corelitJS = toJSON
