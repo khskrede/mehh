@@ -1,0 +1,21 @@
+%module main:Main
+  %data main:Main.Test =
+    {main:Main.Test ghczmprim:GHCziTypes.Int};
+  main:Main.main :: (ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T) =
+    base:SystemziIO.putStrLn
+    (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+     (base:GHCziList.take @ ghczmprim:GHCziTypes.Char
+      (ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh))
+      (%let asg0 :: ghczmprim:GHCziTypes.Char =
+              ghczmprim:GHCziTypes.Czh ('H'::ghczmprim:GHCziPrim.Charzh)
+       %in %let %rec
+                {hadH :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+                   ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char asg0 hadH}
+           %in hadH))
+     (base:GHCziBase.unpackCStringzh
+      ("ello, world!"::ghczmprim:GHCziPrim.Addrzh)));
+  main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
+                       ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
+    main:Main.main;
