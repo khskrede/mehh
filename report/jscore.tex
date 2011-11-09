@@ -136,7 +136,7 @@ $module$	& $ \rightarrow $ 	& $\{$ "\%module" : $mident$ , "tdefg" : $[$ $tdefg$
 \\[0.01in]
 
 \multicolumn{4}{l}{Type defn.}		\\
-$tdefg$ 	& $ \rightarrow $	& $\{$ "\%data" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ $\}$							& algebraic type	\\
+$tdefg$ 	& $ \rightarrow $	& $\{$ "\%data" : $qtycon$ , "tbind" : $[$ $tbind$ $]$, "cdef" : $[$ $cdef$ $]$ $\}$							& algebraic type	\\
 		& $ | $			& $\{$ "\%newtype" : $qtycon$ , "qtycon" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ , "ty" : $ty$ $\}$ 		& newtype		\\
 \\[0.01in]
 
@@ -189,7 +189,7 @@ $alt$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $]$ , 
 
 \multicolumn{4}{l}{Binder}			 \\
 \\[0.01in]
-$bider$		& $ \rightarrow $	& $\{$ "tbind" : $tbind$ $\}$											& type binder		\\
+$binder$	& $ \rightarrow $	& $\{$ "tbind" : $tbind$ $\}$											& type binder		\\
 		& $ | $			& $\{$ "vbind" : $vbind$ $\}$											& value binder		\\
 \\[0.01in]
 
@@ -317,82 +317,4 @@ $digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
 
 \end{longtable}
 \end{footnotesize}
-
-\section{PyPy}
-
-\subsection{A quick overview}
-
-The PyPy project is basically two things:
-
-\begin{enumerate}
-
-\item The RPython toolchain; a set of compiler tools for programs written in 
-RPython.
-
-\item An implementation of Python using these tools.
-
-\end{enumerate}
-
-In this paper PyPy refers to former.
-
-The basic concept of PyPy is to use a high-level language to allow rapid for
-development of interpreters for a variety of platforms. By implementing a compiler
-for RPython, interpreters for other languages can be written in RPython and 
-compiled to any platform supported by the PyPy toolchain.
-
-\subsection{RPython}
-
-RPython is a restricted proper subset of Python, this enables easy analyzis 
-as well as efficient compilation.
-
-\subsection{Translation toolchain}
-
-
-\subsection{Just-in-time compilation}
-
-The reason why PyPy is able to compete with other language implementations
-on speed is it's tracing, or rather meta-tracing, JIT. The JIT is implemented
-for RPython, but through a set of compiler hints, it is able to trace the 
-execution of the application interpreted by the RPython program.
-
-An introduction to virtual machine (VM) construction with python \cite{pypy}.
-
-
-\subsection{Interpreting Core}
-
-TODO: The haskell interpreter was allready written. Write about how it works.
-
-\subsection{PyPy haskell libraries}
-
-Describe implemented library functions. Most likely some small subset of the Base package.
-
-\section{Testing}
-
-TODO: Show tests???
-
-\section{Benchmarks}
-
-TODO: Show benchmarks???
-
-\bibliographystyle{unsrt}
-
-\bibliography{papers}
-
-\begin{enumerate}
-\item XXX
-\end{enumerate}
-
-
-
-%\appendix
-
-%\section{Code listings}
-
-%\subsection{Haskell program converting Haskell to JSON}
-
-%\lstset{language=Haskell}
-%\lstinputlisting{../interpreter/hs2json/hs2json.hs}
-
-\end{document}
-
 

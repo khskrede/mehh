@@ -1,13 +1,13 @@
 
-\section{Core}
+\section{External-core}
 
-Core haskell is an intermediate language used by GHC (glasgow haskell compiler),
+The Core language is an intermediate language used by GHC.
 All syntactic sugar is removed, type checking is performed, pattern matching is
 translated into case-expressions (each of witch performs only a single level of
 matching) and overloading is resolved.\cite{jones1992implementing} Following
-is a description of haskell as presented by \cite{tolmach2010ghc}
+is a description of external-core as presented by \cite{tolmach2010ghc}.
 
-\subsection{External-Core language definition}
+\subsection{External-core language definition}
 
 We use the following semantics to define the Core grammar:
 
@@ -19,9 +19,6 @@ $\{$ pat $\}^{+}$	& :	& one or more repetitions	\\
 $pat_{1}|pat_{2}$	& :	& choice			\\
 
 \end{longtable}
-
-Following is a formal definition of the Core grammar as descriped by \cite{jones1992implementing}.
-For a more detailed description, see \cite{jones1992implementing}.
 
 \begin{footnotesize}
 \begin{longtable}{ r c l r }
@@ -89,7 +86,7 @@ $alt$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $vbind$ $\}$ -$>$ $e
 
 \multicolumn{4}{l}{Binder}			 \\
 \\[0.01in]
-$bider$		& $ \rightarrow $	& @ $tbind$										& type binder		\\
+$binder$	& $ \rightarrow $	& @ $tbind$										& type binder		\\
 		& $ | $			& $vbind$										& value binder		\\
 \\[0.01in]
 
@@ -187,8 +184,74 @@ $digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
 \end{footnotesize}
 
 
-\subsection{Generating Core}
 
-Core is easily generated using the GHC API.
+\subsection{Informal semantics of Core}
 
-TODO: Write some more stuff...
+Core resembles a explicitly-typed polymorphic lambda-calculus ($F_{w}$), with some additions,
+local let bindings, algebraic type definitions, constructors, case-expressions, primitive types,
+literals and operators.\cite{tolmach2010ghc}
+
+\subsubsection{Program organization and modules}
+
+Programs represented in Core are organized into modules corresponding directly to source-level
+Haskell modules. A module identifier (\emph{mident}) consists of a \emph{package name} followed
+by a module name. 
+
+Each module may contain each of the following top-level declarations:
+\begin{itemize}
+\item{Algebraic datatype declarations:} each defining a type constructor and one or more data
+constructors.
+\item{Newtype declarations:} corresponding to Haskell newtype declarations, each defining a 
+type constructor and a coercion name.
+\item{Value declarations:} defining the types and values of top-level variables.
+\end{itemize}
+
+
+\cite{tolmach2010ghc}
+
+
+\subsubsection{Namespaces}
+
+There are five distinct namespaces:
+\begin{enumerate}
+
+\item module identifiers (\emph{mident})
+\item type constructors (\emph{tycon})
+\item type variables (\emph{tyvar})
+\item data constructors (\emph{dcon})
+\item term variables (\emph{var})
+\end{enumerate}
+
+A variable (type or term) may have multiple definitions within a module. However, they
+never shadow one another, the scope of the definition of a variable never contain a
+redefinition of the same variable. Type variables may be "shadowed". Thus if a variable has
+multiple definitions, they must be local (let-bound).\cite{tolmach2010ghc}
+
+\subsubsection{Types and Kinds}
+
+\paragraph{Types}
+
+\paragraph{Coercions}
+
+\paragraph{Kinds}
+
+\paragraph{Lifted and unlifted types}
+
+\paragraph{Type constructors; base kinds and higher kinds}
+
+\paragraph{Type synonyms and type equivalence}
+
+\subsubsection{Algebraic data types}
+
+
+\subsubsection{Newtypes}
+
+
+\subsubsection{Expression forms}
+
+
+\subsubsection{Expression evaluation}
+
+
+\subsection{Primitive module}
+

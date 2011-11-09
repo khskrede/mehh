@@ -1,0 +1,46 @@
+
+\section{Introduction}
+
+\subsection{Motivation}
+
+The motiviation behind the project is to see if a \emph{strongly-typed} 
+\emph{non-strict} \emph{purely-functional} programming language, Haskell, 
+can benefit from just-in-time (JIT) compilation.
+
+Some people seem to think that there is little to gain from using 
+just-in-time compilation of statically typed languages since they can be
+so heavily optimized at compile time. However, a JIT compiler has alot
+more information to work with.
+
+PyPy is a project that implements a meta-tracing JIT. The project
+defines a proper subset of Python called RPython. This language has 
+the characteristics that it is possible to perform type-inference on it.
+The idea is that interpreters can be written rapidly in RPython, and the
+interpreter implemented in RPython will benefit from PyPy's JIT compiler.
+To optimize the interpreter, the RPython toolchain accepts some compiler
+hints to determine what parts of the code to trace, and to define the 
+static and dynamic parts of the interpreter "memory".
+
+GHC (Glasgow Haskell Compiler) is the most advanced compiler for the
+Haskell programming language. The GHC team has defined an external format
+of Haskell called \emph{External Core}. GHC's front-end translates
+Haskell 98 (plus some extensions) into Core. This way it is possible to
+reuse GHC for parsing, desugaring and typechecking, while implementing
+the back-end separately. \cite{tolmach2010ghc}
+
+\subsection{Project description}
+
+The system will use the GHC haskell library to generate the 
+representation of the Core language and a simple haskell program to 
+serialize this representation into JSON. This entails using GHC for
+parsing, typechecking, desugaring and simplification.
+
+The resulting code will then be deserialized by the PyPy haskell interpreter 
+and executed. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{diags/overview.pdf}
+\caption{Project overview. Black: implemented, Red: unimplemented.}
+\end{figure}
+
+
