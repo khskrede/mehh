@@ -1,0 +1,1625 @@
+%module main:Main
+  zddTypeabler1F1 :: (base:DataziTypeable.TZCTypeable
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+    base:DataziTypeable.zdfTypeables @ ghczmprim:GHCziTypes.ZMZN
+    @ ghczmprim:GHCziTypes.Char base:DataziTypeable.zdfTypeable1ZMZN
+    base:DataziTypeable.zdfTypeableChar;
+  zddDatar1F3 :: (base:DataziData.TZCData
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+    base:DataziData.zdfDataZMZN @ ghczmprim:GHCziTypes.Char
+    zddTypeabler1F1 base:DataziData.zdfDataChar;
+  corelitJSrY1 :: extcorezm1zi0zi1:LanguageziCoreziCore.CoreLit ->
+                  jsonzm0zi5:TextziJSONziTypes.JSValue =
+    jsonzm0zi5:TextziJSONziGeneric.toJSON
+    @ extcorezm1zi0zi1:LanguageziCoreziCore.CoreLit
+    extcorezm1zi0zi1:LanguageziCoreziCore.zdfDataCoreLit;
+  litJSrXZZ :: extcorezm1zi0zi1:LanguageziCoreziCore.Lit ->
+               jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1DO::extcorezm1zi0zi1:LanguageziCoreziCore.Lit) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1DO
+        %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Lit)
+          {extcorezm1zi0zi1:LanguageziCoreziCore.Literal
+           (corelitaZZt::extcorezm1zi0zi1:LanguageziCoreziCore.CoreLit)
+           (tyaZZu::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+             corelitJSrY1 corelitaZZt};
+  qtyconJSrYb :: (ghczmprim:GHCziTuple.Z2T
+                  ((base:DataziMaybe.Maybe
+                    extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))
+                 -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1DF::(ghczmprim:GHCziTuple.Z2T
+                ((base:DataziMaybe.Maybe
+                  extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1DF
+        %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                      ((base:DataziMaybe.Maybe
+                        extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+          {ghczmprim:GHCziTuple.Z2T
+           (ds1d1DG::(base:DataziMaybe.Maybe
+                      extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+           (straZZS::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+             %case jsonzm0zi5:TextziJSONziTypes.JSValue ds1d1DG
+             %of (wild1Xb::(base:DataziMaybe.Maybe
+                            extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+               {base:DataziMaybe.Nothing ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3 straZZS;
+                base:DataziMaybe.Just
+                (aaZZR::extcorezm1zi0zi1:LanguageziCoreziCore.AnMname) ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3
+                  (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                   (base:GHCziShow.show
+                    @ extcorezm1zi0zi1:LanguageziCoreziCore.AnMname
+                    extcorezm1zi0zi1:LanguageziCoreziPrinter.zdfShowAnMname aaZZR)
+                   (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                    (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+                     (ghczmprim:GHCziTypes.Czh ('.'::ghczmprim:GHCziPrim.Charzh))
+                     (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char))
+                    straZZS))}};
+  tyvarJSrYd :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    jsonzm0zi5:TextziJSONziGeneric.toJSON
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+    zddDatar1F3;
+  %rec
+  {tbindJSrXV :: (ghczmprim:GHCziTuple.Z2T
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  extcorezm1zi0zi1:LanguageziCoreziCore.Kind)
+                 -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1E7::(ghczmprim:GHCziTuple.Z2T
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 extcorezm1zi0zi1:LanguageziCoreziCore.Kind)) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1E7
+         %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+           {ghczmprim:GHCziTuple.Z2T
+            (tvaraZZp::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+            (kindaZZq::extcorezm1zi0zi1:LanguageziCoreziCore.Kind) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("tyvar"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyvarJSrYd tvaraZZp))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("kind"::ghczmprim:GHCziPrim.Addrzh))
+                  (kindJSrY5 kindaZZq))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))))};
+   tyJSrY3 :: extcorezm1zi0zi1:LanguageziCoreziCore.Ty ->
+              jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1DQ::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1DQ
+         %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+           {extcorezm1zi0zi1:LanguageziCoreziCore.Tvar
+            (tyvaraZZv::(ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char)) ->
+              tyvarJSrYd tyvaraZZv;
+            extcorezm1zi0zi1:LanguageziCoreziCore.Tcon
+            (qtyconaZZw::(ghczmprim:GHCziTuple.Z2T
+                          ((base:DataziMaybe.Maybe
+                            extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+              qtyconJSrYb qtyconaZZw;
+            extcorezm1zi0zi1:LanguageziCoreziCore.Tapp
+            (ty1aZZx::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (ty2aZZy::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("bty"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 ty1aZZx))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 ty2aZZy))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Tforall
+            (tbindaZZzz::(ghczmprim:GHCziTuple.Z2T
+                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+            (tyaZZA::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%forall"::ghczmprim:GHCziPrim.Addrzh))
+                 (tbindJSrXV tbindaZZzz))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh ("ty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 tyaZZA))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.TransCoercion
+            (ty1aZZB::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (ty2aZZC::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%trans"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 ty1aZZB))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 ty2aZZC))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.SymCoercion
+            (tyaZZD::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%sym"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 tyaZZD))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue)))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.UnsafeCoercion
+            (ty1aZZE::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (ty2aZZF::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%unsafe"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 ty1aZZE))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 ty2aZZF))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.InstCoercion
+            (ty1aZZG::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (ty2aZZH::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%inst"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 ty1aZZG))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 ty2aZZH))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.LeftCoercion
+            (tyaZZI::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%left"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 tyaZZI))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue)))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.RightCoercion
+            (tyaZZJ::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%right"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 tyaZZJ))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue)))))};
+   kindJSrY5 :: extcorezm1zi0zi1:LanguageziCoreziCore.Kind ->
+                jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1E1::extcorezm1zi0zi1:LanguageziCoreziCore.Kind) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1E1
+         %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Kind)
+           {extcorezm1zi0zi1:LanguageziCoreziCore.Klifted ->
+              jsonzm0zi5:TextziJSONziGeneric.toJSON
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+              zddDatar1F3
+              (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+               (ghczmprim:GHCziTypes.Czh ('*'::ghczmprim:GHCziPrim.Charzh))
+               (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Kunlifted ->
+              jsonzm0zi5:TextziJSONziGeneric.toJSON
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+              zddDatar1F3
+              (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+               (ghczmprim:GHCziTypes.Czh ('#'::ghczmprim:GHCziPrim.Charzh))
+               (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Kopen ->
+              jsonzm0zi5:TextziJSONziGeneric.toJSON
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+              zddDatar1F3
+              (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+               (ghczmprim:GHCziTypes.Czh ('?'::ghczmprim:GHCziPrim.Charzh))
+               (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Karrow
+            (kind1aZZK::extcorezm1zi0zi1:LanguageziCoreziCore.Kind)
+            (kind2aZZL::extcorezm1zi0zi1:LanguageziCoreziCore.Kind) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("akind"::ghczmprim:GHCziPrim.Addrzh))
+                 (kindJSrY5 kind1aZZK))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("kind"::ghczmprim:GHCziPrim.Addrzh))
+                  (kindJSrY5 kind2aZZL))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Keq
+            (ty1aZZM::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (ty2aZZN::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("bty"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 ty1aZZM))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("bty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 ty2aZZN))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))))}};
+  qdconJSrYh :: (ghczmprim:GHCziTuple.Z2T
+                 ((base:DataziMaybe.Maybe
+                   extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))
+                -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1DA::(ghczmprim:GHCziTuple.Z2T
+                ((base:DataziMaybe.Maybe
+                  extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1DA
+        %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                      ((base:DataziMaybe.Maybe
+                        extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+          {ghczmprim:GHCziTuple.Z2T
+           (ds1d1DB::(base:DataziMaybe.Maybe
+                      extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+           (straZZV::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+             %case jsonzm0zi5:TextziJSONziTypes.JSValue ds1d1DB
+             %of (wild1Xg::(base:DataziMaybe.Maybe
+                            extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+               {base:DataziMaybe.Nothing ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3 straZZV;
+                base:DataziMaybe.Just
+                (aaZZU::extcorezm1zi0zi1:LanguageziCoreziCore.AnMname) ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3
+                  (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                   (base:GHCziShow.show
+                    @ extcorezm1zi0zi1:LanguageziCoreziCore.AnMname
+                    extcorezm1zi0zi1:LanguageziCoreziPrinter.zdfShowAnMname aaZZU)
+                   (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                    (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+                     (ghczmprim:GHCziTypes.Czh ('.'::ghczmprim:GHCziPrim.Charzh))
+                     (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char))
+                    straZZV))}};
+  cdefJSrXJ :: extcorezm1zi0zi1:LanguageziCoreziCore.Cdef ->
+               jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1EA::extcorezm1zi0zi1:LanguageziCoreziCore.Cdef) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1EA
+        %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Cdef)
+          {extcorezm1zi0zi1:LanguageziCoreziCore.Constr
+           (qualaYN::(ghczmprim:GHCziTuple.Z2T
+                      ((base:DataziMaybe.Maybe
+                        extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+           (tbindsaYO::(ghczmprim:GHCziTypes.ZMZN
+                        ((ghczmprim:GHCziTuple.Z2T
+                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          extcorezm1zi0zi1:LanguageziCoreziCore.Kind))))
+           (tysaYP::(ghczmprim:GHCziTypes.ZMZN
+                     extcorezm1zi0zi1:LanguageziCoreziCore.Ty)) ->
+             base:GHCziBase.zd
+             @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                 jsonzm0zi5:TextziJSONziTypes.JSValue))
+             @ jsonzm0zi5:TextziJSONziTypes.JSValue
+             jsonzm0zi5:TextziJSONziTypes.JSObject
+             (jsonzm0zi5:TextziJSONziTypes.toJSObject
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              (ghczmprim:GHCziTypes.ZC
+               @ ((ghczmprim:GHCziTuple.Z2T
+                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   jsonzm0zi5:TextziJSONziTypes.JSValue))
+               (ghczmprim:GHCziTuple.Z2T
+                @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                (base:GHCziBase.unpackCStringzh
+                 ("qdcon"::ghczmprim:GHCziPrim.Addrzh))
+                (qdconJSrYh qualaYN))
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("tbind"::ghczmprim:GHCziPrim.Addrzh))
+                 (base:GHCziBase.zd
+                  @ ((ghczmprim:GHCziTypes.ZMZN
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  jsonzm0zi5:TextziJSONziTypes.JSArray
+                  (base:GHCziBase.map
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue tbindJSrXV tbindsaYO)))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (base:GHCziBase.zd
+                   @ ((ghczmprim:GHCziTypes.ZMZN
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   jsonzm0zi5:TextziJSONziTypes.JSArray
+                   (base:GHCziBase.map @ extcorezm1zi0zi1:LanguageziCoreziCore.Ty
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue tyJSrY3 tysaYP)))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue)))))))};
+  tdefgJSrXH :: extcorezm1zi0zi1:LanguageziCoreziCore.Tdef ->
+                jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1EC::extcorezm1zi0zi1:LanguageziCoreziCore.Tdef) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1EC
+        %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Tdef)
+          {extcorezm1zi0zi1:LanguageziCoreziCore.Data
+           (tconaYG::(ghczmprim:GHCziTuple.Z2T
+                      ((base:DataziMaybe.Maybe
+                        extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+           (tbindsaYH::(ghczmprim:GHCziTypes.ZMZN
+                        ((ghczmprim:GHCziTuple.Z2T
+                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          extcorezm1zi0zi1:LanguageziCoreziCore.Kind))))
+           (cdefsaYI::(ghczmprim:GHCziTypes.ZMZN
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Cdef)) ->
+             base:GHCziBase.zd
+             @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                 jsonzm0zi5:TextziJSONziTypes.JSValue))
+             @ jsonzm0zi5:TextziJSONziTypes.JSValue
+             jsonzm0zi5:TextziJSONziTypes.JSObject
+             (jsonzm0zi5:TextziJSONziTypes.toJSObject
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              (ghczmprim:GHCziTypes.ZC
+               @ ((ghczmprim:GHCziTuple.Z2T
+                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   jsonzm0zi5:TextziJSONziTypes.JSValue))
+               (ghczmprim:GHCziTuple.Z2T
+                @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                (base:GHCziBase.unpackCStringzh
+                 ("%data"::ghczmprim:GHCziPrim.Addrzh))
+                (qtyconJSrYb tconaYG))
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("tbind"::ghczmprim:GHCziPrim.Addrzh))
+                 (base:GHCziBase.zd
+                  @ ((ghczmprim:GHCziTypes.ZMZN
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  jsonzm0zi5:TextziJSONziTypes.JSArray
+                  (base:GHCziBase.map
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue tbindJSrXV tbindsaYH)))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("cdef"::ghczmprim:GHCziPrim.Addrzh))
+                  (base:GHCziBase.zd
+                   @ ((ghczmprim:GHCziTypes.ZMZN
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   jsonzm0zi5:TextziJSONziTypes.JSArray
+                   (base:GHCziBase.map @ extcorezm1zi0zi1:LanguageziCoreziCore.Cdef
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue cdefJSrXJ cdefsaYI)))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue)))))));
+           extcorezm1zi0zi1:LanguageziCoreziCore.Newtype
+           (tcon1aYJ::(ghczmprim:GHCziTuple.Z2T
+                       ((base:DataziMaybe.Maybe
+                         extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+           (tcon2aYK::(ghczmprim:GHCziTuple.Z2T
+                       ((base:DataziMaybe.Maybe
+                         extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+           (tbindaYL::(ghczmprim:GHCziTypes.ZMZN
+                       ((ghczmprim:GHCziTuple.Z2T
+                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                         extcorezm1zi0zi1:LanguageziCoreziCore.Kind))))
+           (tyaYM::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+             base:GHCziBase.zd
+             @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                 jsonzm0zi5:TextziJSONziTypes.JSValue))
+             @ jsonzm0zi5:TextziJSONziTypes.JSValue
+             jsonzm0zi5:TextziJSONziTypes.JSObject
+             (jsonzm0zi5:TextziJSONziTypes.toJSObject
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              (ghczmprim:GHCziTypes.ZC
+               @ ((ghczmprim:GHCziTuple.Z2T
+                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   jsonzm0zi5:TextziJSONziTypes.JSValue))
+               (ghczmprim:GHCziTuple.Z2T
+                @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                (base:GHCziBase.unpackCStringzh
+                 ("%newtype"::ghczmprim:GHCziPrim.Addrzh))
+                (qtyconJSrYb tcon1aYJ))
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("qtycon"::ghczmprim:GHCziPrim.Addrzh))
+                 (qtyconJSrYb tcon2aYK))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("tbind"::ghczmprim:GHCziPrim.Addrzh))
+                  (base:GHCziBase.zd
+                   @ ((ghczmprim:GHCziTypes.ZMZN
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   jsonzm0zi5:TextziJSONziTypes.JSArray
+                   (base:GHCziBase.map
+                    @ ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                        extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue tbindJSrXV tbindaYL)))
+                 (ghczmprim:GHCziTypes.ZC
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  (ghczmprim:GHCziTuple.Z2T
+                   @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   (base:GHCziBase.unpackCStringzh ("ty"::ghczmprim:GHCziPrim.Addrzh))
+                   (tyJSrY3 tyaYM))
+                  (ghczmprim:GHCziTypes.ZMZN
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))))))))};
+  varJSrYj :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+              -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    jsonzm0zi5:TextziJSONziGeneric.toJSON
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+    zddDatar1F3;
+  vbindJSrXX :: (ghczmprim:GHCziTuple.Z2T
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+                -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1E9::(ghczmprim:GHCziTuple.Z2T
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                extcorezm1zi0zi1:LanguageziCoreziCore.Ty)) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1E9
+        %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      extcorezm1zi0zi1:LanguageziCoreziCore.Ty))
+          {ghczmprim:GHCziTuple.Z2T
+           (varaZZr::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+           (tyaZZs::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+             base:GHCziBase.zd
+             @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                 jsonzm0zi5:TextziJSONziTypes.JSValue))
+             @ jsonzm0zi5:TextziJSONziTypes.JSValue
+             jsonzm0zi5:TextziJSONziTypes.JSObject
+             (jsonzm0zi5:TextziJSONziTypes.toJSObject
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              (ghczmprim:GHCziTypes.ZC
+               @ ((ghczmprim:GHCziTuple.Z2T
+                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   jsonzm0zi5:TextziJSONziTypes.JSValue))
+               (ghczmprim:GHCziTuple.Z2T
+                @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                (base:GHCziBase.unpackCStringzh
+                 ("var"::ghczmprim:GHCziPrim.Addrzh))
+                (varJSrYj varaZZr))
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh ("ty"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 tyaZZs))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))))))};
+  qvarJSrYl :: (ghczmprim:GHCziTuple.Z2T
+                ((base:DataziMaybe.Maybe
+                  extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))
+               -> jsonzm0zi5:TextziJSONziTypes.JSValue =
+    \ (dsd1Dv::(ghczmprim:GHCziTuple.Z2T
+                ((base:DataziMaybe.Maybe
+                  extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+        %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1Dv
+        %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                      ((base:DataziMaybe.Maybe
+                        extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+          {ghczmprim:GHCziTuple.Z2T
+           (ds1d1Dw::(base:DataziMaybe.Maybe
+                      extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+           (straZZY::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+             %case jsonzm0zi5:TextziJSONziTypes.JSValue ds1d1Dw
+             %of (wild1Xm::(base:DataziMaybe.Maybe
+                            extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+               {base:DataziMaybe.Nothing ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3 straZZY;
+                base:DataziMaybe.Just
+                (aaZZX::extcorezm1zi0zi1:LanguageziCoreziCore.AnMname) ->
+                  jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3
+                  (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                   (base:GHCziShow.show
+                    @ extcorezm1zi0zi1:LanguageziCoreziCore.AnMname
+                    extcorezm1zi0zi1:LanguageziCoreziPrinter.zdfShowAnMname aaZZX)
+                   (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                    (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+                     (ghczmprim:GHCziTypes.Czh ('.'::ghczmprim:GHCziPrim.Charzh))
+                     (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char))
+                    straZZY))}};
+  %rec
+  {altJSrXR :: extcorezm1zi0zi1:LanguageziCoreziCore.Alt ->
+               jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1Ee::extcorezm1zi0zi1:LanguageziCoreziCore.Alt) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1Ee
+         %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Alt)
+           {extcorezm1zi0zi1:LanguageziCoreziCore.Acon
+            (qdconaZZg::(ghczmprim:GHCziTuple.Z2T
+                         ((base:DataziMaybe.Maybe
+                           extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+            (tbindsaZZh::(ghczmprim:GHCziTypes.ZMZN
+                          ((ghczmprim:GHCziTuple.Z2T
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                            extcorezm1zi0zi1:LanguageziCoreziCore.Kind))))
+            (vbindsaZZi::(ghczmprim:GHCziTypes.ZMZN
+                          ((ghczmprim:GHCziTuple.Z2T
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                            extcorezm1zi0zi1:LanguageziCoreziCore.Ty))))
+            (expaZZj::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("qdcon"::ghczmprim:GHCziPrim.Addrzh))
+                 (qdconJSrYh qdconaZZg))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("tbind"::ghczmprim:GHCziPrim.Addrzh))
+                  (base:GHCziBase.zd
+                   @ ((ghczmprim:GHCziTypes.ZMZN
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   jsonzm0zi5:TextziJSONziTypes.JSArray
+                   (base:GHCziBase.map
+                    @ ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                        extcorezm1zi0zi1:LanguageziCoreziCore.Kind))
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue tbindJSrXV tbindsaZZh)))
+                 (ghczmprim:GHCziTypes.ZC
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  (ghczmprim:GHCziTuple.Z2T
+                   @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   (base:GHCziBase.unpackCStringzh
+                    ("vbind"::ghczmprim:GHCziPrim.Addrzh))
+                   (base:GHCziBase.zd
+                    @ ((ghczmprim:GHCziTypes.ZMZN
+                        jsonzm0zi5:TextziJSONziTypes.JSValue))
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                    jsonzm0zi5:TextziJSONziTypes.JSArray
+                    (base:GHCziBase.map
+                     @ ((ghczmprim:GHCziTuple.Z2T
+                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                         extcorezm1zi0zi1:LanguageziCoreziCore.Ty))
+                     @ jsonzm0zi5:TextziJSONziTypes.JSValue vbindJSrXX vbindsaZZi)))
+                  (ghczmprim:GHCziTypes.ZC
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   (ghczmprim:GHCziTuple.Z2T
+                    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                    (base:GHCziBase.unpackCStringzh
+                     ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                    (expJSrXP expaZZj))
+                   (ghczmprim:GHCziTypes.ZMZN
+                    @ ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                        jsonzm0zi5:TextziJSONziTypes.JSValue))))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Alit
+            (litaZZk::extcorezm1zi0zi1:LanguageziCoreziCore.Lit)
+            (expaZZl::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("lit"::ghczmprim:GHCziPrim.Addrzh))
+                 (litJSrXZZ litaZZk))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP expaZZl))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Adefault
+            (expaZZm::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh ("%_"::ghczmprim:GHCziPrim.Addrzh))
+                 (expJSrXP expaZZm))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue)))))};
+   vdefJSrXN :: extcorezm1zi0zi1:LanguageziCoreziCore.Vdef ->
+                jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1Eu::extcorezm1zi0zi1:LanguageziCoreziCore.Vdef) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue (%cast (dsd1Eu)
+                                                     extcorezm1zi0zi1:LanguageziCoreziCore.NTCoZCVdef)
+         %of (wildB1::(ghczmprim:GHCziTuple.Z3T
+                       ((ghczmprim:GHCziTuple.Z2T
+                         ((base:DataziMaybe.Maybe
+                           extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Ty
+                       extcorezm1zi0zi1:LanguageziCoreziCore.Exp))
+           {ghczmprim:GHCziTuple.Z3T
+            (qvaraYS::(ghczmprim:GHCziTuple.Z2T
+                       ((base:DataziMaybe.Maybe
+                         extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+            (tyaYT::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (expaYU::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("qvar"::ghczmprim:GHCziPrim.Addrzh))
+                 (qvarJSrYl qvaraYS))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh ("ty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 tyaYT))
+                 (ghczmprim:GHCziTypes.ZC
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  (ghczmprim:GHCziTuple.Z2T
+                   @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   (base:GHCziBase.unpackCStringzh
+                    ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                   (expJSrXP expaYU))
+                  (ghczmprim:GHCziTypes.ZMZN
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       jsonzm0zi5:TextziJSONziTypes.JSValue)))))))};
+   vdefgJSrXL :: extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg ->
+                 jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1Ex::extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1Ex
+         %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg)
+           {extcorezm1zi0zi1:LanguageziCoreziCore.Rec
+            (vdefsaYQ::(ghczmprim:GHCziTypes.ZMZN
+                        extcorezm1zi0zi1:LanguageziCoreziCore.Vdef)) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%rec"::ghczmprim:GHCziPrim.Addrzh))
+                 (base:GHCziBase.zd
+                  @ ((ghczmprim:GHCziTypes.ZMZN
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  jsonzm0zi5:TextziJSONziTypes.JSArray
+                  (base:GHCziBase.map @ extcorezm1zi0zi1:LanguageziCoreziCore.Vdef
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue vdefJSrXN vdefsaYQ)))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue)))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Nonrec
+            (vdefaYR::extcorezm1zi0zi1:LanguageziCoreziCore.Vdef) ->
+              vdefJSrXN vdefaYR};
+   expJSrXP :: extcorezm1zi0zi1:LanguageziCoreziCore.Exp ->
+               jsonzm0zi5:TextziJSONziTypes.JSValue =
+     \ (dsd1Ei::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+         %case jsonzm0zi5:TextziJSONziTypes.JSValue dsd1Ei
+         %of (wildB1::extcorezm1zi0zi1:LanguageziCoreziCore.Exp)
+           {extcorezm1zi0zi1:LanguageziCoreziCore.Var
+            (qvaraYV::(ghczmprim:GHCziTuple.Z2T
+                       ((base:DataziMaybe.Maybe
+                         extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+              qvarJSrYl qvaraYV;
+            extcorezm1zi0zi1:LanguageziCoreziCore.Dcon
+            (qdconaYW::(ghczmprim:GHCziTuple.Z2T
+                        ((base:DataziMaybe.Maybe
+                          extcorezm1zi0zi1:LanguageziCoreziCore.AnMname))
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+              qdconJSrYh qdconaYW;
+            extcorezm1zi0zi1:LanguageziCoreziCore.Lit
+            (litaYX::extcorezm1zi0zi1:LanguageziCoreziCore.Lit) ->
+              litJSrXZZ litaYX;
+            extcorezm1zi0zi1:LanguageziCoreziCore.App
+            (exp1aYY::extcorezm1zi0zi1:LanguageziCoreziCore.Exp)
+            (exp2aYZZ::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("aexp"::ghczmprim:GHCziPrim.Addrzh))
+                 (expJSrXP exp1aYY))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("args"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP exp2aYZZ))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Appt
+            (expaZZ0::extcorezm1zi0zi1:LanguageziCoreziCore.Exp)
+            (tyaZZ1::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("aexp"::ghczmprim:GHCziPrim.Addrzh))
+                 (expJSrXP expaZZ0))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("args"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 tyaZZ1))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Lam
+            (bindaZZ2::extcorezm1zi0zi1:LanguageziCoreziCore.Bind)
+            (expaZZ3::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("lambda"::ghczmprim:GHCziPrim.Addrzh))
+                 (%case jsonzm0zi5:TextziJSONziTypes.JSValue bindaZZ2
+                  %of (wild1XO::extcorezm1zi0zi1:LanguageziCoreziCore.Bind)
+                    {extcorezm1zi0zi1:LanguageziCoreziCore.Vb
+                     (vbindaZZn::(ghczmprim:GHCziTuple.Z2T
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                  extcorezm1zi0zi1:LanguageziCoreziCore.Ty)) ->
+                       base:GHCziBase.zd
+                       @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                           jsonzm0zi5:TextziJSONziTypes.JSValue))
+                       @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                       jsonzm0zi5:TextziJSONziTypes.JSObject
+                       (jsonzm0zi5:TextziJSONziTypes.toJSObject
+                        @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                        (ghczmprim:GHCziTypes.ZC
+                         @ ((ghczmprim:GHCziTuple.Z2T
+                             ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             jsonzm0zi5:TextziJSONziTypes.JSValue))
+                         (ghczmprim:GHCziTuple.Z2T
+                          @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                          (base:GHCziBase.unpackCStringzh
+                           ("vbind"::ghczmprim:GHCziPrim.Addrzh))
+                          (vbindJSrXX vbindaZZn))
+                         (ghczmprim:GHCziTypes.ZMZN
+                          @ ((ghczmprim:GHCziTuple.Z2T
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                              jsonzm0zi5:TextziJSONziTypes.JSValue)))));
+                     extcorezm1zi0zi1:LanguageziCoreziCore.Tb
+                     (tbindaZZo::(ghczmprim:GHCziTuple.Z2T
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                  extcorezm1zi0zi1:LanguageziCoreziCore.Kind)) ->
+                       base:GHCziBase.zd
+                       @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                           jsonzm0zi5:TextziJSONziTypes.JSValue))
+                       @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                       jsonzm0zi5:TextziJSONziTypes.JSObject
+                       (jsonzm0zi5:TextziJSONziTypes.toJSObject
+                        @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                        (ghczmprim:GHCziTypes.ZC
+                         @ ((ghczmprim:GHCziTuple.Z2T
+                             ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             jsonzm0zi5:TextziJSONziTypes.JSValue))
+                         (ghczmprim:GHCziTuple.Z2T
+                          @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                          (base:GHCziBase.unpackCStringzh
+                           ("tbind"::ghczmprim:GHCziPrim.Addrzh))
+                          (tbindJSrXV tbindaZZo))
+                         (ghczmprim:GHCziTypes.ZMZN
+                          @ ((ghczmprim:GHCziTuple.Z2T
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                              jsonzm0zi5:TextziJSONziTypes.JSValue)))))}))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP expaZZ3))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Let
+            (vdefgaZZ4::extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg)
+            (expaZZ5::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%let"::ghczmprim:GHCziPrim.Addrzh))
+                 (vdefgJSrXL vdefgaZZ4))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("%in"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP expaZZ5))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Case
+            (expaZZ6::extcorezm1zi0zi1:LanguageziCoreziCore.Exp)
+            (vbindaZZ7::(ghczmprim:GHCziTuple.Z2T
+                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                         extcorezm1zi0zi1:LanguageziCoreziCore.Ty))
+            (tyaZZ8::extcorezm1zi0zi1:LanguageziCoreziCore.Ty)
+            (altsaZZ9::(ghczmprim:GHCziTypes.ZMZN
+                        extcorezm1zi0zi1:LanguageziCoreziCore.Alt)) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%case"::ghczmprim:GHCziPrim.Addrzh))
+                 (tyJSrY3 tyaZZ8))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP expaZZ6))
+                 (ghczmprim:GHCziTypes.ZC
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))
+                  (ghczmprim:GHCziTuple.Z2T
+                   @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                   (base:GHCziBase.unpackCStringzh
+                    ("%of"::ghczmprim:GHCziPrim.Addrzh))
+                   (vbindJSrXX vbindaZZ7))
+                  (ghczmprim:GHCziTypes.ZC
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                       jsonzm0zi5:TextziJSONziTypes.JSValue))
+                   (ghczmprim:GHCziTuple.Z2T
+                    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                    (base:GHCziBase.unpackCStringzh
+                     ("alt"::ghczmprim:GHCziPrim.Addrzh))
+                    (base:GHCziBase.zd
+                     @ ((ghczmprim:GHCziTypes.ZMZN
+                         jsonzm0zi5:TextziJSONziTypes.JSValue))
+                     @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                     jsonzm0zi5:TextziJSONziTypes.JSArray
+                     (base:GHCziBase.map @ extcorezm1zi0zi1:LanguageziCoreziCore.Alt
+                      @ jsonzm0zi5:TextziJSONziTypes.JSValue altJSrXR altsaZZ9)))
+                   (ghczmprim:GHCziTypes.ZMZN
+                    @ ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                        jsonzm0zi5:TextziJSONziTypes.JSValue))))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Cast
+            (expaZZa::extcorezm1zi0zi1:LanguageziCoreziCore.Exp)
+            (tyaZZb::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%cast"::ghczmprim:GHCziPrim.Addrzh))
+                 (expJSrXP expaZZa))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 tyaZZb))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.Note
+            (stringaZZc::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+            (expaZZd::extcorezm1zi0zi1:LanguageziCoreziCore.Exp) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%note"::ghczmprim:GHCziPrim.Addrzh))
+                 (jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3 stringaZZc))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("exp"::ghczmprim:GHCziPrim.Addrzh))
+                  (expJSrXP expaZZd))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))));
+            extcorezm1zi0zi1:LanguageziCoreziCore.External
+            (stringaZZe::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+            (tyaZZf::extcorezm1zi0zi1:LanguageziCoreziCore.Ty) ->
+              base:GHCziBase.zd
+              @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+              jsonzm0zi5:TextziJSONziTypes.JSObject
+              (jsonzm0zi5:TextziJSONziTypes.toJSObject
+               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+               (ghczmprim:GHCziTypes.ZC
+                @ ((ghczmprim:GHCziTuple.Z2T
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                    jsonzm0zi5:TextziJSONziTypes.JSValue))
+                (ghczmprim:GHCziTuple.Z2T
+                 @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                 @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                 (base:GHCziBase.unpackCStringzh
+                  ("%external ccal"::ghczmprim:GHCziPrim.Addrzh))
+                 (jsonzm0zi5:TextziJSONziGeneric.toJSON
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  zddDatar1F3 stringaZZe))
+                (ghczmprim:GHCziTypes.ZC
+                 @ ((ghczmprim:GHCziTuple.Z2T
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     jsonzm0zi5:TextziJSONziTypes.JSValue))
+                 (ghczmprim:GHCziTuple.Z2T
+                  @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                  (base:GHCziBase.unpackCStringzh
+                   ("aty"::ghczmprim:GHCziPrim.Addrzh))
+                  (tyJSrY3 tyaZZf))
+                 (ghczmprim:GHCziTypes.ZMZN
+                  @ ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                      jsonzm0zi5:TextziJSONziTypes.JSValue))))))}};
+  main:Main.main :: (ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+    base:GHCziBase.zdfMonadIO
+    @ ((ghczmprim:GHCziTypes.ZMZN
+        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+    @ ghczmprim:GHCziUnit.Z0T base:SystemziEnvironment.getArgs
+    (\ (dsd1EK::(ghczmprim:GHCziTypes.ZMZN
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+         %let faild1EN :: (ghczmprim:GHCziPrim.Statezh
+                           ghczmprim:GHCziPrim.RealWorld)
+                          -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+                \ (ds1d1EO::(ghczmprim:GHCziPrim.Statezh
+                             ghczmprim:GHCziPrim.RealWorld)) ->
+                    base:GHCziBase.fail @ ghczmprim:GHCziTypes.IO
+                    base:GHCziBase.zdfMonadIO @ ghczmprim:GHCziUnit.Z0T
+                    (base:GHCziBase.unpackCStringzh
+                     ("Pattern match failure in do expression at test2.hs:23:5-22"::ghczmprim:GHCziPrim.Addrzh))
+         %in %case ((ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T)) dsd1EK
+             %of (wildB1::(ghczmprim:GHCziTypes.ZMZN
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+               {ghczmprim:GHCziTypes.ZMZN ->
+                  faild1EN ghczmprim:GHCziPrim.realWorldzh;
+                ghczmprim:GHCziTypes.ZC
+                (inFileaYm::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                (ds1d1EL::(ghczmprim:GHCziTypes.ZMZN
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+                  %case ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T)) ds1d1EL
+                  %of (wild1Xv::(ghczmprim:GHCziTypes.ZMZN
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                    {ghczmprim:GHCziTypes.ZMZN ->
+                       faild1EN ghczmprim:GHCziPrim.realWorldzh;
+                     ghczmprim:GHCziTypes.ZC
+                     (outFileaYn::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                     (ds2d1EM::(ghczmprim:GHCziTypes.ZMZN
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ->
+                       base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                       base:GHCziBase.zdfMonadIO
+                       @ ((base:DataziEither.Either
+                           parseczm3zi1zi1:TextziParsecziError.ParseError
+                           extcorezm1zi0zi1:LanguageziCoreziCore.Module))
+                       @ ghczmprim:GHCziUnit.Z0T
+                       (extcorezm1zi0zi1:LanguageziCoreziParsecParser.parseCore inFileaYm)
+                       (\ (caYA::(base:DataziEither.Either
+                                  parseczm3zi1zi1:TextziParsecziError.ParseError
+                                  extcorezm1zi0zi1:LanguageziCoreziCore.Module)) ->
+                            base:GHCziBase.zd
+                            @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                            @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
+                            base:SystemziIO.putStrLn
+                            (base:GHCziBase.zd
+                             @ prettyzm1zi0zi1zi2:TextziPrettyPrintziHughesPJ.Doc
+                             @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             (base:GHCziShow.show
+                              @ prettyzm1zi0zi1zi2:TextziPrettyPrintziHughesPJ.Doc
+                              prettyzm1zi0zi1zi2:TextziPrettyPrintziHughesPJ.zdfShowDoc)
+                             (base:GHCziBase.zd @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                              @ prettyzm1zi0zi1zi2:TextziPrettyPrintziHughesPJ.Doc
+                              jsonzm0zi5:TextziJSONziPretty.ppzuvalue
+                              (%case jsonzm0zi5:TextziJSONziTypes.JSValue caYA
+                               %of (wild2XZZ::(base:DataziEither.Either
+                                               parseczm3zi1zi1:TextziParsecziError.ParseError
+                                               extcorezm1zi0zi1:LanguageziCoreziCore.Module))
+                                 {base:DataziEither.Left
+                                  (erraYB::parseczm3zi1zi1:TextziParsecziError.ParseError) ->
+                                    base:GHCziBase.zd
+                                    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                    @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                    (jsonzm0zi5:TextziJSONziGeneric.toJSON
+                                     @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                     zddDatar1F3)
+                                    (base:GHCziShow.show
+                                     @ parseczm3zi1zi1:TextziParsecziError.ParseError
+                                     parseczm3zi1zi1:TextziParsecziError.zdfShowParseError erraYB);
+                                  base:DataziEither.Right
+                                  (modaYC::extcorezm1zi0zi1:LanguageziCoreziCore.Module) ->
+                                    %case jsonzm0zi5:TextziJSONziTypes.JSValue modaYC
+                                    %of (wild3X13::extcorezm1zi0zi1:LanguageziCoreziCore.Module)
+                                      {extcorezm1zi0zi1:LanguageziCoreziCore.Module
+                                       (anmnameaYD::extcorezm1zi0zi1:LanguageziCoreziCore.AnMname)
+                                       (tdefgaYE::(ghczmprim:GHCziTypes.ZMZN
+                                                   extcorezm1zi0zi1:LanguageziCoreziCore.Tdef))
+                                       (vdefgaYF::(ghczmprim:GHCziTypes.ZMZN
+                                                   extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg)) ->
+                                         base:GHCziBase.zd
+                                         @ ((jsonzm0zi5:TextziJSONziTypes.JSObject
+                                             jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                         @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                         jsonzm0zi5:TextziJSONziTypes.JSObject
+                                         (jsonzm0zi5:TextziJSONziTypes.toJSObject
+                                          @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                          (ghczmprim:GHCziTypes.ZC
+                                           @ ((ghczmprim:GHCziTuple.Z2T
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))
+                                               jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                           (ghczmprim:GHCziTuple.Z2T
+                                            @ ((ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char))
+                                            @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                            (base:GHCziBase.unpackCStringzh
+                                             ("%module"::ghczmprim:GHCziPrim.Addrzh))
+                                            (%case jsonzm0zi5:TextziJSONziTypes.JSValue (%cast (anmnameaYD)
+                                                                                         extcorezm1zi0zi1:LanguageziCoreziCore.NTCoZCAnMname)
+                                             %of (wild4X19::(ghczmprim:GHCziTuple.Z3T
+                                                             extcorezm1zi0zi1:LanguageziCoreziCore.Pname
+                                                             ((ghczmprim:GHCziTypes.ZMZN
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))))
+                                                             ((ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char))))
+                                               {ghczmprim:GHCziTuple.Z3T
+                                                (ds3d1DM::extcorezm1zi0zi1:LanguageziCoreziCore.Pname)
+                                                (idsaZZP::(ghczmprim:GHCziTypes.ZMZN
+                                                           ((ghczmprim:GHCziTypes.ZMZN
+                                                             ghczmprim:GHCziTypes.Char))))
+                                                (idaZZQ::(ghczmprim:GHCziTypes.ZMZN
+                                                          ghczmprim:GHCziTypes.Char)) ->
+                                                  base:GHCziBase.zd
+                                                  @ ((ghczmprim:GHCziTypes.ZMZN
+                                                      ghczmprim:GHCziTypes.Char))
+                                                  @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                                  (jsonzm0zi5:TextziJSONziGeneric.toJSON
+                                                   @ ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))
+                                                   zddDatar1F3)
+                                                  (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                                                   (%cast (ds3d1DM)
+                                                    extcorezm1zi0zi1:LanguageziCoreziCore.NTCoZCPname)
+                                                   (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                                                    (ghczmprim:GHCziTypes.ZC
+                                                     @ ghczmprim:GHCziTypes.Char
+                                                     (ghczmprim:GHCziTypes.Czh
+                                                      (':'::ghczmprim:GHCziPrim.Charzh))
+                                                     (ghczmprim:GHCziTypes.ZMZN
+                                                      @ ghczmprim:GHCziTypes.Char))
+                                                    (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+                                                     (base:GHCziList.foldl
+                                                      @ ((ghczmprim:GHCziTypes.ZMZN
+                                                          ghczmprim:GHCziTypes.Char))
+                                                      @ ((ghczmprim:GHCziTypes.ZMZN
+                                                          ghczmprim:GHCziTypes.Char))
+                                                      (base:GHCziBase.zpzp
+                                                       @ ghczmprim:GHCziTypes.Char)
+                                                      (ghczmprim:GHCziTypes.ZMZN
+                                                       @ ghczmprim:GHCziTypes.Char)
+                                                      idsaZZP)
+                                                     idaZZQ)))}))
+                                           (ghczmprim:GHCziTypes.ZC
+                                            @ ((ghczmprim:GHCziTuple.Z2T
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char))
+                                                jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                            (ghczmprim:GHCziTuple.Z2T
+                                             @ ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))
+                                             @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                             (base:GHCziBase.unpackCStringzh
+                                              ("tdefg"::ghczmprim:GHCziPrim.Addrzh))
+                                             (base:GHCziBase.zd
+                                              @ ((ghczmprim:GHCziTypes.ZMZN
+                                                  jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                              jsonzm0zi5:TextziJSONziTypes.JSArray
+                                              (base:GHCziBase.map
+                                               @ extcorezm1zi0zi1:LanguageziCoreziCore.Tdef
+                                               @ jsonzm0zi5:TextziJSONziTypes.JSValue tdefgJSrXH
+                                               tdefgaYE)))
+                                            (ghczmprim:GHCziTypes.ZC
+                                             @ ((ghczmprim:GHCziTuple.Z2T
+                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char))
+                                                 jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                             (ghczmprim:GHCziTuple.Z2T
+                                              @ ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char))
+                                              @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                              (base:GHCziBase.unpackCStringzh
+                                               ("vdefg"::ghczmprim:GHCziPrim.Addrzh))
+                                              (base:GHCziBase.zd
+                                               @ ((ghczmprim:GHCziTypes.ZMZN
+                                                   jsonzm0zi5:TextziJSONziTypes.JSValue))
+                                               @ jsonzm0zi5:TextziJSONziTypes.JSValue
+                                               jsonzm0zi5:TextziJSONziTypes.JSArray
+                                               (base:GHCziBase.map
+                                                @ extcorezm1zi0zi1:LanguageziCoreziCore.Vdefg
+                                                @ jsonzm0zi5:TextziJSONziTypes.JSValue vdefgJSrXL
+                                                vdefgaYF)))
+                                             (ghczmprim:GHCziTypes.ZMZN
+                                              @ ((ghczmprim:GHCziTuple.Z2T
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char))
+                                                  jsonzm0zi5:TextziJSONziTypes.JSValue)))))))}}))))}});
+  main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
+                       ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
+    main:Main.main;
