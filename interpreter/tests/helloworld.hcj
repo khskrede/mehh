@@ -1,0 +1,13 @@
+{"%module": "main:Main", "tdefg": [],
+ "vdefg": [{"qvar": "main:Main.main",
+            "ty": {"bty": "ghczmprim:GHCziTypes.IO",
+                   "aty": "ghczmprim:GHCziUnit.Z0T"},
+            "exp": {"aexp": "base:SystemziIO.putStrLn",
+                    "args": {"aexp": "base:GHCziBase.unpackCStringzh",
+                             "args": {"Lstring": "hello world!"}}}},
+           {"qvar": "main:ZCMain.main",
+            "ty": {"bty": "ghczmprim:GHCziTypes.IO",
+                   "aty": "ghczmprim:GHCziUnit.Z0T"},
+            "exp": {"aexp": {"aexp": "base:GHCziTopHandler.runMainIO",
+                             "args": "ghczmprim:GHCziUnit.Z0T"},
+                    "args": "main:Main.main"}}]}
