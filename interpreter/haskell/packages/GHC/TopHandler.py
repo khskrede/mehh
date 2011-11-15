@@ -1,4 +1,6 @@
 
+import haskell.haskell as hh
 
-def runMainIO()
+@hh.expose_primitive(1)
+def runMainIO():
     pass

@@ -2,9 +2,10 @@
 from pypy.rlib.parsing.ebnfparse import parse_ebnf, make_parse_function
 from pypy.rlib.parsing.tree import RPythonVisitor, Nonterminal, Node, Symbol, VisitError
 import sys
-from haskell import haskell
-import haskell.syntax
+import haskell.haskell as hh
 import module
+
+import copy
 
 ebnf = """
     STRING: "\\"[^\\\\"]*\\"";
@@ -16,14 +17,24 @@ ebnf = """
     pair: STRING [":"] value;
     """
 
+x = hh.Var("x")
+
+
+def rewrite_id(ident):
+    l = ident.split("\"")[1].split(":")[1].split("zi")
+    package = l[0]
+    l2 = l[1].split(".")
+    mod = l2[0]
+    func = l2[1]
+    return package, mod, func
+
+
 class AST(RPythonVisitor):
 
     modules = {}
     _vars = {}
 
-    x = haskell.haskell.Var("x")
-
-    def __init__(self, mods):
+    def __init__(self, mods=None):
         self.modules = mods
 
     def get_ast(self, tree):
@@ -41,16 +52,18 @@ class AST(RPythonVisitor):
 
             # Module
             if type_ == "\"%module\"":
-                print "MODULE!"
-
                 mident = left.children[1].additional_info
+                print "Module(", mident, "):"
                 mod = module.module()
                 mod.name = mident
 
-                vdefg = []
-                for vdef in node.children[2].children:
-                    vdefg.append( vdef.visit(self) )
-                mod.vdefg = vdefg
+                #for vdef in node.children[2].children[1].children:
+                #    func = vdef.visit(self)
+                #    mod.vdefg.append( func )
+
+                vdef = node.children[2].children[1].children[0]
+                func = vdef.visit(self)
+                mod.vdefg.append( func )
 
                 self.modules[mident] = mod
                 return mod
@@ -83,11 +96,16 @@ class AST(RPythonVisitor):
             elif type_ == "\"qvar\"" and len(node.children) == 3:
 
                 name = node.children[0].children[1].additional_info
-                print "Nonrecursive value definition: Function(", name, " ++ )"
+                print "Nonrec(", name, "):"
+
+                args = [x]
+                if name == "\"main:Main.main\"":
+                    args = []
 
                 exp_child = node.children[2].children[1]
-                print repr(exp_child.visit(self))
-                func = haskell.haskell.function( name, [exp_child.visit(self)], recursive=False )
+                exp = exp_child.visit(self)
+
+                func = hh.function( name, [(args, exp)], recursive=False )
 
                 return func
 
@@ -95,17 +113,40 @@ class AST(RPythonVisitor):
 
             # aexp
             elif type_ == "\"exp\"":
-                x = haskell.haskell.Var("x")
                 print "Expression:"
-                return ([x], x)
+                #return ([x], x)
 
             # Expression
 
             # application
             elif type_ == "\"aexp\"":
-                x = haskell.haskell.Var("x")
-                print "Atomic expression:"
-                return ([x], x)
+
+                ident = left.children[1].visit(self)
+                package, mod, func_name = rewrite_id(ident)
+
+                f = 0
+                if func_name == "putStrLn":
+                    import haskell.packages.System.IO as p
+                    f = p.putStrLn
+                else:
+                    import haskell.packages.GHC.Base as p
+                    f = p.unpackCString
+
+                package_name = ("haskell.packages." + package + "." + mod)
+                print package_name
+
+                imp = __import__(package_name)
+                print repr(imp)
+
+                #func = getattr(imp, func_name)
+                func = f
+
+                args = node.children[1].children[1].visit(self)
+
+                print "App()"
+
+                app = hh.make_application( func, [args] )
+                return app
 
             # abstraction
             elif type_ == "\"lambda\"":
@@ -132,6 +173,9 @@ class AST(RPythonVisitor):
             elif type_ == "\"%label\"":
                 print "external label:"
 
+            elif type_ == "\"Lstring\"":
+                #return node.children[0].children[1].visit(self)
+                return hh.CString("Hello World!")
 
             # .... TODO
 
@@ -139,33 +183,32 @@ class AST(RPythonVisitor):
 
             # type application
             elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
-                print "type application:"
+                print "type application: meh!"
 
             else:
                 print type_
 
-        for child in node.children:
-            child.visit(self)
+        #for child in node.children:
+        #    child.visit(self)
 
     def visit_pair(self, node):
         left = node.children[0]
         right = node.children[1]
 
-        left.visit(self)
-        right.visit(self)
+        return (left.visit(self), right.visit(self))
 
     def visit_array(self, node):
+        l = []
         for child in node.children:
-            child.visit(self)
+            l.append(child.visit(self))
+        return l
 
     def visit_STRING(self, node):
-        #print node.symbol, ": ", node.additional_info, ": ", node.token
-        #print node.additional_info
-        pass
+        print node.symbol, ": ", node.additional_info, ": ", node.token
+        return node.additional_info
 
     def visit_NUMBER(self, node):
-        #print node.symbol
-        pass
+        print "number: ", node.symbol
 
 
 def parse_js( path ):

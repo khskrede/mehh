@@ -1,30 +1,35 @@
 import sys
-import core.parser
-import haskell.haskell
+import core.parser as cp
+import haskell.haskell as hh
 
 modules = {}
 
-x = haskell.haskell.Var("x")
-id_ = haskell.haskell.function("id", [([x],x)])
 
+def get_id():
+    x = hh.Var("x")
+    id_ = hh.function("id", [([x],x)])
+    return id_
+
+def get_print():
+    import haskell.packages.System.IO as p
+    print repr(p)
+    func = p.putStrLn
+    print repr(func)
+    return func
 
 def interp(path):
-    js = core.parser.parse_js( path )
-    ast = core.parser.AST( modules )
+    js = cp.parse_js( path )
+    ast = cp.AST( modules )
 
     mod = ast.get_ast( js )
 
-    print len(mod.vdefg)
+    main = modules.values()[0].vdefg[0]
 
-    exp = modules.values()[0].vdefg[0]
-    exp = mod.vdefg[0]
+    x = []
+    x.append( hh.Integer(3) )
 
-    print repr(exp)
-
-    print haskell.haskell.evaluate_hnf( \
-        haskell.haskell.make_application( \
-            exp, \
-            [haskell.haskell.Integer(3)] ) )
+    hh.evaluate_hnf( \
+        hh.make_application( main, [] ) )
 
 def jitpolicy(self):
     from pypy.jit.codewriter.policy import JitPolicy
