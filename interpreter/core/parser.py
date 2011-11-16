@@ -21,11 +21,11 @@ x = hh.Var("x")
 
 
 def rewrite_id(ident):
-    l = ident.split("\"")[1].split(":")[1].split("zi")
+    l = ident.split(":")[1].split("zi")
     package = l[0]
     l2 = l[1].split(".")
     mod = l2[0]
-    func = l2[1]
+    func = l2[1].replace("zh", "")
     return package, mod, func
 
 
@@ -53,7 +53,9 @@ class AST(RPythonVisitor):
             # Module
             if type_ == "\"%module\"":
                 mident = left.children[1].additional_info
-                print "Module(", mident, "):"
+
+                #print "Module(", mident, "):"
+
                 mod = module.module()
                 mod.name = mident
 
@@ -96,7 +98,7 @@ class AST(RPythonVisitor):
             elif type_ == "\"qvar\"" and len(node.children) == 3:
 
                 name = node.children[0].children[1].additional_info
-                print "Nonrec(", name, "):"
+                #print "Nonrec(", name, "):"
 
                 args = [x]
                 if name == "\"main:Main.main\"":
@@ -121,29 +123,22 @@ class AST(RPythonVisitor):
             # application
             elif type_ == "\"aexp\"":
 
-                ident = left.children[1].visit(self)
+                ident = left.children[1].additional_info.replace("\"","")
                 package, mod, func_name = rewrite_id(ident)
 
-                f = 0
-                if func_name == "putStrLn":
-                    import haskell.packages.System.IO as p
-                    f = p.putStrLn
-                else:
-                    import haskell.packages.GHC.Base as p
-                    f = p.unpackCString
-
                 package_name = ("haskell.packages." + package + "." + mod)
-                print package_name
+                #print package_name
 
-                imp = __import__(package_name)
-                print repr(imp)
+                if not (package_name in sys.modules):
+                    __import__(package_name)
 
-                #func = getattr(imp, func_name)
-                func = f
+                mod = sys.modules[package_name]
+
+                func = getattr(mod, func_name)
 
                 args = node.children[1].children[1].visit(self)
 
-                print "App()"
+                #print "App()"
 
                 app = hh.make_application( func, [args] )
                 return app
@@ -175,7 +170,7 @@ class AST(RPythonVisitor):
 
             elif type_ == "\"Lstring\"":
                 #return node.children[0].children[1].visit(self)
-                return hh.CString("Hello World!")
+                return hh.CString(node.children[0].children[1].additional_info)
 
             # .... TODO
 
@@ -205,7 +200,7 @@ class AST(RPythonVisitor):
 
     def visit_STRING(self, node):
         print node.symbol, ": ", node.additional_info, ": ", node.token
-        return node.additional_info
+        return hh.CString(node.additional_info)
 
     def visit_NUMBER(self, node):
         print "number: ", node.symbol
