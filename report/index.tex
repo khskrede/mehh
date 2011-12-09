@@ -15,7 +15,11 @@
 \maketitle
 
 \begin{abstract}
-Abstract
+The paper describes a system for using GHC as frontend and PyPy as backend for a 
+Haskell JIT compiler. An intermediate language in JSON format based on GHC's Core
+language is described. The implemented parts are a serializer written in haskell and
+a deserializer written in RPython, in addition to some Haskell library functions.
+The project is meant to serve as a base for further development. 
 \end{abstract}
 
 \clearpage
@@ -31,13 +35,9 @@ Abstract
 
 \input{intro.tex}
 
-% PYPY
+% Tools
 
-\input{pypy.tex}
-
-% Haskell
-
-\input{ghc.tex}
+\input{tools.tex}
 
 % Core
 
@@ -47,9 +47,14 @@ Abstract
 
 \input{jscore.tex}
 
+% Implementation
+
+\input{implem.tex}
+
 % Interpreting Core
 
 \input{coreinterp.tex}
+
 
 \bibliographystyle{plain}
 \bibliography{papers}

@@ -1,6 +1,12 @@
 
 \section{Introduction}
 
+\subsection{Project description}
+
+The project is to implement a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from the intermediate format to an
+interpreter usin PyPy.
+
 \subsection{Motivation}
 
 The motiviation behind the project is to see if a \emph{strongly-typed} 
@@ -8,7 +14,7 @@ The motiviation behind the project is to see if a \emph{strongly-typed}
 can benefit from just-in-time (JIT) compilation.
 
 Some people seem to think that there is little to gain from using 
-just-in-time compilation of statically typed languages since they can be
+JIT compilation of statically typed languages since they can be
 so heavily optimized at compile time. However, a JIT compiler has alot
 more information to work with.
 
@@ -28,7 +34,7 @@ Haskell 98 (plus some extensions) into Core. This way it is possible to
 reuse GHC for parsing, desugaring and typechecking, while implementing
 the back-end separately. \cite{tolmach2010ghc}
 
-\subsection{Project description}
+\subsection{System description}
 
 The system will use the GHC haskell library to generate the 
 representation of the Core language and a simple haskell program to 
@@ -39,7 +45,7 @@ The resulting code will then be deserialized by the PyPy haskell interpreter
 and executed. 
 
 \begin{figure}
-\includegraphics[width=\textwidth]{diags/overview.pdf}
+\includegraphics[width=\textwidth]{diags/overview.png}
 \caption{Project overview. Black: implemented, Red: unimplemented.}
 \end{figure}
 
