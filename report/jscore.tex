@@ -3,13 +3,13 @@
 
 "JSON (JavaScript Object Notation) is a lightweight data interchange format."
 
-Since libraries exist for haskell and python this makes it ideal for our use,
-in adition, the haskell library contains a pretty printer that makes the resulting
+Since libraries exist for Haskell and python this makes it ideal for our use,
+in addition, the Haskell library contains a pretty printer that makes the resulting
 representation of Core easier to inspect.
 
 Since most programming languages has libraries for JSON serialization
 
-The JSON format was used for serializing and deserializing Core from haskell to RPython.
+The JSON format was used for serializing and deserializing Core from Haskell to RPython.
 Following is a description of this process
 
 
@@ -115,8 +115,8 @@ In the following grammar, we use the following definitions:
 \begin{longtable}{ c c l }
 
 
-$[$ $pat$ $]$ 		& : 	& Zero or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\
-$[$ $pat$ $]^{+}$ 	& : 	& One or more repetitions of $pat$ surounded by $[$ $]$ and comma separated (A JSON Aray). 	\\ 
+$[$ $pat$ $]$ 		& : 	& Zero or more repetitions of $pat$ surrounded by $[$ $]$ and comma separated (A JSON Aray). 	\\
+$[$ $pat$ $]^{+}$ 	& : 	& One or more repetitions of $pat$ surrounded by $[$ $]$ and comma separated (A JSON Aray). 	\\ 
 $\{$ $pat$ $\}$		& :	& Represents a JSON Object, $pat$ is a JSON $members$.						\\
 $pat_{1}$ $|$ $pat_{2}$	& :	& Choice.											\\
 $||$ $pat$ $||$ 	& :	& Optional											\\

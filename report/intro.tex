@@ -9,13 +9,13 @@ interpreter usin PyPy.
 
 \subsection{Motivation}
 
-The motiviation behind the project is to see if a \emph{strongly-typed} 
+The motivation behind the project is to see if a \emph{strongly-typed} 
 \emph{non-strict} \emph{purely-functional} programming language, Haskell, 
 can benefit from just-in-time (JIT) compilation.
 
 Some people seem to think that there is little to gain from using 
 JIT compilation of statically typed languages since they can be
-so heavily optimized at compile time. However, a JIT compiler has alot
+so heavily optimized at compile time. However, a JIT compiler has a lot
 more information to work with.
 
 PyPy is a project that implements a meta-tracing JIT. The project
@@ -36,16 +36,16 @@ the back-end separately. \cite{tolmach2010ghc}
 
 \subsection{System description}
 
-The system will use the GHC haskell library to generate the 
-representation of the Core language and a simple haskell program to 
+The system will use the GHC Haskell library to generate the 
+representation of the Core language and a simple Haskell program to 
 serialize this representation into JSON. This entails using GHC for
 parsing, typechecking, desugaring and simplification.
 
-The resulting code will then be deserialized by the PyPy haskell interpreter 
+The resulting code will then be deserialized by the PyPy Haskell interpreter 
 and executed. 
 
 \begin{figure}
-\includegraphics[width=\textwidth]{diags/overview.png}
+\includegraphics[width=\textwidth]{diags/overview}
 \caption{Project overview. Black: implemented, Red: unimplemented.}
 \end{figure}
 
