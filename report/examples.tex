@@ -39,7 +39,7 @@ In the next step it is parsed and dumped to JSCore:
 
 \subsubsection{JSCore graph}
 
-Using the parsing libraries of pypy we can generate a nice graph from the result, 
+Using the parsing libraries of PyPy we can generate a nice graph from the result, 
 see figure \ref{fig:helloworldgraph}.
 By simply traversing this datastructure we can generate the AST for the Core 
 interpreter (Haskell-Python).
@@ -67,7 +67,7 @@ The following program is a simple fibonacci program.
 \subsubsection{Converted to Core}
 
 As we can see, the simple hello world program becomes more complex when translated
-to Core by ghc.
+to Core by GHC.
 
 \begin{footnotesize}
 \lstinputlisting{"../interpreter/tests/fib.hcr"}
@@ -85,7 +85,7 @@ And translated to JSCore by our serializer:
 
 \subsubsection{JSCore graph}
 
-Using the parsing libraries of pypy we can generate a nice graph from the result, 
+Using the parsing libraries of PyPy we can generate a nice graph from the result, 
 see figure \ref{fig:fibgraph}
 
 By simply traversing this datastructure we can generate the AST for the Core interpreter.

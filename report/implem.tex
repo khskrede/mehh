@@ -4,7 +4,7 @@
 
 The project implements the following pipeline (see figure \ref{core2js}):
 \begin{enumerate}
-\item Serialize haskell program: 
+\item Serialize Haskell program: 
   \begin{enumerate}
   \item Create external-core file from Haskell program using GHC.
   \item Create JSCore from external-core using the extcore and JSON packages.
@@ -16,7 +16,7 @@ The project implements the following pipeline (see figure \ref{core2js}):
   \end{enumerate}
 \item Evaluate program:
   \begin{enumerate}
-  \item Evaluation is done by the allready implemented PyPy Core' interpreter,
+  \item Evaluation is done by the already implemented PyPy Core' interpreter,
   Haskell-Python. Additional functionality had to be built on top of this, mostly 
   Haskell library functions.
   \end {enumerate}
@@ -104,13 +104,13 @@ The resulting datastructure is then traversed, by checking the contents of the J
 with the actual external-core format, the Core AST is built. External functionality is imported
 as it is encountered. 
 
-After this is done, we are left with a "module" object, corresponding to the initioal Haskell
+After this is done, we are left with a "module" object, corresponding to the initial Haskell
 module. 
 
 \subsection{Haskell libraries}
 
 To make some simple test-cases work, some basic Haskell functionality had to be implemented.
-Some of this functionality was implemented allready in the Haskell-Python Core' interpreter.
+Some of this functionality was implemented already in the Haskell-Python Core' interpreter.
 The work done here was mostly to organize the functionality into modules corresponding
 to Haskell modules. The functionality implemented in these modules does however, not correspond
 to the Haskell implementations. This is left for future work, as this is a large task.
@@ -124,9 +124,9 @@ into a reference to the function "putStrLn" defined in the python module located
 \subsection{Evaluation}
 
 In order to evaluate the Haskell programs correctly, the expression "main:ZCMain.main" would have
-to be reduced to \emph{WHNF}. However, this would require alot of the functionality used by GHC
+to be reduced to \emph{WHNF}. However, this would require a lot of the functionality used by GHC
 to be implemented. Specifically, "GHC.TopHandler.runMainIO()". In order to implement this function
-alot of other functionality would have to be implemented. The function is a wrapper around 
+a lot of other functionality would have to be implemented. The function is a wrapper around 
 "main:Main.main", it catches uncaught exceptions and flushes stdout/stderr before exiting. 
 Implementing this is a goal for further
 development, but currently a simple hack is to only evaluate the expression "main:Main.main". This way,
@@ -145,9 +145,9 @@ simple programs can be tested by implementing the necessary functionality at a h
 Very few of the initial plans regarding this project was actually realized in the implementation.
 The GHC API was intended to be used to generate JSCore, but this failed do to a lack of experience
 with Haskell and the GHC API (see figure \ref{haskell2js} for a description of the initially intended
-pipeline). It was then discovered that alot of the necessary code was allready
+pipeline). It was then discovered that a lot of the necessary code was already
 written in GHC (the code that generates the external-core files), however, this code was not 
-exported in any way. It was also deeply embeded in the GHC code. After several attempts at creating
+exported in any way. It was also deeply embedded in the GHC code. After several attempts at creating
 the JSCore format, and some emails back and forth with the GHC team, these methods where abandoned.
 
 The extcore package was then introduced, as it was thought to serve nicely for our purpose. This
