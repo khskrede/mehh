@@ -41,7 +41,8 @@ the back-end separately. \cite{tolmach2010ghc}
 The system will use the GHC Haskell library to generate the 
 representation of the Core language and a simple Haskell program to 
 serialize this representation into JSON. This entails using GHC for
-parsing, typechecking, desugaring and simplification.
+parsing, typechecking, desugaring and simplification. Simplification
+is an optimization step in GHC, performing small and simple transformations.
 
 The resulting code will then be deserialized by the PyPy Haskell interpreter 
 and executed. See figure \ref{overview} for a description of the implemented and
@@ -65,7 +66,7 @@ Section 4 (JSON representation of Core) follows with the description of the inte
 used in this project, which is a combination of JSON and external-core.
 Section 5 (Implementation) discusses the implementation of the system, the issues faced
 during development and some of the remaining issues.
-In section 6 (Examples), example programs is passed through the pipeline with intermediate
+In section 6 (Examples), example programs are passed through the pipeline with intermediate
 representations presented at each step.
 Section 7 (Future Work) discusses work to be done in the future.
 

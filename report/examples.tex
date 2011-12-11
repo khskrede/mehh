@@ -39,8 +39,9 @@ In the next step it is parsed and dumped to JSCore:
 
 \subsubsection{JSCore graph}
 
-Using the parsing libraries of pypy we can generate a nice graph from the result, 
-see figure \ref{fig:helloworldgraph}.
+Using the parsing libraries of pypy we can generate a nice graph from the result,
+directly corresponding to the resulting datastructure. 
+See figure \ref{fig:helloworldgraph}.
 By simply traversing this datastructure we can generate the AST for the Core 
 interpreter (Haskell-Python).
 
@@ -56,7 +57,9 @@ interpreter (Haskell-Python).
 
 The program results as expected, outputting the string "Hello, world!".
 
-\subsection{Example 2: fibonacci}
+\begin{comment}
+
+\subsection{Example 2: naive fibonacci}
 
 The following program is a simple fibonacci program.
 
@@ -99,3 +102,5 @@ By simply traversing this datastructure we can generate the AST for the Core int
 \end{sidewaysfigure}
 
 \subsubsection{Result}
+
+\end{comment}
