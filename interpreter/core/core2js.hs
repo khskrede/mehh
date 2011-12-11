@@ -27,7 +27,7 @@ main = do
 compile :: FilePath -> FilePath -> IO ()
 compile inFile outFile = do
     c <- parseCore inFile
-    putStrLn $ show $ pp_value $ getJS c
+    writeFile outFile $ show $ pp_value $ getJS c
 
 
 getJS :: (Either ParseError Module) -> JSValue

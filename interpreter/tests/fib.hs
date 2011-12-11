@@ -1,4 +1,6 @@
 
+module Main where
+
 main = do 
     let n = 10
     putStrLn $ "The 10. fibonacci number is: " ++ (show $ fib n)

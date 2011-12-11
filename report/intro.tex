@@ -5,7 +5,9 @@
 
 The project is to implement a serializer from Haskell to an intermediate
 format using GHC, and a deserializer from the intermediate format to an
-interpreter usin PyPy.
+interpreter usin PyPy. And then to test the result on some simple Haskell
+programs. The hope is that this can serve as a base for future development
+into a full Haskell JIT compiler.
 
 \subsection{Motivation}
 
@@ -42,11 +44,29 @@ serialize this representation into JSON. This entails using GHC for
 parsing, typechecking, desugaring and simplification.
 
 The resulting code will then be deserialized by the PyPy Haskell interpreter 
-and executed. 
+and executed. See figure \ref{overview} for a description of the implemented and
+to-be-implemented parts of the project.
 
-\begin{figure}
-\includegraphics[width=\textwidth]{diags/overview}
-\caption{Project overview. Black: implemented, Red: unimplemented.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{diags/overview}
+\caption{Project overview. Full border: implemented, Dotted border: unimplemented.}
+\label{overview}
 \end{figure}
+
+\subsection{Structure of the paper}
+
+Follwing this introduction is a section (Section 3: Background) discussing the 
+background of the project. The background section contains some information about 
+the tools beeing used, and why.
+Section 3 (External-core) contains a description of the external language representation
+of the intermediate language used by GHC.
+Section 4 (JSON representation of Core) follows with the description of the intermediate format
+used in this project, which is a combination of JSON and external-core.
+Section 5 (Implementation) discusses the implementation of the system, the issues faced
+during development and some of the remaining issues.
+In section 6 (Examples), example programs is passed through the pipeline with intermediate
+representations presented at each step.
+Section 7 (Future Work) discusses work to be done in the future.
 
 
