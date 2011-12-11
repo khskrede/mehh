@@ -1,7 +1,6 @@
 
 \section{External-core}
 
-
 % New
 
 The Core language is an intermediate language used by GHC. It is the internal
@@ -17,15 +16,15 @@ Without using GHC to produce external-core, linking code into GHC would be an
 optional way of achieving this, which would be a difficult and large task.
 Or, the GHC API could be used to do the same task more cleanly. \cite{tolmach2010ghc}
 
-The initial starting point of this project was to use the GHC API, the reason
+The initial starting point of this project was to use the GHC API, the reasoning
 was that external-core is not fully parenthesized and more tricky to parse. Thus,
 generating a fully parenthesized and more machine-readable format would make sense.
 However, it turned out that this too was a complicated task. As the internal
-core datatypes of GHC does not match the description of external-core. The choice was
+datatypes of GHC representing Core does not match the description of external-core. 
+The choice was
 then made to use GHC-generated external-core as the base for creating a new intermediate
 format that could be easily generated using available packages for manipulating
 external-core.
-
 
 % Old
 
@@ -274,7 +273,7 @@ multiple definitions, they must be local (let-bound).\cite{tolmach2010ghc}
 \paragraph{Types:}
 
 Types are described by type expressions, there are built from named type constructors
-and type variables using type application and universial quantification.
+and type variables using type application and universal quantification.
 
 There are a few primitive type constructors, such as \emph{Intzh}, described in the 
 module \emph{GHC.Prim}. \emph{\%data} and \emph{\%newtype} declarations introduce additional
