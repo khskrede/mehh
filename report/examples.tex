@@ -1,45 +1,101 @@
 
-\section{Interpreting Core}
+\section{Examples}
 
-\subsection{Example haskell program}
+\lstset{ %
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+}
 
-The example program is a simple hello world program. This may seem small, but making it
-work requires quite alot of haskell functionality to be implemented.
+\subsection{Example 1: hello world}
 
+This example program is a simple "hello world" program, as this was practically
+the only program that was able to pass through the entire pipeline. Following
+is the "hello world" program written in Haskell:
+
+\begin{footnotesize}
 \lstinputlisting[language=Haskell]{"../interpreter/tests/helloworld.hs"}
+\end{footnotesize}
 
-\subsection{Converted to Core}
+\subsubsection{Converted to Core}
+
+After the program has passed through GHC and the external-core file
+has been generated, the program looks like this:
+
+\begin{footnotesize}
+\lstinputlisting{"../interpreter/tests/helloworld.hcr"}
+\end{footnotesize}
+
+... TODO: Explain this representation in more detail.
+
+\subsubsection{Converted to JSCore}
+
+In the next step it is parsed and dumped to JSCore:
+
+\begin{footnotesize}
+\lstinputlisting{"../interpreter/tests/helloworld.hcj"}
+\end{footnotesize}
+
+\subsubsection{JSCore graph}
+
+Using the parsing libraries of pypy we can generate a nice graph from the result, 
+see figure \ref{fig:helloworldgraph}.
+By simply traversing this datastructure we can generate the AST for the Core 
+interpreter (Haskell-Python).
+
+\begin{sidewaysfigure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{../interpreter/tests/helloworld.png}
+\caption{Example program translated to JSON}
+\label{fig:helloworldgraph}
+\end{figure}
+\end{sidewaysfigure}
+
+\subsubsection{Result}
+
+The program results as expected, outputting the string "Hello, world!".
+
+\subsection{Example 2: fibonacci}
+
+The following program is a simple fibonacci program.
+
+\begin{footnotesize}
+\lstinputlisting[language=Haskell]{"../interpreter/tests/fib.hs"}
+\end{footnotesize}
+
+\subsubsection{Converted to Core}
 
 As we can see, the simple hello world program becomes more complex when translated
 to Core by ghc.
 
-\lstinputlisting{"../interpreter/tests/helloworld.hcr"}
+\begin{footnotesize}
+\lstinputlisting{"../interpreter/tests/fib.hcr"}
+\end{footnotesize}
 
-... TODO: Explain this representation in more detail.
+%TODO: Explain this representation in more detail.
 
-\subsection{Converted to JSCore}
+\subsubsection{Converted to JSCore}
 
 And translated to JSCore by our serializer:
 
-\lstinputlisting{"../interpreter/tests/helloworld.hcj"}
+\begin{footnotesize}
+\lstinputlisting{"../interpreter/tests/fib.hcj"}
+\end{footnotesize}
 
-\subsection{Parser}
+\subsubsection{JSCore graph}
 
 Using the parsing libraries of pypy we can generate a nice graph from the result, 
-see figure \ref{fig:helloworldgraph}
+see figure \ref{fig:fibgraph}
 
 By simply traversing this datastructure we can generate the AST for the Core interpreter.
 
-\begin{figure}
-
-\includegraphics[width=\textwidth]{diags/helloworld2.png}
-\caption{Example program translated to JSON}
-\label{fig:helloworldgraph}
-
+\begin{sidewaysfigure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{../interpreter/tests/fib.png}
+\caption{Example program 2 translated to JSON}
+\label{fig:fibgraph}
 \end{figure}
+\end{sidewaysfigure}
 
-\subsection{Compiler}
-
-\subsubsection{Building the AST}
-
-
+\subsubsection{Result}
