@@ -1,0 +1,83 @@
+
+\section{Background}
+
+\subsection{PyPy}
+
+\subsubsection{A quick overview}
+
+The PyPy project is basically two things:
+
+\begin{enumerate}
+\item The RPython toolchain, written in Python; a set of compiler tools for 
+programs written in RPython.
+\item An implementation of Python using these tools.
+\end{enumerate}
+
+In this paper PyPy refers to former.
+
+The basic concept of PyPy is to use a high-level language to allow for rapid
+development of interpreters for a variety of platforms. By implementing a compiler
+for RPython, interpreters for other languages can be written in RPython and 
+compiled to any platform supported by the PyPy toolchain. 
+
+\subsubsection{RPython}
+
+RPython is a restricted proper subset of Python, this enables easy analyzis 
+as well as efficient compilation. This also means that RPython code can be
+run and debugged by Python interpreters, like CPython.
+
+\subsubsection{Translation toolchain}
+
+
+\subsubsection{Just-in-time compilation}
+
+The reason why PyPy is able to compete with other language implementations
+on speed is it's tracing, or rather meta-tracing, JIT. The JIT is implemented
+for RPython, but through a set of compiler hints, it is able to trace the 
+execution of the application interpreted by the RPython program.
+
+An introduction to virtual machine (VM) construction with python \cite{pypy}.
+
+\subsubsection{Haskell-Python}
+
+Haskell-Python is a interpreter for a subset of the Haskell language, called Core'.
+We call it Core' here because it does not directly correspond to the Core language
+used by GHC (the glasgow haskell compiler). Haskell-Python is written in RPython,
+and is compiled into a JIT compiler using the RPython toolchain. Our goal for this
+project is to start extending Haskell-Python to use GHC as a frontend for compilation 
+of Haskell programs.
+
+\subsection{GHC}
+
+\emph{Haskell} is a \emph{strongly-typed non-strict purely-functional} programming language, it will not be
+described in detail here, since Haskell is not the language we focus on. See \cite{hudak1992report}
+for an introduction to Haskell. 
+
+Core is an intermediate language used by the Glasgow Haskell Compiler\cite{ghc},
+and it is this language we wish to interpret. Core is a desugared version of Haskell, things like pattern matching
+and list comprehensions are transformed out to simpler constructs.\cite{jones1994compilation}
+
+
+\begin{comment}
+\subsubsection{Compilation by transformation}
+
+GHC uses a compilation idiom called \emph{compilation by transformation}. The idea is to repeatedly perform 
+correctness-preserving transformations to the program. Ideally, these transformations will result
+in a semantically equal program that executes more quickly or in less space. Such transformations seem
+to fall into two categories:
+
+\begin{itemize} 
+\item{\emph{Glamorous transformations}} are global, sophisticated, intellectually satisfying transformations,
+sometimes guided by some interesting kind of analyzis.
+\item{\emph{Humble transformations}} are small, simple, local transformations. Individually they look very trivial.
+\end{itemize}
+
+In the Glasgow Haskell Compiler, all humble transformations are done by the \emph{simplifier}. 
+\cite{jones1994compilation} The simplifier repeatedly performs transformations on the Core language.
+
+
+\subsection{Extcore}
+
+Extcore is a package for working with the external-core format.
+
+\end{comment}

@@ -1,5 +1,5 @@
 
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{verbatim}
 \usepackage{cite}
@@ -7,10 +7,12 @@
 \usepackage{longtable}
 \usepackage{listings}
 \usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage[margin=.7in]{geometry}
 \begin{document}
 
-\title{An attempt at Just-In-Time compilation\\of Haskell using PyPy and GHC}
+\title{Just-In-Time compilation of\\Haskell using PyPy and GHC}
 \author{Knut Halvor Skrede}
 \maketitle
 
@@ -18,7 +20,7 @@
 The paper describes a system for using GHC as frontend and PyPy as backend for a 
 Haskell JIT compiler. An intermediate language in JSON format based on GHC's Core
 language is described. The implemented parts are a serializer written in haskell and
-a deserializer written in RPython, in addition to some Haskell library functions.
+a deserializer written in Python, in addition to some Haskell library functions.
 The project is meant to serve as a base for further development. 
 \end{abstract}
 
@@ -35,9 +37,9 @@ The project is meant to serve as a base for further development.
 
 \input{intro.tex}
 
-% Tools
+% Background
 
-\input{tools.tex}
+\input{background.tex}
 
 % Core
 
@@ -51,10 +53,13 @@ The project is meant to serve as a base for further development.
 
 \input{implem.tex}
 
-% Interpreting Core
+% Examples
 
-\input{coreinterp.tex}
+\input{examples.tex}
 
+% Future work
+
+\input{future.tex}
 
 \bibliographystyle{plain}
 \bibliography{papers}

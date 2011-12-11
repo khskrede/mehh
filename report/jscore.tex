@@ -1,25 +1,19 @@
 
 \section{JSON representation of Core}
 
-"JSON (JavaScript Object Notation) is a lightweight data interchange format."
+JavaScript Object Notation (JSON) is a lightweight data interchange format.
 
-Since libraries exist for Haskell and python this makes it ideal for our use,
-in addition, the Haskell library contains a pretty printer that makes the resulting
-representation of Core easier to inspect.
+Since a library for manipulating JSON is available for haskell, this
+makes it a good choice for the project. In addition, it is easy to parse and
+the Haskell library contains a pretty-printer, making the result easier to
+inspect.
 
-Since most programming languages has libraries for JSON serialization
+\clearpage
 
-The JSON format was used for serializing and deserializing Core from Haskell to RPython.
-Following is a description of this process
+\subsection{Formal definition of JSON}
 
-
-\subsection{Definition of JSON}
-
-Definition of JSON grammar:
-
-\begin{footnotesize}
+\begin{scriptsize}
 \begin{longtable}{ r c l r }
-
 \multicolumn{4}{l}{Object}		\\
 \\[0.01in]
 $object$	& $ \rightarrow $ 	& \{ \}					& \\
@@ -84,34 +78,28 @@ $e$		& $ \rightarrow $ 	& e					& \\
 		& $ | $ 		& E-					& \\
 \\[0.01in]
 
+\caption{Grammar for JSON}
+\label{json}
 \end{longtable}
 
-\end{footnotesize}
+\end{scriptsize}
+
+\clearpage
 
 \subsection{JSON representation of Core}
 
-%\begin{itemize}
-%\item A module is represented as a list of 3 objects.
-%	\begin{itemize}
-%	\item Module identifier 
-%	\item Type definitions (Array) 
-%	\item Value definitions (Array)
-%	\item TODO: Do we include the import-list in the CoreModule?
-%	\end{itemize}
-
-%\item A type definition is represented as a list of 3 objects. 
-%\end{itemize}
-
-Most of the rhs. of the grammar evaluates to JSON Values. 
+In order to work with JSON and external-core, a format was define that
+expresses the Core program in JSON notation. Most of the right hand side of 
+the grammar evaluates to JSON Values. 
 Even though the grammar is changed to support JSON, an effort was made to
 keep it similar to the original Core grammar for easy referencing. The size
 of the resulting files was not considered to be an issue.
 
-In the following grammar, we use the following definitions:
+The following definitions was used to describe the grammar:
 
+\clearpage
 
-
-\begin{footnotesize}
+\begin{scriptsize}
 \begin{longtable}{ c c l }
 
 
@@ -123,11 +111,11 @@ $||$ $pat$ $||$ 	& :	& Optional											\\
 \\[0.01in]
 
 \end{longtable}
-\end{footnotesize}
+\end{scriptsize}
 
 JSON Core grammar:
 
-\begin{footnotesize}
+\begin{scriptsize}
 \begin{longtable}{ r c l r }
 
 \\[0.01in]
@@ -315,6 +303,11 @@ $upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
 $digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
 \\[0.01in]
 
+\caption{Grammar for JSCore}
+\label{jscore}
+
 \end{longtable}
-\end{footnotesize}
+\end{scriptsize}
+
+\clearpage
 
