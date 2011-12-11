@@ -4,7 +4,7 @@
                    "aty": "ghczmprim:GHCziUnit.Z0T"},
             "exp": {"aexp": "base:SystemziIO.putStrLn",
                     "args": {"aexp": "base:GHCziBase.unpackCStringzh",
-                             "args": {"Lstring": "hello world!"}}}},
+                             "args": {"Lstring": "Hello, world!"}}}},
            {"qvar": "main:ZCMain.main",
             "ty": {"bty": "ghczmprim:GHCziTypes.IO",
                    "aty": "ghczmprim:GHCziUnit.Z0T"},

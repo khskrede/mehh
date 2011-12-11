@@ -3,7 +3,7 @@
                      ghczmprim:GHCziUnit.Z0T) =
     base:SystemziIO.putStrLn
     (base:GHCziBase.unpackCStringzh
-     ("hello world!"::ghczmprim:GHCziPrim.Addrzh));
+     ("Hello, world!"::ghczmprim:GHCziPrim.Addrzh));
   main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
                        ghczmprim:GHCziUnit.Z0T) =
     base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
