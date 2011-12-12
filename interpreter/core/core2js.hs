@@ -2,14 +2,21 @@
 
 -- Core utilities
 
-import Language.Core.ParsecParser
+import Language.Core.Parser
+import Language.Core.ParseGlue
 import Language.Core.Core
 import Language.Core.Printer
 
 import Text.ParserCombinators.Parsec.Error
 
+import qualified Data.ByteString.Char8 as B
+
+
+import Control.Monad.State.Strict
+
 -- IO utilities
 
+import System.IO
 import System                       ( getArgs )
 
 -- JSON utilities
@@ -26,14 +33,15 @@ main = do
 
 compile :: FilePath -> FilePath -> IO ()
 compile inFile outFile = do
-    c <- parseCore inFile
+    stuff <- liftIO $ B.readFile inFile
+    let s = B.unpack stuff
+    let c = parse s 0
     writeFile outFile $ show $ pp_value $ getJS c
 
 
-getJS :: (Either ParseError Module) -> JSValue
-getJS (Left err) = toJSON $ show err
-getJS (Right mod) = modJS mod
-
+getJS :: ParseResult Module -> JSValue
+getJS (FailP err) = error ("error: " ++ err)
+getJS (OkP m) = modJS m
 
 --
 -- Module
