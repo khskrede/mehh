@@ -2,10 +2,16 @@
 \section{Examples}
 
 \lstset{ %
+basicstyle=\scriptsize,         % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\scriptsize,        % the size of the fonts that are used for the line-numbers
 frame=single,                   % adds a frame around the code
 tabsize=2,                      % sets default tabsize to 2 spaces
 captionpos=b,                   % sets the caption-position to bottom
 breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+gobble=\the\numexpr\WScount+2\relax,
+title=\lstname,			% include title (file name)
 }
 
 \subsection{Example 1: hello world}
@@ -14,28 +20,20 @@ This example program is a simple "hello world" program, as this was practically
 the only program that was able to pass through the entire pipeline. Following
 is the "hello world" program written in Haskell:
 
-\begin{footnotesize}
 \lstinputlisting[language=Haskell]{"../interpreter/tests/helloworld.hs"}
-\end{footnotesize}
 
 \subsubsection{Converted to Core}
 
 After the program has passed through GHC and the external-core file
 has been generated, the program looks like this:
 
-\begin{footnotesize}
 \lstinputlisting{"../interpreter/tests/helloworld.hcr"}
-\end{footnotesize}
-
-... TODO: Explain this representation in more detail.
 
 \subsubsection{Converted to JSCore}
 
 In the next step it is parsed and dumped to JSCore:
 
-\begin{footnotesize}
 \lstinputlisting{"../interpreter/tests/helloworld.hcj"}
-\end{footnotesize}
 
 \subsubsection{JSCore graph}
 
@@ -62,35 +60,22 @@ The program results as expected, outputting the string "Hello, world!".
 
 The following program is a simple fibonacci program.
 
-\begin{footnotesize}
 \lstinputlisting[language=Haskell]{"../interpreter/tests/fib.hs"}
-\end{footnotesize}
 
 \subsubsection{Converted to Core}
 
 As we can see, the simple hello world program becomes more complex when translated
 to Core by GHC.
 
-\begin{footnotesize}
 \lstinputlisting{"../interpreter/tests/fib.hcr"}
-\end{footnotesize}
-
-%TODO: Explain this representation in more detail.
 
 \subsubsection{Converted to JSCore}
 
 And translated to JSCore by our serializer:
 
-\begin{footnotesize}
 \lstinputlisting{"../interpreter/tests/fib.hcj"}
-\end{footnotesize}
 
 \subsubsection{JSCore graph}
-
-Using the parsing libraries of PyPy we can generate a nice graph from the result, 
-see figure \ref{fig:fibgraph}
-
-By simply traversing this datastructure we can generate the AST for the Core interpreter.
 
 \begin{sidewaysfigure}
 \begin{figure}[H]

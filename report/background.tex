@@ -19,25 +19,26 @@ The basic concept of PyPy is to use a high-level language to allow for rapid
 development of interpreters for a variety of platforms. By implementing a compiler
 for RPython, interpreters for other languages can be written in RPython and 
 compiled to any platform supported by the PyPy toolchain. Supported platforms include
-CLI and JVM. \cite{ancona2007rpython} 
+CLI and JVM. \cite{ancona2007rpython}
+
+PyPy uses the meta-programming argument; if a VM (virtual machine) can be written
+at a level of abstraction high enough, then it should be possible to automatically translate 
+this VM to other lower-level platforms. This is what PyPy does. \cite{pypy}
 
 \subsubsection{RPython}
 
-RPython is a restricted proper subset of Python, this enables easy analyzis 
+RPython (Restricted Python) is a restricted proper subset of Python that it 
+is able possible to perform type inference on. This means that it can be 
+translated to efficient C code, and it enables easy analyzis 
 as well as efficient compilation. This also means that RPython code can be
-run and debugged by Python interpreters, like CPython.
-
-\subsubsection{Translation toolchain}
-
+run and debugged by Python interpreters, like CPython. \cite{ancona2007rpython}
 
 \subsubsection{Just-in-time compilation}
 
 The JIT compiler is the reason why PyPy is able to compete with other language implementations
 on speed. Or rather, it's meta-tracing JIT. The JIT is implemented
-for RPython, but through a set of compiler hints, it is able to trace the 
+for the RPython compiler, but through a set of compiler hints, it is able to trace the 
 execution of the application interpreted by the RPython program.
-
-An introduction to virtual machine (VM) construction with python \cite{pypy}.
 
 \subsubsection{Haskell-Python}
 
@@ -45,22 +46,25 @@ Haskell-Python is an interpreter for a subset of the Haskell language, called Co
 We call it Core' here because it does not directly correspond to the Core language
 used by GHC (the glasgow haskell compiler). Haskell-Python is written in RPython,
 and is compiled into a JIT compiler using the RPython toolchain. Our goal for this
-project is to start extending Haskell-Python to use GHC as a frontend for compilation 
+project is to extend Haskell-Python to use GHC as a frontend for compilation 
 of Haskell programs.
 
 \subsection{GHC}
 
-\emph{Haskell} is a \emph{strongly-typed non-strict purely-functional} programming language, it will not be
-described in detail here, since Haskell is not the language we focus on. See \cite{hudak1992report}
+\emph{Haskell} is a \emph{strongly-typed non-strict purely-functional} 
+programming language, it will not be described in any detail here, since 
+Haskell is not the language we focus on. See \cite{hudak1992report}
 for an introduction to Haskell. 
 
 Core is an intermediate language used by the Glasgow Haskell Compiler\cite{ghc},
-and it is this language we wish to interpret. Core is a desugared version of Haskell, things like pattern matching
+and it is this language we wish to interpret. Core is a desugared version of Haskell, 
+things like pattern matching
 and list comprehensions are transformed out to simpler constructs.\cite{jones1994compilation}
 
 \subsection{Extcore}
 
-... TODO: Write something about extcore as it is being referenced later
+Extcore is a Haskell package for working with GHC's Core language. Among other things,
+it implements a parser for external-core, this is the part used from extcore in this project.
 
 \begin{comment}
 \subsubsection{Compilation by transformation}
