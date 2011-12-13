@@ -1,0 +1,16 @@
+%module main:Main
+  main:Main.main :: (ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziBase.zd
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+    @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
+    base:SystemziIO.putStrLn
+    (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+     (base:GHCziBase.unpackCStringzh
+      ("Hello, "::ghczmprim:GHCziPrim.Addrzh))
+     (base:GHCziBase.unpackCStringzh
+      ("world!"::ghczmprim:GHCziPrim.Addrzh)));
+  main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
+                       ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
+    main:Main.main;
