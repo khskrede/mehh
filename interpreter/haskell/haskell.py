@@ -422,6 +422,7 @@ class Application(HaskellObject):
         value = self.function.getvalue()
         if value:
             value = jit.hint(value, promote=True)
+            print value
             assert isinstance(value, AbstractFunction)
             return value.apply(self, todo)
 

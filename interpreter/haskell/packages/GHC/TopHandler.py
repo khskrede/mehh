@@ -1,6 +1,8 @@
 
+#TODO
+
 import haskell.haskell as hh
 
 @hh.expose_primitive(1)
-def runMainIO():
-    pass
+def runMainIO(args):
+    return hh.make_application(args[0], [])

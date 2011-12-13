@@ -1,8 +1,8 @@
 
 
-from haskell import haskell
+import haskell.haskell as hh
 
-@haskell.expose_primitive(1)
+@hh.expose_primitive(1)
 def unpackCString( args ):
     return args[0]
 

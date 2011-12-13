@@ -21,11 +21,24 @@ x = hh.Var("x")
 
 
 def rewrite_id(ident):
-    l = ident.split(":")[1].split("zi")
-    package = l[0]
+
+    str_ = ident.replace("\"","").replace("zi",".")
+    l = str_.split(":")
     l2 = l[1].split(".")
-    mod = l2[0]
-    func = l2[1].replace("zh", "")
+    package=""
+    mod=""
+    func=""
+    if len(l2) == 2:
+        package = ""
+        mod = l[0]+":"+l2[0]
+        func = l2[0]+"."+l2[1]
+
+    elif len(l2) == 3:
+        print "l2: ", repr(l2)
+        package = l2[0]
+        mod = l2[1]
+        func = l2[2].replace("zh", "")
+
     return package, mod, func
 
 
@@ -42,155 +55,171 @@ class AST(RPythonVisitor):
         return node
 
     def visit_object(self, node):
-
-        # We can figure out what kind of construct 
-        # we are parsing here
-
         if len(node.children) > 0:
             left = node.children[0]
             type_ = left.children[0].additional_info
 
-            # Module
             if type_ == "\"%module\"":
-                mident = left.children[1].additional_info
-
-                #print "Module(", mident, "):"
+                mident = left.children[1].additional_info.replace("\"","")
 
                 mod = module.module()
                 mod.name = mident
-
-                #for vdef in node.children[2].children[1].children:
-                #    func = vdef.visit(self)
-                #    mod.vdefg.append( func )
-
-                vdef = node.children[2].children[1].children[0]
-                func = vdef.visit(self)
-                mod.vdefg.append( func )
-
                 self.modules[mident] = mod
+
+                for vdef in node.children[2].children[1].children:
+                    func = vdef.visit(self)
+                    p, m, f = rewrite_id(vdef.children[0].children[1].additional_info)
+                    mod.vdefg[ f ] = func
+
                 return mod
 
-            # Algebraic type
-
-            # tdefg
             elif type_ == "\"%data\"":
-                print "DATA:"
+                raise NotImplementedError
 
-            # Newtype
-
-            # tdefg
             elif type_ == "\"%newtype\"":
-                print "NEWTYPE:"
+                raise NotImplementedError
 
-            # Constr defn.
-
-            # cdef
             elif type_ == "\"qdcon\"" and len(node.children) == 3:
-                print "Constructor definition:"
+                raise NotImplementedError
 
-            # Value defn.
-
-            # Vdefg
             elif type_ == "\"%rec\"":
-                print "Recursive value definition:"
+                func = node.children[0].children[1].visit(self)
+                func.recursive=True
+                return func
 
-            # Vdef
             elif type_ == "\"qvar\"" and len(node.children) == 3:
-
                 name = node.children[0].children[1].additional_info
-                #print "Nonrec(", name, "):"
 
-                args = [x]
-                if name == "\"main:Main.main\"":
-                    args = []
+                # Skip result/return type ?
+                t_args = node.children[1].children[1].children[0].children[1].visit(self)
+                #t_args = node.children[1].children[1].visit(self)
+                args = []
 
-                exp_child = node.children[2].children[1]
-                exp = exp_child.visit(self)
+                while type(t_args) == tuple:
+                    args.append(t_args[1])
+                    t_args = t_args[0]
 
+
+                print len(args)
+                print repr(args)
+
+                #args = hh.constr(t_args[0],t_args[1])
+
+                exp = node.children[2].children[1].visit(self)
+                #func = hh.make_application( exp, [args] )
                 func = hh.function( name, [(args, exp)], recursive=False )
 
                 return func
 
-            # Atomic expression
-
-            # aexp
-            elif type_ == "\"exp\"":
-                print "Expression:"
-                #return ([x], x)
-
-            # Expression
-
-            # application
-            elif type_ == "\"aexp\"":
-
-                ident = left.children[1].additional_info.replace("\"","")
+            elif type_ == "\"qvar\"" and len(node.children) == 1:
+                c = node.children[0].children[1].additional_info
+                ident = c.replace("\"","")
                 package, mod, func_name = rewrite_id(ident)
-
-                package_name = ("haskell.packages." + package + "." + mod)
-                #print package_name
-
-                if not (package_name in sys.modules):
+                func = 0
+                if not package == "":
+                    package_name = "haskell.packages." + package + "." + mod
                     __import__(package_name)
+                    mod = sys.modules[package_name]
+                    func = getattr(mod, func_name)
+                else:
+                    func = self.modules[mod].vdefg[func_name]
 
-                mod = sys.modules[package_name]
+                print "Wakka"
+                print func_name
 
-                func = getattr(mod, func_name)
+                print repr(func)
 
+                return func
+
+            elif type_ == "\"qvar\"" and len(node.children) == 2:
+                raise NotImplementedError
+
+
+
+
+
+
+
+
+            elif type_ == "\"qtycon\"":
+
+                c = node.children[0].children[1].additional_info
+                ident = c.replace("\"","")
+                package, mod, type_name = rewrite_id(ident)
+                type_ = 0
+                if not package == "":
+                    package_name = "haskell.packages." + package + "." + mod
+                    __import__(package_name)
+                    mod = sys.modules[package_name]
+                    type_ = getattr(mod, type_name)
+                else:
+                    type_ = self.modules[mod].tdefg[func_name]
+
+                #print "package name: \"", package_name, "\""
+                #print "type name: \"", type_name, "\""
+
+                return type_
+
+            elif type_ == "\"exp\"":
+                raise NotImplementedError
+
+            elif type_ == "\"aexp\"" and len(node.children) == 2:
+
+                app = 0
+                func = node.children[0].children[1].visit(self)
                 args = node.children[1].children[1].visit(self)
 
-                #print "App()"
+                type2_ = node.children[1].children[1].children[0].children[0].additional_info
+                if type2_ == "\"aty\"":
+                    # Type arguments have no operational effect?
+                    return func
+                else:
+                    return hh.make_application( func, [args] )
 
-                app = hh.make_application( func, [args] )
-                return app
+            elif type_ == "\"aexp\"" and len(node.children) == 1:
+                return node.children[0].children[1].visit(self)
 
-            # abstraction
+            elif type_ == "\"aty\"" and len(node.children) == 1:
+                return node.children[0].children[1].visit(self)
+
             elif type_ == "\"lambda\"":
-                print "Lambda abstraction:"
+                raise NotImplementedError
 
             elif type_ == "\"%let\"":
-                print "Local definition:"
+                raise NotImplementedError
 
             elif type_ == "\"%case\"":
-                print "Case expression:"
+                raise NotImplementedError
 
             elif type_ == "\"%cast\"":
-                print "Type coercion:"
+                raise NotImplementedError
 
             elif type_ == "\"%note\"":
-                print "Note:"
+                raise NotImplementedError
 
             elif type_ == "\"%external ccal\"":
-                print "external reference:"
+                raise NotImplementedError
 
             elif type_ == "\"%dynexternal ccal\"":
-                print "external reference (dynamic):"
+                raise NotImplementedError
 
             elif type_ == "\"%label\"":
-                print "external label:"
+                raise NotImplementedError
 
-            elif type_ == "\"Lstring\"":
-                #return node.children[0].children[1].visit(self)
+            elif type_ == "\"lit\"":
                 return hh.CString(node.children[0].children[1].additional_info)
 
-            # .... TODO
-
-            # Basic type
-
-            # type application
             elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
-                print "type application: meh!"
+                return (node.children[0].children[1].visit(self), 
+                       node.children[1].children[1].visit(self))
 
             else:
-                print type_
-
-        #for child in node.children:
-        #    child.visit(self)
+                raise NotImplementedError
 
     def visit_pair(self, node):
-        left = node.children[0]
-        right = node.children[1]
-
-        return (left.visit(self), right.visit(self))
+        left = node.children[0].visit(self)
+        right = node.children[1].visit(self)
+        return (left, right)
 
     def visit_array(self, node):
         l = []
@@ -199,11 +228,10 @@ class AST(RPythonVisitor):
         return l
 
     def visit_STRING(self, node):
-        print node.symbol, ": ", node.additional_info, ": ", node.token
         return hh.CString(node.additional_info)
 
     def visit_NUMBER(self, node):
-        print "number: ", node.symbol
+        raise NotImplementedError
 
 
 def parse_js( path ):

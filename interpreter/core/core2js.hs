@@ -108,21 +108,35 @@ vdefJS (Vdef (qvar, ty, exp)) =
 
 expJS :: Exp -> JSValue
 
-expJS (Var qvar) = qvarJS qvar
+expJS (Var qvar) = JSObject $ toJSObject 
+    [("qvar", qvarJS qvar)]
 
-expJS (Dcon qdcon) = qdconJS qdcon
+expJS (Dcon qdcon) =  JSObject $ toJSObject 
+    [("qdcon", qdconJS qdcon)]
 
-expJS (Lit lit) = litJS lit
+expJS (Lit lit) = JSObject $ toJSObject 
+    [("lit", litJS lit)]
 
-expJS (App exp1 exp2) =
+
+
+
+
+expJS (App exp1 exp2) = -- todo ???
     JSObject $ toJSObject
         [("aexp", expJS exp1),
-         ("args", expJS exp2)] --todo ?
+         ("args", JSObject $ toJSObject $ 
+            [("aexp", expJS exp2)] -- Application with value argument
+        )]
 
-expJS (Appt exp ty) =
+expJS (Appt exp ty) = -- todo ???
     JSObject $ toJSObject
         [("aexp", expJS exp),
-         ("args", tyJS ty)] -- todo ?
+         ("args", JSObject $ toJSObject $ 
+            [("aty", tyJS ty)]
+        )] -- todo ? Application with type argument
+
+
+
 
 expJS (Lam bind exp) =
     JSObject $ toJSObject
@@ -155,6 +169,24 @@ expJS (External string ty) =
     JSObject $ toJSObject
         [("%external ccal", toJSON string), 
          ("aty", tyJS ty)]
+
+expJS (App exp1 exp2) = -- todo ???
+    JSObject $ toJSObject
+        [("aexp", expJS exp1),
+         ("args", JSObject $ toJSObject $ 
+            [("aexp", expJS exp2)] -- Application with value argument
+        )]
+
+expJS (Appt exp ty) = -- todo ???
+    JSObject $ toJSObject
+        [("aexp", expJS exp),
+         ("args", JSObject $ toJSObject $ 
+            [("aty", tyJS ty)]
+        )] -- todo ? Application with type argument
+
+
+
+
 
 
 --
@@ -229,7 +261,10 @@ litJS :: Lit -> JSValue
 litJS (Literal corelit ty) = corelitJS corelit --todo?
 
 corelitJS :: CoreLit -> JSValue
-corelitJS = toJSON
+corelitJS (Lint x)      = toJSON x
+corelitJS (Lrational x) = toJSON x
+corelitJS (Lchar x)     = toJSON x
+corelitJS (Lstring x)   = toJSON x
 
 
 --
@@ -237,12 +272,19 @@ corelitJS = toJSON
 --
 
 tyJS :: Ty -> JSValue
-tyJS (Tvar tyvar) = tyvarJS tyvar 
-tyJS (Tcon qtycon) = qtyconJS qtycon
+tyJS (Tvar tyvar) = 
+    JSObject $ toJSObject 
+        [("tyvar", tyvarJS tyvar)]
+
+tyJS (Tcon qtycon) = 
+    JSObject $ toJSObject 
+        [("qtycon", qtyconJS qtycon)]
+
 tyJS (Tapp ty1 ty2) =
     JSObject $ toJSObject
         [("bty", tyJS ty1),
          ("aty", tyJS ty2)]
+
 tyJS (Tforall tbind ty) =
     JSObject $ toJSObject
         [("%forall", tbindJS tbind),

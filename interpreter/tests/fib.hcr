@@ -1,59 +1,57 @@
 %module main:Main
   %rec
-  {showrwzz :: integer:GHCziIntegerziInternals.Integer ->
-               (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
-     base:GHCziShow.show @ integer:GHCziIntegerziInternals.Integer
-     base:GHCziNum.zdf3;
-   zddEqrwB :: (base:GHCziClasses.ZCTEq
-                integer:GHCziIntegerziInternals.Integer) =
-     base:GHCziNum.zdp1Num @ integer:GHCziIntegerziInternals.Integer
-     base:GHCziNum.zdf2;
-   main:Main.fib :: integer:GHCziIntegerziInternals.Integer ->
-                    integer:GHCziIntegerziInternals.Integer =
-     \ (dsdwo::integer:GHCziIntegerziInternals.Integer) ->
-         %case integer:GHCziIntegerziInternals.Integer (base:GHCziClasses.zeze
-                                                        @ integer:GHCziIntegerziInternals.Integer
-                                                        zddEqrwB dsdwo
-                                                        (integer:GHCziInteger.smallInteger
+  {main:Main.fib :: integerzmgmp:GHCziIntegerziType.Integer ->
+                    integerzmgmp:GHCziIntegerziType.Integer =
+     \ (dsdnp::integerzmgmp:GHCziIntegerziType.Integer) ->
+         %case integerzmgmp:GHCziIntegerziType.Integer (base:GHCziClasses.zeze
+                                                        @ integerzmgmp:GHCziIntegerziType.Integer
+                                                        base:GHCziClasses.zdfEqInteger dsdnp
+                                                        (integerzmgmp:GHCziInteger.smallInteger
                                                          (0::ghczmprim:GHCziPrim.Intzh)))
          %of (wildB1::ghczmprim:GHCziBool.Bool)
            {ghczmprim:GHCziBool.False ->
-              %case integer:GHCziIntegerziInternals.Integer (base:GHCziClasses.zeze
-                                                             @ integer:GHCziIntegerziInternals.Integer
-                                                             zddEqrwB dsdwo
-                                                             (integer:GHCziInteger.smallInteger
+              %case integerzmgmp:GHCziIntegerziType.Integer (base:GHCziClasses.zeze
+                                                             @ integerzmgmp:GHCziIntegerziType.Integer
+                                                             base:GHCziClasses.zdfEqInteger dsdnp
+                                                             (integerzmgmp:GHCziInteger.smallInteger
                                                               (1::ghczmprim:GHCziPrim.Intzh)))
-              %of (wild1Xn::ghczmprim:GHCziBool.Bool)
+              %of (wild1X8::ghczmprim:GHCziBool.Bool)
                 {ghczmprim:GHCziBool.False ->
-                   base:GHCziNum.zp @ integer:GHCziIntegerziInternals.Integer
-                   base:GHCziNum.zdf2
+                   base:GHCziNum.zp @ integerzmgmp:GHCziIntegerziType.Integer
+                   base:GHCziNum.zdfNumInteger
                    (main:Main.fib
-                    (base:GHCziNum.zm @ integer:GHCziIntegerziInternals.Integer
-                     base:GHCziNum.zdf2 dsdwo
-                     (integer:GHCziInteger.smallInteger
+                    (base:GHCziNum.zm @ integerzmgmp:GHCziIntegerziType.Integer
+                     base:GHCziNum.zdfNumInteger dsdnp
+                     (integerzmgmp:GHCziInteger.smallInteger
                       (1::ghczmprim:GHCziPrim.Intzh))))
                    (main:Main.fib
-                    (base:GHCziNum.zm @ integer:GHCziIntegerziInternals.Integer
-                     base:GHCziNum.zdf2 dsdwo
-                     (integer:GHCziInteger.smallInteger
+                    (base:GHCziNum.zm @ integerzmgmp:GHCziIntegerziType.Integer
+                     base:GHCziNum.zdfNumInteger dsdnp
+                     (integerzmgmp:GHCziInteger.smallInteger
                       (2::ghczmprim:GHCziPrim.Intzh))));
                  ghczmprim:GHCziBool.True ->
-                   integer:GHCziInteger.smallInteger (1::ghczmprim:GHCziPrim.Intzh)};
+                   integerzmgmp:GHCziInteger.smallInteger
+                   (1::ghczmprim:GHCziPrim.Intzh)};
             ghczmprim:GHCziBool.True ->
-              integer:GHCziInteger.smallInteger (0::ghczmprim:GHCziPrim.Intzh)};
-   main:Main.main :: (base:GHCziIOBase.IO ghczmprim:GHCziUnit.Z0T) =
-     base:GHCziBase.zd
-     @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
-     @ ((base:GHCziIOBase.IO ghczmprim:GHCziUnit.Z0T))
-     base:SystemziIO.putStrLn
-     (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
-      (base:GHCziBase.unpackCStringzh
-       ("The 10. fibonacci number is: "::ghczmprim:GHCziPrim.Addrzh))
-      (base:GHCziBase.zd @ integer:GHCziIntegerziInternals.Integer
-       @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) showrwzz
-       (main:Main.fib
-        (integer:GHCziInteger.smallInteger
-         (10::ghczmprim:GHCziPrim.Intzh)))));
-   main:ZCMain.main :: (base:GHCziIOBase.IO ghczmprim:GHCziUnit.Z0T) =
-     base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
-     main:Main.main};
+              integerzmgmp:GHCziInteger.smallInteger
+              (0::ghczmprim:GHCziPrim.Intzh)}};
+  main:Main.main :: (ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziBase.zd
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+    @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
+    base:SystemziIO.putStrLn
+    (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+     (base:GHCziBase.unpackCStringzh
+      ("The 10. fibonacci number is: "::ghczmprim:GHCziPrim.Addrzh))
+     (base:GHCziBase.zd @ integerzmgmp:GHCziIntegerziType.Integer
+      @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (base:GHCziShow.show @ integerzmgmp:GHCziIntegerziType.Integer
+       base:GHCziNum.zdfShowInteger)
+      (main:Main.fib
+       (integerzmgmp:GHCziInteger.smallInteger
+        (10::ghczmprim:GHCziPrim.Intzh)))));
+  main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
+                       ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
+    main:Main.main;

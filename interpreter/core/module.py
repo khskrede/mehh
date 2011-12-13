@@ -3,7 +3,8 @@ import haskell.haskell
 
 class module():
     name = "" 
-    vdefg = []
+    vdefg = {}
+    tdefg = {}
     def __init__(self):
-        self.vdefg = []
-
+        self.vdefg = {}
+        self.tdefg = {}

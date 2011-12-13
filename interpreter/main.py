@@ -23,7 +23,7 @@ def interp(path):
 
     mod = ast.get_ast( js )
 
-    main = modules.values()[0].vdefg[0]
+    main = modules["main:Main"].vdefg["ZCMain.main"]
 
     x = []
     x.append( hh.Integer(3) )
