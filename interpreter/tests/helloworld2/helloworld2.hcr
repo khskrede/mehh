@@ -1,9 +1,6 @@
 %module main:Main
   main:Main.main :: (ghczmprim:GHCziTypes.IO
                      ghczmprim:GHCziUnit.Z0T) =
-    base:GHCziBase.zd
-    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
-    @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
     base:SystemziIO.putStrLn
     (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
      (base:GHCziBase.unpackCStringzh
