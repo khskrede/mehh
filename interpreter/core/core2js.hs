@@ -6,6 +6,7 @@ import Language.Core.Parser
 import Language.Core.ParseGlue
 import Language.Core.Core
 import Language.Core.Printer
+import Language.Core.Encoding
 
 import Text.ParserCombinators.Parsec.Error
 
@@ -117,10 +118,6 @@ expJS (Dcon qdcon) =  JSObject $ toJSObject
 expJS (Lit lit) = JSObject $ toJSObject 
     [("lit", litJS lit)]
 
-
-
-
-
 expJS (App exp1 exp2) = -- todo ???
     JSObject $ toJSObject
         [("aexp", expJS exp1),
@@ -134,9 +131,6 @@ expJS (Appt exp ty) = -- todo ???
          ("args", JSObject $ toJSObject $ 
             [("aty", tyJS ty)]
         )] -- todo ? Application with type argument
-
-
-
 
 expJS (Lam bind exp) =
     JSObject $ toJSObject
@@ -170,19 +164,6 @@ expJS (External string ty) =
         [("%external ccal", toJSON string), 
          ("aty", tyJS ty)]
 
-expJS (App exp1 exp2) = -- todo ???
-    JSObject $ toJSObject
-        [("aexp", expJS exp1),
-         ("args", JSObject $ toJSObject $ 
-            [("aexp", expJS exp2)] -- Application with value argument
-        )]
-
-expJS (Appt exp ty) = -- todo ???
-    JSObject $ toJSObject
-        [("aexp", expJS exp),
-         ("args", JSObject $ toJSObject $ 
-            [("aty", tyJS ty)]
-        )] -- todo ? Application with type argument
 
 
 
@@ -335,17 +316,18 @@ kindJS (Keq ty1 ty2) =
 -- 
 
 anmnameJS :: AnMname -> JSValue
-anmnameJS (M ((P pname), ids, id)) = toJSON $ (pname ++ ":" ++ (foldl (++) "" ids) ++ id)
+anmnameJS (M ((P pname), ids, id)) = 
+    toJSON $ (pname ++ ":" ++ (foldl (++) "" ids) ++ id)
 
 tyconJS :: Tcon -> JSValue
-tyconJS = toJSON
+tyconJS = toJSON 
 
 qtyconJS :: (Qual Tcon) -> JSValue
 qtyconJS (Just a, str) = toJSON ( (show a) ++ "." ++ str )
 qtyconJS (Nothing, str) = toJSON str
 
 tyvarJS :: Tvar -> JSValue
-tyvarJS = toJSON
+tyvarJS = toJSON 
 
 dconJS :: Dcon -> JSValue
 dconJS = toJSON
@@ -355,7 +337,7 @@ qdconJS (Just a, str) = toJSON ( (show a) ++ "." ++ str )
 qdconJS (Nothing, str) = toJSON str
 
 varJS :: Var -> JSValue
-varJS = toJSON
+varJS = toJSON 
 
 qvarJS :: (Qual Var) -> JSValue
 qvarJS (Just a, str) = toJSON ( (show a) ++ "." ++ str )
