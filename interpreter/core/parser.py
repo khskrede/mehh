@@ -17,35 +17,77 @@ ebnf = """
     pair: STRING [":"] value;
     """
 
-x = hh.Var("x")
-
 
 def rewrite_id(ident):
 
-    str_ = ident.replace("\"","").replace("zi",".")
-    l = str_.split(":")
-    l2 = l[1].split(".")
-    package=""
-    mod=""
-    func=""
-    if len(l2) == 2:
-        package = ""
-        mod = l[0]+":"+l2[0]
-        func = l2[0]+"."+l2[1]
+#    str_ = ident.replace("\"","").replace("zi",".")
+#    l = str_.split(":")
+#    l2 = l[1].split(".")
+#    package=""
+#    mod=""
+#    func=""
+#    if len(l2) == 2:
+#        package = ""
+#        mod = l[0]+":"+l2[0]
+#        func = l2[0]+"."+l2[1]
 
-    elif len(l2) == 3:
-        print "l2: ", repr(l2)
-        package = l2[0]
-        mod = l2[1]
-        func = l2[2].replace("zh", "")
+#    elif len(l2) == 3:
+#        print "l2: ", repr(l2)
+#        package = l2[0]
+#        mod = l2[1]
+#        func = l2[2].replace("zh", "")
 
-    return package, mod, func
+#    return package, mod, func
+
+    str_ = ident.replace("\"", "")
+
+    if not (":" in str_ or "." in str_):
+        return "", "", str_
+
+    [package,l] = str_.split(":")
+    package = package.replace("zm","-")
+
+    mod = l.split("zi")
+
+    module = ""
+    for i in range(len(mod)-1):
+        module += mod[i] + "."
+
+    ident_ = mod[len(mod)-1].split(".")
+    ref = ident_[1]
+    for i in range(1, len(mod)-1):
+        ref += "." + ident_[i]
+
+    module += ident_[0]
+
+    print "---------"
+    print package
+    print module
+    print ref
+
+    return package, module, ref
+
+
+class ForwardReference(object):
+    def become(self, x):
+        self.__class__ = x.__class__
+        self.__dict__.update(x.__dict__)
+    def replace_vars(self, subst, _):
+        return self
+
+
+def get_external(package, mod, name):
+    package_name = "ghc.libraries." + package + "." + mod
+    __import__(package_name)
+    mod = sys.modules[package_name]
+    ext = getattr(mod, name)
+    return ext
 
 
 class AST(RPythonVisitor):
 
     modules = {}
-    _vars = {}
+    mident=""
 
     def __init__(self, mods=None):
         self.modules = mods
@@ -60,17 +102,30 @@ class AST(RPythonVisitor):
             type_ = left.children[0].additional_info
 
             if type_ == "\"%module\"":
-                mident = left.children[1].additional_info.replace("\"","")
-
+                self.mident = left.children[1].additional_info.replace("\"","")
+                
                 mod = module.module()
-                mod.name = mident
-                self.modules[mident] = mod
+                mod.name = self.mident
+                self.modules[self.mident] = mod
+
+                print self.mident
+                print "***********"
 
                 for vdef in node.children[2].children[1].children:
+                    p = ""
+                    m = ""
+                    f = ""
+                    if not vdef.children[0].children[0].additional_info == "\"%rec\"":
+                        p, m, f = rewrite_id(vdef.children[0].children[1].additional_info)
+                    else:
+                        p, m, f = rewrite_id(vdef.children[0].children[1].\
+                                  children[0].children[0].children[1].additional_info)
+                        
+                    mod.qvars[ m+"."+f ] = ForwardReference()
                     func = vdef.visit(self)
-                    p, m, f = rewrite_id(vdef.children[0].children[1].additional_info)
-                    mod.vdefg[ f ] = func
-
+                    mod.qvars[ m+"."+f ].become(func)
+                    print m+"."+f
+                    print "++++++++++++++"
                 return mod
 
             elif type_ == "\"%data\"":
@@ -99,7 +154,6 @@ class AST(RPythonVisitor):
                     args.append(t_args[1])
                     t_args = t_args[0]
 
-
                 print len(args)
                 print repr(args)
 
@@ -113,16 +167,19 @@ class AST(RPythonVisitor):
 
             elif type_ == "\"qvar\"" and len(node.children) == 1:
                 c = node.children[0].children[1].additional_info
+                print c
+                print "ååååååååå"
                 ident = c.replace("\"","")
                 package, mod, func_name = rewrite_id(ident)
                 func = 0
-                if not package == "":
-                    package_name = "haskell.packages." + package + "." + mod
-                    __import__(package_name)
-                    mod = sys.modules[package_name]
-                    func = getattr(mod, func_name)
+                if not (package == "main" or package == ""):
+                    func = get_external(package, mod, func_name)
                 else:
-                    func = self.modules[mod].vdefg[func_name]
+                    if mod == "":
+                        func = self.modules[self.mident].qvars[func_name]
+                    else:
+                        mident = package + ":" + mod
+                        func = self.modules[mident].qvars[mod+"."+func_name]
 
                 print "Wakka"
                 print func_name
@@ -137,23 +194,27 @@ class AST(RPythonVisitor):
 
 
 
-
-
-
-
             elif type_ == "\"qtycon\"":
 
                 c = node.children[0].children[1].additional_info
+
+                print "-----"
+
+                print c
+
                 ident = c.replace("\"","")
                 package, mod, type_name = rewrite_id(ident)
                 type_ = 0
-                if not package == "":
-                    package_name = "haskell.packages." + package + "." + mod
-                    __import__(package_name)
-                    mod = sys.modules[package_name]
-                    type_ = getattr(mod, type_name)
+
+                print package
+                print mod
+                print type_name
+
+                if not package == "main":
+                    type_ = get_external(package, mod, type_name)
                 else:
-                    type_ = self.modules[mod].tdefg[func_name]
+                    mident = package + ":" + mod
+                    type_ = self.modules[mident].tdefg[mod+"."+type_name]
 
                 #print "package name: \"", package_name, "\""
                 #print "type name: \"", type_name, "\""
@@ -162,6 +223,10 @@ class AST(RPythonVisitor):
 
             elif type_ == "\"exp\"":
                 raise NotImplementedError
+
+
+
+
 
             elif type_ == "\"aexp\"" and len(node.children) == 2:
 
@@ -176,6 +241,10 @@ class AST(RPythonVisitor):
                 else:
                     return hh.make_application( func, [args] )
 
+
+
+
+
             elif type_ == "\"aexp\"" and len(node.children) == 1:
                 return node.children[0].children[1].visit(self)
 
@@ -183,13 +252,32 @@ class AST(RPythonVisitor):
                 return node.children[0].children[1].visit(self)
 
             elif type_ == "\"lambda\"":
-                raise NotImplementedError
+                var = node.children[0].children[1].visit(self)
+                exp = node.children[1].children[1].visit(self)
+
+                return hh.function( name, [(var, exp)], recursive=False )
 
             elif type_ == "\"%let\"":
                 raise NotImplementedError
 
             elif type_ == "\"%case\"":
-                raise NotImplementedError
+
+                exp = node.children[1].children[1].visit(self)
+                of = node.children[2].children[1].visit(self)
+
+                alts_ = node.children[3].children[1].children
+                alts = []
+                for alt in alts_:
+                    alts.append(alt.visit(self))
+
+                f = hh.function("case", alts)
+
+                return hh.make_application(f, exp)
+
+            elif type_ == "\"%_\"":
+                # Default case expression
+                f = node.children[0].children[1].visit(self)
+                return ([hh.Var("_")], f)
 
             elif type_ == "\"%cast\"":
                 raise NotImplementedError
@@ -206,14 +294,62 @@ class AST(RPythonVisitor):
             elif type_ == "\"%label\"":
                 raise NotImplementedError
 
-            elif type_ == "\"lit\"":
+            elif type_ == "\"lit\"" and len(node.children) == 1:
                 return hh.CString(node.children[0].children[1].additional_info)
+
+            elif type_ == "\"lit\"" and len(node.children) == 2:
+                pat = node.children[0].children[1].visit(self)
+                body = node.children[1].children[1].visit(self)
+                print "mmmmmmmmmmmmmmmmmmmmmmmm"
+                print pat
+                print body
+                print "mmmmmmmmmmmmmmmmmmmmmmmm"
+                return ([pat], body)
 
             elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
                 return (node.children[0].children[1].visit(self), 
                        node.children[1].children[1].visit(self))
 
+            elif type_ == "\"vbind\"":
+                return node.children[0].children[1].visit(self)
+
+            elif type_ == "\"var\"":
+                var_name = node.children[0].children[1].additional_info
+                var_name = var_name.replace("\"","")
+                ty = node.children[1].children[1].visit(self) # TODO, use this?
+                var = hh.Var(var_name)
+                self.modules[self.mident].qvars[var_name] = var
+                print var_name
+                print "øøøøøøøøøøøø"
+                return var
+
+            elif type_ == "\"qdcon\"" and len(node.children) == 4:
+                qdcon = node.children[0].children[1].visit(self)
+
+                tbinds_ = node.children[1].children[1].children
+                tbinds = []
+                for tbind in tbinds_:
+                    tbinds.append(tbind.visit(self))
+                
+                vbinds_ = node.children[2].children[1].children
+                vbinds = []
+                for vbind in vbinds_:
+                    vbinds.append(vbind.visit(self))
+ 
+                exp = node.children[3].children[1].visit(self)
+
+                # TODO ?
+                return (vbinds, exp)
+                #return hh.function("", (vbinds, exp))
+
+            elif type_ == "\"qdcon\"" and len(node.children) == 1:
+                package, mod, name = rewrite_id(node.children[0].children[1].additional_info)
+                if not (package == "main" or package == ""):
+                    return get_external(package, mod, name)
+                else:
+                    return self.modules[self.mident].qvars[name]
             else:
+                print type_
                 raise NotImplementedError
 
     def visit_pair(self, node):
@@ -231,7 +367,7 @@ class AST(RPythonVisitor):
         return hh.CString(node.additional_info)
 
     def visit_NUMBER(self, node):
-        raise NotImplementedError
+        return hh.Integer((node.additional_info.replace("\"","")))
 
 
 def parse_js( path ):

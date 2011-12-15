@@ -1,4 +1,5 @@
 
+import sys
 import os
 from subprocess import call
 
@@ -52,16 +53,19 @@ def do_test(test_dir):
 def main():
 
     # COMPILE core2js HERE!
-   
-    # Run all tests 
-    for dirname in os.listdir("./tests/"):
-        do_test( dirname )
+
+    if len(sys.argv) < 2:
+        # Run all tests 
+        for dirname in os.listdir("./tests/"):
+            do_test( dirname )
+    else:
+        do_test(sys.argv[1])
 
     # Print results
     print ""
-    print "--------------------"
+    print "-------------------------------"
     print "RESULTS"
-    print "--------------------"
+    print "-------------------------------"
     print ""
 
     for key, value in results.items():

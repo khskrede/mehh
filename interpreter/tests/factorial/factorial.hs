@@ -2,9 +2,9 @@ module Main where
 
 main = do 
     let n = 10
-    putStrLn $ "Factorial 10 is: " ++ (show $ fib n)
+    putStrLn $ "Factorial 10 is: " ++ (show $ fac n)
 
-fib :: Integer -> Integer
-fib 0 = 1
-fib n = n*fib (n-1)
+fac :: Int -> Int
+fac 0 = 1
+fac n = n*fac (n-1)
 

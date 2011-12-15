@@ -3,6 +3,6 @@
 import haskell.haskell as hh
 
 @hh.expose_primitive(1)
-def unpackCString( args ):
+def unpackCStringzh( args ):
     return args[0]
 
