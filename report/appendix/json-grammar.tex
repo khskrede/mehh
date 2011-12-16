@@ -1,0 +1,76 @@
+\section{Formal definition of JSON}
+\label{jsongrammar}
+
+\begin{scriptsize}
+\begin{longtable}{ r c l r }
+\multicolumn{4}{l}{Object}		\\
+\\[0.01in]
+$object$	& $ \rightarrow $ 	& \{ \}					& \\
+ 		& $ | $			& \{ $members$ \} 			& \\
+$members$ 	& $ \rightarrow $	& $pair$				& \\
+		& $ | $			& $pair$ , $members$ 			& \\
+$pair$		& $ \rightarrow $	& $string$ : $value$ 			& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Array}		\\
+$array$		& $ \rightarrow $	& [ ]					& \\
+		& $ | $			& [ $elements$ ]			& \\
+$elements$ 	& $ \rightarrow $	& $value$				& \\
+		& $ | $			& $value$ , $elements$			& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value}		\\
+$value$		& $ \rightarrow $	& $string$				& \\
+		& $ | $			& $number$				& \\
+		& $ | $			& $object$				& \\
+		& $ | $			& $array$				& \\
+		& $ | $			& true					& \\
+		& $ | $			& false					& \\
+		& $ | $			& null					& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{String}		\\
+$string$	& $ \rightarrow $	& ""					& \\
+		& $ | $			& " $chars$ "				& \\
+$chars$		& $ \rightarrow $	& $char$				& \\
+		& $ | $			& $char$ $chars$			& \\
+$char$		& $ \rightarrow $	& any Unicode character except $"$ 	& \\ 
+		&			& or $\backslash$ or control characters: & \\
+		&			& $\backslash\backslash$		& \\
+		&			& $\backslash /$ 			& \\
+		&			& $\backslash b$ 			& \\
+		& 			& $\backslash f$ 			& \\
+		&			& $\backslash n$			& \\
+		& 			& $\backslash r$ 			& \\
+		&			& $\backslash t$ 			& \\
+		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Number}		\\
+$number$	& $ \rightarrow $ 	& $int$ 				& \\
+		& $ | $			& $int$ $frac$				& \\
+		& $ | $			& $int$ $exp$				& \\
+		& $ | $			& $int$ $frac$ $exp$			& \\
+$int$		& $ \rightarrow$ 	& $digit$				& \\
+		& $ | $ 		& $digit1-9$ $digits$			& \\
+		& $ | $ 		& - $digit$				& \\
+		& $ | $ 		& - $digit1-9$ $digits$			& \\
+$frac$ 		& $ \rightarrow $ 	& . $digits$ 				& \\
+$exp$		& $ \rightarrow $ 	& $e$ $digits$ 				& \\
+$digits$	& $ \rightarrow $ 	& $digit$				& \\
+		& $ | $ 		& $digit$ $digits$			& \\
+$e$		& $ \rightarrow $ 	& e					& \\
+		& $ | $ 		& e+					& \\
+		& $ | $ 		& e- 					& \\
+		& $ | $ 		& E					& \\
+		& $ | $ 		& E+					& \\
+		& $ | $ 		& E-					& \\
+\\[0.01in]
+
+\caption{Grammar for JSON}
+\label{json}
+\end{longtable}
+
+\end{scriptsize}
+
+

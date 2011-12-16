@@ -1,89 +1,69 @@
 
-\section{Examples}
+\section{Example}
 
-\lstset{ %
-basicstyle=\scriptsize,         % the size of the fonts that are used for the code
-numbers=left,                   % where to put the line-numbers
-numberstyle=\scriptsize,        % the size of the fonts that are used for the line-numbers
-frame=single,                   % adds a frame around the code
-tabsize=2,                      % sets default tabsize to 2 spaces
-captionpos=b,                   % sets the caption-position to bottom
-breaklines=true,                % sets automatic line breaking
-breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-gobble=\the\numexpr\WScount+2\relax,
-title=\lstname,			% include title (file name)
-}
 
-\subsection{Example 1: hello world}
+\subsection{Example: hello world}
 
 This example program is a simple "hello world" program, as this was practically
 the only program that was able to pass through the entire pipeline. Following
 is the "hello world" program written in Haskell:
 
-\lstinputlisting[language=Haskell]{"../interpreter/tests/helloworld.hs"}
+\lstinputlisting[language=Haskell]{"../interpreter/tests/helloworld/helloworld.hs"}
 
 \subsubsection{Converted to Core}
 
-After the program has passed through GHC and the external-core file
+After the program has passed through GHC and the External-core file
 has been generated, the program looks like this:
 
-\lstinputlisting{"../interpreter/tests/helloworld.hcr"}
+\lstinputlisting{"../interpreter/tests/helloworld/helloworld.hcr"}
 
 \subsubsection{Converted to JSCore}
 
 In the next step it is parsed and dumped to JSCore:
 
-\lstinputlisting{"../interpreter/tests/helloworld.hcj"}
+\lstinputlisting{"../interpreter/tests/helloworld/helloworld.hcj"}
 
 \subsubsection{JSCore graph}
 
 Using the parsing libraries of PyPy we can generate a nice graph from the result,
 directly corresponding to the resulting datastructure. 
-See figure \ref{fig:helloworldgraph}.
+See appendix \ref{graphs}, figure \ref{helloworldgraph}.
 By simply traversing this datastructure we can generate the AST for the Core 
 interpreter (Haskell-Python).
-
-\begin{sidewaysfigure}
-\begin{figure}[H]
-\includegraphics[width=\textwidth]{../interpreter/tests/helloworld.png}
-\caption{Example program translated to JSON}
-\label{fig:helloworldgraph}
-\end{figure}
-\end{sidewaysfigure}
 
 \subsubsection{Result}
 
 The program results as expected, outputting the string "Hello, world!".
 
 
+
+
+
+
+
+
+
+\begin{comment}
+
 \subsection{Example 2: naive fibonacci}
 
 The following program is a simple fibonacci program.
 
-\lstinputlisting[language=Haskell]{"../interpreter/tests/fib.hs"}
+\lstinputlisting[language=Haskell]{"../interpreter/tests/fibonacci/fibonacci.hs"}
 
 \subsubsection{Converted to Core}
 
 As we can see, the simple hello world program becomes more complex when translated
 to Core by GHC.
 
-\lstinputlisting{"../interpreter/tests/fib.hcr"}
+\lstinputlisting{"../interpreter/tests/fibonacci/fibonacci.hcr"}
 
 \subsubsection{Converted to JSCore}
 
 And translated to JSCore by our serializer:
 
-\lstinputlisting{"../interpreter/tests/fib.hcj"}
-
-\subsubsection{JSCore graph}
-
-\begin{sidewaysfigure}
-\begin{figure}[H]
-\includegraphics[width=\textwidth]{../interpreter/tests/fib.png}
-\caption{Example program 2 translated to JSON}
-\label{fig:fibgraph}
-\end{figure}
-\end{sidewaysfigure}
+\lstinputlisting{"../interpreter/tests/fibonacci/fibonacci.hcj"}
 
 \subsubsection{Result}
 
+\end{comment}

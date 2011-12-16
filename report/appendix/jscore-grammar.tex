@@ -1,0 +1,216 @@
+
+\section{Formal definition of JSCore}
+\label{jscoregrammar}
+
+\begin{scriptsize}
+\leavevmode
+\begin{longtable}{ c c l }
+
+
+$[$ $pat$ $]$ 		& : 	& Zero or more repetitions of $pat$ surrounded by $[$ $]$ and comma separated (A JSON Aray). 	\\
+$[$ $pat$ $]^{+}$ 	& : 	& One or more repetitions of $pat$ surrounded by $[$ $]$ and comma separated (A JSON Aray). 	\\ 
+$\{$ $pat$ $\}$		& :	& Represents a JSON Object, $pat$ is a JSON $members$.						\\
+$pat_{1}$ $|$ $pat_{2}$	& :	& Choice.											\\
+$||$ $pat$ $||$ 	& :	& Optional											\\
+\\[0.01in]
+
+\end{longtable}
+\end{scriptsize}
+
+JSCore grammar:
+
+\begin{scriptsize}
+\begin{longtable}{ r c l r }
+
+\\[0.01in]
+\multicolumn{4}{l}{Module}		\\
+$module$	& $ \rightarrow $ 	& $\{$ "\%module" : $mident$ , "tdefg" : $[$ $tdefg$ $]$ , "vdefg" : $[$ $vdefg$ $]$ $\}$			&			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type defn.}		\\
+$tdefg$ 	& $ \rightarrow $	& $\{$ "\%data" : $qtycon$ , "tbind" : $[$ $tbind$ $]$, "cdef" : $[$ $cdef$ $]$ $\}$							& algebraic type	\\
+		& $ | $			& $\{$ "\%newtype" : $qtycon$ , "qtycon" : $qtycon$ , "tbind" : $[$ $tbind$ $]$ , "ty" : $ty$ $\}$ 		& newtype		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Constr. defn.}	\\
+\\[0.01in]
+$cdef$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $ ]$ , "aty" : $[$aty$]^{+}$ $\}$ 				& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value defn.}		\\
+\\[0.01in]
+$vdefg$		& $ \rightarrow $	& $\{$ "\%rec" : $[$ $vdef$ $]^{+}$ $\}$    									& recursive		\\
+		& $ | $			& $vdef$													& non-recursive		\\
+$vdef$ 		& $ \rightarrow $	& $\{$ "qvar" : $qvar$ , "ty" : $ty$ , "exp" : $exp$ $\}$ 							& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic expr.}	\\
+\\[0.01in]
+$aexp$		& $ \rightarrow $	& $\{$ "qvar" : $qvar$ $\}$											& variable		\\
+		& $ | $			& $\{$ "qdcon" : $qdcon$ $\}$											& data constructor	\\
+		& $ | $			& $\{$ "lit" : $lit$ $\}$											& literal		\\
+		& $ | $			& $\{$ "exp" : $exp$ $\}$ 											& nested expr.		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Expression}			 \\
+\\[0.01in]
+$exp$		& $ \rightarrow $	& $aexp$													& atomic expr.		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ , "args" : $[$ $arg$ $]^{+}$ $\}$ 							& application		\\
+		& $ | $			& $\{$ "lambda" : $[$ $binder$ $]$ , "exp" : $exp$ $\}$								& abstraction		\\
+		& $ | $			& $\{$ "\%let" : $vdefg$ , "\%in" : $exp$ $\}$									& local definition	\\
+		& $ | $			& $\{$ "\%case" : $aty$ , "exp" : $exp$ , "\%of" : $vbind$, "alt" : $[$ $alt$ $]^{+}$ $\}$			& case expr.		\\
+		& $ | $			& $\{$ "\%cast" : $exp$ , "aty" : $aty$	$\}$									& type coercion		\\
+		& $ | $			& $\{$ "\%note" : "  $\{$ $char$ $\}$ " , "exp" : $exp$	$\}$							& expression note	\\
+		& $ | $			& $\{$ "\%external ccal" : " $\{$ $char$ $\}$ " , "aty" : $aty$ $\}$						& external reference	\\
+		& $ | $			& $\{$ "\%dynexternal ccal" : $aty$ $\}$									& external reference (dynamic)	\\
+		& $ | $			& $\{$ "\%label" : " $\{$ $char$ $\}$ " $\}$									& external label	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Argument}			 \\
+\\[0.01in]
+$arg$		& $ \rightarrow $	& $\{$ "aty" : $aty$ $\}$											& type argument		\\
+		& $ | $			& $\{$ "aexp" : $aexp$ $\}$											& value argument	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Case alt}			 \\
+\\[0.01in]
+$alt$		& $ \rightarrow $	& $\{$ "qdcon" : $qdcon$ , "tbind" : $[$ $tbind$ $]$ , "vbind" : $[$ $vbind$ $]$ , "exp" : $exp$ $\}$		& constructor alternative \\
+		& $ | $			& $\{$ "lit" : $lit$ , "exp" : $exp$ $\}$									& literal alternative 	\\
+		& $ | $			& $\{$ "\%\_" : $exp$ $\}$											& default alternative	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Binder}			 \\
+\\[0.01in]
+$binder$	& $ \rightarrow $	& $\{$ "tbind" : $tbind$ $\}$											& type binder		\\
+		& $ | $			& $\{$ "vbind" : $vbind$ $\}$											& value binder		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type binder}			 \\
+\\[0.01in]
+$tbind$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& implicit of kind * 	\\
+		& $ | $			& $\{$ "tyvar" : $tyvar$ , "kind" : $kind$ $\}$									& explicitly kinded	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value binder}			 \\
+\\[0.01in]
+$vbind$		& $ \rightarrow $	& $\{$ "var" : $var$ , "ty" $ty$ $\}$ 										& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Literal}			 \\
+\\[0.01in]
+$lit$		& $ \rightarrow $	& $jsstring$													& string 		\\ 
+		& $ | $			& $jsnumber$													& number		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON String}			 \\
+\\[0.01in]
+$jsstring$	& $ \rightarrow $	& ""														& \\
+		& $ | $			& " $jschars$ "													& \\
+$jschars$	& $ \rightarrow $	& $jschar$													& \\
+		& $ | $			& $jschar$ $jschars$												& \\
+$jschar$	& $ \rightarrow $	& any Unicode character except $"$ 										& \\ 
+		&			& or $\backslash$ or control characters: 									& \\
+		&			& $\backslash\backslash$											& \\
+		&			& $\backslash /$ 												& \\
+		&			& $\backslash b$ 												& \\
+		& 			& $\backslash f$ 												& \\
+		&			& $\backslash n$												& \\
+		& 			& $\backslash r$ 												& \\
+		&			& $\backslash t$ 												& \\
+		& 			& $\backslash u$ four-hex digits\\
+\\[0.01in]
+
+\multicolumn{4}{l}{JSON Number}			 \\
+\\[0.01in]
+$jsnumber$	& $ \rightarrow $ 	& $jsint$ 													& \\
+		& $ | $			& $jsint$ $jsfrac$												& \\
+		& $ | $			& $jsint$ $jsexp$												& \\
+		& $ | $			& $jsint$ $jsfrac$ $jsexp$											& \\
+$jsint$		& $ \rightarrow$ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit1-9$ $jsdigits$											& \\
+		& $ | $ 		& - $jsdigit$													& \\
+		& $ | $ 		& - $jsdigit1-9$ $jsdigits$											& \\
+$jsfrac$ 	& $ \rightarrow $ 	& . $jsdigits$ 													& \\
+$jsexp$		& $ \rightarrow $ 	& $jse$ $jsdigits$ 												& \\
+$jsdigits$	& $ \rightarrow $ 	& $jsdigit$													& \\
+		& $ | $ 		& $jsdigit$ $jsdigits$												& \\
+$jse$		& $ \rightarrow $ 	& e														& \\
+		& $ | $ 		& e+														& \\
+		& $ | $ 		& e- 														& \\
+		& $ | $ 		& E														& \\
+		& $ | $ 		& E+														& \\
+		& $ | $ 		& E-														& \\
+\\[0.01in]
+
+
+\multicolumn{4}{l}{Atomic type}			 \\
+\\[0.01in]
+$aty$		& $ \rightarrow $	& $\{$ "tyvar" : $tyvar$ $\}$											& type variable 	\\
+		& $ | $			& $\{$ "qtycon" : $qtycon$ $\}$											& type constructor	\\
+		& $ | $ 		& $\{$ "ty" : $ty$ $\}$												& nested type 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Basic type}			 \\
+\\[0.01in]
+$bty$		& $ \rightarrow $	& $aty$														& atomic type		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "aty" , $aty$ $\}$									& type application	\\
+		& $ | $			& $\{$ "\%trans" : $aty$ , "aty" : $aty$ $\}$									& transitive coercion 	\\
+		& $ | $			& $\{$ "\%sym" : $aty$ $\}$											& symmetric coercion	\\
+		& $ | $			& $\{$ "\%unsafe" : $aty$ , "aty" : $aty$ $\}$									& unsafe coercion	\\
+		& $ | $			& $\{$ "\%left" : $aty$ $\}$											& left coercion		\\
+		& $ | $			& $\{$ "\%right" : $aty$ $\}$											& right coercion	\\
+		& $ | $			& $\{$ "\%inst" : $aty$ , "aty" : $aty$ $\}$									& instantiation coercion \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type}			 \\
+\\[0.01in]
+$ty$		& $ \rightarrow $	& $bty$														& basic type 		\\
+		& $ | $			& $\{$ "\%forall" :  $[$ $tbind$ $]^{+}$ , "ty" : $ty$ $\}$							& type abstraction	\\
+		& $ | $			& $\{$ "bty" $bty$ , "ty" : $ty$ $\}$										& arrow type construction \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic kind}			 \\
+\\[0.01in]
+$akind$		& $ \rightarrow $	& $*$														& lifted kind 		\\
+		& $ | $			& \#														& unlifted kind 	\\
+		& $ | $			& ?														& open kind 		\\
+		& $ | $			& $\{$ "bty" : $bty$ , "bty" : $bty$ $\}$									& equality kind 	\\
+		& $ | $			& $\{$ "kind" : $kind$ $\}$ 											& nested kind 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Kind}			 \\
+\\[0.01in]
+$kind$		& $ \rightarrow $	& $\{$ "akind" : $akind$ $\}$											& atomic kind		\\
+		& $ | $			& $\{$ "akind" : $akind$ , "kind" : $kind$ $\}$									& arrow kind		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Identifier}			 \\
+\\[0.01in]
+$mident$	& $ \rightarrow $	& " $pname$ : $uname$ "												& module		\\
+$tycon$		& $ \rightarrow $	& " $uname$ "													& type constr.		\\
+$qtycon$	& $ \rightarrow $	& " $mident$ . $tycon$ "											& qualified type constr.\\
+$tyvar$		& $ \rightarrow $	& " $lname$ "													& type variable		\\
+$dcon$		& $ \rightarrow $	& " $uname$ "													& data constr.		\\
+$qdcon$		& $ \rightarrow $	& " $mident$ . $dcon$ "												& qualified data constr.\\
+$var$		& $ \rightarrow $	& " $lname$ "													& variable		\\
+$qvar$		& $ \rightarrow $	& " $||$ $mident$ . $||$ $var$ "										& optionally qualified variable\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Name}			 \\
+\\[0.01in]
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								& \\
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								& \\
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								& \\
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							& \\
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									& \\
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
+\\[0.01in]
+
+\caption{Grammar for JSCore}
+\label{jscore}
+
+\end{longtable}
+\end{scriptsize}
+
+

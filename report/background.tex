@@ -28,7 +28,7 @@ this VM to other lower-level platforms. This is what PyPy does. \cite{pypy}
 \subsubsection{RPython}
 
 RPython (Restricted Python) is a restricted proper subset of Python that it 
-is able possible to perform type inference on. This means that it can be 
+is possible to perform type inference on. This means that it can be 
 translated to efficient C code, and it enables easy analyzis 
 as well as efficient compilation. This also means that RPython code can be
 run and debugged by Python interpreters, like CPython. \cite{ancona2007rpython}
@@ -43,7 +43,8 @@ execution of the application interpreted by the RPython program.
 \subsubsection{Haskell-Python}
 
 Haskell-Python is an interpreter for a subset of the Haskell language, called Core'.
-We call it Core' here because it does not directly correspond to the Core language
+We call it Core' (Core marked) here because it does not directly correspond to 
+the Core language
 used by GHC (the glasgow haskell compiler). Haskell-Python is written in RPython,
 and is compiled into a JIT compiler using the RPython toolchain. Our goal for this
 project is to extend Haskell-Python to use GHC as a frontend for compilation 
@@ -64,7 +65,7 @@ and list comprehensions are transformed out to simpler constructs.\cite{jones199
 \subsection{Extcore}
 
 Extcore is a Haskell package for working with GHC's Core language. Among other things,
-it implements a parser for external-core, this is the part used from extcore in this project.
+it implements a parser for External-core, this is the part used from extcore in this project.
 
 \begin{comment}
 \subsubsection{Compilation by transformation}
@@ -86,6 +87,6 @@ In the Glasgow Haskell Compiler, all humble transformations are done by the \emp
 
 \subsection{Extcore}
 
-Extcore is a package for working with the external-core format.
+Extcore is a package for working with the External-core format.
 
 \end{comment}

@@ -16,7 +16,7 @@ The motivation behind the project is to see if a \emph{strongly-typed}
 can benefit from just-in-time (JIT) compilation.
 
 Some people seem to think that there is little to gain from using 
-JIT compilation of statically typed languages since they can be
+JIT compilation of strongly typed languages since they can be
 so heavily optimized at compile time. However, a JIT compiler has a lot
 more information to work with. Speedup in JIT compilers is achieved by
 feeding values observed at runtime into compilation and exploit them.
@@ -57,23 +57,24 @@ to-be-implemented parts of the project.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{diags/overview}
-\caption{Project overview. Full border: implemented, Dotted border: unimplemented.}
+\caption[Project overview]{Project overview. Full border: implemented, Dotted border: unimplemented.}
 \label{overview}
 \end{figure}
 
 \subsection{Structure of the paper}
 
-Follwing this introduction is a section (Section 3: Background) discussing the 
-background of the project. The background section contains some information about 
-the tools beeing used, and why.
-Section 3 (External-core) contains a description of the external language representation
+Following this introduction is a section discussing the 
+background of the project. The background section contains some information 
+about the tools beeing used, and why.
+Section 3 contains a description of the external language representation
 of the intermediate language used by GHC.
-Section 4 (JSON representation of Core) follows with the description of the intermediate format
-used in this project, which is a combination of JSON and external-core.
-Section 5 (Implementation) discusses the implementation of the system, the issues faced
+Section 4 follows with the description of 
+the intermediate format
+used in this project, which is a combination of JSON and External-core.
+Section 5 discusses the implementation of the system, the issues faced
 during development and some of the remaining issues.
-In section 6 (Examples), example programs are passed through the pipeline with intermediate
-representations presented at each step.
-Section 7 (Future Work) discusses work to be done in the future.
+In section 6, example programs are passed through the pipeline 
+with intermediate representations presented at each step.
+Section 7 discusses future work.
 
 
