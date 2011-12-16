@@ -12,6 +12,11 @@ GHC. For this project, GHC is used to generate External-core. This way, desugari
 type checking, pattern matching and overloading is performed. The remaining task
 is then to interpret the External-core representation. \cite{tolmach2010ghc}
 
+The GHC produced External-core uses z-encoding for special characters in names 
+(variables, constructors, ...), for
+a definition of the z-encoding, see \ref{zencoding}. This is a good thing, as much
+of the functionality represented by these names has to be implemented in RPython.
+
 Without using GHC to produce External-core, linking code into GHC would be an 
 optional way of achieving this, which would be a difficult and large task.
 Or, the GHC API could be used to do the same task more cleanly. \cite{tolmach2010ghc}
@@ -27,20 +32,6 @@ format that could be easily generated using available packages for manipulating
 External-core.
 
 For a formal definition of External-core, see appendix \ref{coregrammar}.
-
-\subsection{Z-Encoding}
-
-% Old
-
-%The Core language is the internal program representation used by GHC. In Core,
-%all syntactic sugar is removed, type checking is performed, pattern matching is
-%translated into case-expressions (each of witch performs only a single level of
-%matching) and overloading is resolved.\cite{jones1992implementing} Following
-%is a description of External-core as presented by \cite{tolmach2010ghc}.
-
-% \clearpage
-
-%\clearpage
 
 \subsection{Evaluation of a program}
 
