@@ -44,7 +44,7 @@ breakatwhitespace=false,        % sets if automatic breaks should only happen at
 %title=\lstname,			% include title (file name)
 xleftmargin=5pt,
 xrightmargin=5pt,
-rulecolor=\color{Grey}
+%rulecolor=\color{Grey}
 }
 
 % -------------------------
@@ -70,6 +70,9 @@ rulecolor=\color{Grey}
   \vskip\belowcaptionskip}
 \makeatother   % Cancel the effect of \makeatletter
 
+% Options for footnotes
+\setlength{\footnotesep}{0.5cm}
+%\setlength{\skip\footins}{2cm}
 
 \begin{document}
 
@@ -159,9 +162,13 @@ The project is meant to serve as a base for further development.
 \clearpage
 \input{./appendix/jscore-grammar.tex}
 
-% JSCore program graphs
+% Test programs
 \clearpage
-\input{./appendix/jscore-graphs.tex}
+\input{./appendix/tests.tex}
+
+% JSCore program graphs
+%\clearpage
+%\input{./appendix/jscore-graphs.tex}
 
 % References
 \clearpage

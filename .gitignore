@@ -1,0 +1,14 @@
+*.log
+*.aux
+*.blg
+*.bbl
+
+*.pdf
+*.png
+
+*.pyc
+
+*.o
+*.hi
+
+*.swp

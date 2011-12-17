@@ -234,10 +234,14 @@ class AST(RPythonVisitor):
                 func = node.children[0].children[1].visit(self)
                 args = node.children[1].children[1].visit(self)
 
+#                type1_ = node.children[0].children[1].children[0].children[0].additional_info
+
                 type2_ = node.children[1].children[1].children[0].children[0].additional_info
                 if type2_ == "\"aty\"":
                     # Type arguments have no operational effect?
                     return func
+#                elif type1_ == "\"qdcon\"":
+#                    return hh.make_constructor( func, [args])
                 else:
                     return hh.make_application( func, [args] )
 
@@ -267,9 +271,11 @@ class AST(RPythonVisitor):
 
                 alts_ = node.children[3].children[1].children
                 alts = []
+                print "MMMMMMMMMMMMMMMMMMMMMMM"
                 for alt in alts_:
                     alts.append(alt.visit(self))
-
+                    print alts
+                print "MMMMMMMMMMMMMMMMMMMMMMM"
                 f = hh.function("case", alts)
 
                 return hh.make_application(f, exp)
@@ -300,11 +306,13 @@ class AST(RPythonVisitor):
             elif type_ == "\"lit\"" and len(node.children) == 2:
                 pat = node.children[0].children[1].visit(self)
                 body = node.children[1].children[1].visit(self)
-                print "mmmmmmmmmmmmmmmmmmmmmmmm"
-                print pat
-                print body
-                print "mmmmmmmmmmmmmmmmmmmmmmmm"
-                return ([pat], body)
+
+                case = ([pat], body)
+
+                #print "mmmmmmmmmmmmmmmmmmmmmmmm"
+                #print case
+                #print "mmmmmmmmmmmmmmmmmmmmmmmm"
+                return case
 
             elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
                 return (node.children[0].children[1].visit(self), 
@@ -364,6 +372,9 @@ class AST(RPythonVisitor):
         return l
 
     def visit_STRING(self, node):
+        # TODO: fix this, we can't simply replace
+        # all: "
+        str_ = node.additional_info.replace("\"","")
         return hh.CString(node.additional_info)
 
     def visit_NUMBER(self, node):

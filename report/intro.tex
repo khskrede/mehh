@@ -3,7 +3,7 @@
 
 \subsection{Project description}
 
-The project is to implement a serializer from Haskell to an intermediate
+The project focuses on implementing a serializer from Haskell to an intermediate
 format using GHC, and a deserializer from the intermediate format to an
 interpreter usin PyPy. And then to test the result on some simple Haskell
 programs. The hope is that this can serve as a base for future development
@@ -37,14 +37,14 @@ static and dynamic parts of the interpreter "memory". \cite{bolz2011runtime}
 
 GHC (Glasgow Haskell Compiler) is the most advanced compiler for the
 Haskell programming language. The GHC team has defined an external format
-of Haskell called \emph{External Core}. GHC's front-end translates
-Haskell 98 (plus some extensions) into Core. This way it is possible to
-reuse GHC for parsing, desugaring and typechecking, while implementing
-the back-end separately. \cite{tolmach2010ghc}
+for Core (Core is an intermediate format used by GHC) called \emph{External Core}. 
+GHC's front-end translates Haskell 98 (plus some extensions) into Core. 
+This way it is possible to reuse GHC for parsing, desugaring and typechecking, 
+while implementing the back-end separately. \cite{tolmach2010ghc}
 
 \subsection{System description}
 
-The system will use the GHC Haskell library to generate the 
+The system will use GHC to generate the 
 representation of the Core language and a simple Haskell program to 
 serialize this representation into JSON. This entails using GHC for
 parsing, typechecking, desugaring and simplification. Simplification

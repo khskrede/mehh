@@ -1,29 +1,28 @@
 
 \section{Example}
 
-
-\subsection{Example: hello world}
-
 The example is a simple "hello world" program, as this was practically
 the only program that was able to pass through the entire pipeline. Following
-is the "hello world" program written in Haskell:
+is the "hello world" program written in Haskell.
+
+\subsection{Haskell code}
 
 \lstinputlisting[language=Haskell]{"../interpreter/tests/helloworld/helloworld.hs"}
 
-\subsubsection{Converted to Core}
+\subsection{Converted to Core}
 
 After the program has passed through GHC and the External-core file
 has been generated, the program looks like this:
 
 \lstinputlisting{"../interpreter/tests/helloworld/helloworld.hcr"}
 
-\subsubsection{Converted to JSCore}
+\subsection{Converted to JSCore}
 
 In the next step it is parsed and dumped to JSCore:
 
 \lstinputlisting{"../interpreter/tests/helloworld/helloworld.hcj"}
 
-\subsubsection{JSCore graph}
+\subsection{JSCore graph}
 
 Using the parsing libraries of PyPy we can generate a nice graph from the result,
 directly corresponding to the resulting datastructure. 
@@ -31,7 +30,18 @@ See appendix \ref{graphs}, figure \ref{helloworldgraph}.
 By simply traversing this datastructure we can generate the AST for the Core' 
 interpreter (Haskell-Python).
 
-\subsubsection{Result}
+\begin{sidewaysfigure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{../interpreter/tests/helloworld/helloworld.png}
+\caption{Example program translated to JSCore}
+\label{helloworldgraph}
+\end{figure}
+\end{sidewaysfigure}
+
+
+
+
+\subsection{Result}
 
 The program results as expected, outputting the string "Hello, world!".
 

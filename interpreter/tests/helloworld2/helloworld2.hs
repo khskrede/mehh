@@ -1,3 +1,1 @@
-
 main = putStrLn ("Hello, " ++ "world!")
-

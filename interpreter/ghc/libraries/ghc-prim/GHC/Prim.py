@@ -3,7 +3,8 @@
 from haskell import haskell as hh
 
 x = hh.Var("x")
-ZLzmzgZR = hh.constr("ZLzmzgZR", x)
+y = hh.Var("y")
+ZLzmzgZR = hh.constr("ZLzmzgZR", x, y)
 
 
 
