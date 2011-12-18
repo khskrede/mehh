@@ -56,19 +56,23 @@ dot
 \footnote{ A dot file is a file written in dot-language, used by the \emph{dot} command
 line tool from the graphviz software package}
 files, "makegraph.py" (used to create graphs of parsed JSCore files using graphviz
-\footnote{ Graphviz an open source software package for graph visualization}). 
+\footnote{ Graphviz is an open source software package for graph visualization}). 
 The "haskell" folder
-contains the PyPy Core' interpreter code, used by the main program for evaluation, 
+contains the Haskell-Python Core' interpreter code, used by the main program for evaluation, 
 and by the parser to generate the abstract-syntax-tree (AST). In addition to this,
-the subfolder "packages" implements some simple functionality to be used by the test-programs.
+the subfolder "ghc" implements some simple functionality to be used by the test-programs.
 Among others, a very simple IO function for printing text to the terminal (putStrLn).
+These are categorised into packages corresponding to GHC packages, and libraries, 
+corresponding to the libraries in the GHC packages.
 The RPython modules in these "packages" are loaded, and references to the attributes
-they contain are attributesg
+they contain are used during
 the creation of the AST. See figure \ref{core2js} for a simple description of the pipeline.
 
 The "core" folder contains a Haskell program for generating JSCore files from External-core files
 (core2js.hs), the JSCore parser (parser.py), and a simple datastructure representing Core modules
 (module.py).
+
+The "tests" folder naturally contains tests, each test is in its own subfolders.
 
 \begin{figure}[H]
 \centering
