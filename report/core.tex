@@ -37,155 +37,149 @@ External-core (\emph{extcore} is used for this).
 
 For a formal definition of External-core, see appendix \ref{coregrammar}.
 
+\subsection{Informal semantics}
+
+%\begin{itemize}
+
+%\subsubsection{Module}
+
+The first construct in the External-core representation of a program, is the \emph{module}. 
+This construct is represented by a \emph{module identifier}, followed by a list of 
+\emph{type definitions} and \emph{value-definitions} respectively.
+
+The \emph{module} directly corresponds to Haskell source modules. The \emph{module identifier}
+contains information of what package it belongs to, followed by its name. \emph{Identifiers} 
+that are defined at the top level of the module can be internal or external. External identifiers
+can be referenced from other modules in the program, internal identifiers can not.
+
+%\subsubsection{Type definition}
+
+A \emph{type definition} can be an \emph{algebraic-type}, or a \emph{newtype construct}. 
+An \emph{algebraic-type} is represented by a \emph{type constructor} and a \emph{type binder}, 
+followed by a list of \emph{constructor definitions}.
+
+Each new \emph{algebraic type} introduces a new \emph{type constructor} and a set of one or
+more \emph{constructor definitions}. 
+
+
+
+%\subsubsection{Constructor definition}
+
+A \emph{constructor definition} is represented by a \emph{data constructor}, followed by a 
+\emph{type binder} and one or more \emph{atomic types}.
+
+%\subsubsection{Value definition}
+
+A \emph{value definition} can be \emph{recursive} or \emph{non-recursive}. A 
+\emph{recursive value definition} is represented by one or more 
+\emph{non-recursive value definitions}. A \emph{non-recursive value definition} is represented
+by a \emph{variable identifier} followed by a \emph{type} and an \emph{expression}.
+
+%\subsubsection{Atomic expression}
+
+An \emph{Atomic expression} can be either of the following; a \emph{variable}, 
+\emph{data constructor}, \emph{literal} or a \emph{nested expression}.
+
+%\subsubsection{Expression}
+
+An \emph{expression} can be either of the followin; an \emph{atomic expression},
+\emph{application}, \emph{abstraction}, \emph{local definition}, \emph{case expression},
+\emph{type coercion}, \emph{expression note}, \emph{external reference}, 
+\emph{dynamic external reference}, or an \emph{external label}.
+
+%An \emph{application} is an \emph{atomic expression} with \emph{arguments}. 
+%
+%An \emph{abstraction} (lambda) is represented by a set of \emph{binders} and an \emph{expression}.
+%
+%A \emph{local definition} is represented by a \emph{value definition} and an \emph{epression}.
+%
+%A \emph{case expression} is represented by an \emph{atomic type} followed by an \emph{expression}, a
+%\emph{value binder} and a list of \emph{case alternatives}.
+%
+%A \emph{type coercion} is represented by an \emph{expression} followed by an \emph{atomic type}.
+%
+%An \emph{expression note} is a string followed by an \emph{expression}.
+%
+%An \emph{external reference} is a string followed by an \emph{atomic type}.
+%
+%A \emph{dynamic external reference} is represented by an \emph{atomic type}.
+%
+%An \emph{external label} is represented by a string.
+
+%\subsubsection{Argument}
+
+An \emph{argument} can be either a \emph{type argument} or a \emph{value argument}. 
+A \emph{type argument} is simply an \emph{atomic type}, and a \emph{value argument} is an 
+\emph{atomic expression}.
+
+%\subsubsection{Case alternative}
+
+A \emph{case alternative} can be either of the following; a \emph{constructor alternative}, a
+\emph{literal alternative} or a \emph{default alternative}.
+
+%\subsubsection{Binder}
+
+A \emph{binder} can be either a \emph{type binder} or a \emph{value binder}. 
+
+%\subsubsection{Type binder}
+
+A \emph{type binder} can either be a \emph{type variable} (implicitly of kind *), or a 
+\emph{type variable} followed by a \emph{kind} (explicitly kinded).
+
+%\subsubsection{Value binder}
+
+A \emph{value binder} is a \emph{variable} followed by a \emph{type}.
+
+
+%\subsubsection{Literal}
+
+A \emph{literal} can be either an \emph{integer}, \emph{rational}, \emph{character} 
+or \emph{string}.
+
+%\subsubsection{Atomic type}
+
+An \emph{atomic type} can be either a \emph{type variable}, \emph{type constructor} 
+or a \emph{nested type}.
+
+%\subsubsection{Basic type}
+
+A \emph{basic type} can be either of the following; an \emph{atomic type}, 
+\emph{type application}, \emph{transitive coercion}, \emph{symmetric coercion},
+\emph{unsafe coercion}, \emph{left coercion}, \emph{right coercion}, or an
+\emph{instantiation coercion}.
+
+%\subsubsection{Type}
+
+Types are built from \emph{type constructors} and \emph{type variables} using
+\emph{type application} and \emph{universal quantification}. There are a number
+of primitive \emph{type constructors} defined in the "GHC.Prim" module. 
+\emph{algebraic-type} and \emph{newtype} constructs introduce new 
+\emph{type constructors}. The \emph{type constructors} are distinguished by name
+only.
+
+A \emph{type} can be either a \emph{basic type}, a \emph{type abstraction} or a
+\emph{arrow type construction}.
+
+%\subsubsection{Atomic kind}
+
+An \emph{atomic kind} can be either of the following; a \emph{lifted kind} (*), 
+\emph{unlifted kind} (\#{}), \emph{open kind} (?), \emph{equality kind}, or a
+\emph{nested kind}.
+
+%\subsubsection{Kind}
+
+A \emph{kind} can be either an \emph{atomic kind} or an \emph{arrow kind}.
+
+%\end{itemize}
+
 \subsection{Evaluation of a program}
 
-A program is evaluated by reducing the expression "main:ZCMain.main" to 
-\emph{weak-head-normal-form} (WHNF), i.e. a primitive value, lambda abstraction, or 
+A program is evaluated by reducing the expression "main:ZCMain.main" (note that
+qualified names in a module named $m$ must have module name $m$, this is the only exception) 
+to \emph{weak-head-normal-form} (WHNF), i.e. a primitive value, lambda abstraction, or 
 fully applied data constructor. A heap is used to make
 sure evaluation is shared. The heap contains two types; a \emph{thunk}, 
 or a \emph{WHNF}. A thunk is an unevaluated
 expression, also called a \emph{suspension}. A \emph{WHNF} is an evaluated expression, 
 the result of evaluating a \emph{thunk} is a \emph{WHNF}. \cite{tolmach2010ghc}
 
-\begin{comment}
-\subsection{Informal semantics of Core}
-
-Core resembles a explicitly-typed polymorphic lambda-calculus ($F_{w}$), with some additions,
-local let bindings, algebraic type definitions, constructors, case-expressions, primitive types,
-literals and operators.\cite{tolmach2010ghc}
-
-\subsubsection{Program organization and modules}
-
-Programs represented in Core are organized into modules corresponding directly to source-level
-Haskell modules. A module identifier (\emph{mident}) consists of a \emph{package name} followed
-by a module name. 
-
-Each module may contain each of the following top-level declarations:
-\begin{itemize}
-\item{Algebraic datatype declarations:} each defining a type constructor and one or more data
-constructors.
-\item{Newtype declarations:} corresponding to Haskell newtype declarations, each defining a 
-type constructor and a coercion name.
-\item{Value declarations:} defining the types and values of top-level variables.
-\end{itemize}
-
-
-\cite{tolmach2010ghc}
-
-
-\subsubsection{Namespaces}
-
-There are five distinct namespaces:
-\begin{enumerate}
-
-\item module identifiers (\emph{mident})
-\item type constructors (\emph{tycon})
-\item type variables (\emph{tyvar})
-\item data constructors (\emph{dcon})
-\item term variables (\emph{var})
-\end{enumerate}
-
-A variable (type or term) may have multiple definitions within a module. However, they
-never shadow one another, the scope of the definition of a variable never contain a
-redefinition of the same variable. Type variables may be "shadowed". Thus if a variable has
-multiple definitions, they must be local (let-bound).\cite{tolmach2010ghc}
-
-\subsubsection{Types and Kinds}
-
-\paragraph{Types:}
-
-Types are described by type expressions, there are built from named type constructors
-and type variables using type application and universal quantification.
-
-There are a few primitive type constructors, such as \emph{Intzh}, described in the 
-module \emph{GHC.Prim}. \emph{\%data} and \emph{\%newtype} declarations introduce additional
-type constructors. Type constructors are distinguished by name only.\cite{tolmach2010ghc}
-
-\paragraph{Coercions:}
-
-Types may also be built using one of the primitive coercion operators.\cite{tolmach2010ghc}
-
-\paragraph{Kinds:}
-
-It is necessary to distinguish well-formed type-expressions by classifying them into
-different \emph{kinds}. Core explicitly records the kind of every bound type variable.
-\cite{tolmach2010ghc}
-
-\paragraph{Lifted and unlifted types:}
-
-Semantically, a type is \emph{lifted} if and only if it has a bottom as an element. We
-need to distinguish them because operationally, terms with lifted types may be represented
-by closures; terms with unlifted types may not.\cite{tolmach2010ghc}
-
-\paragraph{Type constructors; base kinds and higher kinds:}
-
-Every type constructor has a kind, depending on its arity and whether or not its
-arguments are lifted.
-
-Term Variables can only be assigned types that have base kinds: the base kinds are *,\# and ?.
-The three base kinds distinguish the liftedness of the types they classify: * represents
-lifted types; \# represents unlifted types; and ? represents the "open" kind, a type that
-may either be lifted or not.
-
-Of these, only * may appear in Core type declarations generated from user code; the other
-two are needed to describe certain types in primitive (or otherwise specifically generated) 
-code (which, after optimization may appear anywhere).
-
-Since Haskell allows abstracting over type constructors, type variables may have higher kinds,
-however, much more commonly they have kind *, so that is the default if a type binder omits a
-kind.\cite{tolmach2010ghc}
-
-
-\paragraph{Type synonyms and type equivalence:}
-
-\subsubsection{Algebraic data types}
-
-
-\subsubsection{Newtypes}
-
-
-\subsubsection{Expression forms}
-
-
-\subsubsection{Expression evaluation}
-
-Core is intended to be a call-by-need language, in which expressions are only evaluated
-once.
-
-Evaluating a Core expression means reducing it to \emph{weak-head normal form} (WHNF),
-i.e. a primitive value, lambda abstraction, or fully applied data constructor. Evaluating
-a program means evaluating the expression main:ZCMain.main.
-
-To make sure that evaluation is shared, a heap is used. Heap entry can be:
-
-\begin{itemize}
-\item Thunk
-\item WHNF
-\end{itemize}
-
-Heap pointers point to heap entries: at different times, the heap pointer can point
-to either a think or a WHNF, because the run-time system overwrites thunks with WHNFs
-as computation proceeds. 
-
-The suspended computation that a thunk represents might represent an evaluating one of 
-three different kinds of expression. The run-time system allocates a different kind of 
-thunk depending on what kind of expression it is:
-
-\begin{itemize}
-\item Thunk for a value definition has a group of suspended defining expressions.
-\item Thunk for a function application (where the function is user-defined) has a 
-suspended actual argument expression, and a binding between the formal argument and 
-a heap pointer to that suspension.
-\item Thunk for a constructor application has a suspended actual argument expression;
-the entire constructed value has a heap pointer to that suspension embedded in it.
-\end{itemize}
-
-As computation proceeds, copies of the heap pointer for a given thunk propagate through
-the executing program. When another computation demands the result of that thunk, the
-thunk is forced: the run-time system computes the thunk's result, yielding a WHNF, and
-overwrites the 
-
-
-\subsection{Primitive module}
-
-\end{comment}

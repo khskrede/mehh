@@ -1,0 +1,52 @@
+\section{Haskell-Python}
+
+The Haskell-Python interpreter contains the following classes:
+
+\begin{longtable}{|p{1.5in}|p{3in}|}
+\hline
+Class name 	& Docstring \\
+\hline \hline
+Symbol 			& A cached symbol that can be compared by identity (which is not true for strings). \\
+\hline
+HaskellObject 		& Base class for all objects that the interpreter handles. \\
+\hline
+Value			& Base class for evaluated values (i.e. already in head-normal form). \\
+\hline
+Constructor		& A constructor. This is an abstract base class, there are subclasses generated below for various numbers of arguments.\\
+\hline
+ConstructorN		& \\
+\hline
+Integer			& \\
+\hline
+AbstractFunction	& \\
+\hline
+Function		& A user-defined function, i.e. written in Haskell \\
+\hline
+Rule			& One rule of a user-defined function. \\
+\hline
+Substitution		& The body of a function with numbered variables substituted by values. \\
+\hline
+PrimFunction		& A primitive function, i.e. one not implemented in Haskell but at the machine level. \\
+\hline
+Var			& \\
+\hline
+NumberedVar		& \\
+\hline
+Application		& A function application. This is an abstract base class, there are subclasses generated below for various numbers of arguments. \\
+\hline
+ApplicationN		& \\
+\hline
+Thunk			& An unevaluated function application. \\
+\hline
+StackElement		& Base class of the stack elements of the evaluation stack. \\
+\hline
+CopyStackElement	& Need to copy the top of the stack. \\
+\hline
+UpdateStackElement	& Need to update the thunk stored in this after its content has been evaluated. \\
+\hline
+
+\end{longtable}
+
+\subsection{Our extensions}
+
+The extensions to Haskell-Python implemented in this project, is the deserializer.
