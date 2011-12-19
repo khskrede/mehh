@@ -207,7 +207,7 @@ but this failed do to a lack of experience with Haskell and the GHC API
 pipeline). It was then discovered that a lot of the necessary code was already
 written in GHC (the code that generates the External-core files), however, 
 this code was not exported in any way. It was also deeply embedded in the GHC 
-code. After several unfruitfull attempts at creating the JSCore format by using the GHC API
+code. After several unfruitful attempts at creating the JSCore format by using the GHC API
 and by reimplementing the GHC functions generating External-core. And some emails back 
 and forth with the GHC team, these methods where abandoned.
 
@@ -241,9 +241,9 @@ The method described here worked well for very trivial Haskell programs, however
 it turned out that
 the extcore package was not able to parse any nontrivial External-core files generated 
 by the GHC version used. It was thought that this was due to the fact that the extcore
-package was written for earlier versions of GHC. After unsuccessfully attempting to make i
+package was written for earlier versions of GHC. After unsuccessfully attempting to make
 the tools work with earlier versions (GHC 6.10 and 6.12 on linux and 6.10 on windows), it
 turned out that the \emph{extcore} package implemented two parsers. One of which was outdated.
 This was not documented anywhere, but realized after e-mailing the package maintainer, who
-turned out to be very helpfull.
+turned out to be very helpful.
 
