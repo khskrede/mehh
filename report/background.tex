@@ -3,15 +3,9 @@
 
 \subsection{PyPy}
 
-\subsubsection{A quick overview}
-
-The PyPy project is basically two things:
-
-\begin{enumerate}
-\item the RPython toolchain, written in Python, is a set of compiler tools for 
-programs written in RPython.
-\item and an implementation of Python using these tools.
-\end{enumerate}
+The PyPy project is basically two things;
+a toolchain for compiling RPython programs (written in Python), and 
+an implementation of Python using these tools.
 
 In this paper PyPy refers to former.
 
@@ -62,6 +56,9 @@ Core is an intermediate language used by the Glasgow Haskell Compiler\cite{ghc},
 and it is this language we wish to interpret. Core is a desugared version of Haskell, 
 things like pattern matching
 and list comprehensions are transformed out to simpler constructs.\cite{jones1994compilation}
+
+In this project, GHC is used to generate an external representation of the Core language,
+reusing GHC for parsing, typechecking and desugaring.
 
 \subsubsection{Extcore}
 

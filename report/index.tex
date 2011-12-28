@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{rotating}
-\usepackage{fancyhdr}
+%\usepackage{fancyhdr}
 %\usepackage[margin=.7in]{geometry}
 \usepackage{appendix}
 
@@ -76,7 +76,7 @@ xrightmargin=5pt,
 
 \begin{document}
 
-\pagestyle{fancy}
+%\pagestyle{fancy}
 
 
 \title{Just-In-Time compilation of\\Haskell using PyPy and GHC}
@@ -117,9 +117,6 @@ The project is meant to serve as a base for further development.
 
 %\clearpage
 \input{background.tex}
-
-% Haskell-Python
-\input{hpython.tex}
 
 % Core
 
@@ -165,6 +162,10 @@ The project is meant to serve as a base for further development.
 % JSCore grammar
 \clearpage
 \input{./appendix/jscore-grammar.tex}
+
+% Haskell-Python
+%\clearpage
+%\input{./appendix/hpython.tex}
 
 % Test programs
 \clearpage

@@ -52,13 +52,12 @@ The project implements the following pipeline (see figure \ref{core2js}):
 
 The implementation is organized as represented by figure \ref{organization}. The
 main folder (interpreter) contains the main program, and a program for generating
-dot
-\footnote{ A dot file is a file written in dot-language, used by the \emph{dot} command
-line tool from the graphviz software package}
-files, "makegraph.py" (used to create graphs of parsed JSCore files using graphviz
-\footnote{ Graphviz is an open source software package for graph visualization}). 
-The "haskell" folder
-contains the Haskell-Python Core' interpreter code, used by the main program for evaluation, 
+dot\footnote{ A dot file is a file written in dot-language, used by the \emph{dot} 
+command line tool from the graphviz software package}
+files, "makegraph.py" (used to create graphs of parsed JSCore files using 
+graphviz\footnote{ Graphviz is an open source software package for graph 
+visualization}). The "haskell" folder contains the Haskell-Python Core' 
+interpreter code, used by the main program for evaluation, 
 and by the parser to generate the abstract-syntax-tree (AST). In addition to this,
 the subfolder "ghc" implements some simple functionality to be used by the test-programs.
 Among others, a very simple IO function for printing text to the terminal (putStrLn).
@@ -110,18 +109,20 @@ in table \ref{jscore}), this is then pretty-printed and dumped to a file.
 
 \subsection{Deserializer}
 
-The deserializer implements a JSON parser. The resulting datastructure is then traversed, building up
-an AST using the constructs defined in the Haskell-Python interpreter. 
+The deserializer implements a JSON parser. The resulting datastructure is then 
+traversed, recursively building up an AST using the constructs defined in the 
+Haskell-Python interpreter. 
 
-PyPy implements a parser generator, this simply takes a grammar defined as a string, written in
-extended-backus-naur-form (EBNF), and generates a parser. This parser is then used to create a 
-JSON datastructure, as represented by table \ref{json}.
-The resulting datastructure is then traversed. By checking the contents of the JSON constructs
-with the actual External-core format, the Core AST is built. External functionality is imported
-from the Python implementations of the Haskell libraries as it is encountered. 
+PyPy implements a parser generator, this simply takes a grammar defined as a 
+string, written in extended-backus-naur-form (EBNF), and generates a parser. 
+This parser is then used to create a JSON datastructure, as represented by 
+table \ref{json}. The resulting datastructure is then traversed. By checking the 
+contents of the JSON constructs with the actual JSCore format, the Core AST is built. 
+External functionality is imported from the Python implementations of the Haskell 
+libraries as it is encountered. 
 
-After this is done, we are left with a "module" object, corresponding to the initial Haskell
-module. 
+After this is done, we are left with a "module" object, corresponding to the initial 
+Haskell module. 
 
 \subsection{Haskell libraries}
 

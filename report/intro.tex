@@ -19,7 +19,7 @@ Some people seem to think that there is little to gain from using
 JIT compilation of strongly typed languages since they can be
 so heavily optimized at compile time. However, a JIT compiler has a lot
 more information to work with. Speedup in JIT compilers is achieved by
-feeding values observed at runtime into compilation and exploit them.
+feeding information observed at runtime into compilation and exploit it.
 For example, by locating variables that change very slowly, the JIT compiler can
 optimize multiple instances of the code, one for each variation of the
 variable. \cite{bolz2011runtime}

@@ -41,141 +41,185 @@ For a formal definition of External-core, see appendix \ref{coregrammar}.
 
 %\begin{itemize}
 
-%\subsubsection{Module}
+\subsubsection{Module}
 
 The first construct in the External-core representation of a program, is the \emph{module}. 
 This construct is represented by a \emph{module identifier}, followed by a list of 
-\emph{type definitions} and \emph{value-definitions} respectively.
+\emph{type definitions} and \emph{value definitions} respectively.
 
 The \emph{module} directly corresponds to Haskell source modules. The \emph{module identifier}
 contains information of what package it belongs to, followed by its name. \emph{Identifiers} 
 that are defined at the top level of the module can be internal or external. External identifiers
-can be referenced from other modules in the program, internal identifiers can not.
+can be referenced from other modules in the program, internal identifiers can not.\cite{tolmach2010ghc}
 
-%\subsubsection{Type definition}
 
-A \emph{type definition} can be an \emph{algebraic-type}, or a \emph{newtype construct}. 
-An \emph{algebraic-type} is represented by a \emph{type constructor} and a \emph{type binder}, 
+\subsubsection{Type definition}
+
+A \emph{type definition} can be an \emph{algebraic-type}, or a \emph{newtype} construct. 
+
+An \emph{algebraic-type} is represented by the "\%data" keyword, a
+\emph{type constructor} and a \emph{type binder}, 
 followed by a list of \emph{constructor definitions}.
+Each new \emph{algebraic type} introduces a new \emph{type constructor} 
+and a set of one or more \emph{constructor definitions}. 
 
-Each new \emph{algebraic type} introduces a new \emph{type constructor} and a set of one or
-more \emph{constructor definitions}. 
+A \emph{newtype} construct is represented by the "\%newtype" keyword, two
+\emph{type constructors}, a set of \emph{type binders} and a \emph{type}.\cite{tolmach2010ghc}
 
 
-
-%\subsubsection{Constructor definition}
+\subsubsection{Constructor definition}
 
 A \emph{constructor definition} is represented by a \emph{data constructor}, followed by a 
 \emph{type binder} and one or more \emph{atomic types}.
 
-%\subsubsection{Value definition}
+
+
+
+
+\subsubsection{Value definition}
 
 A \emph{value definition} can be \emph{recursive} or \emph{non-recursive}. A 
-\emph{recursive value definition} is represented by one or more 
-\emph{non-recursive value definitions}. A \emph{non-recursive value definition} is represented
-by a \emph{variable identifier} followed by a \emph{type} and an \emph{expression}.
+\emph{recursive value definition} is represented by the "\%rec" keyword and one or more 
+\emph{non-recursive value definitions}. A \emph{non-recursive value definition} 
+is represented by a \emph{variable identifier} followed by a \emph{type} and 
+an \emph{expression}.\cite{tolmach2010ghc}
 
-%\subsubsection{Atomic expression}
 
-An \emph{Atomic expression} can be either of the following; a \emph{variable}, 
-\emph{data constructor}, \emph{literal} or a \emph{nested expression}.
 
-%\subsubsection{Expression}
+\subsubsection{Atomic expression}
+
+An \emph{atomic expression} can be either of the following; a \emph{variable}, 
+\emph{data constructor}, \emph{literal} or a \emph{nested expression}.\cite{tolmach2010ghc}
+
+
+
+
+\subsubsection{Expression}
 
 An \emph{expression} can be either of the followin; an \emph{atomic expression},
-\emph{application}, \emph{abstraction}, \emph{local definition}, \emph{case expression},
+\emph{application}, (lambda) \emph{abstraction}, \emph{local definition}, 
+\emph{case expression},
 \emph{type coercion}, \emph{expression note}, \emph{external reference}, 
-\emph{dynamic external reference}, or an \emph{external label}.
+\emph{dynamic external reference}, or an \emph{external label}. See appendix 
+\ref{coregrammar} table \ref{core} for their definitions.\cite{tolmach2010ghc}
 
-%An \emph{application} is an \emph{atomic expression} with \emph{arguments}. 
-%
-%An \emph{abstraction} (lambda) is represented by a set of \emph{binders} and an \emph{expression}.
-%
-%A \emph{local definition} is represented by a \emph{value definition} and an \emph{epression}.
-%
-%A \emph{case expression} is represented by an \emph{atomic type} followed by an \emph{expression}, a
-%\emph{value binder} and a list of \emph{case alternatives}.
-%
-%A \emph{type coercion} is represented by an \emph{expression} followed by an \emph{atomic type}.
-%
-%An \emph{expression note} is a string followed by an \emph{expression}.
-%
-%An \emph{external reference} is a string followed by an \emph{atomic type}.
-%
-%A \emph{dynamic external reference} is represented by an \emph{atomic type}.
-%
-%An \emph{external label} is represented by a string.
 
-%\subsubsection{Argument}
+
+\subsubsection{Argument}
 
 An \emph{argument} can be either a \emph{type argument} or a \emph{value argument}. 
 A \emph{type argument} is simply an \emph{atomic type}, and a \emph{value argument} is an 
 \emph{atomic expression}.
 
-%\subsubsection{Case alternative}
+Arguments are applied to \emph{atomic expressions} to make \emph{applications}.\cite{tolmach2010ghc}
 
-A \emph{case alternative} can be either of the following; a \emph{constructor alternative}, a
-\emph{literal alternative} or a \emph{default alternative}.
 
-%\subsubsection{Binder}
+\subsubsection{Case alternative}
 
-A \emph{binder} can be either a \emph{type binder} or a \emph{value binder}. 
+A \emph{case alternative} can be either of the following; a 
+\emph{constructor alternative}, a \emph{literal alternative} or a 
+\emph{default alternative}.\cite{tolmach2010ghc}
+
+
+
+\subsubsection{Binder}
+
+A \emph{binder} can be either a \emph{type binder} or a \emph{value binder}. It binds
+a \emph{value} to a \emph{type}, or a \emph{type} to a \emph{kind}.
+A \emph{type binder} is represented by a "@" and a \emph{type binder}.
+A \emph{value binder} is simply represented as a \emph{value binder}.
+
+
+
 
 %\subsubsection{Type binder}
 
 A \emph{type binder} can either be a \emph{type variable} (implicitly of kind *), or a 
 \emph{type variable} followed by a \emph{kind} (explicitly kinded).
 
+
+
+
+
+
+
 %\subsubsection{Value binder}
 
-A \emph{value binder} is a \emph{variable} followed by a \emph{type}.
+A \emph{value binder} is a \emph{variable} followed by a \emph{type}.\cite{tolmach2010ghc}
 
 
-%\subsubsection{Literal}
+
+
+
+\subsubsection{Literal}
 
 A \emph{literal} can be either an \emph{integer}, \emph{rational}, \emph{character} 
-or \emph{string}.
+or \emph{string}. See appendix \ref{coregrammar} table \ref{core} for their definitions.\cite{tolmach2010ghc}
 
-%\subsubsection{Atomic type}
+
+
+
+
+
+\subsubsection{Atomic type}
 
 An \emph{atomic type} can be either a \emph{type variable}, \emph{type constructor} 
-or a \emph{nested type}.
+or a \emph{nested type}.\cite{tolmach2010ghc}
 
-%\subsubsection{Basic type}
+
+
+
+
+\subsubsection{Basic type}
 
 A \emph{basic type} can be either of the following; an \emph{atomic type}, 
 \emph{type application}, \emph{transitive coercion}, \emph{symmetric coercion},
 \emph{unsafe coercion}, \emph{left coercion}, \emph{right coercion}, or an
-\emph{instantiation coercion}.
+\emph{instantiation coercion}.\cite{tolmach2010ghc}
 
-%\subsubsection{Type}
+
+
+
+\subsubsection{Type}
+
+A \emph{type} can be either a \emph{basic type}, a \emph{type abstraction} or a
+\emph{arrow type construction}.
 
 Types are built from \emph{type constructors} and \emph{type variables} using
 \emph{type application} and \emph{universal quantification}. There are a number
 of primitive \emph{type constructors} defined in the "GHC.Prim" module. 
 \emph{algebraic-type} and \emph{newtype} constructs introduce new 
 \emph{type constructors}. The \emph{type constructors} are distinguished by name
-only.
+only.\cite{tolmach2010ghc}
 
-A \emph{type} can be either a \emph{basic type}, a \emph{type abstraction} or a
-\emph{arrow type construction}.
 
-%\subsubsection{Atomic kind}
+
+
+
+\subsubsection{Atomic kind}
 
 An \emph{atomic kind} can be either of the following; a \emph{lifted kind} (*), 
 \emph{unlifted kind} (\#{}), \emph{open kind} (?), \emph{equality kind}, or a
-\emph{nested kind}.
+\emph{nested kind}.\cite{tolmach2010ghc}
 
-%\subsubsection{Kind}
+
+
+
+
+\subsubsection{Kind}
 
 A \emph{kind} can be either an \emph{atomic kind} or an \emph{arrow kind}.
+An \emph{arrow kind} is an \emph{atomic kind} followed by an arrow (-$>$) and
+another \emph{kind}.\cite{tolmach2010ghc}
 
-%\end{itemize}
+
+
+
 
 \subsection{Evaluation of a program}
 
 A program is evaluated by reducing the expression "main:ZCMain.main" (note that
-qualified names in a module named $m$ must have module name $m$, this is the only exception) 
+qualified names in a module named $m$ must have module-name $m$, this is the only exception) 
 to \emph{weak-head-normal-form} (WHNF), i.e. a primitive value, lambda abstraction, or 
 fully applied data constructor. A heap is used to make
 sure evaluation is shared. The heap contains two types; a \emph{thunk}, 

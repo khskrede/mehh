@@ -1,0 +1,48 @@
+
+\section{Haskell-Python}
+
+\subsection{Implemented classes}
+
+\begin{itemize}
+
+\item Symbol: 			 A cached symbol that can be compared by identity (which is not true for strings). 
+\item HaskellObject: 		 Base class for all objects that the interpreter handles. 
+\item Value:			 Base class for evaluated values (i.e. already in head-normal form). 
+\item Constructor:		 A constructor. This is an abstract base class, there are subclasses generated below for various numbers of arguments.
+\item ConstructorN:		 
+\item AbstractFunction:	 
+\item Function:		 	 A user-defined function, i.e. written in Haskell 
+\item Rule:			 One rule of a user-defined function. 
+\item Substitution:		 The body of a function with numbered variables substituted by values. 
+\item PrimFunction:		 A primitive function, i.e. one not implemented in Haskell but at the machine level. 
+\item Var:			 A variable.
+\item NumberedVar:		 
+\item Application:		 A function application. This is an abstract base class, there are subclasses generated below for various numbers of arguments. 
+\item ApplicationN:		 
+\item Thunk:			 An unevaluated function application. 
+\item StackElement:		 Base class of the stack elements of the evaluation stack. 
+\item CopyStackElement:	 	Need to copy the top of the stack. 
+\item UpdateStackElement:	 Need to update the thunk stored in this after its content has been evaluated. 
+
+\end{itemize}
+
+\subsection{Implemented functions}
+
+The interpreter implements the following functions:
+
+\begin{itemize}
+
+\item make\_arg\_subclass(n, base)
+\item make\_constructor(function, args)
+\item make\_constr(name, *args)
+\item enum(rule, subst)
+\item function(name, rules, recursive=False): Takes a function name, and a set of paramters (rules), to generate the Rules object necessary to create a Function object. Returns a Function object.
+\item make\_application(function, args)
+\item get\_printable\_location(function)
+\item evaluate\_hnf(obj): Wrapper for main\_loop, with assertion. Used for testing.
+\item main\_loop(expr): Takes the main \emph{function application} as argument, and evaluates
+the program
+
+\end{itemize}
+
+
