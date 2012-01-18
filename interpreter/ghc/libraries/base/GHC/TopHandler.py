@@ -3,6 +3,14 @@
 
 import haskell.haskell as hh
 
+# IO a -> IO a
+
 @hh.expose_primitive(1)
 def runMainIO(args):
-    return hh.make_application(args[0], [])
+    a = args[0]
+    # clean up ?
+    return a 
+
+#main = hh.Var("main")
+#runMainIO = hh.function("runMainIO", [([main], main)])
+

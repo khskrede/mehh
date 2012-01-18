@@ -7,6 +7,9 @@ import module
 
 import copy
 
+# TEST
+import importlib
+
 ebnf = """
     STRING: "\\"[^\\\\"]*\\"";
     NUMBER: "\-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][\+\-]?[0-9]+)?";
@@ -60,10 +63,10 @@ def rewrite_id(ident):
 
     module += ident_[0]
 
-    print "---------"
-    print package
-    print module
-    print ref
+    #print "---------"
+    #print package
+    #print module
+    #print ref
 
     return package, module, ref
 
@@ -108,9 +111,6 @@ class AST(RPythonVisitor):
                 mod.name = self.mident
                 self.modules[self.mident] = mod
 
-                print self.mident
-                print "***********"
-
                 for vdef in node.children[2].children[1].children:
                     p = ""
                     m = ""
@@ -120,12 +120,13 @@ class AST(RPythonVisitor):
                     else:
                         p, m, f = rewrite_id(vdef.children[0].children[1].\
                                   children[0].children[0].children[1].additional_info)
-                        
+                    
+
                     mod.qvars[ m+"."+f ] = ForwardReference()
-                    func = vdef.visit(self)
-                    mod.qvars[ m+"."+f ].become(func)
-                    print m+"."+f
-                    print "++++++++++++++"
+                    exp = vdef.visit(self)
+                    assert isinstance(exp, hh.Application)
+                    mod.qvars[ m+"."+f ].become(exp)
+
                 return mod
 
             elif type_ == "\"%data\"":
@@ -138,37 +139,36 @@ class AST(RPythonVisitor):
                 raise NotImplementedError
 
             elif type_ == "\"%rec\"":
-                func = node.children[0].children[1].visit(self)
-                func.recursive=True
-                return func
+
+                funcs = node.children[0].children[1].visit(self)
+                recs = []
+                for func in funcs:
+                    assert isinstance(func, Function)
+                    func.recursive=True
+                    recs.append(func)
+
+                return recs # TODO ! FIX ????
 
             elif type_ == "\"qvar\"" and len(node.children) == 3:
                 name = node.children[0].children[1].additional_info
 
                 # Skip result/return type ?
-                t_args = node.children[1].children[1].children[0].children[1].visit(self)
-                #t_args = node.children[1].children[1].visit(self)
-                args = []
-
-                while type(t_args) == tuple:
-                    args.append(t_args[1])
-                    t_args = t_args[0]
-
-                print len(args)
-                print repr(args)
-
-                #args = hh.constr(t_args[0],t_args[1])
+                # t_args = node.children[1].children[1].visit(self)
+                # print repr(t_args)
 
                 exp = node.children[2].children[1].visit(self)
-                #func = hh.make_application( exp, [args] )
-                func = hh.function( name, [(args, exp)], recursive=False )
+                #assert isinstance(exp, hh.Application)
 
-                return func
+                #funk = hh.function("meh", [([],exp)])
+
+                #func = hh.make_application(exp, [t_args] )
+
+                return exp
 
             elif type_ == "\"qvar\"" and len(node.children) == 1:
                 c = node.children[0].children[1].additional_info
-                print c
-                print "ååååååååå"
+                print "qvar: ", c
+                #print "ååååååååå"
                 ident = c.replace("\"","")
                 package, mod, func_name = rewrite_id(ident)
                 func = 0
@@ -180,11 +180,6 @@ class AST(RPythonVisitor):
                     else:
                         mident = package + ":" + mod
                         func = self.modules[mident].qvars[mod+"."+func_name]
-
-                print "Wakka"
-                print func_name
-
-                print repr(func)
 
                 return func
 
@@ -198,17 +193,17 @@ class AST(RPythonVisitor):
 
                 c = node.children[0].children[1].additional_info
 
-                print "-----"
+                #print "-----"
 
-                print c
+                print "qtycon: ", c
 
                 ident = c.replace("\"","")
                 package, mod, type_name = rewrite_id(ident)
                 type_ = 0
 
-                print package
-                print mod
-                print type_name
+                #print package
+                #print mod
+                #print type_name
 
                 if not package == "main":
                     type_ = get_external(package, mod, type_name)
@@ -230,57 +225,90 @@ class AST(RPythonVisitor):
 
             elif type_ == "\"aexp\"" and len(node.children) == 2:
 
-                app = 0
-                func = node.children[0].children[1].visit(self)
+                exp = node.children[0].children[1].visit(self)
                 args = node.children[1].children[1].visit(self)
 
-#                type1_ = node.children[0].children[1].children[0].children[0].additional_info
+                aty = node.children[1].children[1].children[0].children[0].additional_info
 
-                type2_ = node.children[1].children[1].children[0].children[0].additional_info
-                if type2_ == "\"aty\"":
-                    # Type arguments have no operational effect?
-                    return func
-#                elif type1_ == "\"qdcon\"":
-#                    return hh.make_constructor( func, [args])
+                if aty == "\"aty\"":
+                    print "EXP!"
+                    return exp
                 else:
-                    return hh.make_application( func, [args] )
+                    print "APP!"
 
+                    app = hh.make_application(exp, [args])
+                   
+                    if isinstance(exp, hh.Thunk):
+                        return app
+ 
+                    if exp.arity > 1:
+                        return hh.Thunk(app)
+                    return app
 
 
 
 
             elif type_ == "\"aexp\"" and len(node.children) == 1:
-                return node.children[0].children[1].visit(self)
+                aexp = node.children[0].children[1].visit(self)
+                return aexp
 
             elif type_ == "\"aty\"" and len(node.children) == 1:
-                return node.children[0].children[1].visit(self)
+                aty = node.children[0].children[1].visit(self)
+
+                print "aty: ", aty
+                return aty
 
             elif type_ == "\"lambda\"":
-                var = node.children[0].children[1].visit(self)
+                vbind = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
+                assert isinstance(exp, hh.Function)
 
-                return hh.function( name, [(var, exp)], recursive=False )
+                #return hh.function( "", [(var, exp)], recursive=False )
+                print "var: ", repr(vbind)
+                print "exp: ", repr(exp)
+
+                #return hh.function("lambda", [([vbind], hh.make_application(exp,[vbind]))])
+
+                func = hh.function("lambda", [
+                            ([vbind],hh.make_application(exp,[vbind]))
+                            ])
+
+                return func
 
             elif type_ == "\"%let\"":
                 raise NotImplementedError
 
             elif type_ == "\"%case\"":
 
+                print "Case: "
+
+                case = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
                 of = node.children[2].children[1].visit(self)
 
                 alts_ = node.children[3].children[1].children
                 alts = []
-                print "MMMMMMMMMMMMMMMMMMMMMMM"
+
                 for alt in alts_:
                     alts.append(alt.visit(self))
-                    print alts
-                print "MMMMMMMMMMMMMMMMMMMMMMM"
-                f = hh.function("case", alts)
 
-                return hh.make_application(f, exp)
+                alts.reverse()
+
+                print "alts: ", repr(alts)
+                print "of: ", repr(of)
+                print "exp: ", repr(exp)
+                #f = hh.function("alts", alts))
+
+                f = hh.function("alts", alts)
+
+                app = hh.make_application(f, exp) 
+
+                return app
+
+                #return hh.make_application(exp, [([of], alts)])
 
             elif type_ == "\"%_\"":
+                print "%_"
                 # Default case expression
                 f = node.children[0].children[1].visit(self)
                 return ([hh.Var("_")], f)
@@ -301,35 +329,35 @@ class AST(RPythonVisitor):
                 raise NotImplementedError
 
             elif type_ == "\"lit\"" and len(node.children) == 1:
-                return hh.CString(node.children[0].children[1].additional_info)
+                return node.children[0].children[1].visit(self)
 
             elif type_ == "\"lit\"" and len(node.children) == 2:
                 pat = node.children[0].children[1].visit(self)
-                body = node.children[1].children[1].visit(self)
+                exp = node.children[1].children[1].visit(self)
 
-                case = ([pat], body)
-
-                #print "mmmmmmmmmmmmmmmmmmmmmmmm"
-                #print case
-                #print "mmmmmmmmmmmmmmmmmmmmmmmm"
+                case = ([pat], exp)
                 return case
 
             elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
-                return (node.children[0].children[1].visit(self), 
-                       node.children[1].children[1].visit(self))
+                bty = node.children[0].children[1].visit(self)
+                aty = node.children[1].children[1].visit(self)
+
+                t_app = hh.evaluate_hnf(hh.make_application(bty, [aty]))
+                print "t_app: ", repr(t_app)
+                return t_app
 
             elif type_ == "\"vbind\"":
                 return node.children[0].children[1].visit(self)
 
-            elif type_ == "\"var\"":
+            elif type_ == "\"var\"" and node.children[1].children[0].additional_info == "\"ty\"":
                 var_name = node.children[0].children[1].additional_info
                 var_name = var_name.replace("\"","")
+                print "var: ", var_name
                 ty = node.children[1].children[1].visit(self) # TODO, use this?
                 var = hh.Var(var_name)
-                self.modules[self.mident].qvars[var_name] = var
-                print var_name
-                print "øøøøøøøøøøøø"
+                self.modules[self.mident].qvars[var_name] = ty
                 return var
+
 
             elif type_ == "\"qdcon\"" and len(node.children) == 4:
                 qdcon = node.children[0].children[1].visit(self)
@@ -346,12 +374,18 @@ class AST(RPythonVisitor):
  
                 exp = node.children[3].children[1].visit(self)
 
+                assert isinstance(exp, Function)
+
+                app = hh.make_application(exp, vbinds)
+
                 # TODO ?
-                return (vbinds, exp)
+                return (vbinds, app)
                 #return hh.function("", (vbinds, exp))
 
             elif type_ == "\"qdcon\"" and len(node.children) == 1:
                 package, mod, name = rewrite_id(node.children[0].children[1].additional_info)
+                print "qdcon: ", name
+
                 if not (package == "main" or package == ""):
                     return get_external(package, mod, name)
                 else:
@@ -378,8 +412,14 @@ class AST(RPythonVisitor):
         return hh.CString(node.additional_info)
 
     def visit_NUMBER(self, node):
-        return hh.Integer((node.additional_info.replace("\"","")))
-
+        number = node.additional_info
+        print number
+        test = importlib.import_module("ghc.libraries.ghc-prim.GHC.Prim")
+        num = test.Intzh
+        if isinstance(number, int): 
+            return num((node.additional_info.replace("\"","")))
+        else:
+            raise NotImplementedError
 
 def parse_js( path ):
     regexs, rules, ToAST = parse_ebnf(ebnf)

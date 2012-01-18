@@ -2,11 +2,13 @@
 
 from haskell import haskell as hh
 
-x = hh.Var("x")
-y = hh.Var("y")
-ZLzmzgZR = hh.constr("ZLzmzgZR", x, y)
+a = hh.Var("a")
+b = hh.Var("b")
+ZLzmzgZR = hh.constr("->", a, b)
 
 
+#def ZLzmzgZR(a, b):
+#    return hh.constr("->", a, b)
 
 
 #-----------------------

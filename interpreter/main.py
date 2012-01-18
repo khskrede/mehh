@@ -4,6 +4,10 @@ import haskell.haskell as hh
 
 modules = {}
 
+# TEST!
+import importlib
+test = importlib.import_module("ghc.libraries.ghc-prim.GHC.Prim")
+print repr(test)
 
 def get_id():
     x = hh.Var("x")
@@ -25,11 +29,11 @@ def interp(path):
 
     main = modules["main:Main"].qvars["ZCMain.main"]
 
-    x = []
-    x.append( hh.Integer(3) )
+    #main = modules["main:Main"].qvars["Main.fac"]
 
-    hh.evaluate_hnf( \
-        hh.make_application( main, [] ) )
+    fac = test.Intzh(5) 
+
+    hh.evaluate_hnf( main )
 
 def jitpolicy(self):
     from pypy.jit.codewriter.policy import JitPolicy

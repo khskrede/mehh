@@ -422,8 +422,8 @@ class Application(HaskellObject):
         value = self.function.getvalue()
         if value:
             value = jit.hint(value, promote=True)
-            print value
-            assert isinstance(value, AbstractFunction)
+            print repr(value)
+            #assert isinstance(value, AbstractFunction)
             return value.apply(self, todo)
 
         # higher order
@@ -576,7 +576,9 @@ def evaluate_hnf(obj):
 def main_loop(expr):
     function = None
     todo = None
+    i=0
     while True:
+        #print "meh"
         jitdriver.jit_merge_point(function=function, todo=todo, expr=expr)
         if isinstance(expr, Substitution):
             expr = expr.apply()
@@ -584,11 +586,17 @@ def main_loop(expr):
             break
         #print expr, todo
         #import pdb; pdb.set_trace()
+        print repr(expr)
         expr, todo = expr.step(todo)
+        i=i+1
+        print i
         function = None
         if isinstance(expr, Substitution):
             recursive = expr.recursive
+            #print recursive
             function = expr.rhs
+            #print repr(function)
+            #print function.name
             if recursive:
                 #print "can enter jit", function, expr
                 jitdriver.can_enter_jit(function=function, todo=todo, expr=expr)
