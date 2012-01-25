@@ -1,0 +1,190 @@
+%module ghczmprim:GHCziDebug
+  %rec
+  {ghczmprim:GHCziDebug.debugErrLnzuwrite :: (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                              ghczmprim:GHCziPrim.RealWorld)
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh ->
+                                             (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                                             ->
+                                             (ghczmprim:GHCziPrim.Statezh
+                                              ghczmprim:GHCziPrim.RealWorld)
+                                             ->
+                                             (ghczmprim:GHCziPrim.Statezh
+                                              ghczmprim:GHCziPrim.RealWorld) =
+     \ (mbaaQ::(ghczmprim:GHCziPrim.MutableByteArrayzh
+                ghczmprim:GHCziPrim.RealWorld))
+       (offsetaR::ghczmprim:GHCziPrim.Intzh)
+       (dsd1i::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+       (saS::(ghczmprim:GHCziPrim.Statezh
+              ghczmprim:GHCziPrim.RealWorld)) ->
+         %case ((ghczmprim:GHCziPrim.Statezh
+                 ghczmprim:GHCziPrim.RealWorld)) dsd1i
+         %of (wildXm::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              ghczmprim:GHCziPrim.writeCharArrayzh
+              @ ghczmprim:GHCziPrim.RealWorld mbaaQ offsetaR
+              ('\x00'::ghczmprim:GHCziPrim.Charzh) saS;
+            ghczmprim:GHCziTypes.ZC
+            (ds1d1j::ghczmprim:GHCziTypes.Char)
+            (xszqaW::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+              %case ((ghczmprim:GHCziPrim.Statezh
+                      ghczmprim:GHCziPrim.RealWorld)) ds1d1j
+              %of (wild1Xd::ghczmprim:GHCziTypes.Char)
+                {ghczmprim:GHCziTypes.Czh (xaV::ghczmprim:GHCziPrim.Charzh) ->
+                   %case ((ghczmprim:GHCziPrim.Statezh
+                           ghczmprim:GHCziPrim.RealWorld)) (ghczmprim:GHCziPrim.writeCharArrayzh
+                                                            @ ghczmprim:GHCziPrim.RealWorld mbaaQ
+                                                            offsetaR xaV saS)
+                   %of (szqaY::(ghczmprim:GHCziPrim.Statezh
+                                ghczmprim:GHCziPrim.RealWorld))
+                     {%_ ->
+                        ghczmprim:GHCziDebug.debugErrLnzuwrite mbaaQ
+                        (ghczmprim:GHCziPrim.zpzh offsetaR (1::ghczmprim:GHCziPrim.Intzh))
+                        xszqaW szqaY}}}};
+  %rec
+  {ghczmprim:GHCziDebug.debugErrLnzulen :: ghczmprim:GHCziPrim.Intzh
+                                           ->
+                                           (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                           ghczmprim:GHCziPrim.Intzh =
+     \ (laN::ghczmprim:GHCziPrim.Intzh)
+       (dsd1e::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+         %case ghczmprim:GHCziPrim.Intzh dsd1e
+         %of (wildB1::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              laN;
+            ghczmprim:GHCziTypes.ZC
+            (ds1d1f::ghczmprim:GHCziTypes.Char)
+            (xszqaP::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+              ghczmprim:GHCziDebug.debugErrLnzulen
+              (ghczmprim:GHCziPrim.zpzh laN (1::ghczmprim:GHCziPrim.Intzh))
+              xszqaP}};
+  ghczmprim:GHCziDebug.debugErrLn1 :: (ghczmprim:GHCziTypes.ZMZN
+                                       ghczmprim:GHCziTypes.Char)
+                                      ->
+                                      (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+                                      (ghczmprim:GHCziPrim.Z2H
+                                       ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                                       ghczmprim:GHCziUnit.Z0T) =
+    \ (xsaE::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (s0aF::(ghczmprim:GHCziPrim.Statezh
+              ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziDebug.debugErrLnzulen
+                                           (1::ghczmprim:GHCziPrim.Intzh) xsaE)
+        %of (laZZ::ghczmprim:GHCziPrim.Intzh)
+          {%_ ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.newByteArrayzh
+                                                @ ghczmprim:GHCziPrim.RealWorld laZZ s0aF)
+             %of (wildB1::(ghczmprim:GHCziPrim.Z2H
+                           ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                           ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                             ghczmprim:GHCziPrim.RealWorld))))
+               {ghczmprim:GHCziPrim.Z2H
+                (s1a10::(ghczmprim:GHCziPrim.Statezh
+                         ghczmprim:GHCziPrim.RealWorld))
+                (mbaa11::(ghczmprim:GHCziPrim.MutableByteArrayzh
+                          ghczmprim:GHCziPrim.RealWorld)) ->
+                  %case ((ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziDebug.debugErrLnzuwrite
+                                                     mbaa11 (0::ghczmprim:GHCziPrim.Intzh) xsaE
+                                                     s1a10)
+                  %of (s2a12::(ghczmprim:GHCziPrim.Statezh
+                               ghczmprim:GHCziPrim.RealWorld))
+                    {%_ ->
+                       %case ((ghczmprim:GHCziPrim.Z2H
+                               ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                               ghczmprim:GHCziUnit.Z0T)) ((%external ccall "debugErrLn"
+                                                           ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                             ghczmprim:GHCziPrim.RealWorld)
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld)
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Z1H
+                                                             ((ghczmprim:GHCziPrim.Statezh
+                                                               ghczmprim:GHCziPrim.RealWorld)))))
+                                                          mbaa11 s2a12)
+                       %of (wild1Xzz::(ghczmprim:GHCziPrim.Z1H
+                                       ((ghczmprim:GHCziPrim.Statezh
+                                         ghczmprim:GHCziPrim.RealWorld))))
+                         {ghczmprim:GHCziPrim.Z1H
+                          (dsd1u::(ghczmprim:GHCziPrim.Statezh
+                                   ghczmprim:GHCziPrim.RealWorld)) ->
+                            ghczmprim:GHCziPrim.Z2H
+                            @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            @ ghczmprim:GHCziUnit.Z0T dsd1u ghczmprim:GHCziUnit.Z0T}}}};
+  ghczmprim:GHCziDebug.debugLn1 :: (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char)
+                                   ->
+                                   (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+                                   (ghczmprim:GHCziPrim.Z2H
+                                    ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                                    ghczmprim:GHCziUnit.Z0T) =
+    \ (xsazz::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (s0aA::(ghczmprim:GHCziPrim.Statezh
+              ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziDebug.debugErrLnzulen
+                                           (1::ghczmprim:GHCziPrim.Intzh) xsazz)
+        %of (laZZ::ghczmprim:GHCziPrim.Intzh)
+          {%_ ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.newByteArrayzh
+                                                @ ghczmprim:GHCziPrim.RealWorld laZZ s0aA)
+             %of (wildB1::(ghczmprim:GHCziPrim.Z2H
+                           ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                           ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                             ghczmprim:GHCziPrim.RealWorld))))
+               {ghczmprim:GHCziPrim.Z2H
+                (s1a10::(ghczmprim:GHCziPrim.Statezh
+                         ghczmprim:GHCziPrim.RealWorld))
+                (mbaa11::(ghczmprim:GHCziPrim.MutableByteArrayzh
+                          ghczmprim:GHCziPrim.RealWorld)) ->
+                  %case ((ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziDebug.debugErrLnzuwrite
+                                                     mbaa11 (0::ghczmprim:GHCziPrim.Intzh) xsazz
+                                                     s1a10)
+                  %of (s2a12::(ghczmprim:GHCziPrim.Statezh
+                               ghczmprim:GHCziPrim.RealWorld))
+                    {%_ ->
+                       %case ((ghczmprim:GHCziPrim.Z2H
+                               ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                               ghczmprim:GHCziUnit.Z0T)) ((%external ccall "debugLn"
+                                                           ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                             ghczmprim:GHCziPrim.RealWorld)
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld)
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Z1H
+                                                             ((ghczmprim:GHCziPrim.Statezh
+                                                               ghczmprim:GHCziPrim.RealWorld)))))
+                                                          mbaa11 s2a12)
+                       %of (wild1Xv::(ghczmprim:GHCziPrim.Z1H
+                                      ((ghczmprim:GHCziPrim.Statezh
+                                        ghczmprim:GHCziPrim.RealWorld))))
+                         {ghczmprim:GHCziPrim.Z1H
+                          (dsd1zz::(ghczmprim:GHCziPrim.Statezh
+                                    ghczmprim:GHCziPrim.RealWorld)) ->
+                            ghczmprim:GHCziPrim.Z2H
+                            @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            @ ghczmprim:GHCziUnit.Z0T dsd1zz ghczmprim:GHCziUnit.Z0T}}}};
+  ghczmprim:GHCziDebug.debugErrLn :: (ghczmprim:GHCziTypes.ZMZN
+                                      ghczmprim:GHCziTypes.Char)
+                                     -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    %cast (ghczmprim:GHCziDebug.debugErrLn1)
+    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+     %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));
+  ghczmprim:GHCziDebug.debugLn :: (ghczmprim:GHCziTypes.ZMZN
+                                   ghczmprim:GHCziTypes.Char)
+                                  -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    %cast (ghczmprim:GHCziDebug.debugLn1)
+    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+     %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));

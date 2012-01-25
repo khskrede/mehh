@@ -1,0 +1,3 @@
+%module ghczmprim:GHCziMagic
+  ghczmprim:GHCziMagic.inline :: %forall aa7 . aa7 -> aa7 =
+    \ @ aaa (xa8::aaa) -> xa8;

@@ -1,0 +1,99 @@
+%module ghczmprim:GHCziOrdering
+  %data ghczmprim:GHCziOrdering.Ordering =
+    {ghczmprim:GHCziOrdering.LT;
+     ghczmprim:GHCziOrdering.EQ;
+     ghczmprim:GHCziOrdering.GT};
+  ghczmprim:GHCziOrdering.zdgfromOrdering2 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                               ghczmprim:GHCziGenerics.Unit
+                                               ghczmprim:GHCziGenerics.Unit) =
+    ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+    @ ghczmprim:GHCziGenerics.Unit ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziOrdering.zdgfromOrdering1 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                               ghczmprim:GHCziGenerics.Unit
+                                               ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                 ghczmprim:GHCziGenerics.Unit
+                                                 ghczmprim:GHCziGenerics.Unit))) =
+    ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+    @ ((ghczmprim:GHCziGenerics.ZCzpZC
+        ghczmprim:GHCziGenerics.Unit
+        ghczmprim:GHCziGenerics.Unit))
+    ghczmprim:GHCziOrdering.zdgfromOrdering2;
+  ghczmprim:GHCziOrdering.zdgfromOrdering4 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                               ghczmprim:GHCziGenerics.Unit
+                                               ghczmprim:GHCziGenerics.Unit) =
+    ghczmprim:GHCziGenerics.Inl @ ghczmprim:GHCziGenerics.Unit
+    @ ghczmprim:GHCziGenerics.Unit ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziOrdering.zdgfromOrdering3 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                               ghczmprim:GHCziGenerics.Unit
+                                               ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                 ghczmprim:GHCziGenerics.Unit
+                                                 ghczmprim:GHCziGenerics.Unit))) =
+    ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+    @ ((ghczmprim:GHCziGenerics.ZCzpZC
+        ghczmprim:GHCziGenerics.Unit
+        ghczmprim:GHCziGenerics.Unit))
+    ghczmprim:GHCziOrdering.zdgfromOrdering4;
+  ghczmprim:GHCziOrdering.zdgfromOrdering5 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                               ghczmprim:GHCziGenerics.Unit
+                                               ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                 ghczmprim:GHCziGenerics.Unit
+                                                 ghczmprim:GHCziGenerics.Unit))) =
+    ghczmprim:GHCziGenerics.Inl @ ghczmprim:GHCziGenerics.Unit
+    @ ((ghczmprim:GHCziGenerics.ZCzpZC
+        ghczmprim:GHCziGenerics.Unit
+        ghczmprim:GHCziGenerics.Unit))
+    ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziOrdering.zdgtoOrdering :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                            ghczmprim:GHCziGenerics.Unit
+                                            ((ghczmprim:GHCziGenerics.ZCzpZC
+                                              ghczmprim:GHCziGenerics.Unit
+                                              ghczmprim:GHCziGenerics.Unit)))
+                                           -> ghczmprim:GHCziOrdering.Ordering =
+    \ (g1aC::(ghczmprim:GHCziGenerics.ZCzpZC
+              ghczmprim:GHCziGenerics.Unit
+              ((ghczmprim:GHCziGenerics.ZCzpZC
+                ghczmprim:GHCziGenerics.Unit
+                ghczmprim:GHCziGenerics.Unit)))) ->
+        %case ghczmprim:GHCziOrdering.Ordering g1aC
+        %of (wildB1::(ghczmprim:GHCziGenerics.ZCzpZC
+                      ghczmprim:GHCziGenerics.Unit
+                      ((ghczmprim:GHCziGenerics.ZCzpZC
+                        ghczmprim:GHCziGenerics.Unit
+                        ghczmprim:GHCziGenerics.Unit))))
+          {ghczmprim:GHCziGenerics.Inl
+           (dsd14::ghczmprim:GHCziGenerics.Unit) ->
+             ghczmprim:GHCziOrdering.LT;
+           ghczmprim:GHCziGenerics.Inr
+           (g2aG::(ghczmprim:GHCziGenerics.ZCzpZC
+                   ghczmprim:GHCziGenerics.Unit
+                   ghczmprim:GHCziGenerics.Unit)) ->
+             %case ghczmprim:GHCziOrdering.Ordering g2aG
+             %of (wild1X5::(ghczmprim:GHCziGenerics.ZCzpZC
+                            ghczmprim:GHCziGenerics.Unit
+                            ghczmprim:GHCziGenerics.Unit))
+               {ghczmprim:GHCziGenerics.Inl
+                (dsdZZ::ghczmprim:GHCziGenerics.Unit) ->
+                  ghczmprim:GHCziOrdering.EQ;
+                ghczmprim:GHCziGenerics.Inr
+                (dsd10::ghczmprim:GHCziGenerics.Unit) ->
+                  ghczmprim:GHCziOrdering.GT}};
+  ghczmprim:GHCziOrdering.zdgfromOrdering :: ghczmprim:GHCziOrdering.Ordering
+                                             ->
+                                             (ghczmprim:GHCziGenerics.ZCzpZC
+                                              ghczmprim:GHCziGenerics.Unit
+                                              ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                ghczmprim:GHCziGenerics.Unit
+                                                ghczmprim:GHCziGenerics.Unit))) =
+    \ (dsd17::ghczmprim:GHCziOrdering.Ordering) ->
+        %case ((ghczmprim:GHCziGenerics.ZCzpZC
+                ghczmprim:GHCziGenerics.Unit
+                ((ghczmprim:GHCziGenerics.ZCzpZC
+                  ghczmprim:GHCziGenerics.Unit
+                  ghczmprim:GHCziGenerics.Unit)))) dsd17
+        %of (wildB1::ghczmprim:GHCziOrdering.Ordering)
+          {ghczmprim:GHCziOrdering.LT ->
+             ghczmprim:GHCziOrdering.zdgfromOrdering5;
+           ghczmprim:GHCziOrdering.EQ ->
+             ghczmprim:GHCziOrdering.zdgfromOrdering3;
+           ghczmprim:GHCziOrdering.GT ->
+             ghczmprim:GHCziOrdering.zdgfromOrdering1};

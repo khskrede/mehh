@@ -1,0 +1,257 @@
+%module base:GHCziIORef
+  %newtype base:GHCziIORef.IORef base:GHCziIORef.NTCoZCIORef aa3D
+    = (base:GHCziSTRef.STRef ghczmprim:GHCziPrim.RealWorld aa3D);
+  base:GHCziIORef.atomicModifyIORef1 :: %forall aadL badM . (base:GHCziIORef.IORef
+                                                             aadL)
+                                                            ->
+                                                            (aadL ->
+                                                             (ghczmprim:GHCziTuple.Z2T aadL badM))
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld)
+                                                            ->
+                                                            (ghczmprim:GHCziPrim.Z2H
+                                                             ((ghczmprim:GHCziPrim.Statezh
+                                                               ghczmprim:GHCziPrim.RealWorld))
+                                                             badM) =
+    \ @ aadL
+      @ badM
+      (dsdf5::(base:GHCziIORef.IORef aadL))
+      (fa3P::aadL -> (ghczmprim:GHCziTuple.Z2T aadL badM))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                badM)) (%cast (dsdf5)
+                        ((base:GHCziIORef.NTCoZCIORef aadL)))
+        %of (wildXn::(base:GHCziSTRef.STRef
+                      ghczmprim:GHCziPrim.RealWorld
+                      aadL))
+          {base:GHCziSTRef.STRef
+           (rzha3O::(ghczmprim:GHCziPrim.MutVarzh
+                     ghczmprim:GHCziPrim.RealWorld
+                     aadL)) ->
+             ghczmprim:GHCziPrim.atomicModifyMutVarzh
+             @ ghczmprim:GHCziPrim.RealWorld @ aadL
+             @ ((ghczmprim:GHCziTuple.Z2T aadL badM)) @ badM rzha3O fa3P etaB1};
+  base:GHCziIORef.newIORef1 :: %forall aaex . aaex ->
+                                              (ghczmprim:GHCziPrim.Statezh
+                                               ghczmprim:GHCziPrim.RealWorld)
+                                              ->
+                                              (ghczmprim:GHCziPrim.Z2H
+                                               ((ghczmprim:GHCziPrim.Statezh
+                                                 ghczmprim:GHCziPrim.RealWorld))
+                                               ((base:GHCziIORef.IORef aaex))) =
+    \ @ aaex
+      (va3J::aaex)
+      (sagP::(ghczmprim:GHCziPrim.Statezh
+              ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziIORef.IORef aaex)))) (ghczmprim:GHCziPrim.newMutVarzh
+                                                  @ aaex @ ghczmprim:GHCziPrim.RealWorld va3J sagP)
+        %of (wildagZZ::(ghczmprim:GHCziPrim.Z2H
+                        ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                        ((ghczmprim:GHCziPrim.MutVarzh
+                          ghczmprim:GHCziPrim.RealWorld
+                          aaex))))
+          {ghczmprim:GHCziPrim.Z2H
+           (s2zhah1::(ghczmprim:GHCziPrim.Statezh
+                      ghczmprim:GHCziPrim.RealWorld))
+           (varzhah2::(ghczmprim:GHCziPrim.MutVarzh
+                       ghczmprim:GHCziPrim.RealWorld
+                       aaex)) ->
+             ghczmprim:GHCziPrim.Z2H
+             @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+             @ ((base:GHCziIORef.IORef aaex)) s2zhah1
+             (%cast (base:GHCziSTRef.STRef @ ghczmprim:GHCziPrim.RealWorld
+                     @ aaex varzhah2)
+              ((ghczmprim:GHCziPrim.sym base:GHCziIORef.NTCoZCIORef aaex)))};
+  base:GHCziIORef.readIORef1 :: %forall aaet . (base:GHCziIORef.IORef
+                                                aaet)
+                                               ->
+                                               (ghczmprim:GHCziPrim.Statezh
+                                                ghczmprim:GHCziPrim.RealWorld)
+                                               ->
+                                               (ghczmprim:GHCziPrim.Z2H
+                                                ((ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld))
+                                                aaet) =
+    \ @ aaet
+      (dsdf9::(base:GHCziIORef.IORef aaet))
+      (etaagA::(ghczmprim:GHCziPrim.Statezh
+                ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                aaet)) (%cast (dsdf9)
+                        ((base:GHCziIORef.NTCoZCIORef aaet)))
+        %of (wildagB::(base:GHCziSTRef.STRef
+                       ghczmprim:GHCziPrim.RealWorld
+                       aaet))
+          {base:GHCziSTRef.STRef
+           (varzhagD::(ghczmprim:GHCziPrim.MutVarzh
+                       ghczmprim:GHCziPrim.RealWorld
+                       aaet)) ->
+             ghczmprim:GHCziPrim.readMutVarzh @ ghczmprim:GHCziPrim.RealWorld
+             @ aaet varzhagD etaagA};
+  base:GHCziIORef.writeIORef1 :: %forall aadQ . (base:GHCziIORef.IORef
+                                                 aadQ)
+                                                ->
+                                                aadQ ->
+                                                (ghczmprim:GHCziPrim.Statezh
+                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Z2H
+                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                 ghczmprim:GHCziUnit.Z0T) =
+    \ @ aadQ
+      (dsdf8::(base:GHCziIORef.IORef aadQ))
+      (va3N::aadQ)
+      (etaagn::(ghczmprim:GHCziPrim.Statezh
+                ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) (%cast (dsdf8)
+                                           ((base:GHCziIORef.NTCoZCIORef aadQ)))
+        %of (wildago::(base:GHCziSTRef.STRef
+                       ghczmprim:GHCziPrim.RealWorld
+                       aadQ))
+          {base:GHCziSTRef.STRef
+           (varzhagq::(ghczmprim:GHCziPrim.MutVarzh
+                       ghczmprim:GHCziPrim.RealWorld
+                       aadQ)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.writeMutVarzh
+                                                @ ghczmprim:GHCziPrim.RealWorld @ aadQ varzhagq va3N
+                                                etaagn)
+             %of (s2zhags::(ghczmprim:GHCziPrim.Statezh
+                            ghczmprim:GHCziPrim.RealWorld))
+               {%_ ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ghczmprim:GHCziUnit.Z0T s2zhags ghczmprim:GHCziUnit.Z0T}};
+  base:GHCziIORef.zdgfromIORef1 :: %forall ta9ZZ . (base:GHCziIORef.IORef
+                                                    ta9ZZ)
+                                                   -> (base:GHCziIORef.IORef ta9ZZ) =
+    \ @ ta9ZZ (dsdfa::(base:GHCziIORef.IORef ta9ZZ)) -> dsdfa;
+  base:GHCziIORef.zdgtoIORef1 :: %forall aa3D . (base:GHCziSTRef.STRef
+                                                 ghczmprim:GHCziPrim.RealWorld
+                                                 aa3D)
+                                                ->
+                                                (base:GHCziSTRef.STRef
+                                                 ghczmprim:GHCziPrim.RealWorld
+                                                 aa3D) =
+    \ @ aa3D
+      (tplB1::(base:GHCziSTRef.STRef
+               ghczmprim:GHCziPrim.RealWorld
+               aa3D)) ->
+        tplB1;
+  base:GHCziIORef.zdgtoIORef :: %forall aa9X . (base:GHCziSTRef.STRef
+                                                ghczmprim:GHCziPrim.RealWorld
+                                                aa9X)
+                                               -> (base:GHCziIORef.IORef aa9X) =
+    %cast (base:GHCziIORef.zdgtoIORef1)
+    (%forall aa3D . (base:GHCziSTRef.STRef
+                     ghczmprim:GHCziPrim.RealWorld
+                     aa3D)
+                    -> (ghczmprim:GHCziPrim.sym base:GHCziIORef.NTCoZCIORef aa3D));
+  base:GHCziIORef.zdgfromIORef :: %forall ta9ZZ . (base:GHCziIORef.IORef
+                                                   ta9ZZ)
+                                                  ->
+                                                  (base:GHCziSTRef.STRef
+                                                   ghczmprim:GHCziPrim.RealWorld
+                                                   ta9ZZ) =
+    %cast (base:GHCziIORef.zdgfromIORef1)
+    (%forall ta9ZZ . (base:GHCziIORef.IORef ta9ZZ) ->
+                     (base:GHCziIORef.NTCoZCIORef ta9ZZ));
+  base:GHCziIORef.atomicModifyIORef :: %forall aa3E ba3F . (base:GHCziIORef.IORef
+                                                            aa3E)
+                                                           ->
+                                                           (aa3E ->
+                                                            (ghczmprim:GHCziTuple.Z2T aa3E ba3F))
+                                                           -> (ghczmprim:GHCziTypes.IO ba3F) =
+    %cast (base:GHCziIORef.atomicModifyIORef1)
+    (%forall aadL badM . (base:GHCziIORef.IORef aadL) ->
+                         (aadL -> (ghczmprim:GHCziTuple.Z2T aadL badM)) ->
+                         %sym ((ghczmprim:GHCziTypes.NTCoZCIO badM)));
+  base:GHCziIORef.writeIORef :: %forall aa3G . (base:GHCziIORef.IORef
+                                                aa3G)
+                                               ->
+                                               aa3G ->
+                                               (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:GHCziIORef.writeIORef1)
+    (%forall aadQ . (base:GHCziIORef.IORef aadQ) ->
+                    aadQ ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));
+  base:GHCziIORef.readIORef :: %forall aa3H . (base:GHCziIORef.IORef
+                                               aa3H)
+                                              -> (ghczmprim:GHCziTypes.IO aa3H) =
+    %cast (base:GHCziIORef.readIORef1)
+    (%forall aaet . (base:GHCziIORef.IORef aaet) ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO aaet)));
+  base:GHCziIORef.newIORef :: %forall aa3I . aa3I ->
+                                             (ghczmprim:GHCziTypes.IO
+                                              ((base:GHCziIORef.IORef aa3I))) =
+    %cast (base:GHCziIORef.newIORef1)
+    (%forall aaex . aaex ->
+                    %sym
+                    ((ghczmprim:GHCziTypes.NTCoZCIO ((base:GHCziIORef.IORef aaex)))));
+  base:GHCziIORef.zdfEqIORefzuzdczeze :: %forall aa3R . (base:GHCziIORef.IORef
+                                                         aa3R)
+                                                        ->
+                                                        (base:GHCziIORef.IORef aa3R) ->
+                                                        ghczmprim:GHCziBool.Bool =
+    %cast (base:GHCziSTRef.zdfEqSTRefzuzdczeze
+           @ ghczmprim:GHCziPrim.RealWorld)
+    (%forall aa3R . (ghczmprim:GHCziPrim.sym
+                     base:GHCziIORef.NTCoZCIORef
+                     aa3R)
+                    ->
+                    (ghczmprim:GHCziPrim.sym base:GHCziIORef.NTCoZCIORef aa3R) ->
+                    ghczmprim:GHCziBool.Bool);
+  base:GHCziIORef.zdfEqIORefzuzdczsze :: %forall aa3R . (base:GHCziIORef.IORef
+                                                         aa3R)
+                                                        ->
+                                                        (base:GHCziIORef.IORef aa3R) ->
+                                                        ghczmprim:GHCziBool.Bool =
+    \ @ aa3R
+      (etaB2::(base:GHCziIORef.IORef aa3R))
+      (eta1Xr::(base:GHCziIORef.IORef aa3R)) ->
+        %case ghczmprim:GHCziBool.Bool (%cast (etaB2)
+                                        ((base:GHCziIORef.NTCoZCIORef aa3R)))
+        %of (wildafV::(base:GHCziSTRef.STRef
+                       ghczmprim:GHCziPrim.RealWorld
+                       aa3R))
+          {base:GHCziSTRef.STRef
+           (v1zhafX::(ghczmprim:GHCziPrim.MutVarzh
+                      ghczmprim:GHCziPrim.RealWorld
+                      aa3R)) ->
+             %case ghczmprim:GHCziBool.Bool (%cast (eta1Xr)
+                                             ((base:GHCziIORef.NTCoZCIORef aa3R)))
+             %of (wild1afZZ::(base:GHCziSTRef.STRef
+                              ghczmprim:GHCziPrim.RealWorld
+                              aa3R))
+               {base:GHCziSTRef.STRef
+                (v2zhag1::(ghczmprim:GHCziPrim.MutVarzh
+                           ghczmprim:GHCziPrim.RealWorld
+                           aa3R)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.sameMutVarzh
+                                                  @ ghczmprim:GHCziPrim.RealWorld @ aa3R v1zhafX
+                                                  v2zhag1)
+                  %of (wild2ag8::ghczmprim:GHCziBool.Bool)
+                    {ghczmprim:GHCziBool.False ->
+                       ghczmprim:GHCziBool.True;
+                     ghczmprim:GHCziBool.True ->
+                       ghczmprim:GHCziBool.False}}};
+  base:GHCziIORef.zdfEqIORef :: %forall aa3R . (base:GHCziClasses.TZCEq
+                                                ((base:GHCziIORef.IORef aa3R))) =
+    \ @ aa3R ->
+        base:GHCziClasses.DZCEq @ ((base:GHCziIORef.IORef aa3R))
+        (%cast (base:GHCziSTRef.zdfEqSTRefzuzdczeze
+                @ ghczmprim:GHCziPrim.RealWorld @ aa3R)
+         ((ghczmprim:GHCziPrim.sym base:GHCziIORef.NTCoZCIORef aa3R) ->
+          (ghczmprim:GHCziPrim.sym base:GHCziIORef.NTCoZCIORef aa3R) ->
+          ghczmprim:GHCziBool.Bool))
+        (base:GHCziIORef.zdfEqIORefzuzdczsze @ aa3R);

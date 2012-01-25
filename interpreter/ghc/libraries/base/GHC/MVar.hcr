@@ -1,0 +1,432 @@
+%module base:GHCziMVar
+  %data base:GHCziMVar.MVar aa49 =
+    {base:GHCziMVar.MVar ((ghczmprim:GHCziPrim.MVarzh
+                           ghczmprim:GHCziPrim.RealWorld
+                           aa49))};
+  base:GHCziMVar.takeMVar1 :: %forall aabl . (base:GHCziMVar.MVar
+                                              aabl)
+                                             ->
+                                             (ghczmprim:GHCziPrim.Statezh
+                                              ghczmprim:GHCziPrim.RealWorld)
+                                             ->
+                                             (ghczmprim:GHCziPrim.Z2H
+                                              ((ghczmprim:GHCziPrim.Statezh
+                                                ghczmprim:GHCziPrim.RealWorld))
+                                              aabl) =
+    \ @ aabl
+      (dsdcg::(base:GHCziMVar.MVar aabl))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                aabl)) dsdcg
+        %of (wildX3::(base:GHCziMVar.MVar aabl))
+          {base:GHCziMVar.MVar
+           (mvarzha4n::(ghczmprim:GHCziPrim.MVarzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        aabl)) ->
+             ghczmprim:GHCziPrim.takeMVarzh @ ghczmprim:GHCziPrim.RealWorld
+             @ aabl mvarzha4n etaB1};
+  base:GHCziMVar.putMVar1 :: %forall aabj . (base:GHCziMVar.MVar
+                                             aabj)
+                                            ->
+                                            aabj ->
+                                            (ghczmprim:GHCziPrim.Statezh
+                                             ghczmprim:GHCziPrim.RealWorld)
+                                            ->
+                                            (ghczmprim:GHCziPrim.Z2H
+                                             ((ghczmprim:GHCziPrim.Statezh
+                                               ghczmprim:GHCziPrim.RealWorld))
+                                             ghczmprim:GHCziUnit.Z0T) =
+    \ @ aabj
+      (dsdce::(base:GHCziMVar.MVar aabj))
+      (xa4q::aabj)
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) dsdce
+        %of (wildX3::(base:GHCziMVar.MVar aabj))
+          {base:GHCziMVar.MVar
+           (mvarzha4p::(ghczmprim:GHCziPrim.MVarzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        aabj)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.putMVarzh
+                                                @ ghczmprim:GHCziPrim.RealWorld @ aabj mvarzha4p
+                                                xa4q etaB1)
+             %of (s2zha4s::(ghczmprim:GHCziPrim.Statezh
+                            ghczmprim:GHCziPrim.RealWorld))
+               {%_ ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ghczmprim:GHCziUnit.Z0T s2zha4s ghczmprim:GHCziUnit.Z0T}};
+  base:GHCziMVar.tryTakeMVar1 :: %forall aabh . (base:GHCziMVar.MVar
+                                                 aabh)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Statezh
+                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Z2H
+                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                 ((base:DataziMaybe.Maybe aabh))) =
+    \ @ aabh
+      (dsdcc::(base:GHCziMVar.MVar aabh))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:DataziMaybe.Maybe aabh)))) dsdcc
+        %of (wildX3::(base:GHCziMVar.MVar aabh))
+          {base:GHCziMVar.MVar
+           (ma4t::(ghczmprim:GHCziPrim.MVarzh
+                   ghczmprim:GHCziPrim.RealWorld
+                   aabh)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ((base:DataziMaybe.Maybe
+                       aabh)))) (ghczmprim:GHCziPrim.tryTakeMVarzh
+                                 @ ghczmprim:GHCziPrim.RealWorld @ aabh ma4t etaB1)
+             %of (wild1Xa::(ghczmprim:GHCziPrim.Z3H
+                            ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            ghczmprim:GHCziPrim.Intzh
+                            aabh))
+               {ghczmprim:GHCziPrim.Z3H
+                (szqa4v::(ghczmprim:GHCziPrim.Statezh
+                          ghczmprim:GHCziPrim.RealWorld))
+                (ds1dc7::ghczmprim:GHCziPrim.Intzh)
+                (ds2dc8::aabh) ->
+                  %case ((ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ((base:DataziMaybe.Maybe aabh)))) ds1dc7
+                  %of (ds3Xck::ghczmprim:GHCziPrim.Intzh)
+                    {%_ ->
+                       ghczmprim:GHCziPrim.Z2H
+                       @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                       @ ((base:DataziMaybe.Maybe aabh)) szqa4v
+                       (base:DataziMaybe.Just @ aabh ds2dc8);
+                     (0::ghczmprim:GHCziPrim.Intzh) ->
+                       ghczmprim:GHCziPrim.Z2H
+                       @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                       @ ((base:DataziMaybe.Maybe aabh)) szqa4v
+                       (base:DataziMaybe.Nothing @ aabh)}}};
+  base:GHCziMVar.tryPutMVar1 :: %forall aabf . (base:GHCziMVar.MVar
+                                                aabf)
+                                               ->
+                                               aabf ->
+                                               (ghczmprim:GHCziPrim.Statezh
+                                                ghczmprim:GHCziPrim.RealWorld)
+                                               ->
+                                               (ghczmprim:GHCziPrim.Z2H
+                                                ((ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld))
+                                                ghczmprim:GHCziBool.Bool) =
+    \ @ aabf
+      (dsdc4::(base:GHCziMVar.MVar aabf))
+      (xa4zz::aabf)
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziBool.Bool)) dsdc4
+        %of (wildX3::(base:GHCziMVar.MVar aabf))
+          {base:GHCziMVar.MVar
+           (mvarzha4y::(ghczmprim:GHCziPrim.MVarzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        aabf)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziBool.Bool)) (ghczmprim:GHCziPrim.tryPutMVarzh
+                                                 @ ghczmprim:GHCziPrim.RealWorld @ aabf mvarzha4y
+                                                 xa4zz etaB1)
+             %of (wild1Xa::(ghczmprim:GHCziPrim.Z2H
+                            ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            ghczmprim:GHCziPrim.Intzh))
+               {ghczmprim:GHCziPrim.Z2H
+                (sa4B::(ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                (ds1dc0::ghczmprim:GHCziPrim.Intzh) ->
+                  %case ((ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ghczmprim:GHCziBool.Bool)) ds1dc0
+                  %of (ds2Xcc::ghczmprim:GHCziPrim.Intzh)
+                    {%_ ->
+                       ghczmprim:GHCziPrim.Z2H
+                       @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                       @ ghczmprim:GHCziBool.Bool sa4B ghczmprim:GHCziBool.True;
+                     (0::ghczmprim:GHCziPrim.Intzh) ->
+                       ghczmprim:GHCziPrim.Z2H
+                       @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                       @ ghczmprim:GHCziBool.Bool sa4B ghczmprim:GHCziBool.False}}};
+  base:GHCziMVar.isEmptyMVar1 :: %forall aabd . (base:GHCziMVar.MVar
+                                                 aabd)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Statezh
+                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Z2H
+                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                 ghczmprim:GHCziBool.Bool) =
+    \ @ aabd
+      (dsdbX::(base:GHCziMVar.MVar aabd))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziBool.Bool)) dsdbX
+        %of (wildX3::(base:GHCziMVar.MVar aabd))
+          {base:GHCziMVar.MVar
+           (mvzha4D::(ghczmprim:GHCziPrim.MVarzh
+                      ghczmprim:GHCziPrim.RealWorld
+                      aabd)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziBool.Bool)) (ghczmprim:GHCziPrim.isEmptyMVarzh
+                                                 @ ghczmprim:GHCziPrim.RealWorld @ aabd mvzha4D
+                                                 etaB1)
+             %of (wild1X8::(ghczmprim:GHCziPrim.Z2H
+                            ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            ghczmprim:GHCziPrim.Intzh))
+               {ghczmprim:GHCziPrim.Z2H
+                (s2zha4F::(ghczmprim:GHCziPrim.Statezh
+                           ghczmprim:GHCziPrim.RealWorld))
+                (flga4G::ghczmprim:GHCziPrim.Intzh) ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ghczmprim:GHCziBool.Bool s2zha4F
+                  (%case ghczmprim:GHCziBool.Bool flga4G
+                   %of (wild2Xq::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziBool.True;
+                      (0::ghczmprim:GHCziPrim.Intzh) ->
+                        ghczmprim:GHCziBool.False})}};
+  base:GHCziMVar.addMVarFinalizzer1 :: %forall aab9 . (base:GHCziMVar.MVar
+                                                       aab9)
+                                                      ->
+                                                      (ghczmprim:GHCziTypes.IO
+                                                       ghczmprim:GHCziUnit.Z0T)
+                                                      ->
+                                                      (ghczmprim:GHCziPrim.Statezh
+                                                       ghczmprim:GHCziPrim.RealWorld)
+                                                      ->
+                                                      (ghczmprim:GHCziPrim.Z2H
+                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                         ghczmprim:GHCziPrim.RealWorld))
+                                                       ghczmprim:GHCziUnit.Z0T) =
+    \ @ aab9
+      (dsdbT::(base:GHCziMVar.MVar aab9))
+      (finalizzera4I::(ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) dsdbT
+        %of (wildX3::(base:GHCziMVar.MVar aab9))
+          {base:GHCziMVar.MVar
+           (ma4H::(ghczmprim:GHCziPrim.MVarzh
+                   ghczmprim:GHCziPrim.RealWorld
+                   aab9)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.mkWeakzh
+                                                @ ((ghczmprim:GHCziPrim.MVarzh
+                                                    ghczmprim:GHCziPrim.RealWorld
+                                                    aab9))
+                                                @ ghczmprim:GHCziUnit.Z0T
+                                                @ ((ghczmprim:GHCziTypes.IO
+                                                    ghczmprim:GHCziUnit.Z0T))
+                                                ma4H ghczmprim:GHCziUnit.Z0T finalizzera4I etaB1)
+             %of (wild1X8::(ghczmprim:GHCziPrim.Z2H
+                            ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                            ((ghczmprim:GHCziPrim.Weakzh ghczmprim:GHCziUnit.Z0T))))
+               {ghczmprim:GHCziPrim.Z2H
+                (s1a4K::(ghczmprim:GHCziPrim.Statezh
+                         ghczmprim:GHCziPrim.RealWorld))
+                (ds1dbR::(ghczmprim:GHCziPrim.Weakzh ghczmprim:GHCziUnit.Z0T)) ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ghczmprim:GHCziUnit.Z0T s1a4K ghczmprim:GHCziUnit.Z0T}};
+  base:GHCziMVar.newEmptyMVar1 :: %forall aabn . (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                 ->
+                                                 (ghczmprim:GHCziPrim.Z2H
+                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                    ghczmprim:GHCziPrim.RealWorld))
+                                                  ((base:GHCziMVar.MVar aabn))) =
+    \ @ aabn
+      (szhX4S::(ghczmprim:GHCziPrim.Statezh
+                ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziMVar.MVar aabn)))) (ghczmprim:GHCziPrim.newMVarzh
+                                                @ ghczmprim:GHCziPrim.RealWorld @ aabn szhX4S)
+        %of (wildXm::(ghczmprim:GHCziPrim.Z2H
+                      ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                      ((ghczmprim:GHCziPrim.MVarzh ghczmprim:GHCziPrim.RealWorld aabn))))
+          {ghczmprim:GHCziPrim.Z2H
+           (s2zha4j::(ghczmprim:GHCziPrim.Statezh
+                      ghczmprim:GHCziPrim.RealWorld))
+           (svarzha4k::(ghczmprim:GHCziPrim.MVarzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        aabn)) ->
+             ghczmprim:GHCziPrim.Z2H
+             @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+             @ ((base:GHCziMVar.MVar aabn)) s2zha4j
+             (base:GHCziMVar.MVar @ aabn svarzha4k)};
+  base:GHCziMVar.newMVar1 :: %forall aabp . aabp ->
+                                            (ghczmprim:GHCziPrim.Statezh
+                                             ghczmprim:GHCziPrim.RealWorld)
+                                            ->
+                                            (ghczmprim:GHCziPrim.Z2H
+                                             ((ghczmprim:GHCziPrim.Statezh
+                                               ghczmprim:GHCziPrim.RealWorld))
+                                             ((base:GHCziMVar.MVar aabp))) =
+    \ @ aabp
+      (valuea4l::aabp)
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziMVar.MVar aabp)))) (ghczmprim:GHCziPrim.newMVarzh
+                                                @ ghczmprim:GHCziPrim.RealWorld @ aabp etaB1)
+        %of (wildXm::(ghczmprim:GHCziPrim.Z2H
+                      ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                      ((ghczmprim:GHCziPrim.MVarzh ghczmprim:GHCziPrim.RealWorld aabp))))
+          {ghczmprim:GHCziPrim.Z2H
+           (s2zha4j::(ghczmprim:GHCziPrim.Statezh
+                      ghczmprim:GHCziPrim.RealWorld))
+           (svarzha4k::(ghczmprim:GHCziPrim.MVarzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        aabp)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ((base:GHCziMVar.MVar aabp)))) (ghczmprim:GHCziPrim.putMVarzh
+                                                     @ ghczmprim:GHCziPrim.RealWorld @ aabp
+                                                     svarzha4k valuea4l s2zha4j)
+             %of (s2zh1a4s::(ghczmprim:GHCziPrim.Statezh
+                             ghczmprim:GHCziPrim.RealWorld))
+               {%_ ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ((base:GHCziMVar.MVar aabp)) s2zh1a4s
+                  (base:GHCziMVar.MVar @ aabp svarzha4k)}};
+  base:GHCziMVar.addMVarFinalizzer :: %forall aa4a . (base:GHCziMVar.MVar
+                                                      aa4a)
+                                                     ->
+                                                     (ghczmprim:GHCziTypes.IO
+                                                      ghczmprim:GHCziUnit.Z0T)
+                                                     ->
+                                                     (ghczmprim:GHCziTypes.IO
+                                                      ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:GHCziMVar.addMVarFinalizzer1)
+    (%forall aab9 . (base:GHCziMVar.MVar aab9) ->
+                    (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));
+  base:GHCziMVar.isEmptyMVar :: %forall aa4b . (base:GHCziMVar.MVar
+                                                aa4b)
+                                               ->
+                                               (ghczmprim:GHCziTypes.IO ghczmprim:GHCziBool.Bool) =
+    %cast (base:GHCziMVar.isEmptyMVar1)
+    (%forall aabd . (base:GHCziMVar.MVar aabd) ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziBool.Bool)));
+  base:GHCziMVar.tryPutMVar :: %forall aa4c . (base:GHCziMVar.MVar
+                                               aa4c)
+                                              ->
+                                              aa4c ->
+                                              (ghczmprim:GHCziTypes.IO ghczmprim:GHCziBool.Bool) =
+    %cast (base:GHCziMVar.tryPutMVar1)
+    (%forall aabf . (base:GHCziMVar.MVar aabf) ->
+                    aabf ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziBool.Bool)));
+  base:GHCziMVar.tryTakeMVar :: %forall aa4d . (base:GHCziMVar.MVar
+                                                aa4d)
+                                               ->
+                                               (ghczmprim:GHCziTypes.IO
+                                                ((base:DataziMaybe.Maybe aa4d))) =
+    %cast (base:GHCziMVar.tryTakeMVar1)
+    (%forall aabh . (base:GHCziMVar.MVar aabh) ->
+                    %sym
+                    ((ghczmprim:GHCziTypes.NTCoZCIO ((base:DataziMaybe.Maybe aabh)))));
+  base:GHCziMVar.putMVar :: %forall aa4e . (base:GHCziMVar.MVar aa4e)
+                                           ->
+                                           aa4e ->
+                                           (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:GHCziMVar.putMVar1)
+    (%forall aabj . (base:GHCziMVar.MVar aabj) ->
+                    aabj ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));
+  base:GHCziMVar.takeMVar :: %forall aa4f . (base:GHCziMVar.MVar
+                                             aa4f)
+                                            -> (ghczmprim:GHCziTypes.IO aa4f) =
+    %cast (base:GHCziMVar.takeMVar1)
+    (%forall aabl . (base:GHCziMVar.MVar aabl) ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO aabl)));
+  base:GHCziMVar.newMVar :: %forall aa4g . aa4g ->
+                                           (ghczmprim:GHCziTypes.IO ((base:GHCziMVar.MVar aa4g))) =
+    %cast (base:GHCziMVar.newMVar1)
+    (%forall aabp . aabp ->
+                    %sym
+                    ((ghczmprim:GHCziTypes.NTCoZCIO ((base:GHCziMVar.MVar aabp)))));
+  base:GHCziMVar.newEmptyMVar :: %forall aa4h . (ghczmprim:GHCziTypes.IO
+                                                 ((base:GHCziMVar.MVar aa4h))) =
+    %cast (base:GHCziMVar.newEmptyMVar1)
+    (%forall aabn . %sym
+                    ((ghczmprim:GHCziTypes.NTCoZCIO ((base:GHCziMVar.MVar aabn)))));
+  base:GHCziMVar.zdfEqMVarzuzdczeze :: %forall aa4L . (base:GHCziMVar.MVar
+                                                       aa4L)
+                                                      ->
+                                                      (base:GHCziMVar.MVar aa4L) ->
+                                                      ghczmprim:GHCziBool.Bool =
+    \ @ aa4L
+      (dsdck::(base:GHCziMVar.MVar aa4L))
+      (ds1dcl::(base:GHCziMVar.MVar aa4L)) ->
+        %case ghczmprim:GHCziBool.Bool dsdck
+        %of (wildB1::(base:GHCziMVar.MVar aa4L))
+          {base:GHCziMVar.MVar
+           (mvar1zha4M::(ghczmprim:GHCziPrim.MVarzh
+                         ghczmprim:GHCziPrim.RealWorld
+                         aa4L)) ->
+             %case ghczmprim:GHCziBool.Bool ds1dcl
+             %of (wild1Xf::(base:GHCziMVar.MVar aa4L))
+               {base:GHCziMVar.MVar
+                (mvar2zha4N::(ghczmprim:GHCziPrim.MVarzh
+                              ghczmprim:GHCziPrim.RealWorld
+                              aa4L)) ->
+                  ghczmprim:GHCziPrim.sameMVarzh @ ghczmprim:GHCziPrim.RealWorld
+                  @ aa4L mvar1zha4M mvar2zha4N}};
+  base:GHCziMVar.zdfEqMVarzuzdczsze :: %forall aa4L . (base:GHCziMVar.MVar
+                                                       aa4L)
+                                                      ->
+                                                      (base:GHCziMVar.MVar aa4L) ->
+                                                      ghczmprim:GHCziBool.Bool =
+    \ @ aa4L
+      (etaB2::(base:GHCziMVar.MVar aa4L))
+      (eta1B1::(base:GHCziMVar.MVar aa4L)) ->
+        %case ghczmprim:GHCziBool.Bool etaB2
+        %of (wildXG::(base:GHCziMVar.MVar aa4L))
+          {base:GHCziMVar.MVar
+           (mvar1zha4M::(ghczmprim:GHCziPrim.MVarzh
+                         ghczmprim:GHCziPrim.RealWorld
+                         aa4L)) ->
+             %case ghczmprim:GHCziBool.Bool eta1B1
+             %of (wild1Xf::(base:GHCziMVar.MVar aa4L))
+               {base:GHCziMVar.MVar
+                (mvar2zha4N::(ghczmprim:GHCziPrim.MVarzh
+                              ghczmprim:GHCziPrim.RealWorld
+                              aa4L)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.sameMVarzh
+                                                  @ ghczmprim:GHCziPrim.RealWorld @ aa4L mvar1zha4M
+                                                  mvar2zha4N)
+                  %of (wild2act::ghczmprim:GHCziBool.Bool)
+                    {ghczmprim:GHCziBool.False ->
+                       ghczmprim:GHCziBool.True;
+                     ghczmprim:GHCziBool.True ->
+                       ghczmprim:GHCziBool.False}}};
+  base:GHCziMVar.zdfEqMVar :: %forall aa4L . (base:GHCziClasses.TZCEq
+                                              ((base:GHCziMVar.MVar aa4L))) =
+    \ @ aa4L ->
+        base:GHCziClasses.DZCEq @ ((base:GHCziMVar.MVar aa4L))
+        (base:GHCziMVar.zdfEqMVarzuzdczeze @ aa4L)
+        (base:GHCziMVar.zdfEqMVarzuzdczsze @ aa4L);

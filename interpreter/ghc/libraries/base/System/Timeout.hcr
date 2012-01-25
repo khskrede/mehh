@@ -1,0 +1,161 @@
+%module main:SystemziTimeout
+  %data main:SystemziTimeout.Timeout =
+    {main:SystemziTimeout.Timeout base:DataziUnique.Unique};
+  timeoutTcrkR :: base:DataziTypeable.TyCon =
+    base:DataziTypeable.mkTyCon
+    (base:GHCziBase.unpackCStringzh
+     ("Timeout"::ghczmprim:GHCziPrim.Addrzh));
+  zdctypeOfrDY :: main:SystemziTimeout.Timeout ->
+                  base:DataziTypeable.TypeRep =
+    \ (dsdDV::main:SystemziTimeout.Timeout) ->
+        base:DataziTypeable.mkTyConApp timeoutTcrkR
+        (ghczmprim:GHCziTypes.ZMZN @ base:DataziTypeable.TypeRep);
+  main:SystemziTimeout.zdfTypeableTimeout :: (base:DataziTypeable.TZCTypeable
+                                              main:SystemziTimeout.Timeout) =
+    %cast (zdctypeOfrDY)
+    (%sym
+     ((base:DataziTypeable.NTCoZCTZCTypeable
+       main:SystemziTimeout.Timeout)));
+  zdcshowrE0 :: main:SystemziTimeout.Timeout ->
+                (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dsdDU::main:SystemziTimeout.Timeout) ->
+        base:GHCziBase.unpackCStringzh
+        ("<<timeout>>"::ghczmprim:GHCziPrim.Addrzh);
+  %rec
+  {main:SystemziTimeout.zdfShowTimeout :: (base:GHCziShow.TZCShow
+                                           main:SystemziTimeout.Timeout) =
+     base:GHCziShow.DZCShow @ main:SystemziTimeout.Timeout
+     zdcshowsPrecrE4 zdcshowrE0 zdcshowListrE2;
+   zdcshowListrE2 :: (ghczmprim:GHCziTypes.ZMZN
+                      main:SystemziTimeout.Timeout)
+                     ->
+                     (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                     (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+     base:GHCziShow.zddmshowList @ main:SystemziTimeout.Timeout
+     main:SystemziTimeout.zdfShowTimeout;
+   zdcshowsPrecrE4 :: ghczmprim:GHCziTypes.Int ->
+                      main:SystemziTimeout.Timeout ->
+                      (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                      (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+     base:GHCziShow.zddmshowsPrec @ main:SystemziTimeout.Timeout
+     main:SystemziTimeout.zdfShowTimeout};
+  %rec
+  {main:SystemziTimeout.zdfExceptionTimeout :: (base:GHCziException.TZCException
+                                                main:SystemziTimeout.Timeout) =
+     base:GHCziException.DZCException @ main:SystemziTimeout.Timeout
+     main:SystemziTimeout.zdfTypeableTimeout
+     main:SystemziTimeout.zdfShowTimeout zdctoExceptionrE8
+     zdcfromExceptionrE6;
+   zdcfromExceptionrE6 :: base:GHCziException.SomeException ->
+                          (base:DataziMaybe.Maybe main:SystemziTimeout.Timeout) =
+     base:GHCziException.zddmfromException
+     @ main:SystemziTimeout.Timeout
+     main:SystemziTimeout.zdfExceptionTimeout;
+   zdctoExceptionrE8 :: main:SystemziTimeout.Timeout ->
+                        base:GHCziException.SomeException =
+     base:GHCziException.zddmtoException @ main:SystemziTimeout.Timeout
+     main:SystemziTimeout.zdfExceptionTimeout};
+  zdczezerEa :: main:SystemziTimeout.Timeout ->
+                main:SystemziTimeout.Timeout -> ghczmprim:GHCziBool.Bool =
+    \ (dsdDQ::main:SystemziTimeout.Timeout)
+      (ds1dDR::main:SystemziTimeout.Timeout) ->
+        %case ghczmprim:GHCziBool.Bool dsdDQ
+        %of (wildB1::main:SystemziTimeout.Timeout)
+          {main:SystemziTimeout.Timeout (a1avu::base:DataziUnique.Unique) ->
+             %case ghczmprim:GHCziBool.Bool ds1dDR
+             %of (wild1Xg::main:SystemziTimeout.Timeout)
+               {main:SystemziTimeout.Timeout (b1avv::base:DataziUnique.Unique) ->
+                  base:GHCziClasses.zeze @ base:DataziUnique.Unique
+                  base:DataziUnique.zdfEqUnique a1avu b1avv}};
+  %rec
+  {main:SystemziTimeout.zdfEqTimeout :: (base:GHCziClasses.TZCEq
+                                         main:SystemziTimeout.Timeout) =
+     base:GHCziClasses.DZCEq @ main:SystemziTimeout.Timeout zdczezerEa
+     zdczszerEc;
+   zdczszerEc :: main:SystemziTimeout.Timeout ->
+                 main:SystemziTimeout.Timeout -> ghczmprim:GHCziBool.Bool =
+     \ (aavw::main:SystemziTimeout.Timeout)
+       (bavx::main:SystemziTimeout.Timeout) ->
+         base:GHCziClasses.not
+         (base:GHCziClasses.zeze @ main:SystemziTimeout.Timeout
+          main:SystemziTimeout.zdfEqTimeout aavw bavx)};
+  main:SystemziTimeout.timeout :: %forall aakU . ghczmprim:GHCziTypes.Int
+                                                 ->
+                                                 (ghczmprim:GHCziTypes.IO aakU) ->
+                                                 (ghczmprim:GHCziTypes.IO
+                                                  ((base:DataziMaybe.Maybe aakU))) =
+    \ @ aavU
+      (nakV::ghczmprim:GHCziTypes.Int)
+      (fakW::(ghczmprim:GHCziTypes.IO aavU)) ->
+        %case ((ghczmprim:GHCziTypes.IO
+                ((base:DataziMaybe.Maybe aavU)))) (base:GHCziClasses.zl
+                                                   @ ghczmprim:GHCziTypes.Int
+                                                   base:GHCziBase.zdfOrdInt nakV
+                                                   (ghczmprim:GHCziTypes.Izh
+                                                    (0::ghczmprim:GHCziPrim.Intzh)))
+        %of (wildB1::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             %case ((ghczmprim:GHCziTypes.IO
+                     ((base:DataziMaybe.Maybe aavU)))) (base:GHCziClasses.zeze
+                                                        @ ghczmprim:GHCziTypes.Int
+                                                        base:GHCziBase.zdfEqInt nakV
+                                                        (ghczmprim:GHCziTypes.Izh
+                                                         (0::ghczmprim:GHCziPrim.Intzh)))
+             %of (wild1Xy::ghczmprim:GHCziBool.Bool)
+               {ghczmprim:GHCziBool.False ->
+                  base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                  base:GHCziBase.zdfMonadIO @ base:GHCziConcziSync.ThreadId
+                  @ ((base:DataziMaybe.Maybe aavU)) base:GHCziConcziSync.myThreadId
+                  (\ (pidaqh::base:GHCziConcziSync.ThreadId) ->
+                       base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                       base:GHCziBase.zdfMonadIO @ main:SystemziTimeout.Timeout
+                       @ ((base:DataziMaybe.Maybe aavU))
+                       (base:GHCziBase.fmap @ ghczmprim:GHCziTypes.IO
+                        base:GHCziBase.zdfFunctorIO @ base:DataziUnique.Unique
+                        @ main:SystemziTimeout.Timeout main:SystemziTimeout.Timeout
+                        base:DataziUnique.newUnique)
+                       (\ (exaqi::main:SystemziTimeout.Timeout) ->
+                            base:ControlziExceptionziBase.handleJust
+                            @ main:SystemziTimeout.Timeout @ ghczmprim:GHCziUnit.Z0T
+                            @ ((base:DataziMaybe.Maybe aavU))
+                            main:SystemziTimeout.zdfExceptionTimeout
+                            (\ (eaqj::main:SystemziTimeout.Timeout) ->
+                                 %case ((base:DataziMaybe.Maybe
+                                         ghczmprim:GHCziUnit.Z0T)) (base:GHCziClasses.zeze
+                                                                    @ main:SystemziTimeout.Timeout
+                                                                    main:SystemziTimeout.zdfEqTimeout
+                                                                    eaqj exaqi)
+                                 %of (wild2XD::ghczmprim:GHCziBool.Bool)
+                                   {ghczmprim:GHCziBool.False ->
+                                      base:DataziMaybe.Nothing @ ghczmprim:GHCziUnit.Z0T;
+                                    ghczmprim:GHCziBool.True ->
+                                      base:DataziMaybe.Just @ ghczmprim:GHCziUnit.Z0T
+                                      ghczmprim:GHCziUnit.Z0T})
+                            (\ (dsdDK::ghczmprim:GHCziUnit.Z0T) ->
+                                 base:GHCziBase.return @ ghczmprim:GHCziTypes.IO
+                                 base:GHCziBase.zdfMonadIO @ ((base:DataziMaybe.Maybe aavU))
+                                 (base:DataziMaybe.Nothing @ aavU))
+                            (base:ControlziExceptionziBase.bracket
+                             @ base:GHCziConcziSync.ThreadId @ ghczmprim:GHCziUnit.Z0T
+                             @ ((base:DataziMaybe.Maybe aavU))
+                             (base:GHCziConcziSync.forkIO
+                              (base:GHCziBase.zgzg @ ghczmprim:GHCziTypes.IO
+                               base:GHCziBase.zdfMonadIO @ ghczmprim:GHCziUnit.Z0T
+                               @ ghczmprim:GHCziUnit.Z0T (base:GHCziConcziIO.threadDelay nakV)
+                               (base:GHCziConcziSync.throwTo @ main:SystemziTimeout.Timeout
+                                main:SystemziTimeout.zdfExceptionTimeout pidaqh exaqi)))
+                             base:GHCziConcziSync.killThread
+                             (\ (dsdDL::base:GHCziConcziSync.ThreadId) ->
+                                  base:GHCziBase.fmap @ ghczmprim:GHCziTypes.IO
+                                  base:GHCziBase.zdfFunctorIO @ aavU
+                                  @ ((base:DataziMaybe.Maybe aavU)) (base:DataziMaybe.Just @ aavU)
+                                  fakW))));
+                ghczmprim:GHCziBool.True ->
+                  base:GHCziBase.return @ ghczmprim:GHCziTypes.IO
+                  base:GHCziBase.zdfMonadIO @ ((base:DataziMaybe.Maybe aavU))
+                  (base:DataziMaybe.Nothing @ aavU)};
+           ghczmprim:GHCziBool.True ->
+             base:GHCziBase.fmap @ ghczmprim:GHCziTypes.IO
+             base:GHCziBase.zdfFunctorIO @ aavU
+             @ ((base:DataziMaybe.Maybe aavU)) (base:DataziMaybe.Just @ aavU)
+             fakW};

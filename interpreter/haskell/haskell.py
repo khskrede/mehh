@@ -187,56 +187,6 @@ def constr(name, *args):
     assert all([isinstance(arg, HaskellObject) for arg in args])
     return make_constructor(Symbol.get_symbol(name), list(args))
 
-class Integer(Value):
-    _immutable_fields_ = ["value"]
-
-    def __init__(self, integer):
-        self.value = integer
-
-    def match(self, other, subst):
-        value = other.getvalue()
-        if value:
-            assert isinstance(value, Integer)
-            if self.value == value.value:
-                return DEFINITE_MATCH
-            return NO_MATCH
-        return NEEDS_HNF
-
-    def __eq__(self, other):
-        return (isinstance(other, Integer) and self.value == other.value)
-
-    def __ne__(self, other):
-        return not (self == other)
-
-    def tostr(self):
-        return str(self.value)
-
-
-class CString(Value):
-    _immutable_fields_ = ["value"]
-
-    def __init__(self, string):
-        self.value = string
-
-    #def match(self, other, subst):
-    #    value = other.getvalue()
-    #    if value:
-    #        assert isinstance(value, Integer)
-    #        if self.value == value.value:
-    #            return DEFINITE_MATCH
-    #        return NO_MATCH
-    #    return NEEDS_HNF
-
-    def __eq__(self, other):
-        return (isinstance(other, CString) and self.value == other.value)
-
-    def __ne__(self, other):
-        return not (self == other)
-
-    def tostr(self):
-        return str(self.value)
-
-
 
 
 
@@ -601,6 +551,62 @@ def main_loop(expr):
                 #print "can enter jit", function, expr
                 jitdriver.can_enter_jit(function=function, todo=todo, expr=expr)
     return expr
+
+
+
+# _________________________________________________________________
+# Values
+
+class Integer(Value):
+    _immutable_fields_ = ["value"]
+
+    def __init__(self, integer):
+        self.value = integer
+
+    def match(self, other, subst):
+        value = other.getvalue()
+        if value:
+            assert isinstance(value, Integer)
+            if self.value == value.value:
+                return DEFINITE_MATCH
+            return NO_MATCH
+        return NEEDS_HNF
+
+    def __eq__(self, other):
+        return (isinstance(other, Integer) and self.value == other.value)
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def tostr(self):
+        return str(self.value)
+
+
+class CString(Value):
+    _immutable_fields_ = ["value"]
+
+    def __init__(self, string):
+        self.value = string
+
+    #def match(self, other, subst):
+    #    value = other.getvalue()
+    #    if value:
+    #        assert isinstance(value, Integer)
+    #        if self.value == value.value:
+    #            return DEFINITE_MATCH
+    #        return NO_MATCH
+    #    return NEEDS_HNF
+
+    def __eq__(self, other):
+        return (isinstance(other, CString) and self.value == other.value)
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def tostr(self):
+        return str(self.value)
+
+
 
 
 

@@ -3,9 +3,18 @@ import haskell.haskell
 
 class module():
     name = "" 
-    vdefg = {}
-    tdefg = {}
     qvars = {}
-    def __init__(self):
-        self.vdefg = {}
-        self.tdefg = {}
+    qtycons = {}
+    qdcons = {}
+
+    def __init__(self, mident):
+        self.name = mident
+        self.qvars = {}
+
+    def loadmod(self,mod):
+        for (key, value) in mod.qvars.items():
+            self.qvars[key] = value
+        for (key, value) in mod.qtycons.items():
+            self.qtycons[key] = value
+        for (key, value) in mod.qdcons.items():
+            self.qdcons[key] = value

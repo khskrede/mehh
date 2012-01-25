@@ -1,0 +1,140 @@
+%module ghczmprim:GHCziTypes
+  %data ghczmprim:GHCziTypes.Char =
+    {ghczmprim:GHCziTypes.Czh ghczmprim:GHCziPrim.Charzh};
+  %data ghczmprim:GHCziTypes.Double =
+    {ghczmprim:GHCziTypes.Dzh ghczmprim:GHCziPrim.Doublezh};
+  %data ghczmprim:GHCziTypes.Float =
+    {ghczmprim:GHCziTypes.Fzh ghczmprim:GHCziPrim.Floatzh};
+  %data ghczmprim:GHCziTypes.Int =
+    {ghczmprim:GHCziTypes.Izh ghczmprim:GHCziPrim.Intzh};
+  %data ghczmprim:GHCziTypes.ZMZN aam =
+    {ghczmprim:GHCziTypes.ZMZN;
+     ghczmprim:GHCziTypes.ZC aam ((ghczmprim:GHCziTypes.ZMZN aam))};
+  %newtype ghczmprim:GHCziTypes.IO ghczmprim:GHCziTypes.NTCoZCIO aal
+    = (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+      (ghczmprim:GHCziPrim.Z2H
+       ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+       aal);
+  ghczmprim:GHCziTypes.zdgfromZMZN1 :: %forall aa1c . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                       ghczmprim:GHCziGenerics.Unit
+                                                       ((ghczmprim:GHCziGenerics.ZCztZC
+                                                         aa1c
+                                                         ((ghczmprim:GHCziTypes.ZMZN aa1c))))) =
+    \ @ aa1c ->
+        ghczmprim:GHCziGenerics.Inl @ ghczmprim:GHCziGenerics.Unit
+        @ ((ghczmprim:GHCziGenerics.ZCztZC
+            aa1c
+            ((ghczmprim:GHCziTypes.ZMZN aa1c))))
+        ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziTypes.zdgfromIO1 :: %forall ta1g . (ghczmprim:GHCziTypes.IO
+                                                     ta1g)
+                                                    -> (ghczmprim:GHCziTypes.IO ta1g) =
+    \ @ ta1g (dsd1r::(ghczmprim:GHCziTypes.IO ta1g)) -> dsd1r;
+  ghczmprim:GHCziTypes.zdgtoIO1 :: %forall aal . ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                  ->
+                                                  (ghczmprim:GHCziPrim.Z2H
+                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                   aal))
+                                                 ->
+                                                 (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                 ->
+                                                 (ghczmprim:GHCziPrim.Z2H
+                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                    ghczmprim:GHCziPrim.RealWorld))
+                                                  aal) =
+    \ @ aal
+      (tplB1::(ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld)
+              ->
+              (ghczmprim:GHCziPrim.Z2H
+               ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+               aal)) ->
+        tplB1;
+  ghczmprim:GHCziTypes.zdgtoZMZN :: %forall aa1a . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                    ghczmprim:GHCziGenerics.Unit
+                                                    ((ghczmprim:GHCziGenerics.ZCztZC
+                                                      aa1a
+                                                      ((ghczmprim:GHCziTypes.ZMZN aa1a)))))
+                                                   -> (ghczmprim:GHCziTypes.ZMZN aa1a) =
+    \ @ aa1a
+      (g1aM::(ghczmprim:GHCziGenerics.ZCzpZC
+              ghczmprim:GHCziGenerics.Unit
+              ((ghczmprim:GHCziGenerics.ZCztZC
+                aa1a
+                ((ghczmprim:GHCziTypes.ZMZN aa1a)))))) ->
+        %case ((ghczmprim:GHCziTypes.ZMZN aa1a)) g1aM
+        %of (wildB1::(ghczmprim:GHCziGenerics.ZCzpZC
+                      ghczmprim:GHCziGenerics.Unit
+                      ((ghczmprim:GHCziGenerics.ZCztZC
+                        aa1a
+                        ((ghczmprim:GHCziTypes.ZMZN aa1a))))))
+          {ghczmprim:GHCziGenerics.Inl
+           (dsd1l::ghczmprim:GHCziGenerics.Unit) ->
+             ghczmprim:GHCziTypes.ZMZN @ aa1a;
+           ghczmprim:GHCziGenerics.Inr
+           (g4aO::(ghczmprim:GHCziGenerics.ZCztZC
+                   aa1a
+                   ((ghczmprim:GHCziTypes.ZMZN aa1a)))) ->
+             %case ((ghczmprim:GHCziTypes.ZMZN aa1a)) g4aO
+             %of (wild1X6::(ghczmprim:GHCziGenerics.ZCztZC
+                            aa1a
+                            ((ghczmprim:GHCziTypes.ZMZN aa1a))))
+               {ghczmprim:GHCziGenerics.ZCztZC
+                (g2aP::aa1a) (g3aQ::(ghczmprim:GHCziTypes.ZMZN aa1a)) ->
+                  ghczmprim:GHCziTypes.ZC @ aa1a g2aP g3aQ}};
+  ghczmprim:GHCziTypes.zdgfromZMZN :: %forall aa1c . (ghczmprim:GHCziTypes.ZMZN
+                                                      aa1c)
+                                                     ->
+                                                     (ghczmprim:GHCziGenerics.ZCzpZC
+                                                      ghczmprim:GHCziGenerics.Unit
+                                                      ((ghczmprim:GHCziGenerics.ZCztZC
+                                                        aa1c
+                                                        ((ghczmprim:GHCziTypes.ZMZN aa1c))))) =
+    \ @ aa1c (dsd1o::(ghczmprim:GHCziTypes.ZMZN aa1c)) ->
+        %case ((ghczmprim:GHCziGenerics.ZCzpZC
+                ghczmprim:GHCziGenerics.Unit
+                ((ghczmprim:GHCziGenerics.ZCztZC
+                  aa1c
+                  ((ghczmprim:GHCziTypes.ZMZN aa1c)))))) dsd1o
+        %of (wildB1::(ghczmprim:GHCziTypes.ZMZN aa1c))
+          {ghczmprim:GHCziTypes.ZMZN ->
+             ghczmprim:GHCziTypes.zdgfromZMZN1 @ aa1c;
+           ghczmprim:GHCziTypes.ZC
+           (g2aK::aa1c) (g3aL::(ghczmprim:GHCziTypes.ZMZN aa1c)) ->
+             ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+             @ ((ghczmprim:GHCziGenerics.ZCztZC
+                 aa1c
+                 ((ghczmprim:GHCziTypes.ZMZN aa1c))))
+             (ghczmprim:GHCziGenerics.ZCztZC @ aa1c
+              @ ((ghczmprim:GHCziTypes.ZMZN aa1c)) g2aK g3aL)};
+  ghczmprim:GHCziTypes.zdgtoIO :: %forall aa1e . ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                  ->
+                                                  (ghczmprim:GHCziPrim.Z2H
+                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                   aa1e))
+                                                 -> (ghczmprim:GHCziTypes.IO aa1e) =
+    %cast (ghczmprim:GHCziTypes.zdgtoIO1)
+    (%forall aal . ((ghczmprim:GHCziPrim.Statezh
+                     ghczmprim:GHCziPrim.RealWorld)
+                    ->
+                    (ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     aal))
+                   -> %sym ((ghczmprim:GHCziTypes.NTCoZCIO aal)));
+  ghczmprim:GHCziTypes.zdgfromIO :: %forall ta1g . (ghczmprim:GHCziTypes.IO
+                                                    ta1g)
+                                                   ->
+                                                   (ghczmprim:GHCziPrim.Statezh
+                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                   ->
+                                                   (ghczmprim:GHCziPrim.Z2H
+                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                    ta1g) =
+    %cast (ghczmprim:GHCziTypes.zdgfromIO1)
+    (%forall ta1g . (ghczmprim:GHCziTypes.IO ta1g) ->
+                    (ghczmprim:GHCziTypes.NTCoZCIO ta1g));

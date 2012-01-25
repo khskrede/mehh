@@ -1,0 +1,30 @@
+%module main:SystemziMem
+  arbV :: (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld)
+          ->
+          (ghczmprim:GHCziPrim.Z2H
+           ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+           ghczmprim:GHCziUnit.Z0T) =
+    \ (dsdbN::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) ((%external ccall "performMajorGC"
+                                            ((ghczmprim:GHCziPrim.Statezh
+                                              ghczmprim:GHCziPrim.RealWorld)
+                                             ->
+                                             (ghczmprim:GHCziPrim.Z1H
+                                              ((ghczmprim:GHCziPrim.Statezh
+                                                ghczmprim:GHCziPrim.RealWorld)))))
+                                           dsdbN)
+        %of (wildB1::(ghczmprim:GHCziPrim.Z1H
+                      ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))))
+          {ghczmprim:GHCziPrim.Z1H
+           (ds1dbM::(ghczmprim:GHCziPrim.Statezh
+                     ghczmprim:GHCziPrim.RealWorld)) ->
+             ghczmprim:GHCziPrim.Z2H
+             @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+             @ ghczmprim:GHCziUnit.Z0T ds1dbM ghczmprim:GHCziUnit.Z0T};
+  main:SystemziMem.performGC :: (ghczmprim:GHCziTypes.IO
+                                 ghczmprim:GHCziUnit.Z0T) =
+    %cast (arbV)
+    (%sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));

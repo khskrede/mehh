@@ -1,0 +1,10 @@
+{"%module": "ghczmprim:GHCziMagic", "tdefg": [],
+ "vdefg": [{"qvar": "ghczmprim:GHCziMagic.inline",
+            "ty": {"%forall": {"tyvar": "aa7", "kind": "*"},
+                   "ty": {"bty": {"bty": {"qtycon": "ghczmprim:GHCziPrim.ZLzmzgZR"},
+                                  "aty": {"tyvar": "aa7"}},
+                          "aty": {"tyvar": "aa7"}}},
+            "exp": {"lambda": {"tbind": {"tyvar": "aaa", "kind": "*"}},
+                    "exp": {"lambda": {"vbind": {"var": "xa8",
+                                                 "ty": {"tyvar": "aaa"}}},
+                            "exp": {"qvar": "xa8"}}}}]}

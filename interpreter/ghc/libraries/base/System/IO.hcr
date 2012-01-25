@@ -1,0 +1,753 @@
+%module main:SystemziIO
+  pathSeparatorr1Iv :: ghczmprim:GHCziTypes.Char =
+    ghczmprim:GHCziTypes.Czh ('/'::ghczmprim:GHCziPrim.Charzh);
+  main:SystemziIO.fixIO :: %forall aa1IC . (aa1IC ->
+                                            (ghczmprim:GHCziTypes.IO aa1IC))
+                                           -> (ghczmprim:GHCziTypes.IO aa1IC) =
+    \ @ aa27l (ka1J8::aa27l -> (ghczmprim:GHCziTypes.IO aa27l)) ->
+        base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+        base:GHCziBase.zdfMonadIO @ ((base:GHCziIORef.IORef aa27l)) @ aa27l
+        (base:GHCziIORef.newIORef @ aa27l
+         (base:GHCziException.throw
+          @ base:ControlziExceptionziBase.NonTermination @ aa27l
+          base:ControlziExceptionziBase.zdfExceptionNonTermination
+          base:ControlziExceptionziBase.NonTermination))
+        (\ (refa1J9::(base:GHCziIORef.IORef aa27l)) ->
+             base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+             base:GHCziBase.zdfMonadIO @ aa27l @ aa27l
+             (base:GHCziIO.unsafeInterleaveIO @ aa27l
+              (base:GHCziIORef.readIORef @ aa27l refa1J9))
+             (\ (ansa1Ja::aa27l) ->
+                  base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                  base:GHCziBase.zdfMonadIO @ aa27l @ aa27l (ka1J8 ansa1Ja)
+                  (\ (resulta1Jb::aa27l) ->
+                       base:GHCziBase.zgzg @ ghczmprim:GHCziTypes.IO
+                       base:GHCziBase.zdfMonadIO @ ghczmprim:GHCziUnit.Z0T @ aa27l
+                       (base:GHCziIORef.writeIORef @ aa27l refa1J9 resulta1Jb)
+                       (base:GHCziBase.return @ ghczmprim:GHCziTypes.IO
+                        base:GHCziBase.zdfMonadIO @ aa27l resulta1Jb))));
+  main:SystemziIO.withBinaryFile :: %forall ra1ID . (ghczmprim:GHCziTypes.ZMZN
+                                                     ghczmprim:GHCziTypes.Char)
+                                                    ->
+                                                    base:GHCziIOziIOMode.IOMode ->
+                                                    (base:GHCziIOziHandleziTypes.Handle ->
+                                                     (ghczmprim:GHCziTypes.IO ra1ID))
+                                                    -> (ghczmprim:GHCziTypes.IO ra1ID) =
+    \ @ ra298
+      (namea1J6::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (modea1J7::base:GHCziIOziIOMode.IOMode) ->
+        base:ControlziExceptionziBase.bracket
+        @ base:GHCziIOziHandleziTypes.Handle @ ghczmprim:GHCziUnit.Z0T
+        @ ra298 (base:GHCziIOziHandleziFD.openBinaryFile namea1J6 modea1J7)
+        base:GHCziIOziHandle.hClose;
+  main:SystemziIO.withFile :: %forall ra1IE . (ghczmprim:GHCziTypes.ZMZN
+                                               ghczmprim:GHCziTypes.Char)
+                                              ->
+                                              base:GHCziIOziIOMode.IOMode ->
+                                              (base:GHCziIOziHandleziTypes.Handle ->
+                                               (ghczmprim:GHCziTypes.IO ra1IE))
+                                              -> (ghczmprim:GHCziTypes.IO ra1IE) =
+    \ @ ra29d
+      (namea1J4::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (modea1J5::base:GHCziIOziIOMode.IOMode) ->
+        base:ControlziExceptionziBase.bracket
+        @ base:GHCziIOziHandleziTypes.Handle @ ghczmprim:GHCziUnit.Z0T
+        @ ra29d (base:GHCziIOziHandleziFD.openFile namea1J4 modea1J5)
+        base:GHCziIOziHandle.hClose;
+  main:SystemziIO.hPrint :: %forall aa1IF . (base:GHCziShow.TZCShow
+                                             aa1IF)
+                                            ->
+                                            base:GHCziIOziHandleziTypes.Handle ->
+                                            aa1IF ->
+                                            (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ @ aa29f
+      (zddShowa29g::(base:GHCziShow.TZCShow aa29f))
+      (hdla1J3::base:GHCziIOziHandleziTypes.Handle) ->
+        base:GHCziBase.zi
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+        @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T)) @ aa29f
+        (base:GHCziIOziHandleziText.hPutStrLn hdla1J3)
+        (base:GHCziShow.show @ aa29f zddShowa29g);
+  main:SystemziIO.hReady :: base:GHCziIOziHandleziTypes.Handle ->
+                            (ghczmprim:GHCziTypes.IO ghczmprim:GHCziBool.Bool) =
+    \ (ha1J2::base:GHCziIOziHandleziTypes.Handle) ->
+        base:GHCziIOziHandleziText.hWaitForInput ha1J2
+        (ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh));
+  main:SystemziIO.readIO :: %forall aa1IG . (base:GHCziRead.TZCRead
+                                             aa1IG)
+                                            ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.IO aa1IG) =
+    \ @ aa29n
+      (zddReada29o::(base:GHCziRead.TZCRead aa29n))
+      (sa1IY::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        %case ((ghczmprim:GHCziTypes.IO aa29n)) (base:GHCziBase.zgzgze
+                                                 @ ghczmprim:GHCziTypes.ZMZN
+                                                 base:GHCziBase.zdfMonadZMZN
+                                                 @ ((ghczmprim:GHCziTuple.Z2T
+                                                     aa29n
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))))
+                                                 @ aa29n
+                                                 (base:TextziRead.reads @ aa29n zddReada29o sa1IY)
+                                                 (\ (dsd2hC::(ghczmprim:GHCziTuple.Z2T
+                                                              aa29n
+                                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char)))) ->
+                                                      %case ((ghczmprim:GHCziTypes.ZMZN
+                                                              aa29n)) dsd2hC
+                                                      %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                                                                    aa29n
+                                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                                      ghczmprim:GHCziTypes.Char))))
+                                                        {ghczmprim:GHCziTuple.Z2T
+                                                         (xa1IZZ::aa29n)
+                                                         (ta1J0::(ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char)) ->
+                                                           base:GHCziBase.zgzgze
+                                                           @ ghczmprim:GHCziTypes.ZMZN
+                                                           base:GHCziBase.zdfMonadZMZN
+                                                           @ ((ghczmprim:GHCziTuple.Z2T
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))))
+                                                           @ aa29n (base:GHCziRead.lex ta1J0)
+                                                           (\ (ds1d2hu::(ghczmprim:GHCziTuple.Z2T
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char)))) ->
+                                                                %let faild2hx :: (ghczmprim:GHCziPrim.Statezh
+                                                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                                                 ->
+                                                                                 (ghczmprim:GHCziTypes.ZMZN
+                                                                                  aa29n) =
+                                                                       \ (ds2d2hy::(ghczmprim:GHCziPrim.Statezh
+                                                                                    ghczmprim:GHCziPrim.RealWorld)) ->
+                                                                           base:GHCziBase.fail
+                                                                           @ ghczmprim:GHCziTypes.ZMZN
+                                                                           base:GHCziBase.zdfMonadZMZN
+                                                                           @ aa29n
+                                                                           (base:GHCziBase.unpackCStringzh
+                                                                            ("Pattern match failure in do expression at IO.hs:408:31-37"::ghczmprim:GHCziPrim.Addrzh))
+                                                                %in %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                            aa29n)) ds1d2hu
+                                                                    %of (wild1Xh::(ghczmprim:GHCziTuple.Z2T
+                                                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                                                     ghczmprim:GHCziTypes.Char))
+                                                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                                                     ghczmprim:GHCziTypes.Char))))
+                                                                      {ghczmprim:GHCziTuple.Z2T
+                                                                       (ds2d2hv::(ghczmprim:GHCziTypes.ZMZN
+                                                                                  ghczmprim:GHCziTypes.Char))
+                                                                       (ds3d2hw::(ghczmprim:GHCziTypes.ZMZN
+                                                                                  ghczmprim:GHCziTypes.Char)) ->
+                                                                         %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                                 aa29n)) ds2d2hv
+                                                                         %of (wild2Xk::(ghczmprim:GHCziTypes.ZMZN
+                                                                                        ghczmprim:GHCziTypes.Char))
+                                                                           {ghczmprim:GHCziTypes.ZMZN
+                                                                            ->
+                                                                              %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                                      aa29n)) ds3d2hw
+                                                                              %of (wild3Xl::(ghczmprim:GHCziTypes.ZMZN
+                                                                                             ghczmprim:GHCziTypes.Char))
+                                                                                {ghczmprim:GHCziTypes.ZMZN
+                                                                                 ->
+                                                                                   base:GHCziBase.return
+                                                                                   @ ghczmprim:GHCziTypes.ZMZN
+                                                                                   base:GHCziBase.zdfMonadZMZN
+                                                                                   @ aa29n xa1IZZ;
+                                                                                 ghczmprim:GHCziTypes.ZC
+                                                                                 (ipvs2hP::ghczmprim:GHCziTypes.Char)
+                                                                                 (ipv1s2hQ::(ghczmprim:GHCziTypes.ZMZN
+                                                                                             ghczmprim:GHCziTypes.Char)) ->
+                                                                                   faild2hx
+                                                                                   ghczmprim:GHCziPrim.realWorldzh};
+                                                                            ghczmprim:GHCziTypes.ZC
+                                                                            (ipvs2hS::ghczmprim:GHCziTypes.Char)
+                                                                            (ipv1s2hT::(ghczmprim:GHCziTypes.ZMZN
+                                                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                                              faild2hx
+                                                                              ghczmprim:GHCziPrim.realWorldzh}})}))
+        %of (wildB1::(ghczmprim:GHCziTypes.ZMZN aa29n))
+          {ghczmprim:GHCziTypes.ZMZN ->
+             base:GHCziIOziException.ioError @ aa29n
+             (base:GHCziIOziException.userError
+              (base:GHCziBase.unpackCStringzh
+               ("Prelude.readIO: no parse"::ghczmprim:GHCziPrim.Addrzh)));
+           ghczmprim:GHCziTypes.ZC
+           (xa1J1::aa29n) (dsd2hF::(ghczmprim:GHCziTypes.ZMZN aa29n)) ->
+             %case ((ghczmprim:GHCziTypes.IO aa29n)) dsd2hF
+             %of (wild1Xe::(ghczmprim:GHCziTypes.ZMZN aa29n))
+               {ghczmprim:GHCziTypes.ZMZN ->
+                  base:GHCziBase.return @ ghczmprim:GHCziTypes.IO
+                  base:GHCziBase.zdfMonadIO @ aa29n xa1J1;
+                ghczmprim:GHCziTypes.ZC
+                (ipvs2hW::aa29n) (ipv1s2hX::(ghczmprim:GHCziTypes.ZMZN aa29n)) ->
+                  base:GHCziIOziException.ioError @ aa29n
+                  (base:GHCziIOziException.userError
+                   (base:GHCziBase.unpackCStringzh
+                    ("Prelude.readIO: ambiguous parse"::ghczmprim:GHCziPrim.Addrzh)))}};
+  main:SystemziIO.appendFile :: (ghczmprim:GHCziTypes.ZMZN
+                                 ghczmprim:GHCziTypes.Char)
+                                ->
+                                (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (fa1IT::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (txta1IU::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:ControlziExceptionziBase.bracket
+        @ base:GHCziIOziHandleziTypes.Handle @ ghczmprim:GHCziUnit.Z0T
+        @ ghczmprim:GHCziUnit.Z0T
+        (base:GHCziIOziHandleziFD.openFile fa1IT
+         base:GHCziIOziIOMode.AppendMode)
+        base:GHCziIOziHandle.hClose
+        (\ (hdla1IV::base:GHCziIOziHandleziTypes.Handle) ->
+             base:GHCziIOziHandleziText.hPutStr hdla1IV txta1IU);
+  main:SystemziIO.writeFile :: (ghczmprim:GHCziTypes.ZMZN
+                                ghczmprim:GHCziTypes.Char)
+                               ->
+                               (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                               (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (fa1IQ::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (txta1IR::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:ControlziExceptionziBase.bracket
+        @ base:GHCziIOziHandleziTypes.Handle @ ghczmprim:GHCziUnit.Z0T
+        @ ghczmprim:GHCziUnit.Z0T
+        (base:GHCziIOziHandleziFD.openFile fa1IQ
+         base:GHCziIOziIOMode.WriteMode)
+        base:GHCziIOziHandle.hClose
+        (\ (hdla1IS::base:GHCziIOziHandleziTypes.Handle) ->
+             base:GHCziIOziHandleziText.hPutStr hdla1IS txta1IR);
+  main:SystemziIO.getContents :: (ghczmprim:GHCziTypes.IO
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+    base:GHCziIOziHandleziText.hGetContents
+    base:GHCziIOziHandleziFD.stdin;
+  main:SystemziIO.getLine :: (ghczmprim:GHCziTypes.IO
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+    base:GHCziIOziHandleziText.hGetLine base:GHCziIOziHandleziFD.stdin;
+  main:SystemziIO.readLn :: %forall aa1IH . (base:GHCziRead.TZCRead
+                                             aa1IH)
+                                            -> (ghczmprim:GHCziTypes.IO aa1IH) =
+    \ @ aa2bd (zddReada2be::(base:GHCziRead.TZCRead aa2bd)) ->
+        base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+        base:GHCziBase.zdfMonadIO
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) @ aa2bd
+        main:SystemziIO.getLine
+        (\ (la1IW::(ghczmprim:GHCziTypes.ZMZN
+                    ghczmprim:GHCziTypes.Char)) ->
+             base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+             base:GHCziBase.zdfMonadIO @ aa2bd @ aa2bd
+             (main:SystemziIO.readIO @ aa2bd zddReada2be la1IW)
+             (\ (ra1IX::aa2bd) ->
+                  base:GHCziBase.return @ ghczmprim:GHCziTypes.IO
+                  base:GHCziBase.zdfMonadIO @ aa2bd ra1IX));
+  main:SystemziIO.getChar :: (ghczmprim:GHCziTypes.IO
+                              ghczmprim:GHCziTypes.Char) =
+    base:GHCziIOziHandleziText.hGetChar base:GHCziIOziHandleziFD.stdin;
+  main:SystemziIO.putStrLn :: (ghczmprim:GHCziTypes.ZMZN
+                               ghczmprim:GHCziTypes.Char)
+                              -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (sa1IL::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:GHCziIOziHandleziText.hPutStrLn
+        base:GHCziIOziHandleziFD.stdout sa1IL;
+  main:SystemziIO.print :: %forall aa1II . (base:GHCziShow.TZCShow
+                                            aa1II)
+                                           ->
+                                           aa1II ->
+                                           (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ @ aa2bo
+      (zddShowa2bp::(base:GHCziShow.TZCShow aa2bo))
+      (xa1IM::aa2bo) ->
+        base:GHCziIOziHandleziText.hPutStrLn
+        base:GHCziIOziHandleziFD.stdout
+        (base:GHCziShow.show @ aa2bo zddShowa2bp xa1IM);
+  main:SystemziIO.putStr :: (ghczmprim:GHCziTypes.ZMZN
+                             ghczmprim:GHCziTypes.Char)
+                            -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (sa1IK::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:GHCziIOziHandleziText.hPutStr base:GHCziIOziHandleziFD.stdout
+        sa1IK;
+  main:SystemziIO.putChar :: ghczmprim:GHCziTypes.Char ->
+                             (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (ca1IJ::ghczmprim:GHCziTypes.Char) ->
+        base:GHCziIOziHandleziText.hPutChar base:GHCziIOziHandleziFD.stdout
+        ca1IJ;
+  main:SystemziIO.interact :: ((ghczmprim:GHCziTypes.ZMZN
+                                ghczmprim:GHCziTypes.Char)
+                               -> (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                              -> (ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T) =
+    \ (fa1IN::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+              (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+        base:GHCziBase.zdfMonadIO
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+        @ ghczmprim:GHCziUnit.Z0T main:SystemziIO.getContents
+        (\ (sa1IO::(ghczmprim:GHCziTypes.ZMZN
+                    ghczmprim:GHCziTypes.Char)) ->
+             base:GHCziIOziHandleziText.hPutStr base:GHCziIOziHandleziFD.stdout
+             (fa1IN sa1IO));
+  main:SystemziIO.readFile :: (ghczmprim:GHCziTypes.ZMZN
+                               ghczmprim:GHCziTypes.Char)
+                              ->
+                              (ghczmprim:GHCziTypes.IO
+                               ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+    \ (namea1IP::(ghczmprim:GHCziTypes.ZMZN
+                  ghczmprim:GHCziTypes.Char)) ->
+        base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+        base:GHCziBase.zdfMonadIO @ base:GHCziIOziHandleziTypes.Handle
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+        (base:GHCziIOziHandleziFD.openFile namea1IP
+         base:GHCziIOziIOMode.ReadMode)
+        base:GHCziIOziHandleziText.hGetContents;
+  rwzuflagsr1IB :: base:ForeignziCziTypes.CInt =
+    base:DataziBits.zizbzi @ base:ForeignziCziTypes.CInt
+    base:ForeignziCziTypes.zdfBitsCInt
+    (base:DataziBits.zizbzi @ base:ForeignziCziTypes.CInt
+     base:ForeignziCziTypes.zdfBitsCInt
+     (base:DataziBits.zizbzi @ base:ForeignziCziTypes.CInt
+      base:ForeignziCziTypes.zdfBitsCInt
+      base:SystemziPosixziInternals.ozuNONBLOCK
+      base:SystemziPosixziInternals.ozuNOCTTY)
+     base:SystemziPosixziInternals.ozuCREAT)
+    base:SystemziPosixziInternals.ozuRDWR;
+  openTempFilezqr1It :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char)
+                        ->
+                        (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                        (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                        ghczmprim:GHCziBool.Bool ->
+                        base:SystemziPosixziTypes.CMode ->
+                        (ghczmprim:GHCziTypes.IO
+                         ((ghczmprim:GHCziTuple.Z2T
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                           base:GHCziIOziHandleziTypes.Handle))) =
+    \ (loca1Jk::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (tmpzudira1Jl::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (templatea1Jm::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (binarya1Jn::ghczmprim:GHCziBool.Bool)
+      (modea1Jo::base:SystemziPosixziTypes.CMode) ->
+        %let oflagsa1Jt :: base:ForeignziCziTypes.CInt =
+               base:DataziBits.zizbzi @ base:ForeignziCziTypes.CInt
+               base:ForeignziCziTypes.zdfBitsCInt
+               (base:DataziBits.zizbzi @ base:ForeignziCziTypes.CInt
+                base:ForeignziCziTypes.zdfBitsCInt rwzuflagsr1IB
+                base:SystemziPosixziInternals.ozuEXCL)
+               (%case base:ForeignziCziTypes.CInt binarya1Jn
+                %of (wildB1::ghczmprim:GHCziBool.Bool)
+                  {ghczmprim:GHCziBool.False ->
+                     base:GHCziNum.fromInteger @ base:ForeignziCziTypes.CInt
+                     base:ForeignziCziTypes.zdfNumCInt
+                     (integerzmgmp:GHCziInteger.smallInteger
+                      (0::ghczmprim:GHCziPrim.Intzh));
+                   ghczmprim:GHCziBool.True ->
+                     base:SystemziPosixziInternals.ozuBINARY})
+        %in %let dsd2ho :: (ghczmprim:GHCziTuple.Z2T
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+                   %case ((ghczmprim:GHCziTuple.Z2T
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                           ((ghczmprim:GHCziTypes.ZMZN
+                             ghczmprim:GHCziTypes.Char)))) (base:GHCziBase.zd
+                                                            @ ((ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char))
+                                                            @ ((ghczmprim:GHCziTuple.Z2T
+                                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char))
+                                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char))))
+                                                            (base:GHCziList.break
+                                                             @ ghczmprim:GHCziTypes.Char
+                                                             (%let ds1d2hd :: ghczmprim:GHCziTypes.Char =
+                                                                     ghczmprim:GHCziTypes.Czh
+                                                                     ('.'::ghczmprim:GHCziPrim.Charzh)
+                                                              %in \ (ds2d2hc::ghczmprim:GHCziTypes.Char) ->
+                                                                      base:GHCziClasses.zeze
+                                                                      @ ghczmprim:GHCziTypes.Char
+                                                                      base:GHCziClasses.zdfEqChar
+                                                                      ds2d2hc ds1d2hd))
+                                                            (base:GHCziList.reverse
+                                                             @ ghczmprim:GHCziTypes.Char
+                                                             templatea1Jm))
+                   %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                     {ghczmprim:GHCziTuple.Z2T
+                      (revzusuffixa1Jv::(ghczmprim:GHCziTypes.ZMZN
+                                         ghczmprim:GHCziTypes.Char))
+                      (ds1d2hf::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                        %case ((ghczmprim:GHCziTuple.Z2T
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) ds1d2hf
+                        %of (wild1Xv::(ghczmprim:GHCziTypes.ZMZN
+                                       ghczmprim:GHCziTypes.Char))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             ghczmprim:GHCziTuple.Z2T
+                             @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             (base:GHCziList.reverse @ ghczmprim:GHCziTypes.Char
+                              revzusuffixa1Jv)
+                             (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char);
+                           ghczmprim:GHCziTypes.ZC
+                           (ds2d2hg::ghczmprim:GHCziTypes.Char)
+                           (resta1Jx::(ghczmprim:GHCziTypes.ZMZN
+                                       ghczmprim:GHCziTypes.Char)) ->
+                             %case ((ghczmprim:GHCziTuple.Z2T
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                     ((ghczmprim:GHCziTypes.ZMZN
+                                       ghczmprim:GHCziTypes.Char)))) ds2d2hg
+                             %of (wild2Xy::ghczmprim:GHCziTypes.Char)
+                               {ghczmprim:GHCziTypes.Czh (ds3d2hh::ghczmprim:GHCziPrim.Charzh) ->
+                                  %case ((ghczmprim:GHCziTuple.Z2T
+                                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                          ((ghczmprim:GHCziTypes.ZMZN
+                                            ghczmprim:GHCziTypes.Char)))) ds3d2hh
+                                  %of (ds4X2hQ::ghczmprim:GHCziPrim.Charzh)
+                                    {%_ ->
+                                       base:GHCziErr.error
+                                       @ ((ghczmprim:GHCziTuple.Z2T
+                                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                                       (base:GHCziBase.unpackCStringzh
+                                        ("bug in System.IO.openTempFile"::ghczmprim:GHCziPrim.Addrzh));
+                                     ('.'::ghczmprim:GHCziPrim.Charzh) ->
+                                       ghczmprim:GHCziTuple.Z2T
+                                       @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                       @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                       (base:GHCziList.reverse @ ghczmprim:GHCziTypes.Char resta1Jx)
+                                       (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char
+                                        (ghczmprim:GHCziTypes.Czh ('.'::ghczmprim:GHCziPrim.Charzh))
+                                        (base:GHCziList.reverse @ ghczmprim:GHCziTypes.Char
+                                         revzusuffixa1Jv))}}}}
+            %in %let suffixa1Jq :: (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char) =
+                       %case ((ghczmprim:GHCziTypes.ZMZN
+                               ghczmprim:GHCziTypes.Char)) dsd2ho
+                       %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                         {ghczmprim:GHCziTuple.Z2T
+                          (prefixa1Jp::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                          (suffix1X1Km::(ghczmprim:GHCziTypes.ZMZN
+                                         ghczmprim:GHCziTypes.Char)) ->
+                            suffix1X1Km}
+                %in %let prefixa1Jp :: (ghczmprim:GHCziTypes.ZMZN
+                                        ghczmprim:GHCziTypes.Char) =
+                           %case ((ghczmprim:GHCziTypes.ZMZN
+                                   ghczmprim:GHCziTypes.Char)) dsd2ho
+                           %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                             {ghczmprim:GHCziTuple.Z2T
+                              (prefix1X1Km::(ghczmprim:GHCziTypes.ZMZN
+                                             ghczmprim:GHCziTypes.Char))
+                              (suffix1X1JV::(ghczmprim:GHCziTypes.ZMZN
+                                             ghczmprim:GHCziTypes.Char)) ->
+                                prefix1X1Km}
+                    %in base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                        base:GHCziBase.zdfMonadIO @ base:SystemziPosixziTypes.CPid
+                        @ ((ghczmprim:GHCziTuple.Z2T
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                            base:GHCziIOziHandleziTypes.Handle))
+                        base:SystemziPosixziInternals.czugetpid
+                        (\ (pida1OU::base:SystemziPosixziTypes.CPid) ->
+                             %let zddShowa21X :: (base:GHCziShow.TZCShow
+                                                  base:SystemziPosixziTypes.CPid) =
+                                    base:GHCziNum.zdp2Num @ base:SystemziPosixziTypes.CPid
+                                    base:SystemziPosixziTypes.zdfNumCPid
+                             %in %let %rec
+                                      {findTempNamea21Q :: base:SystemziPosixziTypes.CPid ->
+                                                           (ghczmprim:GHCziTypes.IO
+                                                            ((ghczmprim:GHCziTuple.Z2T
+                                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char))
+                                                              base:GHCziIOziHandleziTypes.Handle))) =
+                                         \ (xa1JF::base:SystemziPosixziTypes.CPid) ->
+                                             %let filepatha1JH :: (ghczmprim:GHCziTypes.ZMZN
+                                                                   ghczmprim:GHCziTypes.Char) =
+                                                    %let ba1JK :: (ghczmprim:GHCziTypes.ZMZN
+                                                                   ghczmprim:GHCziTypes.Char) =
+                                                           base:GHCziBase.zpzp
+                                                           @ ghczmprim:GHCziTypes.Char prefixa1Jp
+                                                           (base:GHCziBase.zpzp
+                                                            @ ghczmprim:GHCziTypes.Char
+                                                            (base:GHCziShow.show
+                                                             @ base:SystemziPosixziTypes.CPid
+                                                             zddShowa21X xa1JF)
+                                                            suffixa1Jq)
+                                                    %in %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char)) (base:GHCziList.null
+                                                                                             @ ghczmprim:GHCziTypes.Char
+                                                                                             ba1JK)
+                                                        %of (wildB1::ghczmprim:GHCziBool.Bool)
+                                                          {ghczmprim:GHCziBool.False ->
+                                                             %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                     ghczmprim:GHCziTypes.Char)) (base:GHCziList.null
+                                                                                                  @ ghczmprim:GHCziTypes.Char
+                                                                                                  tmpzudira1Jl)
+                                                             %of (wild1X1a::ghczmprim:GHCziBool.Bool)
+                                                               {ghczmprim:GHCziBool.False ->
+                                                                  %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                          ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zeze
+                                                                                                       @ ghczmprim:GHCziTypes.Char
+                                                                                                       base:GHCziClasses.zdfEqChar
+                                                                                                       (base:GHCziList.last
+                                                                                                        @ ghczmprim:GHCziTypes.Char
+                                                                                                        tmpzudira1Jl)
+                                                                                                       pathSeparatorr1Iv)
+                                                                  %of (wild2X1c::ghczmprim:GHCziBool.Bool)
+                                                                    {ghczmprim:GHCziBool.False ->
+                                                                       base:GHCziBase.zpzp
+                                                                       @ ghczmprim:GHCziTypes.Char
+                                                                       tmpzudira1Jl
+                                                                       (base:GHCziBase.zpzp
+                                                                        @ ghczmprim:GHCziTypes.Char
+                                                                        (ghczmprim:GHCziTypes.ZC
+                                                                         @ ghczmprim:GHCziTypes.Char
+                                                                         pathSeparatorr1Iv
+                                                                         (ghczmprim:GHCziTypes.ZMZN
+                                                                          @ ghczmprim:GHCziTypes.Char))
+                                                                        ba1JK);
+                                                                     ghczmprim:GHCziBool.True ->
+                                                                       base:GHCziBase.zpzp
+                                                                       @ ghczmprim:GHCziTypes.Char
+                                                                       tmpzudira1Jl ba1JK};
+                                                                ghczmprim:GHCziBool.True ->
+                                                                  ba1JK};
+                                                           ghczmprim:GHCziBool.True ->
+                                                             tmpzudira1Jl}
+                                             %in base:GHCziBase.zgzgze @ ghczmprim:GHCziTypes.IO
+                                                 base:GHCziBase.zdfMonadIO
+                                                 @ base:ForeignziCziTypes.CInt
+                                                 @ ((ghczmprim:GHCziTuple.Z2T
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))
+                                                     base:GHCziIOziHandleziTypes.Handle))
+                                                 (base:GHCziBase.zd
+                                                  @ ((base:GHCziPtr.Ptr
+                                                      base:ForeignziCziTypes.CChar)
+                                                     ->
+                                                     (ghczmprim:GHCziTypes.IO
+                                                      base:ForeignziCziTypes.CInt))
+                                                  @ ((ghczmprim:GHCziTypes.IO
+                                                      base:ForeignziCziTypes.CInt))
+                                                  (base:SystemziPosixziInternals.withFilePath
+                                                   @ base:ForeignziCziTypes.CInt filepatha1JH)
+                                                  (\ (fa1OO::(base:GHCziPtr.Ptr
+                                                              base:ForeignziCziTypes.CChar)) ->
+                                                       base:SystemziPosixziInternals.czuopen fa1OO
+                                                       oflagsa1Jt modea1Jo))
+                                                 (\ (fda1OP::base:ForeignziCziTypes.CInt) ->
+                                                      %case ((ghczmprim:GHCziTypes.IO
+                                                              ((ghczmprim:GHCziTuple.Z2T
+                                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char))
+                                                                base:GHCziIOziHandleziTypes.Handle)))) (base:GHCziClasses.zl
+                                                                                                        @ base:ForeignziCziTypes.CInt
+                                                                                                        base:ForeignziCziTypes.zdfOrdCInt
+                                                                                                        fda1OP
+                                                                                                        (base:GHCziNum.fromInteger
+                                                                                                         @ base:ForeignziCziTypes.CInt
+                                                                                                         base:ForeignziCziTypes.zdfNumCInt
+                                                                                                         (integerzmgmp:GHCziInteger.smallInteger
+                                                                                                          (0::ghczmprim:GHCziPrim.Intzh))))
+                                                      %of (wildB1::ghczmprim:GHCziBool.Bool)
+                                                        {ghczmprim:GHCziBool.False ->
+                                                           base:GHCziBase.zgzgze
+                                                           @ ghczmprim:GHCziTypes.IO
+                                                           base:GHCziBase.zdfMonadIO
+                                                           @ ((ghczmprim:GHCziTuple.Z2T
+                                                               base:GHCziIOziFD.FD
+                                                               base:GHCziIOziDevice.IODeviceType))
+                                                           @ ((ghczmprim:GHCziTuple.Z2T
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))
+                                                               base:GHCziIOziHandleziTypes.Handle))
+                                                           (base:GHCziIOziFD.mkFD fda1OP
+                                                            base:GHCziIOziIOMode.ReadWriteMode
+                                                            (base:DataziMaybe.Nothing
+                                                             @ ((ghczmprim:GHCziTuple.Z3T
+                                                                 base:GHCziIOziDevice.IODeviceType
+                                                                 base:SystemziPosixziTypes.CDev
+                                                                 base:SystemziPosixziTypes.CIno)))
+                                                            ghczmprim:GHCziBool.False
+                                                            ghczmprim:GHCziBool.True)
+                                                           (\ (ds1d2h4::(ghczmprim:GHCziTuple.Z2T
+                                                                         base:GHCziIOziFD.FD
+                                                                         base:GHCziIOziDevice.IODeviceType)) ->
+                                                                %case ((ghczmprim:GHCziTypes.IO
+                                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char))
+                                                                          base:GHCziIOziHandleziTypes.Handle)))) ds1d2h4
+                                                                %of (wild1XE::(ghczmprim:GHCziTuple.Z2T
+                                                                               base:GHCziIOziFD.FD
+                                                                               base:GHCziIOziDevice.IODeviceType))
+                                                                  {ghczmprim:GHCziTuple.Z2T
+                                                                   (fDa1OR::base:GHCziIOziFD.FD)
+                                                                   (fdzutypea1OS::base:GHCziIOziDevice.IODeviceType) ->
+                                                                     base:GHCziBase.zgzgze
+                                                                     @ ghczmprim:GHCziTypes.IO
+                                                                     base:GHCziBase.zdfMonadIO
+                                                                     @ base:GHCziIOziHandleziTypes.Handle
+                                                                     @ ((ghczmprim:GHCziTuple.Z2T
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))
+                                                                         base:GHCziIOziHandleziTypes.Handle))
+                                                                     (base:GHCziIOziHandleziFD.mkHandleFromFD
+                                                                      fDa1OR fdzutypea1OS
+                                                                      filepatha1JH
+                                                                      base:GHCziIOziIOMode.ReadWriteMode
+                                                                      ghczmprim:GHCziBool.False
+                                                                      (base:DataziMaybe.Just
+                                                                       @ base:GHCziIOziEncodingziTypes.TextEncoding
+                                                                       base:GHCziIOziEncoding.localeEncoding))
+                                                                     (\ (ha1OT::base:GHCziIOziHandleziTypes.Handle) ->
+                                                                          base:GHCziBase.return
+                                                                          @ ghczmprim:GHCziTypes.IO
+                                                                          base:GHCziBase.zdfMonadIO
+                                                                          @ ((ghczmprim:GHCziTuple.Z2T
+                                                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                                                ghczmprim:GHCziTypes.Char))
+                                                                              base:GHCziIOziHandleziTypes.Handle))
+                                                                          (ghczmprim:GHCziTuple.Z2T
+                                                                           @ ((ghczmprim:GHCziTypes.ZMZN
+                                                                               ghczmprim:GHCziTypes.Char))
+                                                                           @ base:GHCziIOziHandleziTypes.Handle
+                                                                           filepatha1JH ha1OT))});
+                                                         ghczmprim:GHCziBool.True ->
+                                                           base:GHCziBase.zgzgze
+                                                           @ ghczmprim:GHCziTypes.IO
+                                                           base:GHCziBase.zdfMonadIO
+                                                           @ base:ForeignziCziError.Errno
+                                                           @ ((ghczmprim:GHCziTuple.Z2T
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))
+                                                               base:GHCziIOziHandleziTypes.Handle))
+                                                           base:ForeignziCziError.getErrno
+                                                           (\ (errnoa1OQ::base:ForeignziCziError.Errno) ->
+                                                                %case ((ghczmprim:GHCziTypes.IO
+                                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char))
+                                                                          base:GHCziIOziHandleziTypes.Handle)))) (base:GHCziClasses.zeze
+                                                                                                                  @ base:ForeignziCziError.Errno
+                                                                                                                  base:ForeignziCziError.zdfEqErrno
+                                                                                                                  errnoa1OQ
+                                                                                                                  base:ForeignziCziError.eEXIST)
+                                                                %of (wild1XE::ghczmprim:GHCziBool.Bool)
+                                                                  {ghczmprim:GHCziBool.False ->
+                                                                     base:GHCziIOziException.ioError
+                                                                     @ ((ghczmprim:GHCziTuple.Z2T
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))
+                                                                         base:GHCziIOziHandleziTypes.Handle))
+                                                                     (base:ForeignziCziError.errnoToIOError
+                                                                      loca1Jk errnoa1OQ
+                                                                      (base:DataziMaybe.Nothing
+                                                                       @ base:GHCziIOziHandleziTypes.Handle)
+                                                                      (base:DataziMaybe.Just
+                                                                       @ ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))
+                                                                       tmpzudira1Jl));
+                                                                   ghczmprim:GHCziBool.True ->
+                                                                     findTempNamea21Q
+                                                                     (base:GHCziNum.zp
+                                                                      @ base:SystemziPosixziTypes.CPid
+                                                                      base:SystemziPosixziTypes.zdfNumCPid
+                                                                      xa1JF
+                                                                      (base:GHCziNum.fromInteger
+                                                                       @ base:SystemziPosixziTypes.CPid
+                                                                       base:SystemziPosixziTypes.zdfNumCPid
+                                                                       (integerzmgmp:GHCziInteger.smallInteger
+                                                                        (1::ghczmprim:GHCziPrim.Intzh))))})})}
+                                 %in findTempNamea21Q pida1OU);
+  main:SystemziIO.openTempFile :: (ghczmprim:GHCziTypes.ZMZN
+                                   ghczmprim:GHCziTypes.Char)
+                                  ->
+                                  (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                  (ghczmprim:GHCziTypes.IO
+                                   ((ghczmprim:GHCziTuple.Z2T
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                     base:GHCziIOziHandleziTypes.Handle))) =
+    \ (tmpzudira1Jc::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (templatea1Jd::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)) ->
+        openTempFilezqr1It
+        (base:GHCziBase.unpackCStringzh
+         ("openTempFile"::ghczmprim:GHCziPrim.Addrzh))
+        tmpzudira1Jc templatea1Jd ghczmprim:GHCziBool.False
+        (base:GHCziNum.fromInteger @ base:SystemziPosixziTypes.CMode
+         base:SystemziPosixziTypes.zdfNumCMode
+         (integerzmgmp:GHCziInteger.smallInteger
+          (384::ghczmprim:GHCziPrim.Intzh)));
+  main:SystemziIO.openBinaryTempFile :: (ghczmprim:GHCziTypes.ZMZN
+                                         ghczmprim:GHCziTypes.Char)
+                                        ->
+                                        (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                        (ghczmprim:GHCziTypes.IO
+                                         ((ghczmprim:GHCziTuple.Z2T
+                                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                           base:GHCziIOziHandleziTypes.Handle))) =
+    \ (tmpzudira1Je::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (templatea1Jf::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)) ->
+        openTempFilezqr1It
+        (base:GHCziBase.unpackCStringzh
+         ("openBinaryTempFile"::ghczmprim:GHCziPrim.Addrzh))
+        tmpzudira1Je templatea1Jf ghczmprim:GHCziBool.True
+        (base:GHCziNum.fromInteger @ base:SystemziPosixziTypes.CMode
+         base:SystemziPosixziTypes.zdfNumCMode
+         (integerzmgmp:GHCziInteger.smallInteger
+          (384::ghczmprim:GHCziPrim.Intzh)));
+  main:SystemziIO.openTempFileWithDefaultPermissions :: (ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char)
+                                                        ->
+                                                        (ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char)
+                                                        ->
+                                                        (ghczmprim:GHCziTypes.IO
+                                                         ((ghczmprim:GHCziTuple.Z2T
+                                                           ((ghczmprim:GHCziTypes.ZMZN
+                                                             ghczmprim:GHCziTypes.Char))
+                                                           base:GHCziIOziHandleziTypes.Handle))) =
+    \ (tmpzudira1Jg::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (templatea1Jh::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)) ->
+        openTempFilezqr1It
+        (base:GHCziBase.unpackCStringzh
+         ("openBinaryTempFile"::ghczmprim:GHCziPrim.Addrzh))
+        tmpzudira1Jg templatea1Jh ghczmprim:GHCziBool.False
+        (base:GHCziNum.fromInteger @ base:SystemziPosixziTypes.CMode
+         base:SystemziPosixziTypes.zdfNumCMode
+         (integerzmgmp:GHCziInteger.smallInteger
+          (438::ghczmprim:GHCziPrim.Intzh)));
+  main:SystemziIO.openBinaryTempFileWithDefaultPermissions :: (ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char)
+                                                              ->
+                                                              (ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char)
+                                                              ->
+                                                              (ghczmprim:GHCziTypes.IO
+                                                               ((ghczmprim:GHCziTuple.Z2T
+                                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                                   ghczmprim:GHCziTypes.Char))
+                                                                 base:GHCziIOziHandleziTypes.Handle))) =
+    \ (tmpzudira1Ji::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char))
+      (templatea1Jj::(ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)) ->
+        openTempFilezqr1It
+        (base:GHCziBase.unpackCStringzh
+         ("openBinaryTempFile"::ghczmprim:GHCziPrim.Addrzh))
+        tmpzudira1Ji templatea1Jj ghczmprim:GHCziBool.True
+        (base:GHCziNum.fromInteger @ base:SystemziPosixziTypes.CMode
+         base:SystemziPosixziTypes.zdfNumCMode
+         (integerzmgmp:GHCziInteger.smallInteger
+          (438::ghczmprim:GHCziPrim.Intzh)));

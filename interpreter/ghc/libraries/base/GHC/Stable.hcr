@@ -1,0 +1,189 @@
+%module base:GHCziStable
+  %data base:GHCziStable.StablePtr aaaE =
+    {base:GHCziStable.StablePtr ((ghczmprim:GHCziPrim.StablePtrzh
+                                  aaaE))};
+  base:GHCziStable.deRefStablePtr1 :: %forall aagZZ . (base:GHCziStable.StablePtr
+                                                       aagZZ)
+                                                      ->
+                                                      (ghczmprim:GHCziPrim.Statezh
+                                                       ghczmprim:GHCziPrim.RealWorld)
+                                                      ->
+                                                      (ghczmprim:GHCziPrim.Z2H
+                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                         ghczmprim:GHCziPrim.RealWorld))
+                                                       aagZZ) =
+    \ @ aagZZ
+      (dsdhm::(base:GHCziStable.StablePtr aagZZ))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                aagZZ)) dsdhm
+        %of (wildX3::(base:GHCziStable.StablePtr aagZZ))
+          {base:GHCziStable.StablePtr
+           (spaaN::(ghczmprim:GHCziPrim.StablePtrzh aagZZ)) ->
+             ghczmprim:GHCziPrim.deRefStablePtrzh @ aagZZ spaaN etaB1};
+  base:GHCziStable.newStablePtr1 :: %forall aah3 . aah3 ->
+                                                   (ghczmprim:GHCziPrim.Statezh
+                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                   ->
+                                                   (ghczmprim:GHCziPrim.Z2H
+                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                    ((base:GHCziStable.StablePtr aah3))) =
+    \ @ aah3
+      (a1aaJ::aah3)
+      (saaK::(ghczmprim:GHCziPrim.Statezh
+              ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziStable.StablePtr
+                  aah3)))) (ghczmprim:GHCziPrim.makeStablePtrzh @ aah3 a1aaJ saaK)
+        %of (wildXl::(ghczmprim:GHCziPrim.Z2H
+                      ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                      ((ghczmprim:GHCziPrim.StablePtrzh aah3))))
+          {ghczmprim:GHCziPrim.Z2H
+           (szqaaL::(ghczmprim:GHCziPrim.Statezh
+                     ghczmprim:GHCziPrim.RealWorld))
+           (spaaM::(ghczmprim:GHCziPrim.StablePtrzh aah3)) ->
+             ghczmprim:GHCziPrim.Z2H
+             @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+             @ ((base:GHCziStable.StablePtr aah3)) szqaaL
+             (base:GHCziStable.StablePtr @ aah3 spaaM)};
+  arih :: %forall aaaU . (base:GHCziStable.StablePtr aaaU) ->
+                         (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+                         (ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ghczmprim:GHCziUnit.Z0T) =
+    \ @ aaaU
+      (dsdhx::(base:GHCziStable.StablePtr aaaU))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ghczmprim:GHCziUnit.Z0T)) dsdhx
+        %of (ds1dhy::(base:GHCziStable.StablePtr aaaU))
+          {base:GHCziStable.StablePtr
+           (ds2dhzz::(ghczmprim:GHCziPrim.StablePtrzh aaaU)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ghczmprim:GHCziUnit.Z0T)) ((%external ccall "hs_free_stable_ptr"
+                                                 (%forall aaaU . (ghczmprim:GHCziPrim.StablePtrzh
+                                                                  aaaU)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Statezh
+                                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z1H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld)))))
+                                                @ aaaU ds2dhzz etaB1)
+             %of (wildX5::(ghczmprim:GHCziPrim.Z1H
+                           ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))))
+               {ghczmprim:GHCziPrim.Z1H
+                (ds3dhA::(ghczmprim:GHCziPrim.Statezh
+                          ghczmprim:GHCziPrim.RealWorld)) ->
+                  ghczmprim:GHCziPrim.Z2H
+                  @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                  @ ghczmprim:GHCziUnit.Z0T ds3dhA ghczmprim:GHCziUnit.Z0T}};
+  base:GHCziStable.castPtrToStablePtr :: %forall aaaF . (base:GHCziPtr.Ptr
+                                                         ghczmprim:GHCziUnit.Z0T)
+                                                        -> (base:GHCziStable.StablePtr aaaF) =
+    \ @ aagV (dsdhi::(base:GHCziPtr.Ptr ghczmprim:GHCziUnit.Z0T)) ->
+        %case ((base:GHCziStable.StablePtr aagV)) dsdhi
+        %of (wildB1::(base:GHCziPtr.Ptr ghczmprim:GHCziUnit.Z0T))
+          {base:GHCziPtr.Ptr (a1aaQ::ghczmprim:GHCziPrim.Addrzh) ->
+             base:GHCziStable.StablePtr @ aagV
+             (%cast (a1aaQ)
+              (%unsafe
+               ghczmprim:GHCziPrim.Addrzh
+               ((ghczmprim:GHCziPrim.StablePtrzh aagV))))};
+  base:GHCziStable.castStablePtrToPtr :: %forall aaaG . (base:GHCziStable.StablePtr
+                                                         aaaG)
+                                                        ->
+                                                        (base:GHCziPtr.Ptr
+                                                         ghczmprim:GHCziUnit.Z0T) =
+    \ @ aagX (dsdhk::(base:GHCziStable.StablePtr aagX)) ->
+        %case ((base:GHCziPtr.Ptr ghczmprim:GHCziUnit.Z0T)) dsdhk
+        %of (wildB1::(base:GHCziStable.StablePtr aagX))
+          {base:GHCziStable.StablePtr
+           (saaP::(ghczmprim:GHCziPrim.StablePtrzh aagX)) ->
+             base:GHCziPtr.Ptr @ ghczmprim:GHCziUnit.Z0T
+             (%cast (saaP)
+              (%unsafe
+               ((ghczmprim:GHCziPrim.StablePtrzh aagX))
+               ghczmprim:GHCziPrim.Addrzh))};
+  base:GHCziStable.deRefStablePtr :: %forall aaaH . (base:GHCziStable.StablePtr
+                                                     aaaH)
+                                                    -> (ghczmprim:GHCziTypes.IO aaaH) =
+    %cast (base:GHCziStable.deRefStablePtr1)
+    (%forall aagZZ . (base:GHCziStable.StablePtr aagZZ) ->
+                     %sym ((ghczmprim:GHCziTypes.NTCoZCIO aagZZ)));
+  base:GHCziStable.freeStablePtr :: %forall aaaU . (base:GHCziStable.StablePtr
+                                                    aaaU)
+                                                   ->
+                                                   (ghczmprim:GHCziTypes.IO
+                                                    ghczmprim:GHCziUnit.Z0T) =
+    %cast (arih)
+    (%forall aaaU . (base:GHCziStable.StablePtr aaaU) ->
+                    %sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T)));
+  base:GHCziStable.zdfEqStablePtrzuzdczeze :: %forall aaaR . (base:GHCziStable.StablePtr
+                                                              aaaR)
+                                                             ->
+                                                             (base:GHCziStable.StablePtr aaaR) ->
+                                                             ghczmprim:GHCziBool.Bool =
+    \ @ aaaR
+      (dsdht::(base:GHCziStable.StablePtr aaaR))
+      (ds1dhu::(base:GHCziStable.StablePtr aaaR)) ->
+        %case ghczmprim:GHCziBool.Bool dsdht
+        %of (wildB1::(base:GHCziStable.StablePtr aaaR))
+          {base:GHCziStable.StablePtr
+           (sp1aaS::(ghczmprim:GHCziPrim.StablePtrzh aaaR)) ->
+             %case ghczmprim:GHCziBool.Bool ds1dhu
+             %of (wild1Xb::(base:GHCziStable.StablePtr aaaR))
+               {base:GHCziStable.StablePtr
+                (sp2aaT::(ghczmprim:GHCziPrim.StablePtrzh aaaR)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.eqStablePtrzh
+                                                  @ aaaR sp1aaS sp2aaT)
+                  %of (ds2dhq::ghczmprim:GHCziPrim.Intzh)
+                    {%_ ->
+                       ghczmprim:GHCziBool.True;
+                     (0::ghczmprim:GHCziPrim.Intzh) ->
+                       ghczmprim:GHCziBool.False}}};
+  base:GHCziStable.zdfEqStablePtrzuzdczsze :: %forall aaaR . (base:GHCziStable.StablePtr
+                                                              aaaR)
+                                                             ->
+                                                             (base:GHCziStable.StablePtr aaaR) ->
+                                                             ghczmprim:GHCziBool.Bool =
+    \ @ aaaR
+      (etaB2::(base:GHCziStable.StablePtr aaaR))
+      (eta1B1::(base:GHCziStable.StablePtr aaaR)) ->
+        %case ghczmprim:GHCziBool.Bool etaB2
+        %of (wildXn::(base:GHCziStable.StablePtr aaaR))
+          {base:GHCziStable.StablePtr
+           (sp1aaS::(ghczmprim:GHCziPrim.StablePtrzh aaaR)) ->
+             %case ghczmprim:GHCziBool.Bool eta1B1
+             %of (wild1Xb::(base:GHCziStable.StablePtr aaaR))
+               {base:GHCziStable.StablePtr
+                (sp2aaT::(ghczmprim:GHCziPrim.StablePtrzh aaaR)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.eqStablePtrzh
+                                                  @ aaaR sp1aaS sp2aaT)
+                  %of (dsdhq::ghczmprim:GHCziPrim.Intzh)
+                    {%_ ->
+                       ghczmprim:GHCziBool.False;
+                     (0::ghczmprim:GHCziPrim.Intzh) ->
+                       ghczmprim:GHCziBool.True}}};
+  base:GHCziStable.zdfEqStablePtr :: %forall aaaR . (base:GHCziClasses.TZCEq
+                                                     ((base:GHCziStable.StablePtr aaaR))) =
+    \ @ aaaR ->
+        base:GHCziClasses.DZCEq @ ((base:GHCziStable.StablePtr aaaR))
+        (base:GHCziStable.zdfEqStablePtrzuzdczeze @ aaaR)
+        (base:GHCziStable.zdfEqStablePtrzuzdczsze @ aaaR);
+  base:GHCziStable.newStablePtr :: %forall aaaI . aaaI ->
+                                                  (ghczmprim:GHCziTypes.IO
+                                                   ((base:GHCziStable.StablePtr aaaI))) =
+    %cast (base:GHCziStable.newStablePtr1)
+    (%forall aah3 . aah3 ->
+                    %sym
+                    ((ghczmprim:GHCziTypes.NTCoZCIO
+                      ((base:GHCziStable.StablePtr aah3)))));

@@ -1,0 +1,13 @@
+%module ghczmprim:GHCziUnit
+  %data ghczmprim:GHCziUnit.Z0T =
+    {ghczmprim:GHCziUnit.Z0T};
+  ghczmprim:GHCziUnit.zdgtoZLZR :: ghczmprim:GHCziGenerics.Unit ->
+                                   ghczmprim:GHCziUnit.Z0T =
+    \ (dsdw::ghczmprim:GHCziGenerics.Unit) -> ghczmprim:GHCziUnit.Z0T;
+  ghczmprim:GHCziUnit.zdgfromZLZR :: ghczmprim:GHCziUnit.Z0T ->
+                                     ghczmprim:GHCziGenerics.Unit =
+    \ (dsdx::ghczmprim:GHCziUnit.Z0T) ->
+        %case ghczmprim:GHCziGenerics.Unit dsdx
+        %of (wildB1::ghczmprim:GHCziUnit.Z0T)
+          {ghczmprim:GHCziUnit.Z0T ->
+             ghczmprim:GHCziGenerics.Unit};

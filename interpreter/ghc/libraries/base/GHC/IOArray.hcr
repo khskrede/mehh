@@ -1,0 +1,397 @@
+%module base:GHCziIOArray
+  %newtype base:GHCziIOArray.IOArray base:GHCziIOArray.NTCoZCIOArray ia8m ea8n
+    = (base:GHCziArr.STArray ghczmprim:GHCziPrim.RealWorld ia8m ea8n);
+  zdwaroU :: %forall iajX eajY . ((ghczmprim:GHCziTuple.Z2T
+                                   iajX
+                                   iajX)
+                                  -> ghczmprim:GHCziTypes.Int)
+                                 ->
+                                 iajX ->
+                                 iajX ->
+                                 eajY ->
+                                 (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+                                 (ghczmprim:GHCziPrim.Z2H
+                                  ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                                  ((base:GHCziIOArray.IOArray iajX eajY))) =
+    \ @ iajX
+      @ eajY
+      (wwsoA::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+              ghczmprim:GHCziTypes.Int)
+      (ww1soF::iajX)
+      (ww2soG::iajX)
+      (wsoI::eajY)
+      (w1soJ::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziIOArray.IOArray iajX eajY)))) (wwsoA
+                                                           (ghczmprim:GHCziTuple.Z2T @ iajX @ iajX
+                                                            ww1soF ww2soG))
+        %of (wild1amY::ghczmprim:GHCziTypes.Int)
+          {ghczmprim:GHCziTypes.Izh (xan0::ghczmprim:GHCziPrim.Intzh) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ((base:GHCziIOArray.IOArray iajX eajY)))) (ghczmprim:GHCziPrim.zlzh
+                                                                xan0 (0::ghczmprim:GHCziPrim.Intzh))
+             %of (wild2an2::ghczmprim:GHCziBool.Bool)
+               {ghczmprim:GHCziBool.False ->
+                  %case ((ghczmprim:GHCziPrim.Z2H
+                          ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                          ((base:GHCziIOArray.IOArray
+                            iajX
+                            eajY)))) (ghczmprim:GHCziPrim.newArrayzh @ eajY
+                                      @ ghczmprim:GHCziPrim.RealWorld xan0 wsoI w1soJ)
+                  %of (wild3an5::(ghczmprim:GHCziPrim.Z2H
+                                  ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                                  ((ghczmprim:GHCziPrim.MutableArrayzh
+                                    ghczmprim:GHCziPrim.RealWorld
+                                    eajY))))
+                    {ghczmprim:GHCziPrim.Z2H
+                     (s2zhan7::(ghczmprim:GHCziPrim.Statezh
+                                ghczmprim:GHCziPrim.RealWorld))
+                     (marrzhan8::(ghczmprim:GHCziPrim.MutableArrayzh
+                                  ghczmprim:GHCziPrim.RealWorld
+                                  eajY)) ->
+                       ghczmprim:GHCziPrim.Z2H
+                       @ ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                       @ ((base:GHCziIOArray.IOArray iajX eajY)) s2zhan7
+                       (%case ((base:GHCziIOArray.IOArray iajX eajY)) ww1soF
+                        %of (tplana::iajX)
+                          {%_ ->
+                             %case ((base:GHCziIOArray.IOArray iajX eajY)) ww2soG
+                             %of (tpl1anb::iajX)
+                               {%_ ->
+                                  %cast (base:GHCziArr.STArray @ ghczmprim:GHCziPrim.RealWorld
+                                         @ iajX @ eajY tplana tpl1anb xan0 marrzhan8)
+                                  ((ghczmprim:GHCziPrim.sym
+                                    base:GHCziIOArray.NTCoZCIOArray
+                                    iajX
+                                    eajY))}})};
+                ghczmprim:GHCziBool.True ->
+                  %cast (base:GHCziArr.negRange)
+                  (%unsafe
+                   ghczmprim:GHCziTypes.Int
+                   ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ((base:GHCziIOArray.IOArray iajX eajY)))))}};
+  aroW :: %forall iajX eajY . (base:GHCziArr.TZCIx iajX) ->
+                              (ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                              eajY ->
+                              (ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld) ->
+                              (ghczmprim:GHCziPrim.Z2H
+                               ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                               ((base:GHCziIOArray.IOArray iajX eajY))) =
+    \ @ iajX
+      @ eajY
+      (wsot::(base:GHCziArr.TZCIx iajX))
+      (w1soD::(ghczmprim:GHCziTuple.Z2T iajX iajX))
+      (w2soI::eajY)
+      (w3soJ::(ghczmprim:GHCziPrim.Statezh
+               ghczmprim:GHCziPrim.RealWorld)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                ((base:GHCziIOArray.IOArray iajX eajY)))) wsot
+        %of (w4XoU::(base:GHCziArr.TZCIx iajX))
+          {base:GHCziArr.DZCIx
+           (wwsov::(base:GHCziClasses.TZCOrd iajX))
+           (ww1sow::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                    (ghczmprim:GHCziTypes.ZMZN iajX))
+           (ww2sox::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                    iajX -> ghczmprim:GHCziTypes.Int)
+           (ww3soy::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                    iajX -> ghczmprim:GHCziTypes.Int)
+           (ww4sozz::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                     iajX -> ghczmprim:GHCziBool.Bool)
+           (ww5soA::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                    ghczmprim:GHCziTypes.Int)
+           (ww6soB::(ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                    ghczmprim:GHCziTypes.Int) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh ghczmprim:GHCziPrim.RealWorld))
+                     ((base:GHCziIOArray.IOArray iajX eajY)))) w1soD
+             %of (w5Xpe::(ghczmprim:GHCziTuple.Z2T iajX iajX))
+               {ghczmprim:GHCziTuple.Z2T (ww7soF::iajX) (ww8soG::iajX) ->
+                  zdwaroU @ iajX @ eajY ww5soA ww7soF ww8soG w2soI w3soJ}};
+  a1roY :: %forall iajO eajP . (base:GHCziArr.TZCIx iajO) ->
+                               (base:GHCziIOArray.IOArray iajO eajP) ->
+                               ghczmprim:GHCziTypes.Int ->
+                               (base:GHCziST.ST ghczmprim:GHCziPrim.RealWorld eajP) =
+    \ @ iajO
+      @ eajP
+      (zddIxajQ::(base:GHCziArr.TZCIx iajO))
+      (etaXL::(base:GHCziIOArray.IOArray iajO eajP))
+      (eta1X1f::ghczmprim:GHCziTypes.Int) ->
+        base:GHCziArr.unsafeReadSTArray @ iajO
+        @ ghczmprim:GHCziPrim.RealWorld @ eajP zddIxajQ
+        (%cast (etaXL)
+         ((base:GHCziIOArray.NTCoZCIOArray iajO eajP)))
+        eta1X1f;
+  a2rp0 :: %forall iajF eajG . (base:GHCziArr.TZCIx iajF) ->
+                               (base:GHCziIOArray.IOArray iajF eajG) ->
+                               ghczmprim:GHCziTypes.Int ->
+                               eajG ->
+                               (base:GHCziST.ST
+                                ghczmprim:GHCziPrim.RealWorld
+                                ghczmprim:GHCziUnit.Z0T) =
+    \ @ iajF
+      @ eajG
+      (zddIxajH::(base:GHCziArr.TZCIx iajF))
+      (etaB3::(base:GHCziIOArray.IOArray iajF eajG))
+      (eta1B2::ghczmprim:GHCziTypes.Int)
+      (eta2Xv::eajG) ->
+        base:GHCziArr.unsafeWriteSTArray @ iajF
+        @ ghczmprim:GHCziPrim.RealWorld @ eajG zddIxajH
+        (%cast (etaB3)
+         ((base:GHCziIOArray.NTCoZCIOArray iajF eajG)))
+        eta1B2 eta2Xv;
+  base:GHCziIOArray.readIOArray1 :: %forall iajw eajx . (base:GHCziArr.TZCIx
+                                                         iajw)
+                                                        ->
+                                                        (base:GHCziIOArray.IOArray iajw eajx) ->
+                                                        iajw ->
+                                                        (base:GHCziST.ST
+                                                         ghczmprim:GHCziPrim.RealWorld
+                                                         eajx) =
+    \ @ iajw
+      @ eajx
+      (zddIxajy::(base:GHCziArr.TZCIx iajw))
+      (dsdkR::(base:GHCziIOArray.IOArray iajw eajx))
+      (ia8J::iajw) ->
+        base:GHCziArr.readSTArray @ iajw @ ghczmprim:GHCziPrim.RealWorld
+        @ eajx zddIxajy
+        (%cast (dsdkR)
+         ((base:GHCziIOArray.NTCoZCIOArray iajw eajx)))
+        ia8J;
+  base:GHCziIOArray.writeIOArray1 :: %forall iaiP eaiQ . (base:GHCziArr.TZCIx
+                                                          iaiP)
+                                                         ->
+                                                         (base:GHCziIOArray.IOArray iaiP eaiQ) ->
+                                                         iaiP ->
+                                                         eaiQ ->
+                                                         (base:GHCziST.ST
+                                                          ghczmprim:GHCziPrim.RealWorld
+                                                          ghczmprim:GHCziUnit.Z0T) =
+    \ @ iaiP
+      @ eaiQ
+      (zddIxaiR::(base:GHCziArr.TZCIx iaiP))
+      (dsdkQ::(base:GHCziIOArray.IOArray iaiP eaiQ))
+      (ia8L::iaiP)
+      (ea8M::eaiQ) ->
+        base:GHCziArr.writeSTArray @ iaiP @ ghczmprim:GHCziPrim.RealWorld
+        @ eaiQ zddIxaiR
+        (%cast (dsdkQ)
+         ((base:GHCziIOArray.NTCoZCIOArray iaiP eaiQ)))
+        ia8L ea8M;
+  base:GHCziIOArray.zdgfromIOArray1 :: %forall taeM t1aeN . (base:GHCziIOArray.IOArray
+                                                             taeM
+                                                             t1aeN)
+                                                            ->
+                                                            (base:GHCziIOArray.IOArray taeM t1aeN) =
+    \ @ taeM @ t1aeN (dsdkU::(base:GHCziIOArray.IOArray taeM t1aeN)) ->
+        dsdkU;
+  base:GHCziIOArray.zdgtoIOArray1 :: %forall ia8m ea8n . (base:GHCziArr.STArray
+                                                          ghczmprim:GHCziPrim.RealWorld
+                                                          ia8m
+                                                          ea8n)
+                                                         ->
+                                                         (base:GHCziArr.STArray
+                                                          ghczmprim:GHCziPrim.RealWorld
+                                                          ia8m
+                                                          ea8n) =
+    \ @ ia8m
+      @ ea8n
+      (tplB1::(base:GHCziArr.STArray
+               ghczmprim:GHCziPrim.RealWorld
+               ia8m
+               ea8n)) ->
+        tplB1;
+  base:GHCziIOArray.zdgtoIOArray :: %forall iaeJ eaeK . (base:GHCziArr.STArray
+                                                         ghczmprim:GHCziPrim.RealWorld
+                                                         iaeJ
+                                                         eaeK)
+                                                        -> (base:GHCziIOArray.IOArray iaeJ eaeK) =
+    %cast (base:GHCziIOArray.zdgtoIOArray1)
+    (%forall ia8m ea8n . (base:GHCziArr.STArray
+                          ghczmprim:GHCziPrim.RealWorld
+                          ia8m
+                          ea8n)
+                         ->
+                         (ghczmprim:GHCziPrim.sym
+                          base:GHCziIOArray.NTCoZCIOArray
+                          ia8m
+                          ea8n));
+  base:GHCziIOArray.zdgfromIOArray :: %forall taeM t1aeN . (base:GHCziIOArray.IOArray
+                                                            taeM
+                                                            t1aeN)
+                                                           ->
+                                                           (base:GHCziArr.STArray
+                                                            ghczmprim:GHCziPrim.RealWorld
+                                                            taeM
+                                                            t1aeN) =
+    %cast (base:GHCziIOArray.zdgfromIOArray1)
+    (%forall taeM t1aeN . (base:GHCziIOArray.IOArray taeM t1aeN) ->
+                          (base:GHCziIOArray.NTCoZCIOArray taeM t1aeN));
+  base:GHCziIOArray.boundsIOArray :: %forall ia8o ea8p . (base:GHCziIOArray.IOArray
+                                                          ia8o
+                                                          ea8p)
+                                                         -> (ghczmprim:GHCziTuple.Z2T ia8o ia8o) =
+    %cast (base:GHCziArr.boundsSTArray @ ghczmprim:GHCziPrim.RealWorld)
+    (%forall iaiJ eaiK . (ghczmprim:GHCziPrim.sym
+                          base:GHCziIOArray.NTCoZCIOArray
+                          iaiJ
+                          eaiK)
+                         -> (ghczmprim:GHCziTuple.Z2T iaiJ iaiJ));
+  base:GHCziIOArray.writeIOArray :: %forall ia8q ea8r . (base:GHCziArr.TZCIx
+                                                         ia8q)
+                                                        ->
+                                                        (base:GHCziIOArray.IOArray ia8q ea8r) ->
+                                                        ia8q ->
+                                                        ea8r ->
+                                                        (ghczmprim:GHCziTypes.IO
+                                                         ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:GHCziIOArray.writeIOArray1)
+    (%forall iaiP eaiQ . (base:GHCziArr.TZCIx iaiP) ->
+                         (base:GHCziIOArray.IOArray iaiP eaiQ) ->
+                         iaiP ->
+                         eaiQ ->
+                         %trans
+                         ((base:GHCziST.NTCoZCST
+                           ghczmprim:GHCziPrim.RealWorld
+                           ghczmprim:GHCziUnit.Z0T))
+                         (%sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T))));
+  base:GHCziIOArray.readIOArray :: %forall ia8s ea8t . (base:GHCziArr.TZCIx
+                                                        ia8s)
+                                                       ->
+                                                       (base:GHCziIOArray.IOArray ia8s ea8t) ->
+                                                       ia8s -> (ghczmprim:GHCziTypes.IO ea8t) =
+    %cast (base:GHCziIOArray.readIOArray1)
+    (%forall iajw eajx . (base:GHCziArr.TZCIx iajw) ->
+                         (base:GHCziIOArray.IOArray iajw eajx) ->
+                         iajw ->
+                         %trans
+                         ((base:GHCziST.NTCoZCST ghczmprim:GHCziPrim.RealWorld eajx))
+                         (%sym ((ghczmprim:GHCziTypes.NTCoZCIO eajx))));
+  base:GHCziIOArray.unsafeWriteIOArray :: %forall ia8u ea8v . (base:GHCziArr.TZCIx
+                                                               ia8u)
+                                                              ->
+                                                              (base:GHCziIOArray.IOArray ia8u ea8v)
+                                                              ->
+                                                              ghczmprim:GHCziTypes.Int ->
+                                                              ea8v ->
+                                                              (ghczmprim:GHCziTypes.IO
+                                                               ghczmprim:GHCziUnit.Z0T) =
+    %cast (a2rp0)
+    (%forall iajF eajG . (base:GHCziArr.TZCIx iajF) ->
+                         (base:GHCziIOArray.IOArray iajF eajG) ->
+                         ghczmprim:GHCziTypes.Int ->
+                         eajG ->
+                         %trans
+                         ((base:GHCziST.NTCoZCST
+                           ghczmprim:GHCziPrim.RealWorld
+                           ghczmprim:GHCziUnit.Z0T))
+                         (%sym ((ghczmprim:GHCziTypes.NTCoZCIO ghczmprim:GHCziUnit.Z0T))));
+  base:GHCziIOArray.unsafeReadIOArray :: %forall ia8w ea8x . (base:GHCziArr.TZCIx
+                                                              ia8w)
+                                                             ->
+                                                             (base:GHCziIOArray.IOArray ia8w ea8x)
+                                                             ->
+                                                             ghczmprim:GHCziTypes.Int ->
+                                                             (ghczmprim:GHCziTypes.IO ea8x) =
+    %cast (a1roY)
+    (%forall iajO eajP . (base:GHCziArr.TZCIx iajO) ->
+                         (base:GHCziIOArray.IOArray iajO eajP) ->
+                         ghczmprim:GHCziTypes.Int ->
+                         %trans
+                         ((base:GHCziST.NTCoZCST ghczmprim:GHCziPrim.RealWorld eajP))
+                         (%sym ((ghczmprim:GHCziTypes.NTCoZCIO eajP))));
+  base:GHCziIOArray.newIOArray :: %forall ia8y ea8zz . (base:GHCziArr.TZCIx
+                                                        ia8y)
+                                                       ->
+                                                       (ghczmprim:GHCziTuple.Z2T ia8y ia8y) ->
+                                                       ea8zz ->
+                                                       (ghczmprim:GHCziTypes.IO
+                                                        ((base:GHCziIOArray.IOArray ia8y ea8zz))) =
+    %cast (aroW)
+    (%forall iajX eajY . (base:GHCziArr.TZCIx iajX) ->
+                         (ghczmprim:GHCziTuple.Z2T iajX iajX) ->
+                         eajY ->
+                         %sym
+                         ((ghczmprim:GHCziTypes.NTCoZCIO
+                           ((base:GHCziIOArray.IOArray iajX eajY)))));
+  base:GHCziIOArray.zdfEqIOArrayzuzdczeze :: %forall ia8O ea8P . (base:GHCziIOArray.IOArray
+                                                                  ia8O
+                                                                  ea8P)
+                                                                 ->
+                                                                 (base:GHCziIOArray.IOArray
+                                                                  ia8O
+                                                                  ea8P)
+                                                                 -> ghczmprim:GHCziBool.Bool =
+    %cast (base:GHCziArr.zdfEqSTArrayzuzdczeze
+           @ ghczmprim:GHCziPrim.RealWorld)
+    (%forall ia8O ea8P . (ghczmprim:GHCziPrim.sym
+                          base:GHCziIOArray.NTCoZCIOArray
+                          ia8O
+                          ea8P)
+                         ->
+                         (ghczmprim:GHCziPrim.sym base:GHCziIOArray.NTCoZCIOArray ia8O ea8P)
+                         -> ghczmprim:GHCziBool.Bool);
+  base:GHCziIOArray.zdfEqIOArrayzuzdczsze :: %forall ia8O ea8P . (base:GHCziIOArray.IOArray
+                                                                  ia8O
+                                                                  ea8P)
+                                                                 ->
+                                                                 (base:GHCziIOArray.IOArray
+                                                                  ia8O
+                                                                  ea8P)
+                                                                 -> ghczmprim:GHCziBool.Bool =
+    \ @ ia8O
+      @ ea8P
+      (etaXZZ::(base:GHCziIOArray.IOArray ia8O ea8P))
+      (eta1Xy::(base:GHCziIOArray.IOArray ia8O ea8P)) ->
+        %case ghczmprim:GHCziBool.Bool (%cast (etaXZZ)
+                                        ((base:GHCziIOArray.NTCoZCIOArray ia8O ea8P)))
+        %of (wildanH::(base:GHCziArr.STArray
+                       ghczmprim:GHCziPrim.RealWorld
+                       ia8O
+                       ea8P))
+          {base:GHCziArr.STArray
+           (ds2anJ::ia8O)
+           (ds3anK::ia8O)
+           (rbanL::ghczmprim:GHCziPrim.Intzh)
+           (arr1zhanM::(ghczmprim:GHCziPrim.MutableArrayzh
+                        ghczmprim:GHCziPrim.RealWorld
+                        ea8P)) ->
+             %case ghczmprim:GHCziBool.Bool (%cast (eta1Xy)
+                                             ((base:GHCziIOArray.NTCoZCIOArray ia8O ea8P)))
+             %of (wild1anO::(base:GHCziArr.STArray
+                             ghczmprim:GHCziPrim.RealWorld
+                             ia8O
+                             ea8P))
+               {base:GHCziArr.STArray
+                (ds4anQ::ia8O)
+                (ds5anR::ia8O)
+                (rb1anS::ghczmprim:GHCziPrim.Intzh)
+                (arr2zhanT::(ghczmprim:GHCziPrim.MutableArrayzh
+                             ghczmprim:GHCziPrim.RealWorld
+                             ea8P)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.sameMutableArrayzh
+                                                  @ ghczmprim:GHCziPrim.RealWorld @ ea8P arr1zhanM
+                                                  arr2zhanT)
+                  %of (wild2ao0::ghczmprim:GHCziBool.Bool)
+                    {ghczmprim:GHCziBool.False ->
+                       ghczmprim:GHCziBool.True;
+                     ghczmprim:GHCziBool.True ->
+                       ghczmprim:GHCziBool.False}}};
+  base:GHCziIOArray.zdfEqIOArray :: %forall ia8O ea8P . (base:GHCziClasses.TZCEq
+                                                         ((base:GHCziIOArray.IOArray ia8O ea8P))) =
+    \ @ ia8O @ ea8P ->
+        base:GHCziClasses.DZCEq @ ((base:GHCziIOArray.IOArray ia8O ea8P))
+        (%cast (base:GHCziArr.zdfEqSTArrayzuzdczeze
+                @ ghczmprim:GHCziPrim.RealWorld @ ia8O @ ea8P)
+         ((ghczmprim:GHCziPrim.sym
+           base:GHCziIOArray.NTCoZCIOArray
+           ia8O
+           ea8P)
+          ->
+          (ghczmprim:GHCziPrim.sym base:GHCziIOArray.NTCoZCIOArray ia8O ea8P)
+          -> ghczmprim:GHCziBool.Bool))
+        (base:GHCziIOArray.zdfEqIOArrayzuzdczsze @ ia8O @ ea8P);

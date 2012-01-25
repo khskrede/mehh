@@ -1,0 +1,44 @@
+%module main:SystemziExit
+  main:SystemziExit.exitWith :: %forall aaiM . base:GHCziIOziException.ExitCode
+                                               -> (ghczmprim:GHCziTypes.IO aaiM) =
+    \ @ aaos (dsd1kW::base:GHCziIOziException.ExitCode) ->
+        %case ((ghczmprim:GHCziTypes.IO aaos)) dsd1kW
+        %of (wildB1::base:GHCziIOziException.ExitCode)
+          {base:GHCziIOziException.ExitSuccess ->
+             base:GHCziIO.throwIO @ base:GHCziIOziException.ExitCode @ aaos
+             base:GHCziIOziException.zdfExceptionExitCode
+             base:GHCziIOziException.ExitSuccess;
+           base:GHCziIOziException.ExitFailure
+           (naiO::ghczmprim:GHCziTypes.Int) ->
+             %case ((ghczmprim:GHCziTypes.IO aaos)) (base:GHCziClasses.zsze
+                                                     @ ghczmprim:GHCziTypes.Int
+                                                     base:GHCziBase.zdfEqInt naiO
+                                                     (ghczmprim:GHCziTypes.Izh
+                                                      (0::ghczmprim:GHCziPrim.Intzh)))
+             %of (wild1X6::ghczmprim:GHCziBool.Bool)
+               {ghczmprim:GHCziBool.False ->
+                  base:GHCziIOziException.ioError @ aaos
+                  (base:GHCziIOziException.IOError
+                   (base:DataziMaybe.Nothing @ base:GHCziIOziHandleziTypes.Handle)
+                   base:GHCziIOziException.InvalidArgument
+                   (base:GHCziBase.unpackCStringzh
+                    ("exitWith"::ghczmprim:GHCziPrim.Addrzh))
+                   (base:GHCziBase.unpackCStringzh
+                    ("ExitFailure 0"::ghczmprim:GHCziPrim.Addrzh))
+                   (base:DataziMaybe.Nothing @ base:ForeignziCziTypes.CInt)
+                   (base:DataziMaybe.Nothing
+                    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                ghczmprim:GHCziBool.True ->
+                  base:GHCziIO.throwIO @ base:GHCziIOziException.ExitCode @ aaos
+                  base:GHCziIOziException.zdfExceptionExitCode wildB1}};
+  main:SystemziExit.exitFailure :: %forall aaiL . (ghczmprim:GHCziTypes.IO
+                                                   aaiL) =
+    \ @ aa1fM ->
+        main:SystemziExit.exitWith @ aa1fM
+        (base:GHCziIOziException.ExitFailure
+         (ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh)));
+  main:SystemziExit.exitSuccess :: %forall aaiK . (ghczmprim:GHCziTypes.IO
+                                                   aaiK) =
+    \ @ aa1fO ->
+        main:SystemziExit.exitWith @ aa1fO
+        base:GHCziIOziException.ExitSuccess;

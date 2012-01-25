@@ -1,0 +1,46 @@
+%module main:SystemziInfo
+  main:SystemziInfo.compilerName :: (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char) =
+    base:GHCziBase.unpackCStringzh ("ghc"::ghczmprim:GHCziPrim.Addrzh);
+  main:SystemziInfo.arch :: (ghczmprim:GHCziTypes.ZMZN
+                             ghczmprim:GHCziTypes.Char) =
+    base:GHCziBase.unpackCStringzh
+    ("x86_64"::ghczmprim:GHCziPrim.Addrzh);
+  main:SystemziInfo.os :: (ghczmprim:GHCziTypes.ZMZN
+                           ghczmprim:GHCziTypes.Char) =
+    base:GHCziBase.unpackCStringzh
+    ("linux"::ghczmprim:GHCziPrim.Addrzh);
+  dsrwp :: (ghczmprim:GHCziTuple.Z2T
+            ghczmprim:GHCziTypes.Int
+            ghczmprim:GHCziTypes.Int) =
+    base:GHCziReal.divMod @ ghczmprim:GHCziTypes.Int
+    base:GHCziReal.zdfIntegralInt
+    (ghczmprim:GHCziTypes.Izh (700::ghczmprim:GHCziPrim.Intzh))
+    (ghczmprim:GHCziTypes.Izh (100::ghczmprim:GHCziPrim.Intzh));
+  minorrwr :: ghczmprim:GHCziTypes.Int =
+    %case ghczmprim:GHCziTypes.Int dsrwp
+    %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                  ghczmprim:GHCziTypes.Int
+                  ghczmprim:GHCziTypes.Int))
+      {ghczmprim:GHCziTuple.Z2T
+       (major1Xde::ghczmprim:GHCziTypes.Int)
+       (minor1Xdd::ghczmprim:GHCziTypes.Int) ->
+         minor1Xdd};
+  majorrwt :: ghczmprim:GHCziTypes.Int =
+    %case ghczmprim:GHCziTypes.Int dsrwp
+    %of (wildB1::(ghczmprim:GHCziTuple.Z2T
+                  ghczmprim:GHCziTypes.Int
+                  ghczmprim:GHCziTypes.Int))
+      {ghczmprim:GHCziTuple.Z2T
+       (major1Xdd::ghczmprim:GHCziTypes.Int)
+       (minor1Xd8::ghczmprim:GHCziTypes.Int) ->
+         major1Xdd};
+  arwv :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Int) =
+    ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Int minorrwr
+    (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Int);
+  a1rwx :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Int) =
+    ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Int majorrwt arwv;
+  main:SystemziInfo.compilerVersion :: base:DataziVersion.Version =
+    base:DataziVersion.Version a1rwx
+    (ghczmprim:GHCziTypes.ZMZN
+     @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)));

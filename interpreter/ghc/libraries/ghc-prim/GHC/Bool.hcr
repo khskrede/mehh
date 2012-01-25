@@ -1,0 +1,43 @@
+%module ghczmprim:GHCziBool
+  %data ghczmprim:GHCziBool.Bool =
+    {ghczmprim:GHCziBool.False;
+     ghczmprim:GHCziBool.True};
+  ghczmprim:GHCziBool.zdgfromBool1 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                       ghczmprim:GHCziGenerics.Unit
+                                       ghczmprim:GHCziGenerics.Unit) =
+    ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+    @ ghczmprim:GHCziGenerics.Unit ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziBool.zdgfromBool2 :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                       ghczmprim:GHCziGenerics.Unit
+                                       ghczmprim:GHCziGenerics.Unit) =
+    ghczmprim:GHCziGenerics.Inl @ ghczmprim:GHCziGenerics.Unit
+    @ ghczmprim:GHCziGenerics.Unit ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziBool.zdgtoBool :: (ghczmprim:GHCziGenerics.ZCzpZC
+                                    ghczmprim:GHCziGenerics.Unit
+                                    ghczmprim:GHCziGenerics.Unit)
+                                   -> ghczmprim:GHCziBool.Bool =
+    \ (g1ap::(ghczmprim:GHCziGenerics.ZCzpZC
+              ghczmprim:GHCziGenerics.Unit
+              ghczmprim:GHCziGenerics.Unit)) ->
+        %case ghczmprim:GHCziBool.Bool g1ap
+        %of (wildB1::(ghczmprim:GHCziGenerics.ZCzpZC
+                      ghczmprim:GHCziGenerics.Unit
+                      ghczmprim:GHCziGenerics.Unit))
+          {ghczmprim:GHCziGenerics.Inl
+           (dsdK::ghczmprim:GHCziGenerics.Unit) ->
+             ghczmprim:GHCziBool.False;
+           ghczmprim:GHCziGenerics.Inr (dsdL::ghczmprim:GHCziGenerics.Unit) ->
+             ghczmprim:GHCziBool.True};
+  ghczmprim:GHCziBool.zdgfromBool :: ghczmprim:GHCziBool.Bool ->
+                                     (ghczmprim:GHCziGenerics.ZCzpZC
+                                      ghczmprim:GHCziGenerics.Unit
+                                      ghczmprim:GHCziGenerics.Unit) =
+    \ (dsdO::ghczmprim:GHCziBool.Bool) ->
+        %case ((ghczmprim:GHCziGenerics.ZCzpZC
+                ghczmprim:GHCziGenerics.Unit
+                ghczmprim:GHCziGenerics.Unit)) dsdO
+        %of (wildB1::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             ghczmprim:GHCziBool.zdgfromBool2;
+           ghczmprim:GHCziBool.True ->
+             ghczmprim:GHCziBool.zdgfromBool1};

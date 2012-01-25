@@ -315,9 +315,12 @@ kindJS (Keq ty1 ty2) =
 -- Identifier
 -- 
 
+--anmnameJS :: AnMname -> JSValue
+--anmnameJS (M ((P pname), ids, id)) = 
+--    toJSON $ (pname ++ ":" ++ (foldl (++) "" ids) ++ id)
+
 anmnameJS :: AnMname -> JSValue
-anmnameJS (M ((P pname), ids, id)) = 
-    toJSON $ (pname ++ ":" ++ (foldl (++) "" ids) ++ id)
+anmnameJS = toJSON . show
 
 tyconJS :: Tcon -> JSValue
 tyconJS = toJSON 

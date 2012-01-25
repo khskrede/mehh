@@ -1,0 +1,151 @@
+%module base:GHCziSTRef
+  %data base:GHCziSTRef.STRef sa2v aa2w =
+    {base:GHCziSTRef.STRef ((ghczmprim:GHCziPrim.MutVarzh sa2v aa2w))};
+  base:GHCziSTRef.readSTRef1 :: %forall sa94 aa95 . (base:GHCziSTRef.STRef
+                                                     sa94
+                                                     aa95)
+                                                    ->
+                                                    (ghczmprim:GHCziPrim.Statezh sa94) ->
+                                                    (ghczmprim:GHCziPrim.Z2H
+                                                     ((ghczmprim:GHCziPrim.Statezh sa94))
+                                                     aa95) =
+    \ @ sa94
+      @ aa95
+      (dsd9q::(base:GHCziSTRef.STRef sa94 aa95))
+      (etaB1::(ghczmprim:GHCziPrim.Statezh sa94)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh sa94))
+                aa95)) dsd9q
+        %of (wildX3::(base:GHCziSTRef.STRef sa94 aa95))
+          {base:GHCziSTRef.STRef
+           (varzha2H::(ghczmprim:GHCziPrim.MutVarzh sa94 aa95)) ->
+             ghczmprim:GHCziPrim.readMutVarzh @ sa94 @ aa95 varzha2H etaB1};
+  base:GHCziSTRef.writeSTRef1 :: %forall sa8X aa8Y . (base:GHCziSTRef.STRef
+                                                      sa8X
+                                                      aa8Y)
+                                                     ->
+                                                     aa8Y ->
+                                                     (ghczmprim:GHCziPrim.Statezh sa8X) ->
+                                                     (ghczmprim:GHCziPrim.Z2H
+                                                      ((ghczmprim:GHCziPrim.Statezh sa8X))
+                                                      ghczmprim:GHCziUnit.Z0T) =
+    \ @ sa8X
+      @ aa8Y
+      (dsd9o::(base:GHCziSTRef.STRef sa8X aa8Y))
+      (vala2K::aa8Y)
+      (etaB1::(ghczmprim:GHCziPrim.Statezh sa8X)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh sa8X))
+                ghczmprim:GHCziUnit.Z0T)) dsd9o
+        %of (wildX3::(base:GHCziSTRef.STRef sa8X aa8Y))
+          {base:GHCziSTRef.STRef
+           (varzha2J::(ghczmprim:GHCziPrim.MutVarzh sa8X aa8Y)) ->
+             %case ((ghczmprim:GHCziPrim.Z2H
+                     ((ghczmprim:GHCziPrim.Statezh sa8X))
+                     ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.writeMutVarzh @ sa8X
+                                                @ aa8Y varzha2J vala2K etaB1)
+             %of (s2zha2M::(ghczmprim:GHCziPrim.Statezh sa8X))
+               {%_ ->
+                  ghczmprim:GHCziPrim.Z2H @ ((ghczmprim:GHCziPrim.Statezh sa8X))
+                  @ ghczmprim:GHCziUnit.Z0T s2zha2M ghczmprim:GHCziUnit.Z0T}};
+  base:GHCziSTRef.newSTRef1 :: %forall aa97 sa98 . aa97 ->
+                                                   (ghczmprim:GHCziPrim.Statezh sa98) ->
+                                                   (ghczmprim:GHCziPrim.Z2H
+                                                    ((ghczmprim:GHCziPrim.Statezh sa98))
+                                                    ((base:GHCziSTRef.STRef sa98 aa97))) =
+    \ @ aa97
+      @ sa98
+      (inita2D::aa97)
+      (s1zha2E::(ghczmprim:GHCziPrim.Statezh sa98)) ->
+        %case ((ghczmprim:GHCziPrim.Z2H
+                ((ghczmprim:GHCziPrim.Statezh sa98))
+                ((base:GHCziSTRef.STRef
+                  sa98
+                  aa97)))) (ghczmprim:GHCziPrim.newMutVarzh @ aa97 @ sa98 inita2D
+                            s1zha2E)
+        %of (wildXf::(ghczmprim:GHCziPrim.Z2H
+                      ((ghczmprim:GHCziPrim.Statezh sa98))
+                      ((ghczmprim:GHCziPrim.MutVarzh sa98 aa97))))
+          {ghczmprim:GHCziPrim.Z2H
+           (s2zha2F::(ghczmprim:GHCziPrim.Statezh sa98))
+           (varzha2G::(ghczmprim:GHCziPrim.MutVarzh sa98 aa97)) ->
+             ghczmprim:GHCziPrim.Z2H @ ((ghczmprim:GHCziPrim.Statezh sa98))
+             @ ((base:GHCziSTRef.STRef sa98 aa97)) s2zha2F
+             (base:GHCziSTRef.STRef @ sa98 @ aa97 varzha2G)};
+  base:GHCziSTRef.writeSTRef :: %forall sa2x aa2y . (base:GHCziSTRef.STRef
+                                                     sa2x
+                                                     aa2y)
+                                                    ->
+                                                    aa2y ->
+                                                    (base:GHCziST.ST sa2x ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:GHCziSTRef.writeSTRef1)
+    (%forall sa8X aa8Y . (base:GHCziSTRef.STRef sa8X aa8Y) ->
+                         aa8Y ->
+                         %sym ((base:GHCziST.NTCoZCST sa8X ghczmprim:GHCziUnit.Z0T)));
+  base:GHCziSTRef.readSTRef :: %forall sa2zz aa2A . (base:GHCziSTRef.STRef
+                                                     sa2zz
+                                                     aa2A)
+                                                    -> (base:GHCziST.ST sa2zz aa2A) =
+    %cast (base:GHCziSTRef.readSTRef1)
+    (%forall sa94 aa95 . (base:GHCziSTRef.STRef sa94 aa95) ->
+                         %sym ((base:GHCziST.NTCoZCST sa94 aa95)));
+  base:GHCziSTRef.newSTRef :: %forall aa2B sa2C . aa2B ->
+                                                  (base:GHCziST.ST
+                                                   sa2C
+                                                   ((base:GHCziSTRef.STRef sa2C aa2B))) =
+    %cast (base:GHCziSTRef.newSTRef1)
+    (%forall aa97 sa98 . aa97 ->
+                         %sym
+                         ((base:GHCziST.NTCoZCST
+                           sa98
+                           ((base:GHCziSTRef.STRef sa98 aa97)))));
+  base:GHCziSTRef.zdfEqSTRefzuzdczeze :: %forall sa2N aa2O . (base:GHCziSTRef.STRef
+                                                              sa2N
+                                                              aa2O)
+                                                             ->
+                                                             (base:GHCziSTRef.STRef sa2N aa2O) ->
+                                                             ghczmprim:GHCziBool.Bool =
+    \ @ sa2N
+      @ aa2O
+      (dsd9u::(base:GHCziSTRef.STRef sa2N aa2O))
+      (ds1d9v::(base:GHCziSTRef.STRef sa2N aa2O)) ->
+        %case ghczmprim:GHCziBool.Bool dsd9u
+        %of (wildB1::(base:GHCziSTRef.STRef sa2N aa2O))
+          {base:GHCziSTRef.STRef
+           (v1zha2P::(ghczmprim:GHCziPrim.MutVarzh sa2N aa2O)) ->
+             %case ghczmprim:GHCziBool.Bool ds1d9v
+             %of (wild1Xb::(base:GHCziSTRef.STRef sa2N aa2O))
+               {base:GHCziSTRef.STRef
+                (v2zha2Q::(ghczmprim:GHCziPrim.MutVarzh sa2N aa2O)) ->
+                  ghczmprim:GHCziPrim.sameMutVarzh @ sa2N @ aa2O v1zha2P v2zha2Q}};
+  base:GHCziSTRef.zdfEqSTRefzuzdczsze :: %forall sa2N aa2O . (base:GHCziSTRef.STRef
+                                                              sa2N
+                                                              aa2O)
+                                                             ->
+                                                             (base:GHCziSTRef.STRef sa2N aa2O) ->
+                                                             ghczmprim:GHCziBool.Bool =
+    \ @ sa2N
+      @ aa2O
+      (etaB2::(base:GHCziSTRef.STRef sa2N aa2O))
+      (eta1B1::(base:GHCziSTRef.STRef sa2N aa2O)) ->
+        %case ghczmprim:GHCziBool.Bool etaB2
+        %of (wildXq::(base:GHCziSTRef.STRef sa2N aa2O))
+          {base:GHCziSTRef.STRef
+           (v1zha2P::(ghczmprim:GHCziPrim.MutVarzh sa2N aa2O)) ->
+             %case ghczmprim:GHCziBool.Bool eta1B1
+             %of (wild1Xb::(base:GHCziSTRef.STRef sa2N aa2O))
+               {base:GHCziSTRef.STRef
+                (v2zha2Q::(ghczmprim:GHCziPrim.MutVarzh sa2N aa2O)) ->
+                  %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.sameMutVarzh
+                                                  @ sa2N @ aa2O v1zha2P v2zha2Q)
+                  %of (wild2a9H::ghczmprim:GHCziBool.Bool)
+                    {ghczmprim:GHCziBool.False ->
+                       ghczmprim:GHCziBool.True;
+                     ghczmprim:GHCziBool.True ->
+                       ghczmprim:GHCziBool.False}}};
+  base:GHCziSTRef.zdfEqSTRef :: %forall sa2N aa2O . (base:GHCziClasses.TZCEq
+                                                     ((base:GHCziSTRef.STRef sa2N aa2O))) =
+    \ @ sa2N @ aa2O ->
+        base:GHCziClasses.DZCEq @ ((base:GHCziSTRef.STRef sa2N aa2O))
+        (base:GHCziSTRef.zdfEqSTRefzuzdczeze @ sa2N @ aa2O)
+        (base:GHCziSTRef.zdfEqSTRefzuzdczsze @ sa2N @ aa2O);

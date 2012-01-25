@@ -1,0 +1,51 @@
+%module ghczmprim:GHCziGenerics
+  %data ghczmprim:GHCziGenerics.ZCztZC aaf bag =
+    {ghczmprim:GHCziGenerics.ZCztZC aaf bag};
+  %data ghczmprim:GHCziGenerics.ZCzpZC aah bai =
+    {ghczmprim:GHCziGenerics.Inl aah;
+     ghczmprim:GHCziGenerics.Inr bai};
+  %data ghczmprim:GHCziGenerics.Unit =
+    {ghczmprim:GHCziGenerics.Unit};
+  ghczmprim:GHCziGenerics.zdgtoZCztZC :: %forall aaX baY . (ghczmprim:GHCziGenerics.ZCztZC
+                                                            aaX
+                                                            baY)
+                                                           ->
+                                                           (ghczmprim:GHCziGenerics.ZCztZC
+                                                            aaX
+                                                            baY) =
+    \ @ aaX @ baY (g3aT::(ghczmprim:GHCziGenerics.ZCztZC aaX baY)) ->
+        g3aT;
+  ghczmprim:GHCziGenerics.zdgfromZCztZC :: %forall aa10 ba11 . (ghczmprim:GHCziGenerics.ZCztZC
+                                                                aa10
+                                                                ba11)
+                                                               ->
+                                                               (ghczmprim:GHCziGenerics.ZCztZC
+                                                                aa10
+                                                                ba11) =
+    ghczmprim:GHCziGenerics.zdgtoZCztZC;
+  ghczmprim:GHCziGenerics.zdgtoZCzpZC :: %forall aa13 ba14 . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                              aa13
+                                                              ba14)
+                                                             ->
+                                                             (ghczmprim:GHCziGenerics.ZCzpZC
+                                                              aa13
+                                                              ba14) =
+    \ @ aa13
+      @ ba14
+      (g1aO::(ghczmprim:GHCziGenerics.ZCzpZC aa13 ba14)) ->
+        g1aO;
+  ghczmprim:GHCziGenerics.zdgfromZCzpZC :: %forall aa16 ba17 . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                aa16
+                                                                ba17)
+                                                               ->
+                                                               (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                aa16
+                                                                ba17) =
+    ghczmprim:GHCziGenerics.zdgtoZCzpZC;
+  ghczmprim:GHCziGenerics.zdgtoUnit :: ghczmprim:GHCziGenerics.Unit
+                                       -> ghczmprim:GHCziGenerics.Unit =
+    \ (dsd1l::ghczmprim:GHCziGenerics.Unit) ->
+        ghczmprim:GHCziGenerics.Unit;
+  ghczmprim:GHCziGenerics.zdgfromUnit :: ghczmprim:GHCziGenerics.Unit
+                                         -> ghczmprim:GHCziGenerics.Unit =
+    \ (dsd1m::ghczmprim:GHCziGenerics.Unit) -> dsd1m;
