@@ -2,13 +2,11 @@
 from pypy.rlib.parsing.ebnfparse import parse_ebnf, make_parse_function
 from pypy.rlib.parsing.tree import RPythonVisitor, Nonterminal, Node, Symbol, VisitError
 import sys
-import haskell.haskell as hh
-import ghc.prim
+import haskell as h
+import prim
 import module
 
 import copy
-
-import pdb
 
 ebnf = """
     STRING: "\\"[^\\\\"]*\\"";
@@ -107,21 +105,22 @@ class AST(RPythonVisitor):
 
             elif type_ == "\"%data\"":
 
-                package, mod, qtycon = rewrite_id(node.children[0].children[1].additional_info)
-                self.modules[self.mident].qtycons[mod+"."+qtycon] = ForwardReference()
+                #package, mod, qtycon = rewrite_id(node.children[0].children[1].additional_info)
+                #self.modules[self.mident].qtycons[mod+"."+qtycon] = ForwardReference()
 
-                tbinds = []
-                for tbind in node.children[1].children[1].children :
-                    tbinds.append(tbind.visit(self))
+                #tbinds = []
+                #for tbind in node.children[1].children[1].children :
+                #    tbinds.append(tbind.visit(self))
 
                 cdefs = []
                 for cdef in node.children[2].children[1].children :
                     cdefs.append(cdef.visit(self))
 
-                const = hh.make_constructor(hh.Symbol(qtycon), tbinds)
-                self.modules[self.mident].qtycons[mod+"."+qtycon].become(const)
+                #const = h.make_partial_app(  )
 
-                return const
+                #self.modules[self.mident].qtycons[mod+"."+qtycon].become(const)
+
+                return cdefs
 
             elif type_ == "\"%newtype\"":
                 newtype = node.children[0].children[1].additional_info
@@ -135,7 +134,7 @@ class AST(RPythonVisitor):
 
                 ty = node.children[3].children[1].visit(self)
 
-                return hh.make_constructor(hh.Symbol(qtycon), [ty])
+                return h.make_constructor(h.Symbol(qtycon), [ty])
 
 
             elif type_ == "\"qdcon\"" and len(node.children) == 3:
@@ -152,7 +151,7 @@ class AST(RPythonVisitor):
                 for aty in node.children[1].children[1].children :
                     atys.append(aty.visit(self))
 
-                const = hh.make_constructor(hh.Symbol(qdcon), atys)
+                const = h.make_constructor(h.Symbol(qdcon), atys)
 
                 self.modules[self.mident].qdcons[qdcon].become(const)
 
@@ -224,7 +223,7 @@ class AST(RPythonVisitor):
                     type_ = self.modules[mident].qtycons[mod+"."+type_name]
                 else:
                     if package == "ghc-prim" and mod == "GHC.Prim":
-                        modref = sys.modules["ghc.prim"]
+                        modref = sys.modules["prim"]
                         type_ = getattr(modref, type_name)
                     else:
                         self.get_external(package, mod, type_name)
@@ -249,11 +248,7 @@ class AST(RPythonVisitor):
                 if aty == "\"aty\"":
                     return exp
                 else:
-                    app = hh.make_application(exp, [args])
-                   
-                    if isinstance(exp, hh.Thunk):
-                        return app
- 
+                    app = h.make_partial_app(exp, [args])
                     return app
 
 
@@ -272,11 +267,11 @@ class AST(RPythonVisitor):
                 vbind = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
 
-                #func = hh.function("lambda", [
-                #            ([vbind],hh.make_application(exp,[vbind]))
+                #func = function("lambda", [
+                #            ([vbind],h.make_application(exp,[vbind]))
                 #            ])
 
-                func = hh.make_application(exp, [vbind])
+                func = h.make_partial_app(exp, [vbind])
 
                 return func
 
@@ -296,15 +291,14 @@ class AST(RPythonVisitor):
 
                 alts.reverse()
 
-                pdb.set_trace()
-                f = hh.function("alts", alts)
-                app = hh.make_application(f, exp) 
+                f = function("alts", alts)
+                app = h.make_partial_app(f, exp) 
 
                 return app
 
             elif type_ == "\"%_\"":
                 f = node.children[0].children[1].visit(self)
-                return ([hh.Var("_")], f)
+                return ([h.Var("_")], f)
 
             elif type_ == "\"%cast\"":
                 raise NotImplementedError
@@ -335,7 +329,7 @@ class AST(RPythonVisitor):
                 bty = node.children[0].children[1].visit(self)
                 aty = node.children[1].children[1].visit(self)
 
-                t_app = hh.make_application(bty, [aty])
+                t_app = h.make_partial_app(bty, [aty])
                 #t_app = bty.apply(aty)
                 return t_app
 
@@ -377,7 +371,7 @@ class AST(RPythonVisitor):
                 print "vbinds: ", repr(vbinds) 
 
                 exp = node.children[3].children[1].visit(self)
-                const_alt = hh.make_application(qdcon, vbinds)
+                const_alt = h.make_partial_app(qdcon, vbinds)
 
                 # TODO ?
                 return ([const_alt], exp)
@@ -398,10 +392,10 @@ class AST(RPythonVisitor):
                 return node.children[0].children[1].visit(self)
 
             elif type_ == "\"tyvar\"" and len(node.children) == 1:
-                return hh.Var(node.children[0].children[1].additional_info)
+                return h.Var(node.children[0].children[1].additional_info)
 
             elif type_ == "\"tyvar\"" and len(node.children) == 2:
-                return hh.Var(node.children[0].children[1].additional_info)
+                return h.Var(node.children[0].children[1].additional_info)
 
             else:
                 raise NotImplementedError
@@ -420,7 +414,7 @@ class AST(RPythonVisitor):
     def visit_STRING(self, node):
         # TODO: fix this, we can't simply replace
         str_ = node.additional_info.replace("\"","")
-        return hh.CString(node.additional_info)
+        return CString(node.additional_info)
 
     def visit_NUMBER(self, node):
         number = node.additional_info
@@ -436,7 +430,7 @@ class AST(RPythonVisitor):
         print "loading: ", mident
 
         if mident in primitives:
-            modref = sys.modules["ghc.prim"]
+            modref = sys.modules["prim"]
             return getattr(modref, name)
         else:
             path = "./ghc/libraries/" \

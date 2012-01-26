@@ -1,5 +1,5 @@
 
-import haskell.haskell
+import haskell
 
 class module():
     name = "" 

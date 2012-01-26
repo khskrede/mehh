@@ -1,3 +1,4 @@
+#!/usr/bin/python2.7
 
 from pypy.rlib.parsing.ebnfparse import parse_ebnf, make_parse_function
 from pypy.rlib.parsing.tree import RPythonVisitor, Nonterminal, Node, Symbol, VisitError

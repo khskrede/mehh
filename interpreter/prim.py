@@ -1,14 +1,13 @@
 
-
-from haskell import haskell as hh
-
-#a = hh.Var("a")
-#b = hh.Var("b")
-#ZLzmzgZR = hh.constr("->", a, b)
+import haskell as h
 
 
-def ZLzmzgZR(a, b):
-    return hh.constr("->", a, b)
+
+@h.expose_primitive(2)
+def ZLzmzgZR(args):
+    a = args[0]
+    b = args[1]
+    return constr("->", a, b)
 
 
 #-----------------------
@@ -16,20 +15,20 @@ def ZLzmzgZR(a, b):
 #-----------------------
 
 
-class Charzh(hh.Value):
+class Charzh(h.Value):
     _immutable_fields_ = ["value"]
 
     def __init__(self, char):
         self.char = char
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def gtCharzh(args):
     a0, a1 = args
     assert isinstance(a0, Charzh)
     assert isinstance(a1, Charzh)
     return Charzh(a0.value > a1.value)
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def geCharzh(args):
     a0, a1 = args
     assert isinstance(a0, Charzh)
@@ -45,7 +44,7 @@ def geCharzh(args):
 # Int#
 #------------------------
 
-class Intzh(hh.Value):
+class Intzh(h.Value):
     _immutable_fields_ = ["value"]
 
     def __init__(self, integer):
@@ -71,7 +70,7 @@ class Intzh(hh.Value):
 
 #  (+#)
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def zpzh(args):
     a0, a1 = args
     assert isinstance(a0, Charzh)
@@ -80,7 +79,7 @@ def zpzh(args):
 
 # (-#)
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def zmzh(args):
     a0, a1 = args
     assert isinstance(a0, Charzh)
@@ -89,7 +88,7 @@ def zmzh(args):
 
 # (*#)
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def ztzh(args):
     a0, a1 = args
     assert isinstance(a0, Charzh)
@@ -103,34 +102,34 @@ def mulIntMayOflozh(args):
 
 # Concurrency primitives
 
-@hh.expose_primitive(1)
+@h.expose_primitive(1)
 def Statezh(args):
-    return hh.const("State#", args[0])
+    return const("State#", args[0])
 
-@hh.expose_primitive(0)
+@h.expose_primitive(0)
 def RealWorld(args):
-    return hh.const("RealWorld")
+    return const("RealWorld")
 
 
 # Tuples
 
-@hh.expose_primitive(0)
+@h.expose_primitive(0)
 def Z0T(args):
-    return hh.const("()")
+    return const("()")
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def Z2T(args):
-    return hh.const("()", args[0], args[1])
+    return const("()", args[0], args[1])
 
 
 # Unboxed tuple
 
 
-@hh.expose_primitive(0)
+@h.expose_primitive(0)
 def Z0H(args):
-    return hh.const("()")
+    return const("()")
 
-@hh.expose_primitive(2)
+@h.expose_primitive(2)
 def Z2H(args):
-    return hh.const("()", args[0], args[1])
+    return const("()", args[0], args[1])
 

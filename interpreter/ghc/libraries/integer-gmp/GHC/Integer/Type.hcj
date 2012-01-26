@@ -1,0 +1,9 @@
+{"%module": "integerzmgmp:GHCziIntegerziType",
+ "tdefg": [{"%data": "integerzmgmp:GHCziIntegerziType.Integer",
+            "tbind": [],
+            "cdef": [{"qdcon": "integerzmgmp:GHCziIntegerziType.Szh",
+                      "tbind": [], "aty": [{"qtycon": "ghczmprim:GHCziPrim.Intzh"}]},
+                     {"qdcon": "integerzmgmp:GHCziIntegerziType.Jzh", "tbind": [],
+                      "aty": [{"qtycon": "ghczmprim:GHCziPrim.Intzh"},
+                              {"qtycon": "ghczmprim:GHCziPrim.ByteArrayzh"}]}]}],
+ "vdefg": []}

@@ -1,0 +1,5 @@
+%module integerzmgmp:GHCziIntegerziType
+  %data integerzmgmp:GHCziIntegerziType.Integer =
+    {integerzmgmp:GHCziIntegerziType.Szh ghczmprim:GHCziPrim.Intzh;
+     integerzmgmp:GHCziIntegerziType.Jzh ghczmprim:GHCziPrim.Intzh
+                                         ghczmprim:GHCziPrim.ByteArrayzh};

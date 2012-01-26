@@ -464,6 +464,81 @@ class Thunk(HaskellObject):
             return self.application.tostr()
         return "?%s" % (self.application, )
 
+
+
+class PartialApp(object):
+
+    args = []
+    arity = 0
+
+    def __init__(self, app, args):
+        self.function = app
+        self.args = args
+
+        if isinstance(app, PrimFunction):
+            self.arity = app.arity
+        elif isinstance(app, Function):
+            self.arity = len(app.rules)
+        elif isinstance(app, PartialApp):
+            self.arity = app.getarity()
+        elif isinstance(app, Value):
+            arity = 0
+            args = []
+            func = function("meh", [([Var("x")], app)])
+        elif isinstance(app, Application):
+            arity = 0
+            args = []
+            func = app
+ 
+        else:
+            raise NotImplementedError
+
+    def getargs(self):
+        return self.args
+
+    def getfunction(self):
+        return self.function
+
+    def getarity(self):
+        return self.arity
+
+
+def make_partial_app(app, newargs):
+
+    print "Partial app"
+
+    arity = 0
+    func = 0
+    args = []
+
+    if isinstance(app, PrimFunction):
+        arity = app.arity
+        args = newargs
+        func = app
+    elif isinstance(app, Function):
+        arity = len(app.rules)
+        args = newargs
+        func = app
+    elif isinstance(app, PartialApp):
+        arity = app.getarity()
+        args = app.getargs()
+        for arg in newargs:
+            args.append(arg)
+        func = app.getfunction()
+    else:
+        raise NotImplementedError("Argument must be either AbstractFunction or PartialApp, was:" + repr(app))
+   
+    print len(args), "<", arity
+    print repr(func)
+
+    if len(args) < arity:
+        return PartialApp(func, args)
+    else:
+        return make_application(func, args)
+
+
+
+
 # _________________________________________________________________
 # head normal form stackless
 
