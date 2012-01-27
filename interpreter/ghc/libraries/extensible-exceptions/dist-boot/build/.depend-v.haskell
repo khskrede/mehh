@@ -1,0 +1,4 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/extensible-exceptions/dist-boot/build/Control/Exception/Extensible.o : libraries/extensible-exceptions/Control/Exception/Extensible.hs
+# DO NOT DELETE: End of Haskell dependencies
+libraries/extensible-exceptions_dist-boot_depfile_haskell_EXISTS = YES

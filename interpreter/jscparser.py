@@ -1,13 +1,18 @@
 
 from pypy.rlib.parsing.ebnfparse import parse_ebnf, make_parse_function
 from pypy.rlib.parsing.tree import RPythonVisitor, Nonterminal, Node, Symbol, VisitError
-import sys
-import haskell as h
-import prim
-import module
 
+import sys
 import copy
 
+import haskell as h
+import module as m
+import prim as p
+
+# Load prim module
+m.coremods["ghc-prim:GHC.Prim"] = p.prim
+
+# EBNF for JSON parser
 ebnf = """
     STRING: "\\"[^\\\\"]*\\"";
     NUMBER: "\-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][\+\-]?[0-9]+)?";
@@ -19,6 +24,9 @@ ebnf = """
     """
 
 
+# Function takes a Core identifier, and returns the 
+# package name, module name and a reference to either 
+# a qvar, qdcon or qtycon 
 def rewrite_id(ident):
 
     str_ = ident.replace("\"", "")
@@ -53,14 +61,12 @@ class ForwardReference(object):
     def replace_vars(self, subst, _):
         return self
 
-
+# Class for traversing the JSON datastructure and
+# generate the Core' AST
 class AST(RPythonVisitor):
 
-    modules = {}
-    mident=""
-
-    def __init__(self, mods=None):
-        self.modules = mods
+    def __init__(self):
+        self.mident=""
 
     def get_ast(self, tree):
         node = tree.visit(self)
@@ -68,65 +74,51 @@ class AST(RPythonVisitor):
 
     def visit_object(self, node):
 
-
         if len(node.children) > 0:
             left = node.children[0]
-            type_ = left.children[0].additional_info
+            type_ = left.children[0].additional_info.replace("\"","")
 
-            if type_ == "\"%module\"":
+            # Module
+            if type_ == "%module":
 
                 # Create new module object
-                p, m, _ = rewrite_id(left.children[1].additional_info.replace("\"",""))
-                self.mident = p+":"+m
-                self.modules[self.mident] = module.module(self.mident)
+                package, mod, _ = rewrite_id(left.children[1].additional_info.replace("\"",""))
+                self.mident = package+":"+mod
+                m.coremods[self.mident] = m.coremod(self.mident)
 
                 # Get constructor definitions
                 for tdef in node.children[1].children[1].children:
-                    p, m, f = rewrite_id(tdef.children[0].children[1].additional_info)
-                    self.modules[self.mident].qtycons[ m+"."+f ] = ForwardReference()
-                    ty = tdef.visit(self)
+                    tdef.visit(self)
 
                 # Get value definitions
                 for vdef in node.children[2].children[1].children:
-                    p = ""
-                    m = ""
-                    f = ""
-                    if not vdef.children[0].children[0].additional_info == "\"%rec\"":
-                        p, m, f = rewrite_id(vdef.children[0].children[1].additional_info)
-                    else:
-                        p, m, f = rewrite_id(vdef.children[0].children[1].\
-                                  children[0].children[0].children[1].additional_info)
-                    
-                    # get vdefs
-                    self.modules[self.mident].qvars[ m+"."+f ] = ForwardReference()
-                    exp = vdef.visit(self)
+                    vdef.visit(self)
 
-                return self.modules[self.mident]
+            # Data constructor
+            elif type_ == "%data":
+                mident = self.mident
 
-            elif type_ == "\"%data\"":
+                info = node.children[0].children[1].additional_info.replace("\"","")
+                package, mod, name = rewrite_id(info)
 
-                #package, mod, qtycon = rewrite_id(node.children[0].children[1].additional_info)
-                #self.modules[self.mident].qtycons[mod+"."+qtycon] = ForwardReference()
-
-                #tbinds = []
-                #for tbind in node.children[1].children[1].children :
-                #    tbinds.append(tbind.visit(self))
+                qtycon_id = mod + "." + name
 
                 cdefs = []
                 for cdef in node.children[2].children[1].children :
                     cdefs.append(cdef.visit(self))
 
-                #const = h.make_partial_app(  )
+                const = h.make_constructor(h.Symbol(qtycon_id), cdefs)
 
-                #self.modules[self.mident].qtycons[mod+"."+qtycon].become(const)
+                m.coremods[mident].qtycons[qtycon_id] = const
 
                 return cdefs
 
-            elif type_ == "\"%newtype\"":
-                newtype = node.children[0].children[1].additional_info
+            # Newtype
+            elif type_ == "%newtype":
+                mident = self.mident
 
-                qtycon = node.children[1].children[1].additional_info
-
+                newtype_id = node.children[0].children[1].additional_info.replace("\"", "")
+                qtycon_id = node.children[1].children[1].additional_info.replace("\"", "")
 
                 tbinds = []
                 for tbind in node.children[2].children[1].children :
@@ -134,14 +126,21 @@ class AST(RPythonVisitor):
 
                 ty = node.children[3].children[1].visit(self)
 
-                return h.make_constructor(h.Symbol(qtycon), [ty])
+                const = h.make_constructor(h.Symbol(qtycon_id), [ty])
 
+                m.coremods[mident].qtycons[qtycon_id] = const
 
-            elif type_ == "\"qdcon\"" and len(node.children) == 3:
-                package, mod, qdcon = rewrite_id(node.children[0].children[1].additional_info)
+                return const
+
+            # Constructor definition
+            elif type_ == "qdcon" and len(node.children) == 3:
+                info = node.children[0].children[1].additional_info
+                package, mod, name = rewrite_id(info)
+
                 mident = package + ":" + mod
+                qdcon_id = mod + "." + name
 
-                self.modules[self.mident].qdcons[qdcon] = ForwardReference()
+                m.coremods[self.mident].qdcons[qdcon_id] = ForwardReference()
 
                 tbinds = []
                 for tbind in node.children[1].children[1].children :
@@ -151,15 +150,14 @@ class AST(RPythonVisitor):
                 for aty in node.children[1].children[1].children :
                     atys.append(aty.visit(self))
 
-                const = h.make_constructor(h.Symbol(qdcon), atys)
+                const = h.make_constructor(h.Symbol(qdcon_id), atys)
 
-                self.modules[self.mident].qdcons[qdcon].become(const)
+                m.coremods[self.mident].qdcons[qdcon_id].become(const)
 
                 return const
 
-
-
-            elif type_ == "\"%rec\"":
+            # Recursive value definition
+            elif type_ == "%rec":
 
                 funcs = node.children[0].children[1].visit(self)
                 recs = []
@@ -170,100 +168,104 @@ class AST(RPythonVisitor):
 
                 return recs # TODO ! FIX ????
 
-            elif type_ == "\"qvar\"" and len(node.children) == 3:
+            # Value definition
+            elif type_ == "qvar" and len(node.children) == 3:
                 ident = node.children[0].children[1].additional_info
+                package, mod, name = rewrite_id(ident)
 
-                package, mod, func_name = rewrite_id(ident)
+                if mod == "":
+                    package, mod = self.mident.split(":")
+
                 mident = package + ":" + mod
+                qvar_id = mod + "." + name
                 
                 if mod == "":
-                    self.modules[self.mident].qvars[func_name] = ForwardReference()
+                    #qvar = m.coremods[self.mident].qvars[qvar_id]
+
+                    m.coremods[self.mident].qvars[qvar_id] = ForwardReference()
                     exp = node.children[2].children[1].visit(self)
-                    self.modules[self.mident].qvars[func_name].become(exp)
-                elif self.modules.has_key(mident):
-                    self.modules[mident].qvars[mod+"."+func_name] = ForwardReference()
+                    m.coremods[self.mident].qvars[qvar_id].become(exp)
+
+                elif m.coremods.has_key(mident):
+                    #qvar = get_external_qvar(package, mod, name)
+
+                    m.coremods[mident].qvars[qvar_id] = ForwardReference()
                     exp = node.children[2].children[1].visit(self)
-                    self.modules[mident].qvars[mod+"."+func_name].become(exp)
+                    m.coremods[mident].qvars[qvar_id].become(exp)
 
                 return exp
 
-            elif type_ == "\"qvar\"" and len(node.children) == 1:
-                c = node.children[0].children[1].additional_info
-                ident = c.replace("\"","")
-                package, mod, func_name = rewrite_id(ident)
-                mident = package + ":" + mod
-                func = 0
+            # Variable
+            elif type_ == "qvar" and len(node.children) == 1:
+                info = node.children[0].children[1].additional_info
+                ident = info.replace("\"","")
+                package, mod, name = rewrite_id(ident)
 
                 if mod == "":
-                    func = self.modules[self.mident].qvars[func_name]
-                elif self.modules.has_key(mident):
-                    func = self.modules[mident].qvars[mod+"."+func_name]
+                    package, mod = self.mident.split(":")
+
+                mident = package + ":" + mod
+                qvar_id = mod+"."+name
+
+                if mod == "":
+                    qvar = m.coremods[self.mident].qvars[qvar_id]
                 else:
-                    self.get_external(package, mod, func_name)
-                    func = self.modules[mident].qvars[mod+"."+func_name]
+                    qvar = get_external_qvar(package, mod, qvar_id)
 
-                return func
+                return qvar
 
-            elif type_ == "\"qvar\"" and len(node.children) == 2:
+            # Type constructor
+            elif type_ == "qtycon":
+
+                info = node.children[0].children[1].additional_info.replace("\"","")
+                package, mod, name = rewrite_id(info)
+
+                if mod == "":
+                    package, mod = self.mident.split(":")
+
+                mident = package + ":" + mod
+                qtycon_id = mod + "." + name
+
+                if mod == "":
+                    qtycon = m.coremods[self.mident].qtycons[qtycon_id]
+                else:
+                    qtycon = get_external_qtycon(package, mod, qtycon_id)
+
+                return qtycon
+
+            # Nested expression
+            elif type_ == "exp":
                 raise NotImplementedError
 
 
-            elif type_ == "\"qtycon\"":
-
-                c = node.children[0].children[1].additional_info
-
-                ident = c.replace("\"","")
-                package, mod, type_name = rewrite_id(ident)
-                mident = package + ":" + mod
-                type_ = 0
-
-                if mod == "":
-                    type_ = self.modules[self.mident].qtycons[mod+"."+type_name]
-                elif self.modules.has_key(mident):
-                    type_ = self.modules[mident].qtycons[mod+"."+type_name]
-                else:
-                    if package == "ghc-prim" and mod == "GHC.Prim":
-                        modref = sys.modules["prim"]
-                        type_ = getattr(modref, type_name)
-                    else:
-                        self.get_external(package, mod, type_name)
-                        type_ = self.modules[mident].qtycons[mod+"."+type_name]
-
-                return type_
-
-            elif type_ == "\"exp\"":
-                raise NotImplementedError
-
-
-
-
-
-            elif type_ == "\"aexp\"" and len(node.children) == 2:
+            # Application
+            elif type_ == "aexp" and len(node.children) == 2:
 
                 exp = node.children[0].children[1].visit(self)
                 args = node.children[1].children[1].visit(self)
 
                 aty = node.children[1].children[1].children[0].children[0].additional_info
 
-                if aty == "\"aty\"":
+                if aty == "aty":
                     return exp
                 else:
                     app = h.make_partial_app(exp, [args])
                     return app
 
 
-
-
-            elif type_ == "\"aexp\"" and len(node.children) == 1:
+            # Atomic expression
+            elif type_ == "aexp" and len(node.children) == 1:
                 aexp = node.children[0].children[1].visit(self)
                 return aexp
 
-            elif type_ == "\"aty\"" and len(node.children) == 1:
+            # Type argument
+            elif type_ == "aty" and len(node.children) == 1:
                 aty = node.children[0].children[1].visit(self)
 
                 return aty
 
-            elif type_ == "\"lambda\"":
+            # Lambda abstraction
+            elif type_ == "lambda":
                 vbind = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
 
@@ -275,10 +277,12 @@ class AST(RPythonVisitor):
 
                 return func
 
-            elif type_ == "\"%let\"":
+            # Local definition
+            elif type_ == "%let":
                 raise NotImplementedError
 
-            elif type_ == "\"%case\"":
+            # Case expression
+            elif type_ == "%case":
                 case = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
                 of = node.children[2].children[1].visit(self)
@@ -296,36 +300,45 @@ class AST(RPythonVisitor):
 
                 return app
 
-            elif type_ == "\"%_\"":
+            # Default case-alternative
+            elif type_ == "%_":
                 f = node.children[0].children[1].visit(self)
                 return ([h.Var("_")], f)
 
-            elif type_ == "\"%cast\"":
+            # Type coercion
+            elif type_ == "%cast":
                 raise NotImplementedError
 
-            elif type_ == "\"%note\"":
+            # Expression note
+            elif type_ == "%note":
                 raise NotImplementedError
 
-            elif type_ == "\"%external ccal\"":
+            # External reference
+            elif type_ == "%external ccal":
                 raise NotImplementedError
 
-            elif type_ == "\"%dynexternal ccal\"":
+            # External reference (dynamic)
+            elif type_ == "%dynexternal ccal":
                 raise NotImplementedError
 
-            elif type_ == "\"%label\"":
+            # External label
+            elif type_ == "%label":
                 raise NotImplementedError
 
-            elif type_ == "\"lit\"" and len(node.children) == 1:
+            # Literal
+            elif type_ == "lit" and len(node.children) == 1:
                 return node.children[0].children[1].visit(self)
 
-            elif type_ == "\"lit\"" and len(node.children) == 2:
+            # Literal case-alternative
+            elif type_ == "lit" and len(node.children) == 2:
                 pat = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
 
                 case = ([pat], exp)
                 return case
 
-            elif type_ == "\"bty\"" and node.children[1].children[0].additional_info == "\"aty\"":
+            # Type application
+            elif type_ == "bty" and node.children[1].children[0].additional_info == "\"aty\"":
                 bty = node.children[0].children[1].visit(self)
                 aty = node.children[1].children[1].visit(self)
 
@@ -333,29 +346,32 @@ class AST(RPythonVisitor):
                 #t_app = bty.apply(aty)
                 return t_app
 
-            elif type_ == "\"vbind\"":
+            # Value binder (TODO: can probably be removed from JSCore language, see below)
+            elif type_ == "vbind":
                 return node.children[0].children[1].visit(self)
 
-            elif type_ == "\"var\"" and node.children[1].children[0].additional_info == "\"ty\"":
-                var_name = node.children[0].children[1].additional_info
-                var_name = var_name.replace("\"","")
+            # Value binder
+            elif type_ == "var" and node.children[1].children[0].additional_info == "\"ty\"":
+                var_name = node.children[0].children[1].additional_info.replace("\"","")
                 ty = node.children[1].children[1].visit(self) # TODO, use this?
-                self.modules[self.mident].qvars[var_name] = ty
+                m.coremods[self.mident].qvars[var_name] = ty
                 return ty
 
-
-            elif type_ == "\"qdcon\"" and len(node.children) == 4:
-                package, mod, name = rewrite_id(node.children[0].children[1].additional_info)
-                mident = package + ":" + mod
+            # Constructor case-alternative
+            elif type_ == "qdcon" and len(node.children) == 4:
+                info = node.children[0].children[1].additional_info.replace("\"","")
+                package, mod, name = rewrite_id(info)
 
                 if mod == "":
-                    qdcon = self.modules[self.mident].qdcons[name]
-                elif self.modules.has_key(mident):
-                    qdcon = self.modules[mident].qdcons[name]
-                else:
-                    self.get_external(package, mod, name)
-                    qdcon = self.modules[mident].qdcons[name]
+                    package, mod = self.mident.split(":")
 
+                mident = package + ":" + mod
+                qdcon_id = mod + "."
+
+                if mod == "":
+                    qdcon = m.coremods[self.mident].qdcons[qdcon_id]
+                else:
+                    get_external_qdcon(package, mod, qdcon_id)
 
                 tbinds_ = node.children[1].children[1].children
                 tbinds = []
@@ -376,73 +392,70 @@ class AST(RPythonVisitor):
                 # TODO ?
                 return ([const_alt], exp)
 
-            elif type_ == "\"qdcon\"" and len(node.children) == 1:
-                package, mod, name = rewrite_id(node.children[0].children[1].additional_info)
-                mident = package + ":" + mod
+            # Data constructor
+            elif type_ == "qdcon" and len(node.children) == 1:
+                info = node.children[0].children[1].additional_info.replace("\"","")
+                package, mod, name = rewrite_id(info)
 
                 if mod == "":
-                    return self.modules[self.mident].qdcons[name]
-                elif self.modules.has_key(mident):
-                    return self.modules[mident].qdcons[name]
-                else:
-                    self.get_external(package, mod, name)
-                    return self.modules[mident].qdcons[name]
+                    package, mod = self.mident.split(":")
 
-            elif type_ == "\"tbind\"":
+                mident = package + ":" + mod
+                qdcon_id = mod + "." + name
+
+                if mod == "":
+                    qdcon = m.coremods[self.mident].qdcons[qdcon_id]
+                else:
+                    qdcon = get_external_qdcon(package, mod, qdcon_id)
+
+                return qdcon
+
+            # Type binder (TODO: can probably be removed from JSCore language, see below)
+            elif type_ == "tbind":
                 return node.children[0].children[1].visit(self)
 
-            elif type_ == "\"tyvar\"" and len(node.children) == 1:
-                return h.Var(node.children[0].children[1].additional_info)
+            # Type binder (implicitly of kind *)
+            elif type_ == "tyvar" and len(node.children) == 1:
+                return h.Var(node.children[0].children[1].additional_info.replace("\"",""))
 
-            elif type_ == "\"tyvar\"" and len(node.children) == 2:
-                return h.Var(node.children[0].children[1].additional_info)
+            # Type binder (explicitly kinded)
+            elif type_ == "tyvar" and len(node.children) == 2:
+                return h.Var(node.children[0].children[1].additional_info.replace("\"",""))
 
             else:
                 raise NotImplementedError
 
+    # There is really no reason to visit a pair
     def visit_pair(self, node):
         left = node.children[0].visit(self)
         right = node.children[1].visit(self)
         return (left, right)
 
+    # Should really be no reason to visit an array,
+    # their parents handle them
     def visit_array(self, node):
         l = []
         for child in node.children:
             l.append(child.visit(self))
         return l
 
+    # Just return the string as a CString,
+    # CStrings are unpacked by Haskell functions
     def visit_STRING(self, node):
         # TODO: fix this, we can't simply replace
         str_ = node.additional_info.replace("\"","")
         return CString(node.additional_info)
 
+    # Figure out how to do this correctly
     def visit_NUMBER(self, node):
+        # TODO: We can use the get_external_ helper functions
         number = node.additional_info
         test = importlib.import_module("ghc.libraries.ghc-prim.GHC.Prim")
         num = test.Intzh
         return num((node.additional_info.replace("\"","")))
 
-    def get_external(self, package, mod, name):
 
-        mident = package + ":" + mod
-        primitives = ["ghc-prim:GHC.Prim"]
-
-        print "loading: ", mident
-
-        if mident in primitives:
-            modref = sys.modules["prim"]
-            return getattr(modref, name)
-        else:
-            path = "./ghc/libraries/" \
-                    + package + "/" \
-                    + mod.replace(".","/") + ".hcj"
-
-            self.modules[mident] = module.module(mident)
-            js = parse_js( path )
-            ast = AST(self.modules)
-            newmod = ast.get_ast( js )
-            self.modules[mident].loadmod(newmod)
-
+# Parse JSCore file
 def parse_js( path ):
     regexs, rules, ToAST = parse_ebnf(ebnf)
     parse = make_parse_function(regexs, rules, eof=True)
@@ -451,4 +464,43 @@ def parse_js( path ):
     t = parse(doc)
     t = ToAST().transform(t)
     return t
+
+
+# Helper functions to fetch external references
+def get_external_qvar(package, mod, name):
+    mident = package + ":" + mod
+    mod = get_mod(package, mod)
+    return mod.qvars[name]
+
+def get_external_qtycon(package, mod, name):
+    mident = package + ":" + mod
+    mod = get_mod(package, mod)
+    return mod.qtycons[name]
+
+def get_external_qdcon(package, mod, name):
+    mident = package + ":" + mod
+    mod = get_mod(package, mod)
+    return mod.qdcons[name]
+
+
+# Loads external JSCore file if necessary
+def get_mod(package, mod):
+    mident = package + ":" + mod
+
+    print "loading: ", mident
+
+    for (key, value) in m.coremods.items():
+        print "key: ", key, " value: ", value
+
+    if m.coremods.has_key(mident):
+        return m.coremods[mident]
+    else:
+        path = "./ghc/libraries/" \
+                + package + "/" \
+                + mod.replace(".","/") + ".hcj"
+
+        js = parse_js( path )
+        ast = AST()
+        newmod = ast.get_ast( js )
+        return newmod
 

@@ -1,0 +1,569 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>4. Building and installing a package</title><link rel="stylesheet" type="text/css" href="fptools.css"><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"><link rel="home" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="up" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="prev" href="authors.html" title="3. Creating a package"><link rel="next" href="bugs.html" title="5. Reporting bugs and deficiencies"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Building and installing a package</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="authors.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="bugs.html">Next</a></td></tr></table><hr></div><div class="sect1" title="4. Building and installing a package"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="builders"></a>4. Building and installing a package</h2></div></div></div><p>After you've unpacked a Cabal package, you can build it
+      by moving into the root directory of the package and using the
+      <code class="filename">Setup.hs</code> or <code class="filename">Setup.lhs</code>
+      script there:</p><div class="cmdsynopsis"><p><code class="command">runhaskell Setup.hs</code>  [<em class="replaceable"><code>command</code></em>] [<em class="replaceable"><code>option</code></em>...]</p></div><p>where <em class="replaceable"><code>runhaskell</code></em> might be
+      <span class="command"><strong>runhugs</strong></span>, <span class="command"><strong>runghc</strong></span> or
+      <span class="command"><strong>runnhc</strong></span>.  The <em class="replaceable"><code>command</code></em>
+      argument selects a particular step in the build/install process.
+      You can also get a summary of the command syntax with</p><div class="cmdsynopsis"><p><code class="command">runhaskell Setup.hs <code class="option">--help</code></code> </p></div><div class="example"><a name="system-install-example"></a><p class="title"><b>Example 7. Building and installing a system package</b></p><div class="example-contents"><pre class="screen">
+runhaskell Setup.hs configure --ghc
+runhaskell Setup.hs build
+runhaskell Setup.hs install</pre><p>The first line readies the system to build the tool using GHC;
+        for example, it checks that GHC exists on the system.  The second
+        line performs the actual building, while the last both copies
+        the build results to some permanent place and registers the
+        package with GHC.</p></div></div><br class="example-break"><div class="example"><a name="user-install-example"></a><p class="title"><b>Example 8. Building and installing a user package</b></p><div class="example-contents"><pre class="screen">
+runhaskell Setup.hs configure --user
+runhaskell Setup.hs build
+runhaskell Setup.hs install</pre><p>The package is installed under the user's home directory
+        and is registered in the user's package database
+        (<code class="option">--user</code>).</p></div></div><br class="example-break"><div class="example"><a name="binary-package-example"></a><p class="title"><b>Example 9. Creating a binary package</b></p><div class="example-contents"><p>When creating binary packages (e.g. for RedHat or
+        Debian) one needs to create a tarball that can be sent to
+        another system for unpacking in the root directory:</p><pre class="screen">
+runhaskell Setup.hs configure --prefix=/usr
+runhaskell Setup.hs build
+runhaskell Setup.hs copy --destdir=/tmp/mypkg
+tar -czf mypkg.tar.gz /tmp/mypkg/</pre><p>If the package contains a library, you need two additional
+        steps:</p><pre class="screen">
+runhaskell Setup.hs register --gen-script
+runhaskell Setup.hs unregister --gen-script</pre><p>This creates shell scripts <code class="filename">register.sh</code>
+        and <code class="filename">unregister.sh</code>, which must also be sent
+        to the target system.  After unpacking there, the package must be
+        registered by running the <code class="filename">register.sh</code> script.
+        The <code class="filename">unregister.sh</code> script would be used
+        in the uninstall procedure of the package.  Similar steps may
+        be used for creating binary packages for Windows.</p></div></div><br class="example-break"><p>The following options are understood by all commands:</p><div class="variablelist"><dl><dt><span class="term">
+          <code class="option">--help</code>, <code class="option">-h</code> or
+          <code class="option">-?</code>
+        </span></dt><dd><p>List the available options for the command.</p></dd><dt><span class="term">
+          <code class="option">--verbose</code>=<em class="replaceable"><code>n</code></em> or
+          <code class="option">-v</code><em class="replaceable"><code>n</code></em>
+        </span></dt><dd><p>Set the verbosity level (0-3).  The normal level is 1;
+            a missing <em class="replaceable"><code>n</code></em> defaults to 2.</p></dd></dl></div><p>The various commands and the additional options they support
+      are described below.  In the simple build infrastructure, any
+      other options will be reported as errors.</p><div class="sect2" title="4.1. setup configure"><div class="titlepage"><div><div><h3 class="title"><a name="setup-configure"></a>4.1. setup configure</h3></div></div></div><p>Prepare to build the package.  Typically, this step checks
+	that the target platform is capable of building the package,
+	and discovers platform-specific features that are needed during
+	the build.</p><p>The user may also adjust the behaviour of later stages using
+	the options listed in the following subsections.  In the simple
+	build infrastructure, the values supplied via these options are
+	recorded in a private file read by later stages.</p><p>If a user-supplied <code class="filename">configure</code>
+	script is run (see <a class="xref" href="authors.html#system-dependent" title="3.3. System-dependent parameters">Section 3.3, &#8220;System-dependent parameters&#8221;</a>
+	or <a class="xref" href="authors.html#complex-packages" title="3.5. More complex packages">Section 3.5, &#8220;More complex packages&#8221;</a>), it is passed the
+	<code class="option">--with-hc-pkg</code>,
+	<code class="option">--prefix</code>, <code class="option">--bindir</code>,
+	<code class="option">--libdir</code>, <code class="option">--datadir</code> and
+	<code class="option">--libexecdir</code> options.
+	In addition the value of the <code class="option">--with-compiler</code>
+	option is passed in a <code class="option">--with-hc</code> option  and
+        all options specified with <code class="option">--configure-option</code>=
+        are passed on.</p><div class="sect3" title="4.1.1. Programs used for building"><div class="titlepage"><div><div><h4 class="title"><a name="setup-configure-programs"></a>4.1.1. Programs used for building</h4></div></div></div><p>The following options govern the programs used to process
+	  the source files of a package:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--ghc</code> or <code class="option">-g</code>, </span><span class="term"><code class="option">--nhc</code>, </span><span class="term"><code class="option">--jhc</code>, </span><span class="term"><code class="option">--hugs</code></span></dt><dd><p>Specify which Haskell implementation to use to build
+		the package.  At most one of these flags may be given.
+		If none is given, the implementation under which the setup
+		script was compiled or interpreted is used.</p></dd><dt><span class="term"><code class="option">--with-compiler</code>=<em class="replaceable"><code>path</code></em>
+	    or <code class="option">-w</code><em class="replaceable"><code>path</code></em></span></dt><dd><p>Specify the path to a particular compiler.  If given,
+		this must match the implementation selected above.
+		The default is to search for the usual name of the
+		selected implementation.</p><p>This flag also sets the default value of the
+		<code class="option">--with-hc-pkg</code> option to the package tool
+		for this compiler.
+		Check the output of <code class="literal">setup configure -v</code>
+		to ensure that it finds the right package tool (or use
+		<code class="option">--with-hc-pkg</code> explicitly).</p></dd><dt><span class="term"><code class="option">--with-hc-pkg</code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>Specify the path to the package tool, e.g.
+		<span class="command"><strong>ghc-pkg</strong></span>.
+		The package tool must be compatible with the compiler
+		specified by <code class="option">--with-compiler</code>.
+		If this option is omitted, the default value is determined
+		from the compiler selected.</p></dd><dt><span class="term"><code class="option">--with-<em class="replaceable"><code>prog</code></em></code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>Specify the path to the program <em class="replaceable"><code>prog</code></em>.
+                Any program known to Cabal can be used in place of
+                <em class="replaceable"><code>prog</code></em>. It can either be a fully
+                path or the name of a program that can be found on the program
+                 search path. For example: <code class="option">--with-ghc=ghc-6.6.1</code>
+                or <code class="option">--with-cpphs=/usr/local/bin/cpphs</code>.</p></dd><dt><span class="term"><code class="option">--<em class="replaceable"><code>prog</code></em>-options</code>=<em class="replaceable"><code>options</code></em></span></dt><dd><p>Specify additional options to the program <em class="replaceable"><code>prog</code></em>.
+                Any program known to Cabal can be used in place of
+                <em class="replaceable"><code>prog</code></em>. For example:
+                <code class="option">--alex-options="--template=mytemplatedir/"</code>.</p><p>The <em class="replaceable"><code>options</code></em> is split into program options
+                based on spaces. Any options containing embeded spaced need to
+                be quoted, for example
+                <code class="literal">--foo-options='--bar="C:\Program File\Bar"'</code>. As an
+                alternative that takes only one option at a time but avoids the
+                need to quote, use 
+                <code class="option">--<em class="replaceable"><code>prog</code></em>-option</code> instead.
+        </p></dd><dt><span class="term"><code class="option">--<em class="replaceable"><code>prog</code></em>-option</code>=<em class="replaceable"><code>option</code></em></span></dt><dd><p>Specify a single additional option to the program
+              <em class="replaceable"><code>prog</code></em>.</p><p>For passing an option that contain embeded spaces, such as a file
+              name with embeded spaces, using this rather than
+              <code class="option">--<em class="replaceable"><code>prog</code></em>-options</code> means you
+              do not need an additional level of quoting. Of course if
+              you are using a command shell you may still need to quote, for
+              example <code class="literal">--foo-options="--bar=C:\Program File\Bar"</code>.
+        </p></dd></dl></div><p>All of the options passed with either
+        <code class="option">--<em class="replaceable"><code>prog</code></em>-options</code> or
+        <code class="option">--<em class="replaceable"><code>prog</code></em>-option</code> are passed
+        in the order they were specified on the configure command line.
+  </p></div><div class="sect3" title="4.1.2. Installation paths"><div class="titlepage"><div><div><h4 class="title"><a name="setup-configure-paths"></a>4.1.2. Installation paths</h4></div></div></div><p>The following options govern the location of installed files
+	  from a package:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--prefix</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>The root of the installation. For example for a global
+	      install you might use
+	      <code class="filename">/usr/local</code> on a Unix system, or
+	      <code class="filename">C:\Program Files</code> on a Windows system.
+	      The other installation paths are usually subdirectories of
+	      <em class="replaceable"><code>prefix</code></em>, but they don't have
+	      to be.</p><p>In the simple build system, <em class="replaceable"><code>dir</code></em>
+                may contain the following path variables:
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--bindir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Executables that the user might invoke are installed here.</p><p>In the simple build system, <em class="replaceable"><code>dir</code></em>
+                may contain the following path variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--libdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Object-code libraries are installed here.</p><p>In the simple build system, <em class="replaceable"><code>dir</code></em>
+                may contain the following path variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$bindir</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--libexecdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Executables that are not expected to be invoked
+	      directly by the user are installed here.</p><p>In the simple build system, <em class="replaceable"><code>dir</code></em>
+                may contain the following path variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$bindir</code></em>,
+                <em class="replaceable"><code>$libdir</code></em>,
+                <em class="replaceable"><code>$libsubdir</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--datadir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Architecture-independent data files are installed
+	      here.</p><p>In the simple build system, <em class="replaceable"><code>dir</code></em>
+                may contain the following path variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$bindir</code></em>,
+                <em class="replaceable"><code>$libdir</code></em>,
+                <em class="replaceable"><code>$libsubdir</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd></dl></div><p>In addition the simple build system supports the following
+         installation path options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--libsubdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>A subdirectory of <em class="replaceable"><code>libdir</code></em>
+	        in which libraries are actually installed.  For example,
+	        in the simple build system on Unix, the default
+	        <em class="replaceable"><code>libdir</code></em> is
+	        <code class="filename">/usr/local/lib</code>, and
+	        <em class="replaceable"><code>libsubdir</code></em> contains the package
+	        identifier and compiler,
+	        e.g. <code class="literal">mypkg-0.2/ghc-6.4</code>, so libraries
+	        would be installed in
+	        <code class="filename">/usr/local/lib/mypkg-0.2/ghc-6.4</code>.
+              </p><p><em class="replaceable"><code>dir</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--datasubdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>A subdirectory of <em class="replaceable"><code>datadir</code></em>
+		in which data files are actually installed.
+              </p><p><em class="replaceable"><code>dir</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--docdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Documentation files are installed relative to this directory.
+              </p><p><em class="replaceable"><code>dir</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$bindir</code></em>,
+                <em class="replaceable"><code>$libdir</code></em>,
+                <em class="replaceable"><code>$libsubdir</code></em>,
+                <em class="replaceable"><code>$datadir</code></em>,
+                <em class="replaceable"><code>$datasubdir</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--htmldir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>HTML documentation files are installed relative to this directory.
+              </p><p><em class="replaceable"><code>dir</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$prefix</code></em>,
+                <em class="replaceable"><code>$bindir</code></em>,
+                <em class="replaceable"><code>$libdir</code></em>,
+                <em class="replaceable"><code>$libsubdir</code></em>,
+                <em class="replaceable"><code>$datadir</code></em>,
+                <em class="replaceable"><code>$datasubdir</code></em>,
+                <em class="replaceable"><code>$docdir</code></em>,
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--program-prefix</code>=<em class="replaceable"><code>prefix</code></em></span></dt><dd><p>Prepend <em class="replaceable"><code>prefix</code></em> to installed program names.
+              </p><p><em class="replaceable"><code>prefix</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd><dt><span class="term"><code class="option">--program-suffix</code>=<em class="replaceable"><code>suffix</code></em></span></dt><dd><p>Append <em class="replaceable"><code>suffix</code></em> to installed program names. The
+	      most obvious use for this is to append the program's version number to make it
+	      possible to install several versions of a program at once:
+	      <code class="literal">--program-suffix='$version'</code>.
+              </p><p><em class="replaceable"><code>suffix</code></em> may contain the following path
+                variables:
+                <em class="replaceable"><code>$pkgid</code></em>,
+                <em class="replaceable"><code>$pkg</code></em>,
+                <em class="replaceable"><code>$version</code></em>,
+                <em class="replaceable"><code>$compiler</code></em>,
+		<em class="replaceable"><code>$os</code></em>,
+		<em class="replaceable"><code>$arch</code></em>
+              </p></dd></dl></div><div class="sect4" title="4.1.2.1. Path variables in the simple build system"><div class="titlepage"><div><div><h5 class="title"><a name="simple-path-vars"></a>4.1.2.1. Path variables in the simple build system</h5></div></div></div><p>For the simple build system, there are a number of variables
+            that can be used when specifying installation paths. The defaults
+            are also specified in terms of these variables. A number of the
+            variables are actually for other paths, like
+            <code class="literal">$prefix</code>. This allows paths to be specified
+            relative to each other rather than as absolute paths, which is
+            important for building relocatable packages (see
+            <a class="xref" href="builders.html#prefix-independence" title="4.1.2.3. Prefix-independence">Section 4.1.2.3, &#8220;Prefix-independence&#8221;</a>).</p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$prefix</code></em></span></dt><dd><p>The path variable that stands for the root of the
+                  installation.</p><p>For an installation to be relocatable, all other
+                   instllation paths must be relative to the
+                   <em class="replaceable"><code>$prefix</code></em> variable.</p></dd><dt><span class="term"><em class="replaceable"><code>$bindir</code></em></span></dt><dd><p>The path variable that expands to the path given by
+                the <code class="option">--bindir</code> configure option (or the
+                default).</p></dd><dt><span class="term"><em class="replaceable"><code>$libdir</code></em></span></dt><dd><p>As above but for <code class="option">--libdir</code></p></dd><dt><span class="term"><em class="replaceable"><code>$libsubdir</code></em></span></dt><dd><p>As above but for <code class="option">--libsubdir</code></p></dd><dt><span class="term"><em class="replaceable"><code>$datadir</code></em></span></dt><dd><p>As above but for <code class="option">--datadir</code></p></dd><dt><span class="term"><em class="replaceable"><code>$datasubdir</code></em></span></dt><dd><p>As above but for <code class="option">--datasubdir</code></p></dd><dt><span class="term"><em class="replaceable"><code>$docdir</code></em></span></dt><dd><p>As above but for <code class="option">--docdir</code></p></dd><dt><span class="term"><em class="replaceable"><code>$pkgid</code></em></span></dt><dd><p>The name and version of the package, eg
+                  <code class="literal">mypkg-0.2</code></p></dd><dt><span class="term"><em class="replaceable"><code>$pkg</code></em></span></dt><dd><p>The name of the package, eg
+                  <code class="literal">mypkg</code></p></dd><dt><span class="term"><em class="replaceable"><code>$version</code></em></span></dt><dd><p>The version of the package, eg
+                  <code class="literal">0.2</code></p></dd><dt><span class="term"><em class="replaceable"><code>$compiler</code></em></span></dt><dd><p>The compiler being used to build the package, eg
+                  <code class="literal">ghc-6.6.1</code></p></dd><dt><span class="term"><em class="replaceable"><code>$os</code></em></span></dt><dd><p>The operating system of the computer being used to build
+		the package, eg <code class="literal">linux</code>,
+		<code class="literal">windows</code>, <code class="literal">osx</code>,
+		<code class="literal">freebsd</code> or <code class="literal">solaris</code></p></dd><dt><span class="term"><em class="replaceable"><code>$arch</code></em></span></dt><dd><p>The architecture of the computer being used to build the
+		package, eg <code class="literal">i386</code>, <code class="literal">x86_64</code>,
+		<code class="literal">ppc</code> or <code class="literal">sparc</code></p></dd></dl></div></div><div class="sect4" title="4.1.2.2. Paths in the simple build system"><div class="titlepage"><div><div><h5 class="title"><a name="simple-paths"></a>4.1.2.2. Paths in the simple build system</h5></div></div></div><p>For the simple build system, the following defaults
+	  apply:</p><div class="informaltable"><table border="1"><colgroup><col align="left"><col align="left"><col align="left"></colgroup><thead><tr><th align="left">Option</th><th align="left">Windows Default</th><th align="left">Unix Default</th></tr></thead><tbody><tr><td align="left"><code class="literal">--prefix</code> (global installs with the
+		         <code class="literal">--global</code> flag) </td><td align="left"><code class="filename">C:\Program Files\Haskell</code></td><td align="left"><code class="filename">/usr/local</code></td></tr><tr><td align="left"><code class="literal">--prefix</code> (per-user installs with
+		         the <code class="literal">--user</code> flag)</td><td align="left"><code class="filename">C:\Documents And Settings\<em class="replaceable"><code>user</code></em>\Application Data\cabal</code></td><td align="left"><code class="filename"><em class="replaceable"><code>$HOME</code></em>/.cabal</code></td></tr><tr><td align="left"><code class="literal">--bindir</code></td><td align="left"><code class="literal">$prefix\bin</code></td><td align="left"><code class="literal">$prefix/bin</code></td></tr><tr><td align="left"><code class="literal">--libdir</code></td><td align="left"><code class="literal">$prefix</code></td><td align="left"><code class="literal">$prefix/lib</code></td></tr><tr><td align="left"><code class="literal">--libsubdir</code> (Hugs)</td><td align="left"><code class="literal">hugs\packages\$pkg</code></td><td align="left"><code class="literal">hugs/packages/$pkg</code></td></tr><tr><td align="left"><code class="literal">--libsubdir</code> (others)</td><td align="left"><code class="literal">$pkgid\$compiler</code></td><td align="left"><code class="literal">$pkgid/$compiler</code></td></tr><tr><td align="left"><code class="literal">--libexecdir</code></td><td align="left"><code class="literal">$prefix\$pkgid</code></td><td align="left"><code class="literal">$prefix/libexec</code></td></tr><tr><td align="left"><code class="literal">--datadir</code> (executable)</td><td align="left"><code class="literal">$prefix</code></td><td align="left"><code class="literal">$prefix/share</code></td></tr><tr><td align="left"><code class="literal">--datadir</code> (library)</td><td align="left"><code class="filename">C:\Program Files\Haskell</code></td><td align="left"><code class="literal">$prefix/share</code></td></tr><tr><td align="left"><code class="literal">--datasubdir</code></td><td align="left"><code class="literal">$pkgid</code></td><td align="left"><code class="literal">$pkgid</code></td></tr><tr><td align="left"><code class="literal">--docdir</code></td><td align="left"><code class="literal">$prefix\doc\$pkgid</code></td><td align="left"><code class="literal">$datadir/doc/$pkgid</code></td></tr><tr><td align="left"><code class="literal">--htmldir</code></td><td align="left"><code class="literal">$docdir\html</code></td><td align="left"><code class="literal">$docdir/html</code></td></tr><tr><td align="left"><code class="literal">--program-prefix</code></td><td align="left">(empty)</td><td align="left">(empty)</td></tr><tr><td align="left"><code class="literal">--program-suffix</code></td><td align="left">(empty)</td><td align="left">(empty)</td></tr></tbody></table></div></div><div class="sect4" title="4.1.2.3. Prefix-independence"><div class="titlepage"><div><div><h5 class="title"><a name="prefix-independence"></a>4.1.2.3. Prefix-independence</h5></div></div></div><p>On Windows, and when using Hugs on any system, it is
+	    possible to obtain the pathname of the running program.
+	    This means that we can construct an installable executable
+	    package that is independent of its absolute install location.
+	    The executable can find its auxiliary files by finding its
+	    own path and knowing the location of the other files relative
+	    to <em class="replaceable"><code>bindir</code></em>.  Prefix-independence is
+	    particularly useful: it means the user can choose the install
+	    location (i.e. the value of <em class="replaceable"><code>prefix</code></em>)
+	    at install-time, rather than having to bake the path into
+	    the binary when it is built.</p><p>In order to achieve this, we require
+	    that for an executable on Windows, all
+	    of <em class="replaceable"><code>bindir</code></em>,
+	    <em class="replaceable"><code>libdir</code></em>,
+	    <em class="replaceable"><code>datadir</code></em> and
+	    <em class="replaceable"><code>libexecdir</code></em> begin with
+	    <code class="literal">$prefix</code>. If this is not the case
+	    then the compiled executable will have baked in
+	    all absolute paths.</p><p>The application need do nothing special to achieve
+	    prefix-independence.  If it finds any files using
+	    <code class="literal">getDataFileName</code> and the other functions
+	    provided for the purpose (see <a class="xref" href="authors.html#paths-module" title="3.2. Accessing data files from package code">Section 3.2, &#8220;Accessing data files from package code&#8221;</a>),
+	    the files will be accessed relative to the location of the
+	    current executable.</p><p>A library cannot (currently) be prefix-independent,
+	    because it will be linked into an executable whose
+	    file system location bears no relation to the library
+	    package.</p></div></div><div class="sect3" title="4.1.3. Controlling Flag Assignments"><div class="titlepage"><div><div><h4 class="title"><a name="flag-control"></a>4.1.3. Controlling Flag Assignments</h4></div></div></div><p>Flag assignments (see <a class="xref" href="authors.html#conditional-resolution" title="3.1.5.5. Resolution of Conditions and Flags">Section 3.1.5.5, &#8220;Resolution of Conditions and Flags&#8221;</a>) can be
+  controlled with the following	command line options.</p><div class="variablelist"><dl><dt><span class="term"><code class="option">-f</code><em class="replaceable"><code>flagname</code></em> or
+	    <code class="option">-f</code><code class="literal">-</code><em class="replaceable"><code>flagname</code></em></span></dt><dd><p>Force the specified flag to
+	      <code class="literal">true</code> or <code class="literal">false</code> (if
+	      preceded with a <code class="literal">-</code>). Later
+	      specifications for the same flags will override earlier,
+	      i.e., specifying <code class="literal">-fdebug -f-debug</code> is
+	      equivalent to <code class="literal">-f-debug</code></p></dd><dt><span class="term"><code class="option">--flags</code>=<em class="replaceable"><code>flagspecs</code></em></span></dt><dd><p>Same as <code class="option">-f</code>, but allows specifying
+	      multiple flag assignments at once.  The parameter is a
+	      space-separated list of flag names (to force a flag to
+	      <code class="literal">true</code>), optionally preceded by a
+	      <code class="literal">-</code> (to force a flag to
+	      <code class="literal">false</code>). For example,
+	      <code class="literal">--flags="debug -feature1 feature2"</code> is
+	      equivalent to <code class="literal">-fdebug -f-feature1
+	      -ffeature2</code>.</p></dd></dl></div></div><div class="sect3" title="4.1.4. Miscellaneous options"><div class="titlepage"><div><div><h4 class="title"><a name="setup-configure-misc"></a>4.1.4. Miscellaneous options</h4></div></div></div><div class="variablelist"><dl><dt><span class="term"><code class="option">--user</code></span></dt><dd><p>Does a per-user installation. This changes the default
+		installation prefix (see <a class="xref" href="builders.html#simple-paths" title="4.1.2.2. Paths in the simple build system">Section 4.1.2.2, &#8220;Paths in the simple build system&#8221;</a>).
+		It also allow dependencies to be satisfied by the user's
+		package database, in addition to the global database.</p><p>This also implies a default of <code class="option">--user</code>
+		for any subsequent <code class="literal">install</code> command,
+		as packages registered in the global database should not
+		depend on packages registered in a user's database.</p></dd><dt><span class="term"><code class="option">--global</code></span></dt><dd><p>(default) Does a global installation. In this case
+		package dependencies must be satisfied by the global
+		package database. All packages in the user's package database
+		will be ignored. Typically the final instllation step will
+		require administrative privileges.</p></dd><dt><span class="term"><code class="option">--package-db</code>=<em class="replaceable"><code>db</code></em></span></dt><dd><p>Allows package dependencies to be satisfied from this
+                additional package database <em class="replaceable"><code>db</code></em> in
+                addition to the global package database. All packages in the
+                user's package database will be ignored. The interpretation
+                of <em class="replaceable"><code>db</code></em> is implementation-specific.
+                Typically it will be a file or directory. Not all
+                implementations support arbitrary package databases.
+              </p></dd><dt><span class="term"><code class="option">--enable-optimization</code>[=<em class="replaceable"><code>n</code></em>] or <code class="option">-O</code>[<em class="replaceable"><code>n</code></em>]</span></dt><dd><p>(default) Build with optimization flags (if available).
+		This is appropriate for production use, taking more time
+		to build faster libraries and programs.</p><p>
+	        The optional <em class="replaceable"><code>n</code></em> value is the
+		optimisation level. Some compilers support multiple
+		optimisation levels. The range is 0 to 2. Level 0 is
+		equivalent to <code class="option">--disable-optimization</code>,
+		level 1 is the default if no <em class="replaceable"><code>n</code></em>
+		parameter is given. Level 2 is higher optimisation if the
+		compiler supports it. Level 2 is likely to lead to longer
+		compile times and bigger generated code.
+	      </p></dd><dt><span class="term"><code class="option">--disable-optimization</code></span></dt><dd><p>Build without optimization.  This is suited for
+		development: building will be quicker, but the resulting
+		library or programs will be slower.</p></dd><dt><span class="term"><code class="option">--enable-library-profiling</code> or
+	      <code class="option">-p</code></span></dt><dd><p>Request that an additional version of the library
+		with profiling features enabled be built and installed
+		(only for implementations that support profiling).</p></dd><dt><span class="term"><code class="option">--disable-library-profiling</code></span></dt><dd><p>(default) Do not generate an additional profiling
+		version of the library.</p></dd><dt><span class="term"><code class="option">--enable-executable-profiling</code></span></dt><dd><p>Any executables generated should have profiling enabled
+		(only for implementations that support profiling).  For this
+		to work, all libraries used by these executables must also
+		have been built with profiling support.</p></dd><dt><span class="term"><code class="option">--disable-executable-profiling</code></span></dt><dd><p>(default) Do not enable profiling in generated
+		executables.</p></dd><dt><span class="term"><code class="option">--enable-library-vanilla</code></span></dt><dd><p>(default) Build ordinary libraries (as opposed to profiling
+                libraries). This is independent of the
+                <code class="option">--enable-library-profiling</code> option. If you
+                enable both, you get both.</p></dd><dt><span class="term"><code class="option">--disable-library-vanilla</code></span></dt><dd><p>Do not build ordinary libraries. This is useful
+                in conjunction with <code class="option">--enable-library-profiling</code>
+                to build only profiling libraries, rather than profiling and
+                ordinary libraries.</p></dd><dt><span class="term"><code class="option">--enable-library-for-ghci</code></span></dt><dd><p>(default) Build libraries suitable for use with GHCi.</p></dd><dt><span class="term"><code class="option">--disable-library-for-ghci</code></span></dt><dd><p>Not all platforms support GHCi and indeed on some
+                platforms, trying to build GHCi libs fails. In such cases
+                this flag can be used as a workaround.</p></dd><dt><span class="term"><code class="option">--enable-split-objs</code></span></dt><dd><p>Use the GHC <code class="option">-split-objs</code> feature when
+                building the library. This reduces the final size of the
+                executables that use the library by allowing them to link with
+                only the bits that they use rather than the entire library.
+                The downside is that building the library takes longer and uses
+                considerably more memory.</p></dd><dt><span class="term"><code class="option">--disable-split-objs</code></span></dt><dd><p>(default) Do not use the GHC <code class="option">-split-objs</code>
+                feature. This makes building the library quicker but the final
+                executables that use the library will be larger.</p></dd><dt><span class="term"><code class="option">--enable-executable-stripping</code></span></dt><dd><p>
+		(default) When installing binary executable programs, run the
+		<code class="literal">strip</code> program on the binary. This can
+		considerably reduce the size of the executable binary file. It
+		does this by removing debugging information and symbols. While
+		such extra information is useful for debugging C programs with
+		traditional debuggers it is rarely helpful for debugging
+		binaries produced by Haskell compilers.
+	      </p><p>
+		Not all Haskell implementations generate native binaries. For
+		such implementations this option has no effect.
+	      </p></dd><dt><span class="term"><code class="option">--disable-executable-stripping</code></span></dt><dd><p>
+		Do not strip binary executables during installation. You
+		might want to use this option if you need to debug a program
+		using gdb, for example if you want to debug the C parts of a
+		program containing both Haskell and C code. Another reason is
+		if your are building a package for a system which has a policy
+		of managing the stripping itself (such as some linux
+		distributions).
+	      </p></dd><dt><span class="term"><code class="option">--enable-shared</code></span></dt><dd><p>Build shared library. This implies a seperate
+	      compiler run to generate position independent code as
+	      required on most platforms.</p></dd><dt><span class="term"><code class="option">--disable-shared</code></span></dt><dd><p>(default) Do not build shared library.</p></dd><dt><span class="term"><code class="option">--configure-option</code>=<em class="replaceable"><code>str</code></em></span></dt><dd><p>An extra option to an external
+                <code class="filename">configure</code> script,
+                if one is used (see <a class="xref" href="authors.html#system-dependent" title="3.3. System-dependent parameters">Section 3.3, &#8220;System-dependent parameters&#8221;</a>).
+                There can be several of these options.</p></dd><dt><span class="term"><code class="option">--extra-include-dirs</code>[=<em class="replaceable"><code>dir</code></em>]</span></dt><dd><p>
+		An extra directory to search for C header files. You can use
+		this flag multiple times to get a list of directories.
+	      </p><p>
+		You might need to use this flag if you have standard system
+		header files in a non-standard location that is not mentioned
+		in the package's <code class="filename">.cabal</code> file. Using this
+		option has the same affect as appending the directory
+		<em class="replaceable"><code>dir</code></em> to the
+		<code class="literal">include-dirs</code> field in each library and
+		executable in the package's <code class="filename">.cabal</code> file.
+		The advantage of course is that you do not have to modify the
+		package at all. These extra directories will be used while
+		building the package and for libraries it is also saved in the
+		package registration information and used when compiling
+		modules that use the library.
+	      </p></dd><dt><span class="term"><code class="option">--extra-lib-dirs</code>[=<em class="replaceable"><code>dir</code></em>]</span></dt><dd><p>
+		An extra directory to search for system libraries files. You
+		can use this flag multiple times to get a list of directories.
+	      </p><p>
+		You might need to use this flag if you have standard system
+		libraries in a non-standard location that is not mentioned
+		in the package's <code class="filename">.cabal</code> file. Using this
+		option has the same affect as appending the directory
+		<em class="replaceable"><code>dir</code></em> to the
+		<code class="literal">extra-lib-dirs</code> field in each library and
+		executable in the package's <code class="filename">.cabal</code> file.
+		The advantage of course is that you do not have to modify the
+		package at all. These extra directories will be used while
+		building the package and for libraries it is also saved in the
+		package registration information and used when compiling
+		modules that use the library.
+	      </p></dd></dl></div><p>In the simple build infrastructure, an additional option
+	  is recognized:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--scratchdir</code>=<em class="replaceable"><code>dir</code></em></span></dt><dd><p>Specify the directory into which the Hugs output will be
+		placed (default: <code class="filename">dist/scratch</code>).</p></dd></dl></div></div></div><div class="sect2" title="4.2. setup build"><div class="titlepage"><div><div><h3 class="title"><a name="setup-build"></a>4.2. setup build</h3></div></div></div><p>Perform any preprocessing or compilation needed to make this
+        package ready for installation.</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--<em class="replaceable"><code>prog</code></em>-options</code>=<em class="replaceable"><code>options</code></em>, </span><span class="term"><code class="option">--<em class="replaceable"><code>prog</code></em>-option</code>=<em class="replaceable"><code>option</code></em></span></dt><dd><p>These are mostly the same as the options configure step (see
+              <a class="xref" href="builders.html#setup-configure-programs" title="4.1.1. Programs used for building">Section 4.1.1, &#8220;Programs used for building&#8221;</a>). Unlike the options
+              specified at the configure step, any program options specified at
+              the build step are not persistent but are used for that
+              invocation only. They options specified at the build step are in
+              addition not in replacement of any options specified at the
+              configure step.
+            </p></dd></dl></div></div><div class="sect2" title="4.3. setup makefile"><div class="titlepage"><div><div><h3 class="title"><a name="setup-makefile"></a>4.3. setup makefile</h3></div></div></div><p>Generate a <code class="filename">Makefile</code> that may be used
+      to compile the Haskell modules to object code.
+      This command is currently only supported when building libraries,
+      and only if the compiler is GHC.</p><p>The makefile command replaces part of the work done by
+      <code class="literal">setup build</code>.  The sequence of commands would
+      typically be:
+</p><pre class="programlisting">
+runhaskell Setup.hs makefile
+make
+runhaskell Setup.hs build
+</pre><p>
+      where <code class="literal">setup makefile</code> does the preprocessing,
+      <code class="literal">make</code> compiles the Haskell modules, and
+      <code class="literal">setup build</code> performs any final steps, such as
+      building the library archives.</p><p>The Makefile does not use GHC's <code class="literal">--make</code>
+      flag to compile the modules, instead it compiles modules one at
+      a time, using dependency information generated by GHC's
+      <code class="literal">-M</code> flag.  There are two reasons you might
+      therefore want to use <code class="literal">setup makefile</code>:
+
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>You want to build in parallel using <code class="literal">make -j</code>.
+          Currently, <code class="literal">setup build</code> on its own does not support
+          building in parallel.</p></li><li class="listitem"><p>You want to build an individual module, pass extra
+          flags to a compilation, or do other non-standard things that
+          <code class="literal">setup build</code> does not support.</p></li></ul></div><p>
+      </p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--file</code>=<em class="replaceable"><code>filename</code></em> or
+            <code class="option">-f</code> <em class="replaceable"><code>filename</code></em></span></dt><dd><p>Specify the output file (default <code class="filename">Makefile</code>).</p></dd></dl></div></div><div class="sect2" title="4.4. setup haddock"><div class="titlepage"><div><div><h3 class="title"><a name="setup-haddock"></a>4.4. setup haddock</h3></div></div></div><p>Build the documentation for the package using <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a>.  By
+      default, only the documentation for the exposed modules is generated
+      (see <a class="xref" href="builders.html#setup-haddock-executables"><code class="option">--executables</code></a>).</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--hoogle</code></span></dt><dd><p>Generate a file
+            <code class="filename">dist/doc/html/<em class="replaceable"><code>pkgid</code></em>.txt</code>,
+            which can be converted by
+            <a class="ulink" href="http://www.haskell.org/hoogle/" target="_top">Hoogle</a>
+            into a database for searching. This is
+            equivalent to running <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> with the <code class="option">--hoogle</code> flag.
+            </p></dd><dt><span class="term"><code class="option">--html-location</code>=<em class="replaceable"><code>url</code></em></span></dt><dd><p>Specify a template for the location of HTML documentation
+              for prerequisite packages.  The substitutions listed in
+              <a class="xref" href="builders.html#simple-paths" title="4.1.2.2. Paths in the simple build system">Section 4.1.2.2, &#8220;Paths in the simple build system&#8221;</a> are applied to the template
+              to obtain a location for each package, which will be used
+              by hyperlinks in the generated documentation.  For example,
+              the following command generates links pointing at <a class="ulink" href="http://hackage.haskell.org/" target="_top">HackageDB</a>
+              pages:</p><pre class="screen">setup haddock --html-location='http://hackage.haskell.org/packages/archive/$pkg/latest/doc/html'</pre><p>Here the argument is quoted to prevent substitution
+              by the shell.</p><p>If this option is omitted, the location for each package
+              is obtained using the package tool (e.g.
+              <span class="command"><strong>ghc-pkg</strong></span>).</p></dd><dt><a name="setup-haddock-executables"></a><span class="term"><code class="option">--executables</code></span></dt><dd><p>Also run <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> for the modules of all the executable
+            programs.  By default <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> is run only on the exported
+            modules.</p></dd><dt><a name="setup-haddock-internal"></a><span class="term"><code class="option">--internal</code></span></dt><dd><p>Run <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> for the all modules, including unexposed ones, and 
+            make <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> generate documentation for unexported symbols
+            as well.</p></dd><dt><a name="setup-haddock-css"></a><span class="term"><code class="option">--css</code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>The argument <em class="replaceable"><code>path</code></em> denotes a CSS
+	    file, which is passed to <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> and used to set the style of
+	    the generated documentation. This is only needed to override the
+	    default style that <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> uses.
+	    </p></dd><dt><span class="term"><code class="option">--hyperlink-source</code></span></dt><dd><p>Generate <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> documentation integrated with <a class="ulink" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/" target="_top"><span class="command"><strong>HsColour</strong></span></a>.
+            First, <a class="ulink" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/" target="_top"><span class="command"><strong>HsColour</strong></span></a> is run to generate colourised code.
+            Then <a class="ulink" href="http://www.haskell.org/haddock/" target="_top"><span class="command"><strong>haddock</strong></span></a> is run to generate HTML documentation.  Each
+            entity shown in the documentation is linked to its definition in
+            the colourised code.</p></dd><dt><span class="term"><code class="option">--hscolour-css</code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>The argument <em class="replaceable"><code>path</code></em> denotes a CSS
+            file, which is passed to <a class="ulink" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/" target="_top"><span class="command"><strong>HsColour</strong></span></a> as in</p><pre class="screen">
+runhaskell Setup.hs hscolour --css=<em class="replaceable"><code>path</code></em></pre></dd></dl></div></div><div class="sect2" title="4.5. setup hscolour"><div class="titlepage"><div><div><h3 class="title"><a name="setup-hscolour"></a>4.5. setup hscolour</h3></div></div></div><p>Produce colourised code in HTML format using <a class="ulink" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/" target="_top"><span class="command"><strong>HsColour</strong></span></a>.
+      Colourised code for exported modules is put in
+      <code class="filename">dist/doc/html/<em class="replaceable"><code>pkgid</code></em>/src</code>.</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--executables</code></span></dt><dd><p>Also run <a class="ulink" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/" target="_top"><span class="command"><strong>HsColour</strong></span></a> on the sources of all executable
+            programs.  Colourised code is put in
+            <code class="filename">dist/doc/html/<em class="replaceable"><code>pkgid</code></em>/<em class="replaceable"><code>executable</code></em>/src</code>.</p></dd><dt><span class="term"><code class="option">--css</code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>Copy the CSS file from <em class="replaceable"><code>path</code></em> to
+            <code class="filename">dist/doc/html/<em class="replaceable"><code>pkgid</code></em>/src/hscolour.css</code>
+            for exported modules, or to
+            <code class="filename">dist/doc/html/<em class="replaceable"><code>pkgid</code></em>/<em class="replaceable"><code>executable</code></em>/src/hscolour.css</code>
+            for executable programs.  The CSS file defines the actual colours
+            used to colourise code.  Note that the
+            <code class="filename">hscolour.css</code> file is required for the code
+            to be actually colourised.</p></dd></dl></div></div><div class="sect2" title="4.6. setup install"><div class="titlepage"><div><div><h3 class="title"><a name="setup-install"></a>4.6. setup install</h3></div></div></div><p>Copy the files into the install locations and (for library
+        packages) register the package with the compiler, i.e. make the
+        modules it contains available to programs.</p><p>The install locations are determined by options to
+        <span class="command"><strong>setup configure</strong></span>
+	(see <a class="xref" href="builders.html#setup-configure-paths" title="4.1.2. Installation paths">Section 4.1.2, &#8220;Installation paths&#8221;</a>).</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--global</code></span></dt><dd><p>Register this package in the system-wide database.
+	      (This is the default, unless the <code class="option">--user</code>
+	      option was supplied to the <code class="literal">configure</code>
+	      command.)</p></dd><dt><span class="term"><code class="option">--user</code></span></dt><dd><p>Register this package in the user's local package database.
+	      (This is the default if the <code class="option">--user</code>
+	      option was supplied to the <code class="literal">configure</code>
+	      command.)</p></dd></dl></div></div><div class="sect2" title="4.7. setup copy"><div class="titlepage"><div><div><h3 class="title"><a name="setup-copy"></a>4.7. setup copy</h3></div></div></div><p>Copy the files without registering them.  This command
+        is mainly of use to those creating binary packages.</p><p>This command takes the following option:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--destdir</code>=<em class="replaceable"><code>path</code></em></span></dt><dd><p>Specify the directory under which to place
+              installed files.  If this is not given, then the root
+              directory is assumed.</p></dd></dl></div></div><div class="sect2" title="4.8. setup register"><div class="titlepage"><div><div><h3 class="title"><a name="setup-register"></a>4.8. setup register</h3></div></div></div><p>Register this package with the compiler, i.e. make the
+        modules it contains available to programs.  This only makes sense
+        for library packages.  Note that the <code class="literal">install</code>
+        command incorporates this action.  The main use of this
+        separate command is in the post-installation step for a binary
+        package.</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--global</code></span></dt><dd><p>Register this package in the system-wide database.
+              (This is the default.)</p></dd><dt><span class="term"><code class="option">--user</code></span></dt><dd><p>Register this package in the user's local package
+              database.</p></dd><dt><span class="term"><code class="option">--gen-script</code></span></dt><dd><p>Instead of registering the package, generate a script
+              containing commands to perform the registration.  On Unix,
+              this file is called <code class="filename">register.sh</code>, on
+              Windows, <code class="filename">register.bat</code>.  This script
+              might be included in a binary bundle, to be run after the
+              bundle is unpacked on the target system.</p></dd><dt><span class="term"><code class="option">--gen-pkg-config</code>=[<em class="replaceable"><code>path</code></em>]</span></dt><dd><p>Instead of registering the package, generate a package
+              registration file. This only applies to compilers that support
+              package registration files which at the moment is only GHC.
+              The file should be used with the compiler's mechanism for
+              registering packages.</p><p>This option is mainly intended for packaging systems. If
+              possible use the <code class="option">--gen-script</code> option instead
+              since it is more portable across Haskell implementations.</p><p>The <em class="replaceable"><code>path</code></em> is optional and can be
+              used to specify a particular output file to generate. Otherwise, 
+              by default the file is the package name and version with a
+              <code class="literal">.conf</code> extension.</p></dd><dt><span class="term"><code class="option">--inplace</code></span></dt><dd><p>Registers the package for use directly from the
+	    build tree, without needing to install it.  This can be
+	    useful for testing: there's no need to install the package
+	    after modifying it, just recompile and test.</p><p>This flag does not create a build-tree-local package
+            database.  It still registers the package in one of the
+            user or global databases.</p><p>However, there are some caveats.  It only works with
+	    GHC (currently).  It only works if your package doesn't
+	    depend on having any supplemental files installed - plain
+	    Haskell libraries should be fine.</p></dd></dl></div></div><div class="sect2" title="4.9. setup unregister"><div class="titlepage"><div><div><h3 class="title"><a name="setup-unregister"></a>4.9. setup unregister</h3></div></div></div><p>Deregister this package with the compiler.</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--global</code></span></dt><dd><p>Deregister this package in the system-wide database.
+              (This is the default.)</p></dd><dt><span class="term"><code class="option">--user</code></span></dt><dd><p>Deregister this package in the user's local package
+              database.</p></dd><dt><span class="term"><code class="option">--gen-script</code></span></dt><dd><p>Instead of deregistering the package, generate a script
+              containing commands to perform the deregistration.  On Unix,
+              this file is called <code class="filename">unregister.sh</code>, on
+              Windows, <code class="filename">unregister.bat</code>.  This script
+              might be included in a binary bundle, to be run on the
+              target system.</p></dd></dl></div></div><div class="sect2" title="4.10. setup clean"><div class="titlepage"><div><div><h3 class="title"><a name="setup-clean"></a>4.10. setup clean</h3></div></div></div><p>Remove any local files created during the
+        <code class="literal">configure</code>, <code class="literal">build</code>,
+        <code class="literal">haddock</code>, <code class="literal">register</code> or
+        <code class="literal">unregister</code> steps, and also any files and
+        directories listed in the <code class="literal">extra-tmp-files</code>
+        field.</p><p>This command takes the following options:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--save-configure</code> or <code class="option">-s</code></span></dt><dd><p>Keeps the configuration information so it is not necessary
+              to run the configure step again before building.</p></dd></dl></div></div><div class="sect2" title="4.11. setup test"><div class="titlepage"><div><div><h3 class="title"><a name="setup-test"></a>4.11. setup test</h3></div></div></div><p>Run the test suite specified by the
+      <code class="literal">runTests</code> field of
+      <code class="literal">Distribution.Simple.UserHooks</code>.  See <a class="ulink" href="../libraries/Cabal/Distribution-Simple.html" target="_top">Distribution.Simple</a>
+      for information about creating hooks and using
+      <code class="literal">defaultMainWithHooks</code>.</p></div><div class="sect2" title="4.12. setup sdist"><div class="titlepage"><div><div><h3 class="title"><a name="setup-sdist"></a>4.12. setup sdist</h3></div></div></div><p>Create a system- and compiler-independent source distribution
+        in a file
+        <code class="filename"><em class="replaceable"><code>package</code></em>-<em class="replaceable"><code>version</code></em>.tar.gz</code>
+        in the <code class="filename">dist</code> subdirectory, for distribution
+        to package builders.  When unpacked, the commands listed in this
+        section will be available.</p><p>The files placed in this distribution are the package
+        description file, the setup script, the sources of the modules
+        named in the package description file, and files named in the
+        <code class="literal">license-file</code>, <code class="literal">main-is</code>,
+        <code class="literal">c-sources</code>, <code class="literal">data-files</code> and
+        <code class="literal">extra-source-files</code> fields.</p><p>This command takes the following option:</p><div class="variablelist"><dl><dt><span class="term"><code class="option">--snapshot</code></span></dt><dd><p>Append today's date
+              (in <em class="replaceable"><code>YYYYMMDD</code></em> form) to the version
+              number for the generated source package.  The original
+              package is unaffected.</p></dd></dl></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="authors.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="bugs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Creating a package </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. Reporting bugs and deficiencies</td></tr></table></div></body></html>

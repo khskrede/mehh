@@ -1,0 +1,8 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/pretty/dist-install/build/Text/PrettyPrint/HughesPJ.o : libraries/pretty/Text/PrettyPrint/HughesPJ.hs
+libraries/pretty/dist-install/build/Text/PrettyPrint/HughesPJ.o : libraries/base/dist-install/build/Prelude.hi
+libraries/pretty/dist-install/build/Text/PrettyPrint.o : libraries/pretty/Text/PrettyPrint.hs
+libraries/pretty/dist-install/build/Text/PrettyPrint.o : libraries/base/dist-install/build/Prelude.hi
+libraries/pretty/dist-install/build/Text/PrettyPrint.o : libraries/pretty/dist-install/build/Text/PrettyPrint/HughesPJ.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/pretty_dist-install_depfile_haskell_EXISTS = YES

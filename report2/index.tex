@@ -1,0 +1,152 @@
+
+\documentclass{book}
+
+\usepackage{verbatim}
+\usepackage{cite}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{rotating}
+%\usepackage{fancyhdr}
+%\usepackage[margin=.7in]{geometry}
+\usepackage{appendix}
+
+\usepackage{color}
+\definecolor{Grey}{rgb}{0.5,0.5,0.5} 
+
+% Make margin of captions smaller
+%\usepackage[margin=1cm]{caption}
+
+
+
+% Fancy headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% -------------------------
+% Test stuff with listings
+% -------------------------
+\usepackage{xcolor}
+\usepackage{caption}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{Gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+
+\lstset{ %
+basicstyle=\scriptsize,         % the size of the fonts that are used for the code
+%numbers=left,                   % where to put the line-numbers
+numberstyle=\scriptsize,        % the size of the fonts that are used for the line-numbers
+%frame=trBL%single,                   % adds a frame around the code
+frame=single,
+framerule=1pt,
+frameround=tttt,
+%backgroundcolor=\color{red},
+showstringspaces=false,
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+%title=\lstname,			% include title (file name)
+xleftmargin=5pt,
+xrightmargin=5pt,
+%rulecolor=\color{Grey}
+}
+
+% -------------------------
+% Test with section numbers in the margin
+% -------------------------
+%\makeatletter
+%\def\@seccntformat#1{\color{Grey}\llap{\csname the#1\endcsname\quad}}
+%\makeatother
+
+
+% Different font in captions
+\newcommand{\captionfonts}{\small}
+
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
+
+% Options for footnotes
+\setlength{\footnotesep}{0.5cm}
+%\setlength{\skip\footins}{2cm}
+
+\begin{document}
+
+%\pagestyle{fancy}
+
+
+\title{Just-In-Time compilation of\\Haskell using PyPy and GHC}
+\author{Knut Halvor Skrede}
+
+% Frontpage
+\begin{titlepage}
+\maketitle
+
+%\begin{abstract}
+%The paper describes a system for using GHC as frontend and PyPy as backend for a 
+%Haskell JIT compiler. An intermediate language in JSON format based on GHC's Core
+%language is described. The implemented parts are a serializer written in Haskell and
+%a deserializer written in Python, in addition to some Haskell library functions.
+%The project is meant to serve as a base for further development. 
+%\end{abstract}
+
+\end{titlepage}
+
+
+\tableofcontents
+
+\clearpage
+
+\listoffigures
+\listoftables
+
+\clearpage
+
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+
+% Introduction
+
+\input{intro.tex}
+
+% Background
+
+%\clearpage
+\input{background.tex}
+
+% Haskell-Python
+
+%\clearpage
+\input{core-interp.tex}
+
+% Primitives
+
+%\clearpage
+\input{primitives.tex}
+
+% Pipeline
+
+%\clearpage
+\input{pipeline.tex}
+
+% Pipeline
+
+%\clearpage
+\input{testing.tex}
+
+% References
+\clearpage
+\bibliographystyle{plain}
+\bibliography{papers}
+
+\end{document}

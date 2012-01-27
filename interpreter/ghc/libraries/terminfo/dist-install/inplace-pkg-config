@@ -1,0 +1,36 @@
+name: terminfo
+version: 0.3.1.3
+id: terminfo-0.3.1.3-inplace
+license: BSD3
+copyright: (c) Judah Jacobson
+maintainer: Judah Jacobson <judah.jacobson@gmail.com>
+stability: Experimental
+homepage: http://code.haskell.org/terminfo
+package-url:
+description: This library provides an interface to the terminfo database (via bindings to the
+             curses library).  Terminfo allows POSIX systems to interact with a variety of terminals
+             using a standard set of capabilities.
+category: User Interfaces
+author: Judah Jacobson
+exposed: True
+exposed-modules: System.Console.Terminfo
+                 System.Console.Terminfo.Base System.Console.Terminfo.Cursor
+                 System.Console.Terminfo.Color System.Console.Terminfo.Edit
+                 System.Console.Terminfo.Effects System.Console.Terminfo.Keys
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/terminfo/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/terminfo/dist-install/build
+hs-libraries: HSterminfo-0.3.1.3
+extra-libraries: ncursesw
+extra-ghci-libraries:
+include-dirs:
+includes: ncurses.h term.h
+depends: base-4.3.1.0-inplace extensible-exceptions-0.1.1.2-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/terminfo/dist-install/doc/html/terminfo/terminfo.haddock
+haddock-html: ../terminfo-0.3.1.3
+

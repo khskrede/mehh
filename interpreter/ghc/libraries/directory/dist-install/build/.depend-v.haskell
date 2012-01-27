@@ -1,0 +1,18 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/directory/dist-install/build/System/Directory.o : libraries/directory/System/Directory.hs
+libraries/directory/dist-install/build/System/Directory.o : libraries/unix/dist-install/build/System/Posix.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/GHC/IO/Exception.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/old-time/dist-install/build/System/Time.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Foreign/C.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Foreign.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Control/Exception/Base.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Control/Monad.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/System/IO/Error.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/System/IO.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/filepath/dist-install/build/System/FilePath.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/System/Environment.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Control/Monad.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Prelude.hi
+libraries/directory/dist-install/build/System/Directory.o : libraries/base/dist-install/build/Prelude.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/directory_dist-install_depfile_haskell_EXISTS = YES

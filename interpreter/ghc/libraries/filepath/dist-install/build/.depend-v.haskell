@@ -1,0 +1,18 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/filepath/System/FilePath/Windows.hs
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/base/dist-install/build/Prelude.hi
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/base/dist-install/build/System/Environment.hi
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/base/dist-install/build/Data/List.hi
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/base/dist-install/build/Data/Maybe.hi
+libraries/filepath/dist-install/build/System/FilePath/Windows.o : libraries/base/dist-install/build/Data/Char.hi
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/filepath/System/FilePath/Posix.hs
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/base/dist-install/build/Prelude.hi
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/base/dist-install/build/System/Environment.hi
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/base/dist-install/build/Data/List.hi
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/base/dist-install/build/Data/Maybe.hi
+libraries/filepath/dist-install/build/System/FilePath/Posix.o : libraries/base/dist-install/build/Data/Char.hi
+libraries/filepath/dist-install/build/System/FilePath.o : libraries/filepath/System/FilePath.hs
+libraries/filepath/dist-install/build/System/FilePath.o : libraries/base/dist-install/build/Prelude.hi
+libraries/filepath/dist-install/build/System/FilePath.o : libraries/filepath/dist-install/build/System/FilePath/Posix.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/filepath_dist-install_depfile_haskell_EXISTS = YES

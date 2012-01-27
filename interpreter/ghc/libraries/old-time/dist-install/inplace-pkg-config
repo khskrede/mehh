@@ -1,0 +1,32 @@
+name: old-time
+version: 1.0.0.6
+id: old-time-1.0.0.6-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package provides the old time library.
+             For new code, the new time library is recommended.
+category: System
+author:
+exposed: True
+exposed-modules: System.Time
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-time/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-time/dist-install/build
+hs-libraries: HSold-time-1.0.0.6
+extra-libraries:
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-time/include
+includes: HsTime.h
+depends: base-4.3.1.0-inplace old-locale-1.0.0.2-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-time/dist-install/doc/html/old-time/old-time.haddock
+haddock-html: ../old-time-1.0.0.6
+

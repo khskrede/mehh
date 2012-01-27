@@ -1,0 +1,32 @@
+name: old-locale
+version: 1.0.0.2
+id: old-locale-1.0.0.2-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package provides the old locale library.
+             For new code, the new locale library is recommended.
+category: System
+author:
+exposed: True
+exposed-modules: System.Locale
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-locale/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-locale/dist-install/build
+hs-libraries: HSold-locale-1.0.0.2
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/old-locale/dist-install/doc/html/old-locale/old-locale.haddock
+haddock-html: ../old-locale-1.0.0.2
+

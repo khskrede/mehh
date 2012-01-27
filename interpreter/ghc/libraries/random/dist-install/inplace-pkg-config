@@ -1,0 +1,31 @@
+name: random
+version: 1.0.0.3
+id: random-1.0.0.3-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package provides a random number library.
+category: System
+author:
+exposed: True
+exposed-modules: System.Random
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/random/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/random/dist-install/build
+hs-libraries: HSrandom-1.0.0.3
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace time-1.2.0.3-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/random/dist-install/doc/html/random/random.haddock
+haddock-html: ../random-1.0.0.3
+

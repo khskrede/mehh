@@ -1,0 +1,32 @@
+name: directory
+version: 1.1.0.0
+id: directory-1.1.0.0-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package provides a library for handling directories.
+category: System
+author:
+exposed: True
+exposed-modules: System.Directory
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/directory/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/directory/dist-install/build
+hs-libraries: HSdirectory-1.1.0.0
+extra-libraries:
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/directory/include
+includes: HsDirectory.h
+depends: base-4.3.1.0-inplace filepath-1.2.0.0-inplace
+         old-time-1.0.0.6-inplace unix-2.4.2.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/directory/dist-install/doc/html/directory/directory.haddock
+haddock-html: ../directory-1.1.0.0
+

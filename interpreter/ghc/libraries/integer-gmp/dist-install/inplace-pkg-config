@@ -1,0 +1,31 @@
+name: integer-gmp
+version: 0.2.0.3
+id: integer-gmp-0.2.0.3-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package contains an Integer library based on GMP.
+category:
+author:
+exposed: True
+exposed-modules: GHC.Integer GHC.Integer.GMP.Internals
+hidden-modules: GHC.Integer.Type
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/integer-gmp/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/integer-gmp/dist-install/build
+hs-libraries: HSinteger-gmp-0.2.0.3
+extra-libraries: gmp
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: ghc-prim-0.2.0.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/integer-gmp/dist-install/doc/html/integer-gmp/integer-gmp.haddock
+haddock-html: ../integer-gmp-0.2.0.3
+

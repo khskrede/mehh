@@ -1,0 +1,2133 @@
+%module ghczmprim:GHCziPrimopWrappers
+  ghczmprim:GHCziPrimopWrappers.traceEventzh :: %forall sa9I . ghczmprim:GHCziPrim.Addrzh
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Statezh sa9I) ->
+                                                               (ghczmprim:GHCziPrim.Statezh sa9I) =
+    ghczmprim:GHCziPrim.traceEventzh;
+  ghczmprim:GHCziPrimopWrappers.traceCcszh :: %forall aa9J ba9K . aa9J
+                                                                  -> ba9K -> ba9K =
+    ghczmprim:GHCziPrim.traceCcszh;
+  ghczmprim:GHCziPrimopWrappers.getApStackValzh :: %forall aa9L ba9M . aa9L
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       (ghczmprim:GHCziPrim.Z2H
+                                                                        ghczmprim:GHCziPrim.Intzh
+                                                                        ba9M) =
+    ghczmprim:GHCziPrim.getApStackValzh;
+  ghczmprim:GHCziPrimopWrappers.unpackClosurezh :: %forall aa9N ba9O . aa9N
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Z3H
+                                                                        ghczmprim:GHCziPrim.Addrzh
+                                                                        ((ghczmprim:GHCziPrim.Arrayzh
+                                                                          ba9O))
+                                                                        ghczmprim:GHCziPrim.ByteArrayzh) =
+    ghczmprim:GHCziPrim.unpackClosurezh;
+  ghczmprim:GHCziPrimopWrappers.newBCOzh :: %forall aa9P sa9Q . ghczmprim:GHCziPrim.ByteArrayzh
+                                                                ->
+                                                                ghczmprim:GHCziPrim.ByteArrayzh ->
+                                                                (ghczmprim:GHCziPrim.Arrayzh aa9P)
+                                                                ->
+                                                                ghczmprim:GHCziPrim.Intzh ->
+                                                                ghczmprim:GHCziPrim.ByteArrayzh ->
+                                                                (ghczmprim:GHCziPrim.Statezh sa9Q)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   sa9Q))
+                                                                 ghczmprim:GHCziPrim.BCOzh) =
+    ghczmprim:GHCziPrim.newBCOzh;
+  ghczmprim:GHCziPrimopWrappers.mkApUpd0zh :: %forall aa9R . ghczmprim:GHCziPrim.BCOzh
+                                                             -> (ghczmprim:GHCziPrim.Z1H aa9R) =
+    ghczmprim:GHCziPrim.mkApUpd0zh;
+  ghczmprim:GHCziPrimopWrappers.addrToHValuezh :: %forall aa9S . ghczmprim:GHCziPrim.Addrzh
+                                                                 -> (ghczmprim:GHCziPrim.Z1H aa9S) =
+    ghczmprim:GHCziPrim.addrToHValuezh;
+  ghczmprim:GHCziPrimopWrappers.dataToTagzh :: %forall aa9T . aa9T ->
+                                                              ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.dataToTagzh;
+  ghczmprim:GHCziPrimopWrappers.numSparkszh :: %forall sa9U . (ghczmprim:GHCziPrim.Statezh
+                                                               sa9U)
+                                                              ->
+                                                              (ghczmprim:GHCziPrim.Z2H
+                                                               ((ghczmprim:GHCziPrim.Statezh sa9U))
+                                                               ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.numSparkszh;
+  ghczmprim:GHCziPrimopWrappers.getSparkzh :: %forall sa9V aa9W . (ghczmprim:GHCziPrim.Statezh
+                                                                   sa9V)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z3H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     sa9V))
+                                                                   ghczmprim:GHCziPrim.Intzh
+                                                                   aa9W) =
+    ghczmprim:GHCziPrim.getSparkzh;
+  ghczmprim:GHCziPrimopWrappers.reallyUnsafePtrEqualityzh :: %forall aa9X . aa9X
+                                                                            ->
+                                                                            aa9X ->
+                                                                            ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.reallyUnsafePtrEqualityzh;
+  ghczmprim:GHCziPrimopWrappers.stableNameToIntzh :: %forall aa9Y . (ghczmprim:GHCziPrim.StableNamezh
+                                                                     aa9Y)
+                                                                    -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.stableNameToIntzh;
+  ghczmprim:GHCziPrimopWrappers.eqStableNamezh :: %forall aa9ZZ . (ghczmprim:GHCziPrim.StableNamezh
+                                                                   aa9ZZ)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.StableNamezh
+                                                                   aa9ZZ)
+                                                                  -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.eqStableNamezh;
+  ghczmprim:GHCziPrimopWrappers.makeStableNamezh :: %forall aaa0 . aaa0
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                                    ((ghczmprim:GHCziPrim.StableNamezh
+                                                                      aaa0))) =
+    ghczmprim:GHCziPrim.makeStableNamezh;
+  ghczmprim:GHCziPrimopWrappers.eqStablePtrzh :: %forall aaa1 . (ghczmprim:GHCziPrim.StablePtrzh
+                                                                 aaa1)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.StablePtrzh
+                                                                 aaa1)
+                                                                -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.eqStablePtrzh;
+  ghczmprim:GHCziPrimopWrappers.deRefStablePtrzh :: %forall aaa2 . (ghczmprim:GHCziPrim.StablePtrzh
+                                                                    aaa2)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                                    aaa2) =
+    ghczmprim:GHCziPrim.deRefStablePtrzh;
+  ghczmprim:GHCziPrimopWrappers.makeStablePtrzh :: %forall aaa3 . aaa3
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                                   ((ghczmprim:GHCziPrim.StablePtrzh
+                                                                     aaa3))) =
+    ghczmprim:GHCziPrim.makeStablePtrzh;
+  ghczmprim:GHCziPrimopWrappers.touchzh :: %forall oaa4 . oaa4 ->
+                                                          (ghczmprim:GHCziPrim.Statezh
+                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Statezh
+                                                           ghczmprim:GHCziPrim.RealWorld) =
+    ghczmprim:GHCziPrim.touchzh;
+  ghczmprim:GHCziPrimopWrappers.finalizzeWeakzh :: %forall aaa5 . (ghczmprim:GHCziPrim.Weakzh
+                                                                   aaa5)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z3H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                                   ghczmprim:GHCziPrim.Intzh
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     ghczmprim:GHCziPrim.RealWorld)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       ghczmprim:GHCziPrim.RealWorld))
+                                                                     ghczmprim:GHCziUnit.Z0T))) =
+    ghczmprim:GHCziPrim.finalizzeWeakzh;
+  ghczmprim:GHCziPrimopWrappers.deRefWeakzh :: %forall aaa6 . (ghczmprim:GHCziPrim.Weakzh
+                                                               aaa6)
+                                                              ->
+                                                              (ghczmprim:GHCziPrim.Statezh
+                                                               ghczmprim:GHCziPrim.RealWorld)
+                                                              ->
+                                                              (ghczmprim:GHCziPrim.Z3H
+                                                               ((ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld))
+                                                               ghczmprim:GHCziPrim.Intzh
+                                                               aaa6) =
+    ghczmprim:GHCziPrim.deRefWeakzh;
+  ghczmprim:GHCziPrimopWrappers.mkWeakForeignEnvzh :: %forall oaa7 baa8 . oaa7
+                                                                          ->
+                                                                          baa8 ->
+                                                                          ghczmprim:GHCziPrim.Addrzh
+                                                                          ->
+                                                                          ghczmprim:GHCziPrim.Addrzh
+                                                                          ->
+                                                                          ghczmprim:GHCziPrim.Intzh
+                                                                          ->
+                                                                          ghczmprim:GHCziPrim.Addrzh
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.Statezh
+                                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.Z2H
+                                                                           ((ghczmprim:GHCziPrim.Statezh
+                                                                             ghczmprim:GHCziPrim.RealWorld))
+                                                                           ((ghczmprim:GHCziPrim.Weakzh
+                                                                             baa8))) =
+    ghczmprim:GHCziPrim.mkWeakForeignEnvzh;
+  ghczmprim:GHCziPrimopWrappers.mkWeakzh :: %forall oaa9 baaa caab . oaa9
+                                                                     ->
+                                                                     baaa ->
+                                                                     caab ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      ghczmprim:GHCziPrim.RealWorld)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        ghczmprim:GHCziPrim.RealWorld))
+                                                                      ((ghczmprim:GHCziPrim.Weakzh
+                                                                        baaa))) =
+    ghczmprim:GHCziPrim.mkWeakzh;
+  ghczmprim:GHCziPrimopWrappers.threadStatuszh :: ghczmprim:GHCziPrim.ThreadIdzh
+                                                  ->
+                                                  (ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                  ->
+                                                  (ghczmprim:GHCziPrim.Z2H
+                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                   ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.threadStatuszh;
+  ghczmprim:GHCziPrimopWrappers.noDuplicatezh :: (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                 ->
+                                                 (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld) =
+    ghczmprim:GHCziPrim.noDuplicatezh;
+  ghczmprim:GHCziPrimopWrappers.isCurrentThreadBoundzh :: (ghczmprim:GHCziPrim.Statezh
+                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Z2H
+                                                           ((ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld))
+                                                           ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.isCurrentThreadBoundzh;
+  ghczmprim:GHCziPrimopWrappers.labelThreadzh :: ghczmprim:GHCziPrim.ThreadIdzh
+                                                 ->
+                                                 ghczmprim:GHCziPrim.Addrzh ->
+                                                 (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                 ->
+                                                 (ghczmprim:GHCziPrim.Statezh
+                                                  ghczmprim:GHCziPrim.RealWorld) =
+    ghczmprim:GHCziPrim.labelThreadzh;
+  ghczmprim:GHCziPrimopWrappers.myThreadIdzh :: (ghczmprim:GHCziPrim.Statezh
+                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                ->
+                                                (ghczmprim:GHCziPrim.Z2H
+                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                 ghczmprim:GHCziPrim.ThreadIdzh) =
+    ghczmprim:GHCziPrim.myThreadIdzh;
+  ghczmprim:GHCziPrimopWrappers.yieldzh :: (ghczmprim:GHCziPrim.Statezh
+                                            ghczmprim:GHCziPrim.RealWorld)
+                                           ->
+                                           (ghczmprim:GHCziPrim.Statezh
+                                            ghczmprim:GHCziPrim.RealWorld) =
+    ghczmprim:GHCziPrim.yieldzh;
+  ghczmprim:GHCziPrimopWrappers.killThreadzh :: %forall aaac . ghczmprim:GHCziPrim.ThreadIdzh
+                                                               ->
+                                                               aaac ->
+                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                ghczmprim:GHCziPrim.RealWorld)
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                ghczmprim:GHCziPrim.RealWorld) =
+    ghczmprim:GHCziPrim.killThreadzh;
+  ghczmprim:GHCziPrimopWrappers.forkOnzh :: %forall aaad . ghczmprim:GHCziPrim.Intzh
+                                                           ->
+                                                           aaad ->
+                                                           (ghczmprim:GHCziPrim.Statezh
+                                                            ghczmprim:GHCziPrim.RealWorld)
+                                                           ->
+                                                           (ghczmprim:GHCziPrim.Z2H
+                                                            ((ghczmprim:GHCziPrim.Statezh
+                                                              ghczmprim:GHCziPrim.RealWorld))
+                                                            ghczmprim:GHCziPrim.ThreadIdzh) =
+    ghczmprim:GHCziPrim.forkOnzh;
+  ghczmprim:GHCziPrimopWrappers.forkzh :: %forall aaae . aaae ->
+                                                         (ghczmprim:GHCziPrim.Statezh
+                                                          ghczmprim:GHCziPrim.RealWorld)
+                                                         ->
+                                                         (ghczmprim:GHCziPrim.Z2H
+                                                          ((ghczmprim:GHCziPrim.Statezh
+                                                            ghczmprim:GHCziPrim.RealWorld))
+                                                          ghczmprim:GHCziPrim.ThreadIdzh) =
+    ghczmprim:GHCziPrim.forkzh;
+  ghczmprim:GHCziPrimopWrappers.waitWritezh :: %forall saaf . ghczmprim:GHCziPrim.Intzh
+                                                              ->
+                                                              (ghczmprim:GHCziPrim.Statezh saaf) ->
+                                                              (ghczmprim:GHCziPrim.Statezh saaf) =
+    ghczmprim:GHCziPrim.waitWritezh;
+  ghczmprim:GHCziPrimopWrappers.waitReadzh :: %forall saag . ghczmprim:GHCziPrim.Intzh
+                                                             ->
+                                                             (ghczmprim:GHCziPrim.Statezh saag) ->
+                                                             (ghczmprim:GHCziPrim.Statezh saag) =
+    ghczmprim:GHCziPrim.waitReadzh;
+  ghczmprim:GHCziPrimopWrappers.delayzh :: %forall saah . ghczmprim:GHCziPrim.Intzh
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Statezh saah) ->
+                                                          (ghczmprim:GHCziPrim.Statezh saah) =
+    ghczmprim:GHCziPrim.delayzh;
+  ghczmprim:GHCziPrimopWrappers.isEmptyMVarzh :: %forall saai aaaj . (ghczmprim:GHCziPrim.MVarzh
+                                                                      saai
+                                                                      aaaj)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      saai)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        saai))
+                                                                      ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.isEmptyMVarzh;
+  ghczmprim:GHCziPrimopWrappers.sameMVarzh :: %forall saak aaal . (ghczmprim:GHCziPrim.MVarzh
+                                                                   saak
+                                                                   aaal)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.MVarzh
+                                                                   saak
+                                                                   aaal)
+                                                                  -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.sameMVarzh;
+  ghczmprim:GHCziPrimopWrappers.tryPutMVarzh :: %forall saam aaan . (ghczmprim:GHCziPrim.MVarzh
+                                                                     saam
+                                                                     aaan)
+                                                                    ->
+                                                                    aaan ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     saam)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       saam))
+                                                                     ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.tryPutMVarzh;
+  ghczmprim:GHCziPrimopWrappers.putMVarzh :: %forall saao aaap . (ghczmprim:GHCziPrim.MVarzh
+                                                                  saao
+                                                                  aaap)
+                                                                 ->
+                                                                 aaap ->
+                                                                 (ghczmprim:GHCziPrim.Statezh saao)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Statezh
+                                                                  saao) =
+    ghczmprim:GHCziPrim.putMVarzh;
+  ghczmprim:GHCziPrimopWrappers.tryTakeMVarzh :: %forall saaq aaar . (ghczmprim:GHCziPrim.MVarzh
+                                                                      saaq
+                                                                      aaar)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      saaq)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z3H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        saaq))
+                                                                      ghczmprim:GHCziPrim.Intzh
+                                                                      aaar) =
+    ghczmprim:GHCziPrim.tryTakeMVarzh;
+  ghczmprim:GHCziPrimopWrappers.takeMVarzh :: %forall saas aaat . (ghczmprim:GHCziPrim.MVarzh
+                                                                   saas
+                                                                   aaat)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh saas)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     saas))
+                                                                   aaat) =
+    ghczmprim:GHCziPrim.takeMVarzh;
+  ghczmprim:GHCziPrimopWrappers.newMVarzh :: %forall saau aaav . (ghczmprim:GHCziPrim.Statezh
+                                                                  saau)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z2H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    saau))
+                                                                  ((ghczmprim:GHCziPrim.MVarzh
+                                                                    saau
+                                                                    aaav))) =
+    ghczmprim:GHCziPrim.newMVarzh;
+  ghczmprim:GHCziPrimopWrappers.sameTVarzh :: %forall saaw aaax . (ghczmprim:GHCziPrim.TVarzh
+                                                                   saaw
+                                                                   aaax)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.TVarzh
+                                                                   saaw
+                                                                   aaax)
+                                                                  -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.sameTVarzh;
+  ghczmprim:GHCziPrimopWrappers.writeTVarzh :: %forall saay aaazz . (ghczmprim:GHCziPrim.TVarzh
+                                                                     saay
+                                                                     aaazz)
+                                                                    ->
+                                                                    aaazz ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     saay)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     saay) =
+    ghczmprim:GHCziPrim.writeTVarzh;
+  ghczmprim:GHCziPrimopWrappers.readTVarIOzh :: %forall saaA aaaB . (ghczmprim:GHCziPrim.TVarzh
+                                                                     saaA
+                                                                     aaaB)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     saaA)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       saaA))
+                                                                     aaaB) =
+    ghczmprim:GHCziPrim.readTVarIOzh;
+  ghczmprim:GHCziPrimopWrappers.readTVarzh :: %forall saaC aaaD . (ghczmprim:GHCziPrim.TVarzh
+                                                                   saaC
+                                                                   aaaD)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh saaC)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     saaC))
+                                                                   aaaD) =
+    ghczmprim:GHCziPrim.readTVarzh;
+  ghczmprim:GHCziPrimopWrappers.newTVarzh :: %forall aaaE saaF . aaaE
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Statezh saaF)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z2H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    saaF))
+                                                                  ((ghczmprim:GHCziPrim.TVarzh
+                                                                    saaF
+                                                                    aaaE))) =
+    ghczmprim:GHCziPrim.newTVarzh;
+  ghczmprim:GHCziPrimopWrappers.checkzh :: %forall aaaG . ((ghczmprim:GHCziPrim.Statezh
+                                                            ghczmprim:GHCziPrim.RealWorld)
+                                                           ->
+                                                           (ghczmprim:GHCziPrim.Z2H
+                                                            ((ghczmprim:GHCziPrim.Statezh
+                                                              ghczmprim:GHCziPrim.RealWorld))
+                                                            aaaG))
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Statezh
+                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Z2H
+                                                           ((ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld))
+                                                           ghczmprim:GHCziUnit.Z0T) =
+    ghczmprim:GHCziPrim.checkzh;
+  ghczmprim:GHCziPrimopWrappers.catchSTMzh :: %forall aaaH baaI . ((ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                                    aaaH))
+                                                                  ->
+                                                                  (baaI ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      ghczmprim:GHCziPrim.RealWorld))
+                                                                    aaaH))
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     ghczmprim:GHCziPrim.RealWorld))
+                                                                   aaaH) =
+    ghczmprim:GHCziPrim.catchSTMzh;
+  ghczmprim:GHCziPrimopWrappers.catchRetryzh :: %forall aaaJ . ((ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                                 aaaJ))
+                                                               ->
+                                                               ((ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                                 aaaJ))
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                ghczmprim:GHCziPrim.RealWorld)
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Z2H
+                                                                ((ghczmprim:GHCziPrim.Statezh
+                                                                  ghczmprim:GHCziPrim.RealWorld))
+                                                                aaaJ) =
+    ghczmprim:GHCziPrim.catchRetryzh;
+  ghczmprim:GHCziPrimopWrappers.retryzh :: %forall aaaK . (ghczmprim:GHCziPrim.Statezh
+                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                          ->
+                                                          (ghczmprim:GHCziPrim.Z2H
+                                                           ((ghczmprim:GHCziPrim.Statezh
+                                                             ghczmprim:GHCziPrim.RealWorld))
+                                                           aaaK) =
+    ghczmprim:GHCziPrim.retryzh;
+  ghczmprim:GHCziPrimopWrappers.atomicallyzh :: %forall aaaL . ((ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                                 aaaL))
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                ghczmprim:GHCziPrim.RealWorld)
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Z2H
+                                                                ((ghczmprim:GHCziPrim.Statezh
+                                                                  ghczmprim:GHCziPrim.RealWorld))
+                                                                aaaL) =
+    ghczmprim:GHCziPrim.atomicallyzh;
+  ghczmprim:GHCziPrimopWrappers.getMaskingStatezh :: (ghczmprim:GHCziPrim.Statezh
+                                                      ghczmprim:GHCziPrim.RealWorld)
+                                                     ->
+                                                     (ghczmprim:GHCziPrim.Z2H
+                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                        ghczmprim:GHCziPrim.RealWorld))
+                                                      ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.getMaskingStatezh;
+  ghczmprim:GHCziPrimopWrappers.unmaskAsyncExceptionszh :: %forall aaaM . ((ghczmprim:GHCziPrim.Statezh
+                                                                            ghczmprim:GHCziPrim.RealWorld)
+                                                                           ->
+                                                                           (ghczmprim:GHCziPrim.Z2H
+                                                                            ((ghczmprim:GHCziPrim.Statezh
+                                                                              ghczmprim:GHCziPrim.RealWorld))
+                                                                            aaaM))
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.Statezh
+                                                                           ghczmprim:GHCziPrim.RealWorld)
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.Z2H
+                                                                           ((ghczmprim:GHCziPrim.Statezh
+                                                                             ghczmprim:GHCziPrim.RealWorld))
+                                                                           aaaM) =
+    ghczmprim:GHCziPrim.unmaskAsyncExceptionszh;
+  ghczmprim:GHCziPrimopWrappers.maskUninterruptiblezh :: %forall aaaN . ((ghczmprim:GHCziPrim.Statezh
+                                                                          ghczmprim:GHCziPrim.RealWorld)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Z2H
+                                                                          ((ghczmprim:GHCziPrim.Statezh
+                                                                            ghczmprim:GHCziPrim.RealWorld))
+                                                                          aaaN))
+                                                                        ->
+                                                                        (ghczmprim:GHCziPrim.Statezh
+                                                                         ghczmprim:GHCziPrim.RealWorld)
+                                                                        ->
+                                                                        (ghczmprim:GHCziPrim.Z2H
+                                                                         ((ghczmprim:GHCziPrim.Statezh
+                                                                           ghczmprim:GHCziPrim.RealWorld))
+                                                                         aaaN) =
+    ghczmprim:GHCziPrim.maskUninterruptiblezh;
+  ghczmprim:GHCziPrimopWrappers.maskAsyncExceptionszh :: %forall aaaO . ((ghczmprim:GHCziPrim.Statezh
+                                                                          ghczmprim:GHCziPrim.RealWorld)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Z2H
+                                                                          ((ghczmprim:GHCziPrim.Statezh
+                                                                            ghczmprim:GHCziPrim.RealWorld))
+                                                                          aaaO))
+                                                                        ->
+                                                                        (ghczmprim:GHCziPrim.Statezh
+                                                                         ghczmprim:GHCziPrim.RealWorld)
+                                                                        ->
+                                                                        (ghczmprim:GHCziPrim.Z2H
+                                                                         ((ghczmprim:GHCziPrim.Statezh
+                                                                           ghczmprim:GHCziPrim.RealWorld))
+                                                                         aaaO) =
+    ghczmprim:GHCziPrim.maskAsyncExceptionszh;
+  ghczmprim:GHCziPrimopWrappers.raiseIOzh :: %forall aaaP baaQ . aaaP
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Statezh
+                                                                  ghczmprim:GHCziPrim.RealWorld)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z2H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    ghczmprim:GHCziPrim.RealWorld))
+                                                                  baaQ) =
+    ghczmprim:GHCziPrim.raiseIOzh;
+  ghczmprim:GHCziPrimopWrappers.raisezh :: %forall aaaR baaS . aaaR
+                                                               -> baaS =
+    ghczmprim:GHCziPrim.raisezh;
+  ghczmprim:GHCziPrimopWrappers.catchzh :: %forall aaaT baaU . ((ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                                 aaaT))
+                                                               ->
+                                                               (baaU ->
+                                                                (ghczmprim:GHCziPrim.Statezh
+                                                                 ghczmprim:GHCziPrim.RealWorld)
+                                                                ->
+                                                                (ghczmprim:GHCziPrim.Z2H
+                                                                 ((ghczmprim:GHCziPrim.Statezh
+                                                                   ghczmprim:GHCziPrim.RealWorld))
+                                                                 aaaT))
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                ghczmprim:GHCziPrim.RealWorld)
+                                                               ->
+                                                               (ghczmprim:GHCziPrim.Z2H
+                                                                ((ghczmprim:GHCziPrim.Statezh
+                                                                  ghczmprim:GHCziPrim.RealWorld))
+                                                                aaaT) =
+    ghczmprim:GHCziPrim.catchzh;
+  ghczmprim:GHCziPrimopWrappers.atomicModifyMutVarzh :: %forall saaV aaaW baaX caaY . (ghczmprim:GHCziPrim.MutVarzh
+                                                                                       saaV
+                                                                                       aaaW)
+                                                                                      ->
+                                                                                      (aaaW -> baaX)
+                                                                                      ->
+                                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                                       saaV)
+                                                                                      ->
+                                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                                         saaV))
+                                                                                       caaY) =
+    ghczmprim:GHCziPrim.atomicModifyMutVarzh;
+  ghczmprim:GHCziPrimopWrappers.sameMutVarzh :: %forall saaZZ aab0 . (ghczmprim:GHCziPrim.MutVarzh
+                                                                      saaZZ
+                                                                      aab0)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.MutVarzh
+                                                                      saaZZ
+                                                                      aab0)
+                                                                     -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.sameMutVarzh;
+  ghczmprim:GHCziPrimopWrappers.writeMutVarzh :: %forall sab1 aab2 . (ghczmprim:GHCziPrim.MutVarzh
+                                                                      sab1
+                                                                      aab2)
+                                                                     ->
+                                                                     aab2 ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sab1)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sab1) =
+    ghczmprim:GHCziPrim.writeMutVarzh;
+  ghczmprim:GHCziPrimopWrappers.readMutVarzh :: %forall sab3 aab4 . (ghczmprim:GHCziPrim.MutVarzh
+                                                                     sab3
+                                                                     aab4)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sab3)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sab3))
+                                                                     aab4) =
+    ghczmprim:GHCziPrim.readMutVarzh;
+  ghczmprim:GHCziPrimopWrappers.newMutVarzh :: %forall aab5 sab6 . aab5
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sab6)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sab6))
+                                                                    ((ghczmprim:GHCziPrim.MutVarzh
+                                                                      sab6
+                                                                      aab5))) =
+    ghczmprim:GHCziPrim.newMutVarzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord64OffAddrzh :: %forall sab7 . ghczmprim:GHCziPrim.Addrzh
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       ghczmprim:GHCziPrim.Wordzh ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab7)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab7) =
+    ghczmprim:GHCziPrim.writeWord64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord32OffAddrzh :: %forall sab8 . ghczmprim:GHCziPrim.Addrzh
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       ghczmprim:GHCziPrim.Wordzh ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab8)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab8) =
+    ghczmprim:GHCziPrim.writeWord32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord16OffAddrzh :: %forall sab9 . ghczmprim:GHCziPrim.Addrzh
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       ghczmprim:GHCziPrim.Wordzh ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab9)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sab9) =
+    ghczmprim:GHCziPrim.writeWord16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord8OffAddrzh :: %forall saba . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      ghczmprim:GHCziPrim.Wordzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       saba)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       saba) =
+    ghczmprim:GHCziPrim.writeWord8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt64OffAddrzh :: %forall sabb . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabb)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabb) =
+    ghczmprim:GHCziPrim.writeInt64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt32OffAddrzh :: %forall sabc . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabc)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabc) =
+    ghczmprim:GHCziPrim.writeInt32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt16OffAddrzh :: %forall sabd . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabd)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabd) =
+    ghczmprim:GHCziPrim.writeInt16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt8OffAddrzh :: %forall sabe . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabe)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabe) =
+    ghczmprim:GHCziPrim.writeInt8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeStablePtrOffAddrzh :: %forall aabf sabg . ghczmprim:GHCziPrim.Addrzh
+                                                                               ->
+                                                                               ghczmprim:GHCziPrim.Intzh
+                                                                               ->
+                                                                               (ghczmprim:GHCziPrim.StablePtrzh
+                                                                                aabf)
+                                                                               ->
+                                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                                sabg)
+                                                                               ->
+                                                                               (ghczmprim:GHCziPrim.Statezh
+                                                                                sabg) =
+    ghczmprim:GHCziPrim.writeStablePtrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeDoubleOffAddrzh :: %forall sabh . ghczmprim:GHCziPrim.Addrzh
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       ghczmprim:GHCziPrim.Doublezh
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sabh)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sabh) =
+    ghczmprim:GHCziPrim.writeDoubleOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeFloatOffAddrzh :: %forall sabi . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      ghczmprim:GHCziPrim.Floatzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabi)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabi) =
+    ghczmprim:GHCziPrim.writeFloatOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeAddrOffAddrzh :: %forall sabj . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Addrzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabj)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabj) =
+    ghczmprim:GHCziPrim.writeAddrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWordOffAddrzh :: %forall sabk . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Wordzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabk)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabk) =
+    ghczmprim:GHCziPrim.writeWordOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeIntOffAddrzh :: %forall sabl . ghczmprim:GHCziPrim.Addrzh
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabl)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabl) =
+    ghczmprim:GHCziPrim.writeIntOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWideCharOffAddrzh :: %forall sabm . ghczmprim:GHCziPrim.Addrzh
+                                                                         ->
+                                                                         ghczmprim:GHCziPrim.Intzh
+                                                                         ->
+                                                                         ghczmprim:GHCziPrim.Charzh
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Statezh
+                                                                          sabm)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Statezh
+                                                                          sabm) =
+    ghczmprim:GHCziPrim.writeWideCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeCharOffAddrzh :: %forall sabn . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Charzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabn)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabn) =
+    ghczmprim:GHCziPrim.writeCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWord64OffAddrzh :: %forall sabo . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabo)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         sabo))
+                                                                       ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWord32OffAddrzh :: %forall sabp . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabp)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         sabp))
+                                                                       ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWord16OffAddrzh :: %forall sabq . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabq)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         sabq))
+                                                                       ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWord8OffAddrzh :: %forall sabr . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabr)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        sabr))
+                                                                      ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readInt64OffAddrzh :: %forall sabs . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabs)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        sabs))
+                                                                      ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readInt32OffAddrzh :: %forall sabt . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabt)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        sabt))
+                                                                      ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readInt16OffAddrzh :: %forall sabu . ghczmprim:GHCziPrim.Addrzh
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabu)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        sabu))
+                                                                      ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readInt8OffAddrzh :: %forall sabv . ghczmprim:GHCziPrim.Addrzh
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabv)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabv))
+                                                                     ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readStablePtrOffAddrzh :: %forall sabw aabx . ghczmprim:GHCziPrim.Addrzh
+                                                                              ->
+                                                                              ghczmprim:GHCziPrim.Intzh
+                                                                              ->
+                                                                              (ghczmprim:GHCziPrim.Statezh
+                                                                               sabw)
+                                                                              ->
+                                                                              (ghczmprim:GHCziPrim.Z2H
+                                                                               ((ghczmprim:GHCziPrim.Statezh
+                                                                                 sabw))
+                                                                               ((ghczmprim:GHCziPrim.StablePtrzh
+                                                                                 aabx))) =
+    ghczmprim:GHCziPrim.readStablePtrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readDoubleOffAddrzh :: %forall saby . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       saby)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         saby))
+                                                                       ghczmprim:GHCziPrim.Doublezh) =
+    ghczmprim:GHCziPrim.readDoubleOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readFloatOffAddrzh :: %forall sabzz . ghczmprim:GHCziPrim.Addrzh
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sabzz)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         sabzz))
+                                                                       ghczmprim:GHCziPrim.Floatzh) =
+    ghczmprim:GHCziPrim.readFloatOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readAddrOffAddrzh :: %forall sabA . ghczmprim:GHCziPrim.Addrzh
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabA)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabA))
+                                                                     ghczmprim:GHCziPrim.Addrzh) =
+    ghczmprim:GHCziPrim.readAddrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWordOffAddrzh :: %forall sabB . ghczmprim:GHCziPrim.Addrzh
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabB)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabB))
+                                                                     ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWordOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readIntOffAddrzh :: %forall sabC . ghczmprim:GHCziPrim.Addrzh
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabC)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sabC))
+                                                                    ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readIntOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readWideCharOffAddrzh :: %forall sabD . ghczmprim:GHCziPrim.Addrzh
+                                                                        ->
+                                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                                        (ghczmprim:GHCziPrim.Statezh
+                                                                         sabD)
+                                                                        ->
+                                                                        (ghczmprim:GHCziPrim.Z2H
+                                                                         ((ghczmprim:GHCziPrim.Statezh
+                                                                           sabD))
+                                                                         ghczmprim:GHCziPrim.Charzh) =
+    ghczmprim:GHCziPrim.readWideCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.readCharOffAddrzh :: %forall sabE . ghczmprim:GHCziPrim.Addrzh
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabE)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabE))
+                                                                     ghczmprim:GHCziPrim.Charzh) =
+    ghczmprim:GHCziPrim.readCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord64OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                        ->
+                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                        ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord32OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                        ->
+                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                        ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord16OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                        ->
+                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                        ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord8OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt64OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt64OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt32OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt32OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt16OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt16OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt8OffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt8OffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexStablePtrOffAddrzh :: %forall aabF . ghczmprim:GHCziPrim.Addrzh
+                                                                          ->
+                                                                          ghczmprim:GHCziPrim.Intzh
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.StablePtrzh
+                                                                           aabF) =
+    ghczmprim:GHCziPrim.indexStablePtrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexDoubleOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                        ->
+                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                        ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.indexDoubleOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexFloatOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.indexFloatOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexAddrOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Addrzh =
+    ghczmprim:GHCziPrim.indexAddrOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWordOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWordOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexIntOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexIntOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexWideCharOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                          ->
+                                                          ghczmprim:GHCziPrim.Intzh ->
+                                                          ghczmprim:GHCziPrim.Charzh =
+    ghczmprim:GHCziPrim.indexWideCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.indexCharOffAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Charzh =
+    ghczmprim:GHCziPrim.indexCharOffAddrzh;
+  ghczmprim:GHCziPrimopWrappers.leAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.leAddrzh;
+  ghczmprim:GHCziPrimopWrappers.ltAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.ltAddrzh;
+  ghczmprim:GHCziPrimopWrappers.neAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.neAddrzh;
+  ghczmprim:GHCziPrimopWrappers.eqAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.eqAddrzh;
+  ghczmprim:GHCziPrimopWrappers.geAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.geAddrzh;
+  ghczmprim:GHCziPrimopWrappers.gtAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Addrzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.gtAddrzh;
+  ghczmprim:GHCziPrimopWrappers.int2Addrzh :: ghczmprim:GHCziPrim.Intzh
+                                              -> ghczmprim:GHCziPrim.Addrzh =
+    ghczmprim:GHCziPrim.int2Addrzh;
+  ghczmprim:GHCziPrimopWrappers.addr2Intzh :: ghczmprim:GHCziPrim.Addrzh
+                                              -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.addr2Intzh;
+  ghczmprim:GHCziPrimopWrappers.remAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh ->
+                                             ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.remAddrzh;
+  ghczmprim:GHCziPrimopWrappers.minusAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                               ->
+                                               ghczmprim:GHCziPrim.Addrzh ->
+                                               ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.minusAddrzh;
+  ghczmprim:GHCziPrimopWrappers.plusAddrzh :: ghczmprim:GHCziPrim.Addrzh
+                                              ->
+                                              ghczmprim:GHCziPrim.Intzh ->
+                                              ghczmprim:GHCziPrim.Addrzh =
+    ghczmprim:GHCziPrim.plusAddrzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord64Arrayzh :: %forall sabG . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                      sabG)
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Wordzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabG)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabG) =
+    ghczmprim:GHCziPrim.writeWord64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord32Arrayzh :: %forall sabH . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                      sabH)
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Wordzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabH)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabH) =
+    ghczmprim:GHCziPrim.writeWord32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord16Arrayzh :: %forall sabI . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                      sabI)
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Wordzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabI)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabI) =
+    ghczmprim:GHCziPrim.writeWord16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeWord8Arrayzh :: %forall sabJ . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabJ)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Wordzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabJ)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabJ) =
+    ghczmprim:GHCziPrim.writeWord8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt64Arrayzh :: %forall sabK . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabK)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabK)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabK) =
+    ghczmprim:GHCziPrim.writeInt64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt32Arrayzh :: %forall sabL . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabL)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabL)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabL) =
+    ghczmprim:GHCziPrim.writeInt32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt16Arrayzh :: %forall sabM . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabM)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabM)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabM) =
+    ghczmprim:GHCziPrim.writeInt16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeInt8Arrayzh :: %forall sabN . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sabN)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabN)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabN) =
+    ghczmprim:GHCziPrim.writeInt8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeStablePtrArrayzh :: %forall sabO aabP . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                              sabO)
+                                                                             ->
+                                                                             ghczmprim:GHCziPrim.Intzh
+                                                                             ->
+                                                                             (ghczmprim:GHCziPrim.StablePtrzh
+                                                                              aabP)
+                                                                             ->
+                                                                             (ghczmprim:GHCziPrim.Statezh
+                                                                              sabO)
+                                                                             ->
+                                                                             (ghczmprim:GHCziPrim.Statezh
+                                                                              sabO) =
+    ghczmprim:GHCziPrim.writeStablePtrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeDoubleArrayzh :: %forall sabQ . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                      sabQ)
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     ghczmprim:GHCziPrim.Doublezh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabQ)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabQ) =
+    ghczmprim:GHCziPrim.writeDoubleArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeFloatArrayzh :: %forall sabR . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabR)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    ghczmprim:GHCziPrim.Floatzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabR)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabR) =
+    ghczmprim:GHCziPrim.writeFloatArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeAddrArrayzh :: %forall sabS . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sabS)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   ghczmprim:GHCziPrim.Addrzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabS)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabS) =
+    ghczmprim:GHCziPrim.writeAddrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeWordArrayzh :: %forall sabT . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sabT)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   ghczmprim:GHCziPrim.Wordzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabT)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabT) =
+    ghczmprim:GHCziPrim.writeWordArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeIntArrayzh :: %forall sabU . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                   sabU)
+                                                                  ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  (ghczmprim:GHCziPrim.Statezh sabU)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Statezh
+                                                                   sabU) =
+    ghczmprim:GHCziPrim.writeIntArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeWideCharArrayzh :: %forall sabV . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                        sabV)
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       ghczmprim:GHCziPrim.Charzh ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sabV)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sabV) =
+    ghczmprim:GHCziPrim.writeWideCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeCharArrayzh :: %forall sabW . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sabW)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   ghczmprim:GHCziPrim.Charzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabW)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sabW) =
+    ghczmprim:GHCziPrim.writeCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWord64Arrayzh :: %forall sabX . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabX)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabX)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabX))
+                                                                     ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWord32Arrayzh :: %forall sabY . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sabY)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sabY)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sabY))
+                                                                     ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWord16Arrayzh :: %forall sabZZ . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                      sabZZ)
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ghczmprim:GHCziPrim.Statezh
+                                                                      sabZZ)
+                                                                     ->
+                                                                     (ghczmprim:GHCziPrim.Z2H
+                                                                      ((ghczmprim:GHCziPrim.Statezh
+                                                                        sabZZ))
+                                                                      ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWord8Arrayzh :: %forall sac0 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sac0)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sac0)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sac0))
+                                                                    ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWord8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readInt64Arrayzh :: %forall sac1 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sac1)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sac1)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sac1))
+                                                                    ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readInt32Arrayzh :: %forall sac2 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sac2)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sac2)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sac2))
+                                                                    ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readInt16Arrayzh :: %forall sac3 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sac3)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sac3)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sac3))
+                                                                    ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readInt8Arrayzh :: %forall sac4 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                   sac4)
+                                                                  ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  (ghczmprim:GHCziPrim.Statezh sac4)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     sac4))
+                                                                   ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readInt8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.readStablePtrArrayzh :: %forall sac5 aac6 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                             sac5)
+                                                                            ->
+                                                                            ghczmprim:GHCziPrim.Intzh
+                                                                            ->
+                                                                            (ghczmprim:GHCziPrim.Statezh
+                                                                             sac5)
+                                                                            ->
+                                                                            (ghczmprim:GHCziPrim.Z2H
+                                                                             ((ghczmprim:GHCziPrim.Statezh
+                                                                               sac5))
+                                                                             ((ghczmprim:GHCziPrim.StablePtrzh
+                                                                               aac6))) =
+    ghczmprim:GHCziPrim.readStablePtrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readDoubleArrayzh :: %forall sac7 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                     sac7)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sac7)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Z2H
+                                                                     ((ghczmprim:GHCziPrim.Statezh
+                                                                       sac7))
+                                                                     ghczmprim:GHCziPrim.Doublezh) =
+    ghczmprim:GHCziPrim.readDoubleArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readFloatArrayzh :: %forall sac8 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sac8)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sac8)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sac8))
+                                                                    ghczmprim:GHCziPrim.Floatzh) =
+    ghczmprim:GHCziPrim.readFloatArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readAddrArrayzh :: %forall sac9 . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                   sac9)
+                                                                  ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  (ghczmprim:GHCziPrim.Statezh sac9)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     sac9))
+                                                                   ghczmprim:GHCziPrim.Addrzh) =
+    ghczmprim:GHCziPrim.readAddrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWordArrayzh :: %forall saca . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                   saca)
+                                                                  ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  (ghczmprim:GHCziPrim.Statezh saca)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     saca))
+                                                                   ghczmprim:GHCziPrim.Wordzh) =
+    ghczmprim:GHCziPrim.readWordArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readIntArrayzh :: %forall sacb . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                  sacb)
+                                                                 ->
+                                                                 ghczmprim:GHCziPrim.Intzh ->
+                                                                 (ghczmprim:GHCziPrim.Statezh sacb)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z2H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    sacb))
+                                                                  ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.readIntArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readWideCharArrayzh :: %forall sacc . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                       sacc)
+                                                                      ->
+                                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                                      (ghczmprim:GHCziPrim.Statezh
+                                                                       sacc)
+                                                                      ->
+                                                                      (ghczmprim:GHCziPrim.Z2H
+                                                                       ((ghczmprim:GHCziPrim.Statezh
+                                                                         sacc))
+                                                                       ghczmprim:GHCziPrim.Charzh) =
+    ghczmprim:GHCziPrim.readWideCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readCharArrayzh :: %forall sacd . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                   sacd)
+                                                                  ->
+                                                                  ghczmprim:GHCziPrim.Intzh ->
+                                                                  (ghczmprim:GHCziPrim.Statezh sacd)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     sacd))
+                                                                   ghczmprim:GHCziPrim.Charzh) =
+    ghczmprim:GHCziPrim.readCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord64Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord32Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord16Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWord8Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWord8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt64Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt64Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt32Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt32Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt16Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt16Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexInt8Arrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                    ->
+                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                    ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexInt8Arrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexStablePtrArrayzh :: %forall aace . ghczmprim:GHCziPrim.ByteArrayzh
+                                                                        ->
+                                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                                        (ghczmprim:GHCziPrim.StablePtrzh
+                                                                         aace) =
+    ghczmprim:GHCziPrim.indexStablePtrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexDoubleArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.indexDoubleArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexFloatArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.indexFloatArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexAddrArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                    ->
+                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                    ghczmprim:GHCziPrim.Addrzh =
+    ghczmprim:GHCziPrim.indexAddrArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWordArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                    ->
+                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                    ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.indexWordArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexIntArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                   ->
+                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                   ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.indexIntArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexWideCharArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                        ->
+                                                        ghczmprim:GHCziPrim.Intzh ->
+                                                        ghczmprim:GHCziPrim.Charzh =
+    ghczmprim:GHCziPrim.indexWideCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexCharArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                    ->
+                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                    ghczmprim:GHCziPrim.Charzh =
+    ghczmprim:GHCziPrim.indexCharArrayzh;
+  ghczmprim:GHCziPrimopWrappers.sizzeofMutableByteArrayzh :: %forall sacf . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                             sacf)
+                                                                            ->
+                                                                            ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.sizzeofMutableByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.sizzeofByteArrayzh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                      -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.sizzeofByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.unsafeFreezzeByteArrayzh :: %forall sacg . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                            sacg)
+                                                                           ->
+                                                                           (ghczmprim:GHCziPrim.Statezh
+                                                                            sacg)
+                                                                           ->
+                                                                           (ghczmprim:GHCziPrim.Z2H
+                                                                            ((ghczmprim:GHCziPrim.Statezh
+                                                                              sacg))
+                                                                            ghczmprim:GHCziPrim.ByteArrayzh) =
+    ghczmprim:GHCziPrim.unsafeFreezzeByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.sameMutableByteArrayzh :: %forall sach . (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                          sach)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                          sach)
+                                                                         ->
+                                                                         ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.sameMutableByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.byteArrayContentszh :: ghczmprim:GHCziPrim.ByteArrayzh
+                                                       -> ghczmprim:GHCziPrim.Addrzh =
+    ghczmprim:GHCziPrim.byteArrayContentszh;
+  ghczmprim:GHCziPrimopWrappers.newAlignedPinnedByteArrayzh :: %forall saci . ghczmprim:GHCziPrim.Intzh
+                                                                              ->
+                                                                              ghczmprim:GHCziPrim.Intzh
+                                                                              ->
+                                                                              (ghczmprim:GHCziPrim.Statezh
+                                                                               saci)
+                                                                              ->
+                                                                              (ghczmprim:GHCziPrim.Z2H
+                                                                               ((ghczmprim:GHCziPrim.Statezh
+                                                                                 saci))
+                                                                               ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                                 saci))) =
+    ghczmprim:GHCziPrim.newAlignedPinnedByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.newPinnedByteArrayzh :: %forall sacj . ghczmprim:GHCziPrim.Intzh
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Statezh
+                                                                        sacj)
+                                                                       ->
+                                                                       (ghczmprim:GHCziPrim.Z2H
+                                                                        ((ghczmprim:GHCziPrim.Statezh
+                                                                          sacj))
+                                                                        ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                          sacj))) =
+    ghczmprim:GHCziPrim.newPinnedByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.newByteArrayzh :: %forall sack . ghczmprim:GHCziPrim.Intzh
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Statezh sack)
+                                                                 ->
+                                                                 (ghczmprim:GHCziPrim.Z2H
+                                                                  ((ghczmprim:GHCziPrim.Statezh
+                                                                    sack))
+                                                                  ((ghczmprim:GHCziPrim.MutableByteArrayzh
+                                                                    sack))) =
+    ghczmprim:GHCziPrim.newByteArrayzh;
+  ghczmprim:GHCziPrimopWrappers.unsafeThawArrayzh :: %forall aacl sacm . (ghczmprim:GHCziPrim.Arrayzh
+                                                                          aacl)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Statezh
+                                                                          sacm)
+                                                                         ->
+                                                                         (ghczmprim:GHCziPrim.Z2H
+                                                                          ((ghczmprim:GHCziPrim.Statezh
+                                                                            sacm))
+                                                                          ((ghczmprim:GHCziPrim.MutableArrayzh
+                                                                            sacm
+                                                                            aacl))) =
+    ghczmprim:GHCziPrim.unsafeThawArrayzh;
+  ghczmprim:GHCziPrimopWrappers.unsafeFreezzeArrayzh :: %forall sacn aaco . (ghczmprim:GHCziPrim.MutableArrayzh
+                                                                             sacn
+                                                                             aaco)
+                                                                            ->
+                                                                            (ghczmprim:GHCziPrim.Statezh
+                                                                             sacn)
+                                                                            ->
+                                                                            (ghczmprim:GHCziPrim.Z2H
+                                                                             ((ghczmprim:GHCziPrim.Statezh
+                                                                               sacn))
+                                                                             ((ghczmprim:GHCziPrim.Arrayzh
+                                                                               aaco))) =
+    ghczmprim:GHCziPrim.unsafeFreezzeArrayzh;
+  ghczmprim:GHCziPrimopWrappers.indexArrayzh :: %forall aacp . (ghczmprim:GHCziPrim.Arrayzh
+                                                                aacp)
+                                                               ->
+                                                               ghczmprim:GHCziPrim.Intzh ->
+                                                               (ghczmprim:GHCziPrim.Z1H aacp) =
+    ghczmprim:GHCziPrim.indexArrayzh;
+  ghczmprim:GHCziPrimopWrappers.writeArrayzh :: %forall sacq aacr . (ghczmprim:GHCziPrim.MutableArrayzh
+                                                                     sacq
+                                                                     aacr)
+                                                                    ->
+                                                                    ghczmprim:GHCziPrim.Intzh ->
+                                                                    aacr ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sacq)
+                                                                    ->
+                                                                    (ghczmprim:GHCziPrim.Statezh
+                                                                     sacq) =
+    ghczmprim:GHCziPrim.writeArrayzh;
+  ghczmprim:GHCziPrimopWrappers.readArrayzh :: %forall sacs aact . (ghczmprim:GHCziPrim.MutableArrayzh
+                                                                    sacs
+                                                                    aact)
+                                                                   ->
+                                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                                   (ghczmprim:GHCziPrim.Statezh
+                                                                    sacs)
+                                                                   ->
+                                                                   (ghczmprim:GHCziPrim.Z2H
+                                                                    ((ghczmprim:GHCziPrim.Statezh
+                                                                      sacs))
+                                                                    aact) =
+    ghczmprim:GHCziPrim.readArrayzh;
+  ghczmprim:GHCziPrimopWrappers.sameMutableArrayzh :: %forall sacu aacv . (ghczmprim:GHCziPrim.MutableArrayzh
+                                                                           sacu
+                                                                           aacv)
+                                                                          ->
+                                                                          (ghczmprim:GHCziPrim.MutableArrayzh
+                                                                           sacu
+                                                                           aacv)
+                                                                          ->
+                                                                          ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.sameMutableArrayzh;
+  ghczmprim:GHCziPrimopWrappers.newArrayzh :: %forall aacw sacx . ghczmprim:GHCziPrim.Intzh
+                                                                  ->
+                                                                  aacw ->
+                                                                  (ghczmprim:GHCziPrim.Statezh sacx)
+                                                                  ->
+                                                                  (ghczmprim:GHCziPrim.Z2H
+                                                                   ((ghczmprim:GHCziPrim.Statezh
+                                                                     sacx))
+                                                                   ((ghczmprim:GHCziPrim.MutableArrayzh
+                                                                     sacx
+                                                                     aacw))) =
+    ghczmprim:GHCziPrim.newArrayzh;
+  ghczmprim:GHCziPrimopWrappers.decodeFloatzuIntzh :: ghczmprim:GHCziPrim.Floatzh
+                                                      ->
+                                                      (ghczmprim:GHCziPrim.Z2H
+                                                       ghczmprim:GHCziPrim.Intzh
+                                                       ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.decodeFloatzuIntzh;
+  ghczmprim:GHCziPrimopWrappers.float2Doublezh :: ghczmprim:GHCziPrim.Floatzh
+                                                  -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.float2Doublezh;
+  ghczmprim:GHCziPrimopWrappers.powerFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                                ->
+                                                ghczmprim:GHCziPrim.Floatzh ->
+                                                ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.powerFloatzh;
+  ghczmprim:GHCziPrimopWrappers.tanhFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.tanhFloatzh;
+  ghczmprim:GHCziPrimopWrappers.coshFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.coshFloatzh;
+  ghczmprim:GHCziPrimopWrappers.sinhFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.sinhFloatzh;
+  ghczmprim:GHCziPrimopWrappers.atanFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.atanFloatzh;
+  ghczmprim:GHCziPrimopWrappers.acosFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.acosFloatzh;
+  ghczmprim:GHCziPrimopWrappers.asinFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.asinFloatzh;
+  ghczmprim:GHCziPrimopWrappers.tanFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                              -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.tanFloatzh;
+  ghczmprim:GHCziPrimopWrappers.cosFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                              -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.cosFloatzh;
+  ghczmprim:GHCziPrimopWrappers.sinFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                              -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.sinFloatzh;
+  ghczmprim:GHCziPrimopWrappers.sqrtFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.sqrtFloatzh;
+  ghczmprim:GHCziPrimopWrappers.logFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                              -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.logFloatzh;
+  ghczmprim:GHCziPrimopWrappers.expFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                              -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.expFloatzh;
+  ghczmprim:GHCziPrimopWrappers.float2Intzh :: ghczmprim:GHCziPrim.Floatzh
+                                               -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.float2Intzh;
+  ghczmprim:GHCziPrimopWrappers.negateFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                                 -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.negateFloatzh;
+  ghczmprim:GHCziPrimopWrappers.divideFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                                 ->
+                                                 ghczmprim:GHCziPrim.Floatzh ->
+                                                 ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.divideFloatzh;
+  ghczmprim:GHCziPrimopWrappers.timesFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                                ->
+                                                ghczmprim:GHCziPrim.Floatzh ->
+                                                ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.timesFloatzh;
+  ghczmprim:GHCziPrimopWrappers.minusFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                                ->
+                                                ghczmprim:GHCziPrim.Floatzh ->
+                                                ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.minusFloatzh;
+  ghczmprim:GHCziPrimopWrappers.plusFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                               ->
+                                               ghczmprim:GHCziPrim.Floatzh ->
+                                               ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.plusFloatzh;
+  ghczmprim:GHCziPrimopWrappers.leFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.leFloatzh;
+  ghczmprim:GHCziPrimopWrappers.ltFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.ltFloatzh;
+  ghczmprim:GHCziPrimopWrappers.neFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.neFloatzh;
+  ghczmprim:GHCziPrimopWrappers.eqFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.eqFloatzh;
+  ghczmprim:GHCziPrimopWrappers.geFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.geFloatzh;
+  ghczmprim:GHCziPrimopWrappers.gtFloatzh :: ghczmprim:GHCziPrim.Floatzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Floatzh ->
+                                             ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.gtFloatzh;
+  ghczmprim:GHCziPrimopWrappers.decodeDoublezu2Intzh :: ghczmprim:GHCziPrim.Doublezh
+                                                        ->
+                                                        (ghczmprim:GHCziPrim.Z4H
+                                                         ghczmprim:GHCziPrim.Intzh
+                                                         ghczmprim:GHCziPrim.Wordzh
+                                                         ghczmprim:GHCziPrim.Wordzh
+                                                         ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.decodeDoublezu2Intzh;
+  ghczmprim:GHCziPrimopWrappers.ztztzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                            ->
+                                            ghczmprim:GHCziPrim.Doublezh ->
+                                            ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.ztztzhzh;
+  ghczmprim:GHCziPrimopWrappers.tanhDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.tanhDoublezh;
+  ghczmprim:GHCziPrimopWrappers.coshDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.coshDoublezh;
+  ghczmprim:GHCziPrimopWrappers.sinhDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.sinhDoublezh;
+  ghczmprim:GHCziPrimopWrappers.atanDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.atanDoublezh;
+  ghczmprim:GHCziPrimopWrappers.acosDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.acosDoublezh;
+  ghczmprim:GHCziPrimopWrappers.asinDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.asinDoublezh;
+  ghczmprim:GHCziPrimopWrappers.tanDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                               -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.tanDoublezh;
+  ghczmprim:GHCziPrimopWrappers.cosDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                               -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.cosDoublezh;
+  ghczmprim:GHCziPrimopWrappers.sinDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                               -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.sinDoublezh;
+  ghczmprim:GHCziPrimopWrappers.sqrtDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.sqrtDoublezh;
+  ghczmprim:GHCziPrimopWrappers.logDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                               -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.logDoublezh;
+  ghczmprim:GHCziPrimopWrappers.expDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                               -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.expDoublezh;
+  ghczmprim:GHCziPrimopWrappers.double2Floatzh :: ghczmprim:GHCziPrim.Doublezh
+                                                  -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.double2Floatzh;
+  ghczmprim:GHCziPrimopWrappers.double2Intzh :: ghczmprim:GHCziPrim.Doublezh
+                                                -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.double2Intzh;
+  ghczmprim:GHCziPrimopWrappers.negateDoublezh :: ghczmprim:GHCziPrim.Doublezh
+                                                  -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.negateDoublezh;
+  ghczmprim:GHCziPrimopWrappers.zszhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh ->
+                                          ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.zszhzh;
+  ghczmprim:GHCziPrimopWrappers.ztzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh ->
+                                          ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.ztzhzh;
+  ghczmprim:GHCziPrimopWrappers.zmzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh ->
+                                          ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.zmzhzh;
+  ghczmprim:GHCziPrimopWrappers.zpzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh ->
+                                          ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.zpzhzh;
+  ghczmprim:GHCziPrimopWrappers.zlzezhzh :: ghczmprim:GHCziPrim.Doublezh
+                                            ->
+                                            ghczmprim:GHCziPrim.Doublezh ->
+                                            ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zlzezhzh;
+  ghczmprim:GHCziPrimopWrappers.zlzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zlzhzh;
+  ghczmprim:GHCziPrimopWrappers.zszezhzh :: ghczmprim:GHCziPrim.Doublezh
+                                            ->
+                                            ghczmprim:GHCziPrim.Doublezh ->
+                                            ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zszezhzh;
+  ghczmprim:GHCziPrimopWrappers.zezezhzh :: ghczmprim:GHCziPrim.Doublezh
+                                            ->
+                                            ghczmprim:GHCziPrim.Doublezh ->
+                                            ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zezezhzh;
+  ghczmprim:GHCziPrimopWrappers.zgzezhzh :: ghczmprim:GHCziPrim.Doublezh
+                                            ->
+                                            ghczmprim:GHCziPrim.Doublezh ->
+                                            ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zgzezhzh;
+  ghczmprim:GHCziPrimopWrappers.zgzhzh :: ghczmprim:GHCziPrim.Doublezh
+                                          ->
+                                          ghczmprim:GHCziPrim.Doublezh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zgzhzh;
+  ghczmprim:GHCziPrimopWrappers.narrow32Wordzh :: ghczmprim:GHCziPrim.Wordzh
+                                                  -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.narrow32Wordzh;
+  ghczmprim:GHCziPrimopWrappers.narrow16Wordzh :: ghczmprim:GHCziPrim.Wordzh
+                                                  -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.narrow16Wordzh;
+  ghczmprim:GHCziPrimopWrappers.narrow8Wordzh :: ghczmprim:GHCziPrim.Wordzh
+                                                 -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.narrow8Wordzh;
+  ghczmprim:GHCziPrimopWrappers.narrow32Intzh :: ghczmprim:GHCziPrim.Intzh
+                                                 -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.narrow32Intzh;
+  ghczmprim:GHCziPrimopWrappers.narrow16Intzh :: ghczmprim:GHCziPrim.Intzh
+                                                 -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.narrow16Intzh;
+  ghczmprim:GHCziPrimopWrappers.narrow8Intzh :: ghczmprim:GHCziPrim.Intzh
+                                                -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.narrow8Intzh;
+  ghczmprim:GHCziPrimopWrappers.leWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.leWordzh;
+  ghczmprim:GHCziPrimopWrappers.ltWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.ltWordzh;
+  ghczmprim:GHCziPrimopWrappers.neWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.neWordzh;
+  ghczmprim:GHCziPrimopWrappers.eqWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.eqWordzh;
+  ghczmprim:GHCziPrimopWrappers.geWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.geWordzh;
+  ghczmprim:GHCziPrimopWrappers.gtWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.gtWordzh;
+  ghczmprim:GHCziPrimopWrappers.word2Intzh :: ghczmprim:GHCziPrim.Wordzh
+                                              -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.word2Intzh;
+  ghczmprim:GHCziPrimopWrappers.uncheckedShiftRLzh :: ghczmprim:GHCziPrim.Wordzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.uncheckedShiftRLzh;
+  ghczmprim:GHCziPrimopWrappers.uncheckedShiftLzh :: ghczmprim:GHCziPrim.Wordzh
+                                                     ->
+                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                     ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.uncheckedShiftLzh;
+  ghczmprim:GHCziPrimopWrappers.notzh :: ghczmprim:GHCziPrim.Wordzh
+                                         -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.notzh;
+  ghczmprim:GHCziPrimopWrappers.xorzh :: ghczmprim:GHCziPrim.Wordzh
+                                         ->
+                                         ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.xorzh;
+  ghczmprim:GHCziPrimopWrappers.orzh :: ghczmprim:GHCziPrim.Wordzh ->
+                                        ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.orzh;
+  ghczmprim:GHCziPrimopWrappers.andzh :: ghczmprim:GHCziPrim.Wordzh
+                                         ->
+                                         ghczmprim:GHCziPrim.Wordzh -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.andzh;
+  ghczmprim:GHCziPrimopWrappers.remWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Wordzh ->
+                                             ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.remWordzh;
+  ghczmprim:GHCziPrimopWrappers.quotWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                              ->
+                                              ghczmprim:GHCziPrim.Wordzh ->
+                                              ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.quotWordzh;
+  ghczmprim:GHCziPrimopWrappers.timesWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                               ->
+                                               ghczmprim:GHCziPrim.Wordzh ->
+                                               ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.timesWordzh;
+  ghczmprim:GHCziPrimopWrappers.minusWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                               ->
+                                               ghczmprim:GHCziPrim.Wordzh ->
+                                               ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.minusWordzh;
+  ghczmprim:GHCziPrimopWrappers.plusWordzh :: ghczmprim:GHCziPrim.Wordzh
+                                              ->
+                                              ghczmprim:GHCziPrim.Wordzh ->
+                                              ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.plusWordzh;
+  ghczmprim:GHCziPrimopWrappers.uncheckedIShiftRLzh :: ghczmprim:GHCziPrim.Intzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.uncheckedIShiftRLzh;
+  ghczmprim:GHCziPrimopWrappers.uncheckedIShiftRAzh :: ghczmprim:GHCziPrim.Intzh
+                                                       ->
+                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                       ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.uncheckedIShiftRAzh;
+  ghczmprim:GHCziPrimopWrappers.uncheckedIShiftLzh :: ghczmprim:GHCziPrim.Intzh
+                                                      ->
+                                                      ghczmprim:GHCziPrim.Intzh ->
+                                                      ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.uncheckedIShiftLzh;
+  ghczmprim:GHCziPrimopWrappers.int2Doublezh :: ghczmprim:GHCziPrim.Intzh
+                                                -> ghczmprim:GHCziPrim.Doublezh =
+    ghczmprim:GHCziPrim.int2Doublezh;
+  ghczmprim:GHCziPrimopWrappers.int2Floatzh :: ghczmprim:GHCziPrim.Intzh
+                                               -> ghczmprim:GHCziPrim.Floatzh =
+    ghczmprim:GHCziPrim.int2Floatzh;
+  ghczmprim:GHCziPrimopWrappers.int2Wordzh :: ghczmprim:GHCziPrim.Intzh
+                                              -> ghczmprim:GHCziPrim.Wordzh =
+    ghczmprim:GHCziPrim.int2Wordzh;
+  ghczmprim:GHCziPrimopWrappers.chrzh :: ghczmprim:GHCziPrim.Intzh ->
+                                         ghczmprim:GHCziPrim.Charzh =
+    ghczmprim:GHCziPrim.chrzh;
+  ghczmprim:GHCziPrimopWrappers.zlzezh :: ghczmprim:GHCziPrim.Intzh
+                                          -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zlzezh;
+  ghczmprim:GHCziPrimopWrappers.zlzh :: ghczmprim:GHCziPrim.Intzh ->
+                                        ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zlzh;
+  ghczmprim:GHCziPrimopWrappers.zszezh :: ghczmprim:GHCziPrim.Intzh
+                                          -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zszezh;
+  ghczmprim:GHCziPrimopWrappers.zezezh :: ghczmprim:GHCziPrim.Intzh
+                                          -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zezezh;
+  ghczmprim:GHCziPrimopWrappers.zgzezh :: ghczmprim:GHCziPrim.Intzh
+                                          -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zgzezh;
+  ghczmprim:GHCziPrimopWrappers.zgzh :: ghczmprim:GHCziPrim.Intzh ->
+                                        ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.zgzh;
+  ghczmprim:GHCziPrimopWrappers.subIntCzh :: ghczmprim:GHCziPrim.Intzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh ->
+                                             (ghczmprim:GHCziPrim.Z2H
+                                              ghczmprim:GHCziPrim.Intzh
+                                              ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.subIntCzh;
+  ghczmprim:GHCziPrimopWrappers.addIntCzh :: ghczmprim:GHCziPrim.Intzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh ->
+                                             (ghczmprim:GHCziPrim.Z2H
+                                              ghczmprim:GHCziPrim.Intzh
+                                              ghczmprim:GHCziPrim.Intzh) =
+    ghczmprim:GHCziPrim.addIntCzh;
+  ghczmprim:GHCziPrimopWrappers.negateIntzh :: ghczmprim:GHCziPrim.Intzh
+                                               -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.negateIntzh;
+  ghczmprim:GHCziPrimopWrappers.remIntzh :: ghczmprim:GHCziPrim.Intzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.remIntzh;
+  ghczmprim:GHCziPrimopWrappers.quotIntzh :: ghczmprim:GHCziPrim.Intzh
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh ->
+                                             ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.quotIntzh;
+  ghczmprim:GHCziPrimopWrappers.mulIntMayOflozh :: ghczmprim:GHCziPrim.Intzh
+                                                   ->
+                                                   ghczmprim:GHCziPrim.Intzh ->
+                                                   ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.mulIntMayOflozh;
+  ghczmprim:GHCziPrimopWrappers.ztzh :: ghczmprim:GHCziPrim.Intzh ->
+                                        ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.ztzh;
+  ghczmprim:GHCziPrimopWrappers.zmzh :: ghczmprim:GHCziPrim.Intzh ->
+                                        ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.zmzh;
+  ghczmprim:GHCziPrimopWrappers.zpzh :: ghczmprim:GHCziPrim.Intzh ->
+                                        ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.zpzh;
+  ghczmprim:GHCziPrimopWrappers.ordzh :: ghczmprim:GHCziPrim.Charzh
+                                         -> ghczmprim:GHCziPrim.Intzh =
+    ghczmprim:GHCziPrim.ordzh;
+  ghczmprim:GHCziPrimopWrappers.leCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.leCharzh;
+  ghczmprim:GHCziPrimopWrappers.ltCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.ltCharzh;
+  ghczmprim:GHCziPrimopWrappers.neCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.neCharzh;
+  ghczmprim:GHCziPrimopWrappers.eqCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.eqCharzh;
+  ghczmprim:GHCziPrimopWrappers.geCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.geCharzh;
+  ghczmprim:GHCziPrimopWrappers.gtCharzh :: ghczmprim:GHCziPrim.Charzh
+                                            ->
+                                            ghczmprim:GHCziPrim.Charzh -> ghczmprim:GHCziBool.Bool =
+    ghczmprim:GHCziPrim.gtCharzh;

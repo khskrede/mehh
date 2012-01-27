@@ -1,0 +1,2 @@
+libraries/old-time/dist-install/build/cbits/timeUtils.o: libraries/old-time/cbits/timeUtils.c
+libraries/old-time_dist-install_depfile_c_asm_EXISTS = YES

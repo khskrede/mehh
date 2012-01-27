@@ -1,0 +1,32 @@
+name: filepath
+version: 1.2.0.0
+id: filepath-1.2.0.0-inplace
+license: BSD3
+copyright:
+maintainer:
+stability:
+homepage: http://www-users.cs.york.ac.uk/~ndm/filepath/
+package-url:
+description:
+category: System
+author: Neil Mitchell
+exposed: True
+exposed-modules: System.FilePath System.FilePath.Posix
+                 System.FilePath.Windows
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/filepath/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/filepath/dist-install/build
+hs-libraries: HSfilepath-1.2.0.0
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/filepath/dist-install/doc/html/filepath/filepath.haddock
+haddock-html: ../filepath-1.2.0.0
+

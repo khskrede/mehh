@@ -1,0 +1,12 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/hpc/dist-boot/build/Trace/Hpc/Util.o : libraries/hpc/Trace/Hpc/Util.hs
+libraries/hpc/dist-boot/build/Trace/Hpc/Tix.o : libraries/hpc/Trace/Hpc/Tix.hs
+libraries/hpc/dist-boot/build/Trace/Hpc/Tix.o : libraries/hpc/dist-boot/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-boot/build/Trace/Hpc/Mix.o : libraries/hpc/Trace/Hpc/Mix.hs
+libraries/hpc/dist-boot/build/Trace/Hpc/Mix.o : libraries/hpc/dist-boot/build/Trace/Hpc/Tix.hi
+libraries/hpc/dist-boot/build/Trace/Hpc/Mix.o : libraries/hpc/dist-boot/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-boot/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-boot/build/Trace/Hpc/Reflect.hs
+libraries/hpc/dist-boot/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-boot/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-boot/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-boot/build/Trace/Hpc/Tix.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/hpc_dist-boot_depfile_haskell_EXISTS = YES

@@ -1,0 +1,2 @@
+This package provides exactly the library modules defined by
+the Haskell 2010 standard.

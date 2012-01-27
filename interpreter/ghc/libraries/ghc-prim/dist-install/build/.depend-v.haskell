@@ -1,0 +1,23 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/ghc-prim/dist-install/build/GHC/IntWord64.o : libraries/ghc-prim/GHC/IntWord64.hs
+libraries/ghc-prim/dist-install/build/GHC/IntWord32.o : libraries/ghc-prim/GHC/IntWord32.hs
+libraries/ghc-prim/dist-install/build/GHC/Magic.o : libraries/ghc-prim/GHC/Magic.hs
+libraries/ghc-prim/dist-install/build/GHC/Generics.o : libraries/ghc-prim/GHC/Generics.hs
+libraries/ghc-prim/dist-install/build/GHC/Types.o : libraries/ghc-prim/GHC/Types.hs
+libraries/ghc-prim/dist-install/build/GHC/Types.o : libraries/ghc-prim/dist-install/build/GHC/Generics.hi
+libraries/ghc-prim/dist-install/build/GHC/Unit.o : libraries/ghc-prim/GHC/Unit.hs
+libraries/ghc-prim/dist-install/build/GHC/Unit.o : libraries/ghc-prim/dist-install/build/GHC/Generics.hi
+libraries/ghc-prim/dist-install/build/GHC/Debug.o : libraries/ghc-prim/GHC/Debug.hs
+libraries/ghc-prim/dist-install/build/GHC/Debug.o : libraries/ghc-prim/dist-install/build/GHC/Unit.hi
+libraries/ghc-prim/dist-install/build/GHC/Debug.o : libraries/ghc-prim/dist-install/build/GHC/Types.hi
+libraries/ghc-prim/dist-install/build/GHC/Ordering.o : libraries/ghc-prim/GHC/Ordering.hs
+libraries/ghc-prim/dist-install/build/GHC/Ordering.o : libraries/ghc-prim/dist-install/build/GHC/Generics.hi
+libraries/ghc-prim/dist-install/build/GHC/Tuple.o : libraries/ghc-prim/GHC/Tuple.hs
+libraries/ghc-prim/dist-install/build/GHC/Tuple.o : libraries/ghc-prim/dist-install/build/GHC/Generics.hi
+libraries/ghc-prim/dist-install/build/GHC/Bool.o : libraries/ghc-prim/GHC/Bool.hs
+libraries/ghc-prim/dist-install/build/GHC/Bool.o : libraries/ghc-prim/dist-install/build/GHC/Generics.hi
+libraries/ghc-prim/dist-install/build/GHC/PrimopWrappers.o : libraries/ghc-prim/dist-install/build/GHC/PrimopWrappers.hs
+libraries/ghc-prim/dist-install/build/GHC/PrimopWrappers.o : libraries/ghc-prim/dist-install/build/GHC/Unit.hi
+libraries/ghc-prim/dist-install/build/GHC/PrimopWrappers.o : libraries/ghc-prim/dist-install/build/GHC/Bool.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/ghc-prim_dist-install_depfile_haskell_EXISTS = YES

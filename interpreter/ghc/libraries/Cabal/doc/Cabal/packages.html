@@ -1,0 +1,29 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>2. Packages</title><link rel="stylesheet" type="text/css" href="fptools.css"><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"><link rel="home" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="up" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="prev" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="next" href="authors.html" title="3. Creating a package"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Packages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="authors.html">Next</a></td></tr></table><hr></div><div class="sect1" title="2. Packages"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="packages"></a>2. Packages</h2></div></div></div><p>A <em class="firstterm">package</em> is the unit of distribution
+      for the Cabal.  Its purpose, when installed, is to make available
+      either or both of:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>A library, exposing a number of Haskell modules.  A library
+          may also contain <em class="firstterm">hidden</em> modules, which
+          are used internally but not available to clients.<sup>[<a name="id544117" href="#ftn.id544117" class="footnote">1</a>]</sup>
+          </p></li><li class="listitem"><p>One or more Haskell programs.</p></li></ul></div><p>However having both a library and executables in a package
+      does not work very well; if the executables depend on the library,
+      they must explicitly list all the modules they directly or
+      indirectly import from that library.</p><p>Internally, the package may consist of much more than a
+    bunch of Haskell modules: it may also have C source code and
+    header files, source code meant for preprocessing, documentation,
+    test cases, auxiliary tools etc.</p><p>A package is identified by a globally-unique
+      <em class="firstterm">package name</em>, which consists of one or
+      more alphanumeric words separated by hyphens.  To avoid ambiguity,
+      each of these words should contain at least one letter.
+      Chaos will result if two distinct packages with the
+      same name are installed on the same system, but there is not
+      yet a mechanism for allocating these names.
+      A particular version of the package is distinguished by a
+      <em class="firstterm">version number</em>, consisting of a sequence
+      of one or more integers separated by dots.  These can be combined
+      to form a single text string called the <em class="firstterm">package
+      ID</em>, using a hyphen to separate the name from the
+      version, e.g. <span class="quote">&#8220;<span class="quote"><code class="literal">HUnit-1.1</code></span>&#8221;</span>.</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Packages are not part of the Haskell language;
+        they simply populate the hierarchical space of module names.
+        In GHC 6.6 and later a program may contain multiple modules
+        with the same name if they come from separate packages; in all
+        other current Haskell systems packages may not overlap in the
+        modules they provide, including hidden modules.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a id="ftn.id544117" href="#id544117" class="para">1</a>] </sup>Hugs doesn't support module hiding.</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="authors.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Common Architecture for Building Applications and Libraries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Creating a package</td></tr></table></div></body></html>

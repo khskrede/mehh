@@ -1,0 +1,11 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/ghc-binary/dist-boot/build/Data/Binary/Builder.o : libraries/ghc-binary/src/Data/Binary/Builder.hs
+libraries/ghc-binary/dist-boot/build/Data/Binary/Get.o : libraries/ghc-binary/src/Data/Binary/Get.hs
+libraries/ghc-binary/dist-boot/build/Data/Binary/Put.o : libraries/ghc-binary/src/Data/Binary/Put.hs
+libraries/ghc-binary/dist-boot/build/Data/Binary/Put.o : libraries/ghc-binary/dist-boot/build/Data/Binary/Builder.hi
+libraries/ghc-binary/dist-boot/build/Data/Binary/Put.o : libraries/ghc-binary/dist-boot/build/Data/Binary/Builder.hi
+libraries/ghc-binary/dist-boot/build/Data/Binary.o : libraries/ghc-binary/src/Data/Binary.hs
+libraries/ghc-binary/dist-boot/build/Data/Binary.o : libraries/ghc-binary/dist-boot/build/Data/Binary/Get.hi
+libraries/ghc-binary/dist-boot/build/Data/Binary.o : libraries/ghc-binary/dist-boot/build/Data/Binary/Put.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/ghc-binary_dist-boot_depfile_haskell_EXISTS = YES

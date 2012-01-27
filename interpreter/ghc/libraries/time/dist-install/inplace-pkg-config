@@ -1,0 +1,40 @@
+name: time
+version: 1.2.0.3
+id: time-1.2.0.3-inplace
+license: BSD3
+copyright:
+maintainer: <ashley@semantic.org>
+stability: stable
+homepage: http://semantic.org/TimeLib/
+package-url:
+description: A time library
+category: System
+author: Ashley Yakeley
+exposed: True
+exposed-modules: Data.Time.Calendar Data.Time.Calendar.MonthDay
+                 Data.Time.Calendar.OrdinalDate Data.Time.Calendar.WeekDate
+                 Data.Time.Calendar.Julian Data.Time.Calendar.Easter Data.Time.Clock
+                 Data.Time.Clock.POSIX Data.Time.Clock.TAI Data.Time.LocalTime
+                 Data.Time.Format Data.Time
+hidden-modules: Data.Time.Calendar.Private Data.Time.Calendar.Days
+                Data.Time.Calendar.Gregorian Data.Time.Calendar.JulianYearDay
+                Data.Time.Clock.Scale Data.Time.Clock.UTC Data.Time.Clock.CTimeval
+                Data.Time.Clock.UTCDiff Data.Time.LocalTime.TimeZone
+                Data.Time.LocalTime.TimeOfDay Data.Time.LocalTime.LocalTime
+                Data.Time.Format.Parse
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/time/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/time/dist-install/build
+hs-libraries: HStime-1.2.0.3
+extra-libraries:
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/time/include
+includes:
+depends: base-4.3.1.0-inplace old-locale-1.0.0.2-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/time/dist-install/doc/html/time/time.haddock
+haddock-html: ../time-1.2.0.3
+

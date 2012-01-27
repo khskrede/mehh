@@ -1,0 +1,1600 @@
+%module base:ControlziMonad
+  %data base:ControlziMonad.TZCMonadPlus (ma4F::(*->*)) =
+    {base:ControlziMonad.DZCMonadPlus ((base:GHCziBase.TZCMonad ma4F))
+                                      (%forall aa4G . (ma4F aa4G))
+                                      (%forall aa4H . (ma4F aa4H) -> (ma4F aa4H) -> (ma4F aa4H))};
+  base:ControlziMonad.zdp1MonadPlus :: %forall (ma4F::(*->*)) . (base:ControlziMonad.TZCMonadPlus
+                                                                 ma4F)
+                                                                -> (base:GHCziBase.TZCMonad ma4F) =
+    \ @ (ma4F::(*->*))
+      (tplB1::(base:ControlziMonad.TZCMonadPlus ma4F)) ->
+        %case ((base:GHCziBase.TZCMonad ma4F)) tplB1
+        %of (tplX4::(base:ControlziMonad.TZCMonadPlus ma4F))
+          {base:ControlziMonad.DZCMonadPlus
+           (tplB2::(base:GHCziBase.TZCMonad ma4F))
+           (tplB3::%forall aa4G . (ma4F aa4G))
+           (tplB4::%forall aa4H . (ma4F aa4H) ->
+                                  (ma4F aa4H) -> (ma4F aa4H)) ->
+             tplB2};
+  base:ControlziMonad.mzzero :: %forall (ma4F::(*->*)) . (base:ControlziMonad.TZCMonadPlus
+                                                          ma4F)
+                                                         -> %forall aa4G . (ma4F aa4G) =
+    \ @ (ma4F::(*->*))
+      (tplB1::(base:ControlziMonad.TZCMonadPlus ma4F)) ->
+        %case (%forall aa4G . (ma4F aa4G)) tplB1
+        %of (tplX4::(base:ControlziMonad.TZCMonadPlus ma4F))
+          {base:ControlziMonad.DZCMonadPlus
+           (tplB2::(base:GHCziBase.TZCMonad ma4F))
+           (tplB3::%forall aa4G . (ma4F aa4G))
+           (tplB4::%forall aa4H . (ma4F aa4H) ->
+                                  (ma4F aa4H) -> (ma4F aa4H)) ->
+             tplB3};
+  base:ControlziMonad.mplus :: %forall (ma4F::(*->*)) . (base:ControlziMonad.TZCMonadPlus
+                                                         ma4F)
+                                                        ->
+                                                        %forall aa4H . (ma4F aa4H) ->
+                                                                       (ma4F aa4H) -> (ma4F aa4H) =
+    \ @ (ma4F::(*->*))
+      (tplB1::(base:ControlziMonad.TZCMonadPlus ma4F)) ->
+        %case (%forall aa4H . (ma4F aa4H) ->
+                              (ma4F aa4H) -> (ma4F aa4H)) tplB1
+        %of (tplX4::(base:ControlziMonad.TZCMonadPlus ma4F))
+          {base:ControlziMonad.DZCMonadPlus
+           (tplB2::(base:GHCziBase.TZCMonad ma4F))
+           (tplB3::%forall aa4G . (ma4F aa4G))
+           (tplB4::%forall aa4H . (ma4F aa4H) ->
+                                  (ma4F aa4H) -> (ma4F aa4H)) ->
+             tplB4};
+  base:ControlziMonad.zdwreplicateM :: %forall (ma5g::(*->*)) aa5h . (%forall a1adp badq . (ma5g
+                                                                                            a1adp)
+                                                                                           ->
+                                                                                           (a1adp ->
+                                                                                            (ma5g
+                                                                                             badq))
+                                                                                           ->
+                                                                                           (ma5g
+                                                                                            badq))
+                                                                     ->
+                                                                     (%forall a1adt . a1adt ->
+                                                                                      (ma5g a1adt))
+                                                                     ->
+                                                                     ghczmprim:GHCziPrim.Intzh ->
+                                                                     (ma5g aa5h) ->
+                                                                     (ma5g
+                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                        aa5h))) =
+    \ @ (ma5g::(*->*))
+      @ aa5h
+      (wwsrK::%forall a1adp badq . (ma5g a1adp) ->
+                                   (a1adp -> (ma5g badq)) -> (ma5g badq))
+      (ww1srM::%forall a1adt . a1adt -> (ma5g a1adt))
+      (ww2srR::ghczmprim:GHCziPrim.Intzh)
+      (wsrT::(ma5g aa5h)) ->
+        %case ((ma5g
+                ((ghczmprim:GHCziTypes.ZMZN aa5h)))) (ghczmprim:GHCziPrim.zlzezh
+                                                      ww2srR (0::ghczmprim:GHCziPrim.Intzh))
+        %of (wild1amQ::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             %let lvlsud :: (ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h))) =
+                    wwsrK @ aa5h @ ((ghczmprim:GHCziTypes.ZMZN aa5h)) wsrT
+                    (%let nstb :: (ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h))) =
+                            ww1srM @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+                            (ghczmprim:GHCziTypes.ZMZN @ aa5h)
+                     %in \ (xa6l::aa5h) ->
+                             wwsrK @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+                             @ ((ghczmprim:GHCziTypes.ZMZN aa5h)) nstb
+                             (\ (xsa6m::(ghczmprim:GHCziTypes.ZMZN aa5h)) ->
+                                  ww1srM @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+                                  (ghczmprim:GHCziTypes.ZC @ aa5h xa6l xsa6m)))
+             %in %let %rec
+                      {xsstd :: ghczmprim:GHCziPrim.Intzh ->
+                                (ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h))) =
+                         \ (maor::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ((ma5g
+                                     ((ghczmprim:GHCziTypes.ZMZN
+                                       aa5h)))) (ghczmprim:GHCziPrim.zlzezh maor
+                                                 (1::ghczmprim:GHCziPrim.Intzh))
+                             %of (wildaos::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  wwsrK @ aa5h @ ((ghczmprim:GHCziTypes.ZMZN aa5h)) wsrT
+                                  (%let mzqstf :: (ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h))) =
+                                          xsstd
+                                          (ghczmprim:GHCziPrim.zmzh maor
+                                           (1::ghczmprim:GHCziPrim.Intzh))
+                                   %in \ (xa6l::aa5h) ->
+                                           wwsrK @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+                                           @ ((ghczmprim:GHCziTypes.ZMZN aa5h)) mzqstf
+                                           (\ (xs1a6m::(ghczmprim:GHCziTypes.ZMZN aa5h)) ->
+                                                ww1srM @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+                                                (ghczmprim:GHCziTypes.ZC @ aa5h xa6l xs1a6m)));
+                                ghczmprim:GHCziBool.True ->
+                                  lvlsud}}
+                 %in xsstd ww2srR;
+           ghczmprim:GHCziBool.True ->
+             ww1srM @ ((ghczmprim:GHCziTypes.ZMZN aa5h))
+             (ghczmprim:GHCziTypes.ZMZN @ aa5h)};
+  %rec
+  {base:ControlziMonad.mapAndUnzzipM1 :: %forall ba5y ca5zz . (ghczmprim:GHCziTypes.ZMZN
+                                                               ((ghczmprim:GHCziTuple.Z2T
+                                                                 ba5y
+                                                                 ca5zz)))
+                                                              ->
+                                                              (ghczmprim:GHCziPrim.Z2H
+                                                               ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ca5zz))) =
+     \ @ ba5y
+       @ ca5zz
+       (wsrp::(ghczmprim:GHCziTypes.ZMZN
+               ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))) ->
+         %case ((ghczmprim:GHCziPrim.Z2H
+                 ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                 ((ghczmprim:GHCziTypes.ZMZN ca5zz)))) wsrp
+         %of (wildakR::(ghczmprim:GHCziTypes.ZMZN
+                        ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              ghczmprim:GHCziPrim.Z2H @ ((ghczmprim:GHCziTypes.ZMZN ba5y))
+              @ ((ghczmprim:GHCziTypes.ZMZN ca5zz))
+              (ghczmprim:GHCziTypes.ZMZN @ ba5y)
+              (ghczmprim:GHCziTypes.ZMZN @ ca5zz);
+            ghczmprim:GHCziTypes.ZC
+            (yakV::(ghczmprim:GHCziTuple.Z2T ba5y ca5zz))
+            (ysakW::(ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))) ->
+              %case ((ghczmprim:GHCziPrim.Z2H
+                      ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                      ((ghczmprim:GHCziTypes.ZMZN ca5zz)))) yakV
+              %of (wild1an9::(ghczmprim:GHCziTuple.Z2T ba5y ca5zz))
+                {ghczmprim:GHCziTuple.Z2T (aanb::ba5y) (banc::ca5zz) ->
+                   %let ds1stq :: (ghczmprim:GHCziTuple.Z2T
+                                   ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                   ((ghczmprim:GHCziTypes.ZMZN ca5zz))) =
+                          %case ((ghczmprim:GHCziTuple.Z2T
+                                  ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                  ((ghczmprim:GHCziTypes.ZMZN
+                                    ca5zz)))) (base:ControlziMonad.mapAndUnzzipM1 @ ba5y @ ca5zz
+                                               ysakW)
+                          %of (wwss8::(ghczmprim:GHCziPrim.Z2H
+                                       ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                       ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+                            {ghczmprim:GHCziPrim.Z2H
+                             (ww1ssa::(ghczmprim:GHCziTypes.ZMZN ba5y))
+                             (ww2ssb::(ghczmprim:GHCziTypes.ZMZN ca5zz)) ->
+                               ghczmprim:GHCziTuple.Z2T @ ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                               @ ((ghczmprim:GHCziTypes.ZMZN ca5zz)) ww1ssa ww2ssb}
+                   %in ghczmprim:GHCziPrim.Z2H @ ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                       @ ((ghczmprim:GHCziTypes.ZMZN ca5zz))
+                       (ghczmprim:GHCziTypes.ZC @ ba5y aanb
+                        (%case ((ghczmprim:GHCziTypes.ZMZN ba5y)) ds1stq
+                         %of (wild2ane::(ghczmprim:GHCziTuple.Z2T
+                                         ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                         ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+                           {ghczmprim:GHCziTuple.Z2T
+                            (asang::(ghczmprim:GHCziTypes.ZMZN ba5y))
+                            (bsanh::(ghczmprim:GHCziTypes.ZMZN ca5zz)) ->
+                              asang}))
+                       (ghczmprim:GHCziTypes.ZC @ ca5zz banc
+                        (%case ((ghczmprim:GHCziTypes.ZMZN ca5zz)) ds1stq
+                         %of (wild2anj::(ghczmprim:GHCziTuple.Z2T
+                                         ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                                         ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+                           {ghczmprim:GHCziTuple.Z2T
+                            (asanl::(ghczmprim:GHCziTypes.ZMZN ba5y))
+                            (bsanm::(ghczmprim:GHCziTypes.ZMZN ca5zz)) ->
+                              bsanm}))}}};
+  base:ControlziMonad.zdwmapAndUnzzipM :: %forall (ma5w::(*->*)) aa5x ba5y ca5zz . (%forall a1adp b1adq . (ma5w
+                                                                                                           a1adp)
+                                                                                                          ->
+                                                                                                          (a1adp
+                                                                                                           ->
+                                                                                                           (ma5w
+                                                                                                            b1adq))
+                                                                                                          ->
+                                                                                                          (ma5w
+                                                                                                           b1adq))
+                                                                                   ->
+                                                                                   (%forall a1adt . a1adt
+                                                                                                    ->
+                                                                                                    (ma5w
+                                                                                                     a1adt))
+                                                                                   ->
+                                                                                   (aa5x ->
+                                                                                    (ma5w
+                                                                                     ((ghczmprim:GHCziTuple.Z2T
+                                                                                       ba5y
+                                                                                       ca5zz))))
+                                                                                   ->
+                                                                                   (ghczmprim:GHCziTypes.ZMZN
+                                                                                    aa5x)
+                                                                                   ->
+                                                                                   (ma5w
+                                                                                    ((ghczmprim:GHCziTuple.Z2T
+                                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                                        ba5y))
+                                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                                        ca5zz))))) =
+    \ @ (ma5w::(*->*))
+      @ aa5x
+      @ ba5y
+      @ ca5zz
+      (wwsrx::%forall a1adp b1adq . (ma5w a1adp) ->
+                                    (a1adp -> (ma5w b1adq)) -> (ma5w b1adq))
+      (ww1srzz::%forall a1adt . a1adt -> (ma5w a1adt))
+      (wsrC::aa5x -> (ma5w ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+      (w1srD::(ghczmprim:GHCziTypes.ZMZN aa5x)) ->
+        wwsrx
+        @ ((ghczmprim:GHCziTypes.ZMZN
+            ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+        @ ((ghczmprim:GHCziTuple.Z2T
+            ((ghczmprim:GHCziTypes.ZMZN ba5y))
+            ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+        (%let zzsti :: (ma5w
+                        ((ghczmprim:GHCziTypes.ZMZN
+                          ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))) =
+                ww1srzz
+                @ ((ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+                (ghczmprim:GHCziTypes.ZMZN
+                 @ ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))
+         %in %let %rec
+                  {gostk :: (ghczmprim:GHCziTypes.ZMZN aa5x) ->
+                            (ma5w
+                             ((ghczmprim:GHCziTypes.ZMZN
+                               ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))) =
+                     \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN aa5x)) ->
+                         %case ((ma5w
+                                 ((ghczmprim:GHCziTypes.ZMZN
+                                   ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))))) dsakQ
+                         %of (wildakR::(ghczmprim:GHCziTypes.ZMZN aa5x))
+                           {ghczmprim:GHCziTypes.ZMZN ->
+                              zzsti;
+                            ghczmprim:GHCziTypes.ZC
+                            (yakV::aa5x) (ysakW::(ghczmprim:GHCziTypes.ZMZN aa5x)) ->
+                              wwsrx @ ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))
+                              @ ((ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+                              (wsrC yakV)
+                              (%let ys1stm :: (ma5w
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))) =
+                                      gostk ysakW
+                               %in \ (xa6l::(ghczmprim:GHCziTuple.Z2T ba5y ca5zz)) ->
+                                       wwsrx
+                                       @ ((ghczmprim:GHCziTypes.ZMZN
+                                           ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+                                       @ ((ghczmprim:GHCziTypes.ZMZN
+                                           ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+                                       ys1stm
+                                       (\ (xsa6m::(ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))) ->
+                                            ww1srzz
+                                            @ ((ghczmprim:GHCziTypes.ZMZN
+                                                ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+                                            (ghczmprim:GHCziTypes.ZC
+                                             @ ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)) xa6l
+                                             xsa6m)))}}
+             %in gostk w1srD)
+        (\ (xan4::(ghczmprim:GHCziTypes.ZMZN
+                   ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz)))) ->
+             ww1srzz
+             @ ((ghczmprim:GHCziTuple.Z2T
+                 ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                 ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+             (%case ((ghczmprim:GHCziTuple.Z2T
+                      ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                      ((ghczmprim:GHCziTypes.ZMZN
+                        ca5zz)))) (base:ControlziMonad.mapAndUnzzipM1 @ ba5y @ ca5zz xan4)
+              %of (ww2ss8::(ghczmprim:GHCziPrim.Z2H
+                            ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                            ((ghczmprim:GHCziTypes.ZMZN ca5zz))))
+                {ghczmprim:GHCziPrim.Z2H
+                 (ww3ssa::(ghczmprim:GHCziTypes.ZMZN ba5y))
+                 (ww4ssb::(ghczmprim:GHCziTypes.ZMZN ca5zz)) ->
+                   ghczmprim:GHCziTuple.Z2T @ ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                   @ ((ghczmprim:GHCziTypes.ZMZN ca5zz)) ww3ssa ww4ssb}));
+  base:ControlziMonad.zdwreplicateMzu :: %forall (ma5e::(*->*)) aa5f . (%forall a1afr bafs . (ma5e
+                                                                                              a1afr)
+                                                                                             ->
+                                                                                             (ma5e
+                                                                                              bafs)
+                                                                                             ->
+                                                                                             (ma5e
+                                                                                              bafs))
+                                                                       ->
+                                                                       (%forall a1adt . a1adt ->
+                                                                                        (ma5e
+                                                                                         a1adt))
+                                                                       ->
+                                                                       ghczmprim:GHCziPrim.Intzh ->
+                                                                       (ma5e aa5f) ->
+                                                                       (ma5e
+                                                                        ghczmprim:GHCziUnit.Z0T) =
+    \ @ (ma5e::(*->*))
+      @ aa5f
+      (wwsre::%forall a1afr bafs . (ma5e a1afr) ->
+                                   (ma5e bafs) -> (ma5e bafs))
+      (ww1srf::%forall a1adt . a1adt -> (ma5e a1adt))
+      (ww2srk::ghczmprim:GHCziPrim.Intzh)
+      (wsrm::(ma5e aa5f)) ->
+        %case ((ma5e ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.zlzezh
+                                                ww2srk (0::ghczmprim:GHCziPrim.Intzh))
+        %of (wild1amQ::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             %let lvlsue :: (ma5e ghczmprim:GHCziUnit.Z0T) =
+                    wwsre @ aa5f @ ghczmprim:GHCziUnit.Z0T wsrm
+                    (ww1srf @ ghczmprim:GHCziUnit.Z0T ghczmprim:GHCziUnit.Z0T)
+             %in %let %rec
+                      {xsstu :: ghczmprim:GHCziPrim.Intzh ->
+                                (ma5e ghczmprim:GHCziUnit.Z0T) =
+                         \ (maor::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ((ma5e ghczmprim:GHCziUnit.Z0T)) (ghczmprim:GHCziPrim.zlzezh
+                                                                     maor
+                                                                     (1::ghczmprim:GHCziPrim.Intzh))
+                             %of (wildaos::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  wwsre @ aa5f @ ghczmprim:GHCziUnit.Z0T wsrm
+                                  (xsstu
+                                   (ghczmprim:GHCziPrim.zmzh maor (1::ghczmprim:GHCziPrim.Intzh)));
+                                ghczmprim:GHCziBool.True ->
+                                  lvlsue}}
+                 %in xsstu ww2srk;
+           ghczmprim:GHCziBool.True ->
+             ww1srf @ ghczmprim:GHCziUnit.Z0T ghczmprim:GHCziUnit.Z0T};
+  base:ControlziMonad.zdwap :: %forall (ma4K::(*->*)) aa4L ba4M . (%forall a1adp b1adq . (ma4K
+                                                                                          a1adp)
+                                                                                         ->
+                                                                                         (a1adp ->
+                                                                                          (ma4K
+                                                                                           b1adq))
+                                                                                         ->
+                                                                                         (ma4K
+                                                                                          b1adq))
+                                                                  ->
+                                                                  (%forall a1adt . a1adt ->
+                                                                                   (ma4K a1adt))
+                                                                  ->
+                                                                  (ma4K (aa4L -> ba4M)) ->
+                                                                  (ma4K aa4L) -> (ma4K ba4M) =
+    \ @ (ma4K::(*->*))
+      @ aa4L
+      @ ba4M
+      (wwsq8::%forall a1adp b1adq . (ma4K a1adp) ->
+                                    (a1adp -> (ma4K b1adq)) -> (ma4K b1adq))
+      (ww1sqa::%forall a1adt . a1adt -> (ma4K a1adt))
+      (wsqd::(ma4K (aa4L -> ba4M)))
+      (w1sqe::(ma4K aa4L)) ->
+        wwsq8 @ (aa4L -> ba4M) @ ba4M wsqd
+        (\ (x1a7g::aa4L -> ba4M) ->
+             wwsq8 @ aa4L @ ba4M w1sqe
+             (\ (x2a7h::aa4L) -> ww1sqa @ ba4M (x1a7g x2a7h)));
+  base:ControlziMonad.zdwliftM2 :: %forall (ma55::(*->*)) a1a56 a2a57 ra58 . (%forall aadp badq . (ma55
+                                                                                                   aadp)
+                                                                                                  ->
+                                                                                                  (aadp
+                                                                                                   ->
+                                                                                                   (ma55
+                                                                                                    badq))
+                                                                                                  ->
+                                                                                                  (ma55
+                                                                                                   badq))
+                                                                             ->
+                                                                             (%forall aadt . aadt ->
+                                                                                             (ma55
+                                                                                              aadt))
+                                                                             ->
+                                                                             (a1a56 ->
+                                                                              a2a57 -> ra58)
+                                                                             ->
+                                                                             (ma55 a1a56) ->
+                                                                             (ma55 a2a57) ->
+                                                                             (ma55 ra58) =
+    \ @ (ma55::(*->*))
+      @ a1a56
+      @ a2a57
+      @ ra58
+      (wwspU::%forall aadp badq . (ma55 aadp) ->
+                                  (aadp -> (ma55 badq)) -> (ma55 badq))
+      (ww1spW::%forall aadt . aadt -> (ma55 aadt))
+      (wspZZ::a1a56 -> a2a57 -> ra58)
+      (w1sq0::(ma55 a1a56))
+      (w2sq1::(ma55 a2a57)) ->
+        wwspU @ a1a56 @ ra58 w1sq0
+        (\ (x1a7g::a1a56) ->
+             wwspU @ a2a57 @ ra58 w2sq1
+             (\ (x2a7h::a2a57) -> ww1spW @ ra58 (wspZZ x1a7g x2a7h)));
+  base:ControlziMonad.zdwliftM3 :: %forall (ma50::(*->*)) a1a51 a2a52 a3a53 ra54 . (%forall aadp badq . (ma50
+                                                                                                         aadp)
+                                                                                                        ->
+                                                                                                        (aadp
+                                                                                                         ->
+                                                                                                         (ma50
+                                                                                                          badq))
+                                                                                                        ->
+                                                                                                        (ma50
+                                                                                                         badq))
+                                                                                   ->
+                                                                                   (%forall aadt . aadt
+                                                                                                   ->
+                                                                                                   (ma50
+                                                                                                    aadt))
+                                                                                   ->
+                                                                                   (a1a51 ->
+                                                                                    a2a52 ->
+                                                                                    a3a53 -> ra54)
+                                                                                   ->
+                                                                                   (ma50 a1a51) ->
+                                                                                   (ma50 a2a52) ->
+                                                                                   (ma50 a3a53) ->
+                                                                                   (ma50 ra54) =
+    \ @ (ma50::(*->*))
+      @ a1a51
+      @ a2a52
+      @ a3a53
+      @ ra54
+      (wwspE::%forall aadp badq . (ma50 aadp) ->
+                                  (aadp -> (ma50 badq)) -> (ma50 badq))
+      (ww1spG::%forall aadt . aadt -> (ma50 aadt))
+      (wspJ::a1a51 -> a2a52 -> a3a53 -> ra54)
+      (w1spK::(ma50 a1a51))
+      (w2spL::(ma50 a2a52))
+      (w3spM::(ma50 a3a53)) ->
+        wwspE @ a1a51 @ ra54 w1spK
+        (\ (x1a7m::a1a51) ->
+             wwspE @ a2a52 @ ra54 w2spL
+             (\ (x2a7n::a2a52) ->
+                  wwspE @ a3a53 @ ra54 w3spM
+                  (\ (x3a7o::a3a53) -> ww1spG @ ra54 (wspJ x1a7m x2a7n x3a7o))));
+  base:ControlziMonad.zdwliftM4 :: %forall (ma4U::(*->*)) a1a4V a2a4W a3a4X a4a4Y ra4ZZ . (%forall aadp badq . (ma4U
+                                                                                                                aadp)
+                                                                                                               ->
+                                                                                                               (aadp
+                                                                                                                ->
+                                                                                                                (ma4U
+                                                                                                                 badq))
+                                                                                                               ->
+                                                                                                               (ma4U
+                                                                                                                badq))
+                                                                                          ->
+                                                                                          (%forall aadt . aadt
+                                                                                                          ->
+                                                                                                          (ma4U
+                                                                                                           aadt))
+                                                                                          ->
+                                                                                          (a1a4V ->
+                                                                                           a2a4W ->
+                                                                                           a3a4X ->
+                                                                                           a4a4Y ->
+                                                                                           ra4ZZ)
+                                                                                          ->
+                                                                                          (ma4U
+                                                                                           a1a4V)
+                                                                                          ->
+                                                                                          (ma4U
+                                                                                           a2a4W)
+                                                                                          ->
+                                                                                          (ma4U
+                                                                                           a3a4X)
+                                                                                          ->
+                                                                                          (ma4U
+                                                                                           a4a4Y)
+                                                                                          ->
+                                                                                          (ma4U
+                                                                                           ra4ZZ) =
+    \ @ (ma4U::(*->*))
+      @ a1a4V
+      @ a2a4W
+      @ a3a4X
+      @ a4a4Y
+      @ ra4ZZ
+      (wwspm::%forall aadp badq . (ma4U aadp) ->
+                                  (aadp -> (ma4U badq)) -> (ma4U badq))
+      (ww1spo::%forall aadt . aadt -> (ma4U aadt))
+      (wspr::a1a4V -> a2a4W -> a3a4X -> a4a4Y -> ra4ZZ)
+      (w1sps::(ma4U a1a4V))
+      (w2spt::(ma4U a2a4W))
+      (w3spu::(ma4U a3a4X))
+      (w4spv::(ma4U a4a4Y)) ->
+        wwspm @ a1a4V @ ra4ZZ w1sps
+        (\ (x1a7u::a1a4V) ->
+             wwspm @ a2a4W @ ra4ZZ w2spt
+             (\ (x2a7v::a2a4W) ->
+                  wwspm @ a3a4X @ ra4ZZ w3spu
+                  (\ (x3a7w::a3a4X) ->
+                       wwspm @ a4a4Y @ ra4ZZ w4spv
+                       (\ (x4a7x::a4a4Y) ->
+                            ww1spo @ ra4ZZ (wspr x1a7u x2a7v x3a7w x4a7x)))));
+  base:ControlziMonad.zdwliftM5 :: %forall (ma4N::(*->*)) a1a4O a2a4P a3a4Q a4a4R a5a4S ra4T . (%forall aadp badq . (ma4N
+                                                                                                                     aadp)
+                                                                                                                    ->
+                                                                                                                    (aadp
+                                                                                                                     ->
+                                                                                                                     (ma4N
+                                                                                                                      badq))
+                                                                                                                    ->
+                                                                                                                    (ma4N
+                                                                                                                     badq))
+                                                                                               ->
+                                                                                               (%forall aadt . aadt
+                                                                                                               ->
+                                                                                                               (ma4N
+                                                                                                                aadt))
+                                                                                               ->
+                                                                                               (a1a4O
+                                                                                                ->
+                                                                                                a2a4P
+                                                                                                ->
+                                                                                                a3a4Q
+                                                                                                ->
+                                                                                                a4a4R
+                                                                                                ->
+                                                                                                a5a4S
+                                                                                                ->
+                                                                                                ra4T)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                a1a4O)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                a2a4P)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                a3a4Q)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                a4a4R)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                a5a4S)
+                                                                                               ->
+                                                                                               (ma4N
+                                                                                                ra4T) =
+    \ @ (ma4N::(*->*))
+      @ a1a4O
+      @ a2a4P
+      @ a3a4Q
+      @ a4a4R
+      @ a5a4S
+      @ ra4T
+      (wwsp2::%forall aadp badq . (ma4N aadp) ->
+                                  (aadp -> (ma4N badq)) -> (ma4N badq))
+      (ww1sp4::%forall aadt . aadt -> (ma4N aadt))
+      (wsp7::a1a4O -> a2a4P -> a3a4Q -> a4a4R -> a5a4S -> ra4T)
+      (w1sp8::(ma4N a1a4O))
+      (w2sp9::(ma4N a2a4P))
+      (w3spa::(ma4N a3a4Q))
+      (w4spb::(ma4N a4a4R))
+      (w5spc::(ma4N a5a4S)) ->
+        wwsp2 @ a1a4O @ ra4T w1sp8
+        (\ (x1a7E::a1a4O) ->
+             wwsp2 @ a2a4P @ ra4T w2sp9
+             (\ (x2a7F::a2a4P) ->
+                  wwsp2 @ a3a4Q @ ra4T w3spa
+                  (\ (x3a7G::a3a4Q) ->
+                       wwsp2 @ a4a4R @ ra4T w4spb
+                       (\ (x4a7H::a4a4R) ->
+                            wwsp2 @ a5a4S @ ra4T w5spc
+                            (\ (x5a7I::a5a4S) ->
+                                 ww1sp4 @ ra4T (wsp7 x1a7E x2a7F x3a7G x4a7H x5a7I))))));
+  base:ControlziMonad.zdwmfilter :: %forall (ma4I::(*->*)) aa4J . (base:GHCziBase.TZCMonad
+                                                                   ma4I)
+                                                                  ->
+                                                                  (%forall a1a4G . (ma4I a1a4G)) ->
+                                                                  (aa4J -> ghczmprim:GHCziBool.Bool)
+                                                                  -> (ma4I aa4J) -> (ma4I aa4J) =
+    \ @ (ma4I::(*->*))
+      @ aa4J
+      (wwsoM::(base:GHCziBase.TZCMonad ma4I))
+      (ww1soN::%forall a1a4G . (ma4I a1a4G))
+      (wsoQ::aa4J -> ghczmprim:GHCziBool.Bool)
+      (w1soR::(ma4I aa4J)) ->
+        %let zddMonadstx :: (base:GHCziBase.TZCMonad ma4I) = wwsoM
+        %in base:GHCziBase.zgzgze @ ma4I zddMonadstx @ aa4J @ aa4J w1soR
+            (\ (aa7L::aa4J) ->
+                 %case ((ma4I aa4J)) (wsoQ aa7L)
+                 %of (wildX6::ghczmprim:GHCziBool.Bool)
+                   {ghczmprim:GHCziBool.False ->
+                      ww1soN @ aa4J;
+                    ghczmprim:GHCziBool.True ->
+                      base:GHCziBase.return @ ma4I zddMonadstx @ aa4J aa7L});
+  base:ControlziMonad.void1 :: %forall aafH . aafH ->
+                                              ghczmprim:GHCziUnit.Z0T =
+    \ @ aafH (dsakE::aafH) -> ghczmprim:GHCziUnit.Z0T;
+  base:ControlziMonad.zdfMonadPlusZMZN :: (base:ControlziMonad.TZCMonadPlus
+                                           ghczmprim:GHCziTypes.ZMZN) =
+    base:ControlziMonad.DZCMonadPlus @ ghczmprim:GHCziTypes.ZMZN
+    base:GHCziBase.zdfMonadZMZN ghczmprim:GHCziTypes.ZMZN
+    base:GHCziBase.zpzp;
+  base:ControlziMonad.mfilter :: %forall (ma4I::(*->*)) aa4J . (base:ControlziMonad.TZCMonadPlus
+                                                                ma4I)
+                                                               ->
+                                                               (aa4J -> ghczmprim:GHCziBool.Bool) ->
+                                                               (ma4I aa4J) -> (ma4I aa4J) =
+    \ @ (ma4I::(*->*))
+      @ aa4J
+      (wsoK::(base:ControlziMonad.TZCMonadPlus ma4I))
+      (w1soQ::aa4J -> ghczmprim:GHCziBool.Bool)
+      (w2soR::(ma4I aa4J)) ->
+        %case ((ma4I aa4J)) wsoK
+        %of (w3XpO::(base:ControlziMonad.TZCMonadPlus ma4I))
+          {base:ControlziMonad.DZCMonadPlus
+           (wwsoM::(base:GHCziBase.TZCMonad ma4I))
+           (ww1soN::%forall a1a4G . (ma4I a1a4G))
+           (ww2soO::%forall a1a4H . (ma4I a1a4H) ->
+                                    (ma4I a1a4H) -> (ma4I a1a4H)) ->
+             base:ControlziMonad.zdwmfilter @ ma4I @ aa4J wwsoM ww1soN w1soQ
+             w2soR};
+  base:ControlziMonad.ap :: %forall (ma4K::(*->*)) aa4L ba4M . (base:GHCziBase.TZCMonad
+                                                                ma4K)
+                                                               ->
+                                                               (ma4K (aa4L -> ba4M)) ->
+                                                               (ma4K aa4L) -> (ma4K ba4M) =
+    \ @ (ma4K::(*->*))
+      @ aa4L
+      @ ba4M
+      (wsq6::(base:GHCziBase.TZCMonad ma4K))
+      (w1sqd::(ma4K (aa4L -> ba4M)))
+      (w2sqe::(ma4K aa4L)) ->
+        %case ((ma4K ba4M)) wsq6
+        %of (w3Xrc::(base:GHCziBase.TZCMonad ma4K))
+          {base:GHCziBase.DZCMonad
+           (wwsq8::%forall a1adp b1adq . (ma4K a1adp) ->
+                                         (a1adp -> (ma4K b1adq)) -> (ma4K b1adq))
+           (ww1sq9::%forall a1afr b1afs . (ma4K a1afr) ->
+                                          (ma4K b1afs) -> (ma4K b1afs))
+           (ww2sqa::%forall a1adt . a1adt -> (ma4K a1adt))
+           (ww3sqb::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma4K a1akw)) ->
+             base:ControlziMonad.zdwap @ ma4K @ aa4L @ ba4M wwsq8 ww2sqa w1sqd
+             w2sqe};
+  base:ControlziMonad.liftM5 :: %forall (ma4N::(*->*)) a1a4O a2a4P a3a4Q a4a4R a5a4S ra4T . (base:GHCziBase.TZCMonad
+                                                                                             ma4N)
+                                                                                            ->
+                                                                                            (a1a4O
+                                                                                             ->
+                                                                                             a2a4P
+                                                                                             ->
+                                                                                             a3a4Q
+                                                                                             ->
+                                                                                             a4a4R
+                                                                                             ->
+                                                                                             a5a4S
+                                                                                             ->
+                                                                                             ra4T)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             a1a4O)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             a2a4P)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             a3a4Q)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             a4a4R)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             a5a4S)
+                                                                                            ->
+                                                                                            (ma4N
+                                                                                             ra4T) =
+    \ @ (ma4N::(*->*))
+      @ a1a4O
+      @ a2a4P
+      @ a3a4Q
+      @ a4a4R
+      @ a5a4S
+      @ ra4T
+      (wsp0::(base:GHCziBase.TZCMonad ma4N))
+      (w1sp7::a1a4O -> a2a4P -> a3a4Q -> a4a4R -> a5a4S -> ra4T)
+      (w2sp8::(ma4N a1a4O))
+      (w3sp9::(ma4N a2a4P))
+      (w4spa::(ma4N a3a4Q))
+      (w5spb::(ma4N a4a4R))
+      (w6spc::(ma4N a5a4S)) ->
+        %case ((ma4N ra4T)) wsp0
+        %of (w7Xqf::(base:GHCziBase.TZCMonad ma4N))
+          {base:GHCziBase.DZCMonad
+           (wwsp2::%forall aadp badq . (ma4N aadp) ->
+                                       (aadp -> (ma4N badq)) -> (ma4N badq))
+           (ww1sp3::%forall aafr bafs . (ma4N aafr) ->
+                                        (ma4N bafs) -> (ma4N bafs))
+           (ww2sp4::%forall aadt . aadt -> (ma4N aadt))
+           (ww3sp5::%forall aakw . (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char)
+                                   -> (ma4N aakw)) ->
+             base:ControlziMonad.zdwliftM5 @ ma4N @ a1a4O @ a2a4P @ a3a4Q
+             @ a4a4R @ a5a4S @ ra4T wwsp2 ww2sp4 w1sp7 w2sp8 w3sp9 w4spa w5spb
+             w6spc};
+  base:ControlziMonad.liftM4 :: %forall (ma4U::(*->*)) a1a4V a2a4W a3a4X a4a4Y ra4ZZ . (base:GHCziBase.TZCMonad
+                                                                                        ma4U)
+                                                                                       ->
+                                                                                       (a1a4V ->
+                                                                                        a2a4W ->
+                                                                                        a3a4X ->
+                                                                                        a4a4Y ->
+                                                                                        ra4ZZ)
+                                                                                       ->
+                                                                                       (ma4U a1a4V)
+                                                                                       ->
+                                                                                       (ma4U a2a4W)
+                                                                                       ->
+                                                                                       (ma4U a3a4X)
+                                                                                       ->
+                                                                                       (ma4U a4a4Y)
+                                                                                       ->
+                                                                                       (ma4U
+                                                                                        ra4ZZ) =
+    \ @ (ma4U::(*->*))
+      @ a1a4V
+      @ a2a4W
+      @ a3a4X
+      @ a4a4Y
+      @ ra4ZZ
+      (wspk::(base:GHCziBase.TZCMonad ma4U))
+      (w1spr::a1a4V -> a2a4W -> a3a4X -> a4a4Y -> ra4ZZ)
+      (w2sps::(ma4U a1a4V))
+      (w3spt::(ma4U a2a4W))
+      (w4spu::(ma4U a3a4X))
+      (w5spv::(ma4U a4a4Y)) ->
+        %case ((ma4U ra4ZZ)) wspk
+        %of (w6Xqy::(base:GHCziBase.TZCMonad ma4U))
+          {base:GHCziBase.DZCMonad
+           (wwspm::%forall aadp badq . (ma4U aadp) ->
+                                       (aadp -> (ma4U badq)) -> (ma4U badq))
+           (ww1spn::%forall aafr bafs . (ma4U aafr) ->
+                                        (ma4U bafs) -> (ma4U bafs))
+           (ww2spo::%forall aadt . aadt -> (ma4U aadt))
+           (ww3spp::%forall aakw . (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char)
+                                   -> (ma4U aakw)) ->
+             base:ControlziMonad.zdwliftM4 @ ma4U @ a1a4V @ a2a4W @ a3a4X
+             @ a4a4Y @ ra4ZZ wwspm ww2spo w1spr w2sps w3spt w4spu w5spv};
+  base:ControlziMonad.liftM3 :: %forall (ma50::(*->*)) a1a51 a2a52 a3a53 ra54 . (base:GHCziBase.TZCMonad
+                                                                                 ma50)
+                                                                                ->
+                                                                                (a1a51 ->
+                                                                                 a2a52 ->
+                                                                                 a3a53 -> ra54)
+                                                                                ->
+                                                                                (ma50 a1a51) ->
+                                                                                (ma50 a2a52) ->
+                                                                                (ma50 a3a53) ->
+                                                                                (ma50 ra54) =
+    \ @ (ma50::(*->*))
+      @ a1a51
+      @ a2a52
+      @ a3a53
+      @ ra54
+      (wspC::(base:GHCziBase.TZCMonad ma50))
+      (w1spJ::a1a51 -> a2a52 -> a3a53 -> ra54)
+      (w2spK::(ma50 a1a51))
+      (w3spL::(ma50 a2a52))
+      (w4spM::(ma50 a3a53)) ->
+        %case ((ma50 ra54)) wspC
+        %of (w5XqP::(base:GHCziBase.TZCMonad ma50))
+          {base:GHCziBase.DZCMonad
+           (wwspE::%forall aadp badq . (ma50 aadp) ->
+                                       (aadp -> (ma50 badq)) -> (ma50 badq))
+           (ww1spF::%forall aafr bafs . (ma50 aafr) ->
+                                        (ma50 bafs) -> (ma50 bafs))
+           (ww2spG::%forall aadt . aadt -> (ma50 aadt))
+           (ww3spH::%forall aakw . (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char)
+                                   -> (ma50 aakw)) ->
+             base:ControlziMonad.zdwliftM3 @ ma50 @ a1a51 @ a2a52 @ a3a53 @ ra54
+             wwspE ww2spG w1spJ w2spK w3spL w4spM};
+  base:ControlziMonad.liftM2 :: %forall (ma55::(*->*)) a1a56 a2a57 ra58 . (base:GHCziBase.TZCMonad
+                                                                           ma55)
+                                                                          ->
+                                                                          (a1a56 -> a2a57 -> ra58)
+                                                                          ->
+                                                                          (ma55 a1a56) ->
+                                                                          (ma55 a2a57) ->
+                                                                          (ma55 ra58) =
+    \ @ (ma55::(*->*))
+      @ a1a56
+      @ a2a57
+      @ ra58
+      (wspS::(base:GHCziBase.TZCMonad ma55))
+      (w1spZZ::a1a56 -> a2a57 -> ra58)
+      (w2sq0::(ma55 a1a56))
+      (w3sq1::(ma55 a2a57)) ->
+        %case ((ma55 ra58)) wspS
+        %of (w4Xr4::(base:GHCziBase.TZCMonad ma55))
+          {base:GHCziBase.DZCMonad
+           (wwspU::%forall aadp badq . (ma55 aadp) ->
+                                       (aadp -> (ma55 badq)) -> (ma55 badq))
+           (ww1spV::%forall aafr bafs . (ma55 aafr) ->
+                                        (ma55 bafs) -> (ma55 bafs))
+           (ww2spW::%forall aadt . aadt -> (ma55 aadt))
+           (ww3spX::%forall aakw . (ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char)
+                                   -> (ma55 aakw)) ->
+             base:ControlziMonad.zdwliftM2 @ ma55 @ a1a56 @ a2a57 @ ra58 wwspU
+             ww2spW w1spZZ w2sq0 w3sq1};
+  base:ControlziMonad.liftM :: %forall (ma59::(*->*)) a1a5a ra5b . (base:GHCziBase.TZCMonad
+                                                                    ma59)
+                                                                   ->
+                                                                   (a1a5a -> ra5b) ->
+                                                                   (ma59 a1a5a) -> (ma59 ra5b) =
+    \ @ (maeP::(*->*))
+      @ a1aeQ
+      @ raeR
+      (zddMonadaeS::(base:GHCziBase.TZCMonad maeP))
+      (fa7a::a1aeQ -> raeR)
+      (m1a7b::(maeP a1aeQ)) ->
+        base:GHCziBase.zgzgze @ maeP zddMonadaeS @ a1aeQ @ raeR m1a7b
+        (\ (x1a7c::a1aeQ) ->
+             base:GHCziBase.return @ maeP zddMonadaeS @ raeR (fa7a x1a7c));
+  base:ControlziMonad.unless :: %forall (ma5c::(*->*)) . (base:GHCziBase.TZCMonad
+                                                          ma5c)
+                                                         ->
+                                                         ghczmprim:GHCziBool.Bool ->
+                                                         (ma5c ghczmprim:GHCziUnit.Z0T) ->
+                                                         (ma5c ghczmprim:GHCziUnit.Z0T) =
+    \ @ (maeZZ::(*->*))
+      (zddMonadaf0::(base:GHCziBase.TZCMonad maeZZ))
+      (pa78::ghczmprim:GHCziBool.Bool)
+      (sa79::(maeZZ ghczmprim:GHCziUnit.Z0T)) ->
+        %case ((maeZZ ghczmprim:GHCziUnit.Z0T)) pa78
+        %of (wildB1::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             sa79;
+           ghczmprim:GHCziBool.True ->
+             base:GHCziBase.return @ maeZZ zddMonadaf0 @ ghczmprim:GHCziUnit.Z0T
+             ghczmprim:GHCziUnit.Z0T};
+  base:ControlziMonad.when :: %forall (ma5d::(*->*)) . (base:GHCziBase.TZCMonad
+                                                        ma5d)
+                                                       ->
+                                                       ghczmprim:GHCziBool.Bool ->
+                                                       (ma5d ghczmprim:GHCziUnit.Z0T) ->
+                                                       (ma5d ghczmprim:GHCziUnit.Z0T) =
+    \ @ (maf5::(*->*))
+      (zddMonadaf6::(base:GHCziBase.TZCMonad maf5))
+      (pa76::ghczmprim:GHCziBool.Bool)
+      (sa77::(maf5 ghczmprim:GHCziUnit.Z0T)) ->
+        %case ((maf5 ghczmprim:GHCziUnit.Z0T)) pa76
+        %of (wildB1::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             base:GHCziBase.return @ maf5 zddMonadaf6 @ ghczmprim:GHCziUnit.Z0T
+             ghczmprim:GHCziUnit.Z0T;
+           ghczmprim:GHCziBool.True ->
+             sa77};
+  base:ControlziMonad.replicateMzu :: %forall (ma5e::(*->*)) aa5f . (base:GHCziBase.TZCMonad
+                                                                     ma5e)
+                                                                    ->
+                                                                    ghczmprim:GHCziTypes.Int ->
+                                                                    (ma5e aa5f) ->
+                                                                    (ma5e ghczmprim:GHCziUnit.Z0T) =
+    \ @ (ma5e::(*->*))
+      @ aa5f
+      (wsrb::(base:GHCziBase.TZCMonad ma5e))
+      (w1sri::ghczmprim:GHCziTypes.Int)
+      (w2srm::(ma5e aa5f)) ->
+        %case ((ma5e ghczmprim:GHCziUnit.Z0T)) wsrb
+        %of (w3Xso::(base:GHCziBase.TZCMonad ma5e))
+          {base:GHCziBase.DZCMonad
+           (wwsrd::%forall a1adp badq . (ma5e a1adp) ->
+                                        (a1adp -> (ma5e badq)) -> (ma5e badq))
+           (ww1sre::%forall a1afr bafs . (ma5e a1afr) ->
+                                         (ma5e bafs) -> (ma5e bafs))
+           (ww2srf::%forall a1adt . a1adt -> (ma5e a1adt))
+           (ww3srg::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5e a1akw)) ->
+             %case ((ma5e ghczmprim:GHCziUnit.Z0T)) w1sri
+             %of (w4XsC::ghczmprim:GHCziTypes.Int)
+               {ghczmprim:GHCziTypes.Izh (ww4srk::ghczmprim:GHCziPrim.Intzh) ->
+                  base:ControlziMonad.zdwreplicateMzu @ ma5e @ aa5f ww1sre ww2srf
+                  ww4srk w2srm}};
+  base:ControlziMonad.replicateM :: %forall (ma5g::(*->*)) aa5h . (base:GHCziBase.TZCMonad
+                                                                   ma5g)
+                                                                  ->
+                                                                  ghczmprim:GHCziTypes.Int ->
+                                                                  (ma5g aa5h) ->
+                                                                  (ma5g
+                                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                                     aa5h))) =
+    \ @ (ma5g::(*->*))
+      @ aa5h
+      (wsrI::(base:GHCziBase.TZCMonad ma5g))
+      (w1srP::ghczmprim:GHCziTypes.Int)
+      (w2srT::(ma5g aa5h)) ->
+        %case ((ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h)))) wsrI
+        %of (w3XsW::(base:GHCziBase.TZCMonad ma5g))
+          {base:GHCziBase.DZCMonad
+           (wwsrK::%forall a1adp badq . (ma5g a1adp) ->
+                                        (a1adp -> (ma5g badq)) -> (ma5g badq))
+           (ww1srL::%forall a1afr bafs . (ma5g a1afr) ->
+                                         (ma5g bafs) -> (ma5g bafs))
+           (ww2srM::%forall a1adt . a1adt -> (ma5g a1adt))
+           (ww3srN::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5g a1akw)) ->
+             %case ((ma5g ((ghczmprim:GHCziTypes.ZMZN aa5h)))) w1srP
+             %of (w4Xta::ghczmprim:GHCziTypes.Int)
+               {ghczmprim:GHCziTypes.Izh (ww4srR::ghczmprim:GHCziPrim.Intzh) ->
+                  base:ControlziMonad.zdwreplicateM @ ma5g @ aa5h wwsrK ww2srM ww4srR
+                  w2srT}};
+  %rec
+  {base:ControlziMonad.zdwfoldM :: %forall (ma5l::(*->*)) aa5m ba5n . (%forall a1adp b1adq . (ma5l
+                                                                                              a1adp)
+                                                                                             ->
+                                                                                             (a1adp
+                                                                                              ->
+                                                                                              (ma5l
+                                                                                               b1adq))
+                                                                                             ->
+                                                                                             (ma5l
+                                                                                              b1adq))
+                                                                      ->
+                                                                      (%forall a1adt . a1adt ->
+                                                                                       (ma5l a1adt))
+                                                                      ->
+                                                                      (aa5m -> ba5n -> (ma5l aa5m))
+                                                                      ->
+                                                                      aa5m ->
+                                                                      (ghczmprim:GHCziTypes.ZMZN
+                                                                       ba5n)
+                                                                      -> (ma5l aa5m) =
+     \ @ (ma5l::(*->*))
+       @ aa5m
+       @ ba5n
+       (wwsqm::%forall a1adp b1adq . (ma5l a1adp) ->
+                                     (a1adp -> (ma5l b1adq)) -> (ma5l b1adq))
+       (ww1sqo::%forall a1adt . a1adt -> (ma5l a1adt))
+       (wsqr::aa5m -> ba5n -> (ma5l aa5m))
+       (w1sqs::aa5m)
+       (w2sqt::(ghczmprim:GHCziTypes.ZMZN ba5n)) ->
+         %case ((ma5l aa5m)) w2sqt
+         %of (wildB1::(ghczmprim:GHCziTypes.ZMZN ba5n))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              ww1sqo @ aa5m w1sqs;
+            ghczmprim:GHCziTypes.ZC
+            (xa6W::ba5n) (xsa6X::(ghczmprim:GHCziTypes.ZMZN ba5n)) ->
+              wwsqm @ aa5m @ aa5m (wsqr w1sqs xa6W)
+              (\ (faxa6Y::aa5m) ->
+                   base:ControlziMonad.zdwfoldM @ ma5l @ aa5m @ ba5n wwsqm ww1sqo wsqr
+                   faxa6Y xsa6X)}};
+  base:ControlziMonad.foldM :: %forall (ma5l::(*->*)) aa5m ba5n . (base:GHCziBase.TZCMonad
+                                                                   ma5l)
+                                                                  ->
+                                                                  (aa5m -> ba5n -> (ma5l aa5m)) ->
+                                                                  aa5m ->
+                                                                  (ghczmprim:GHCziTypes.ZMZN ba5n)
+                                                                  -> (ma5l aa5m) =
+    \ @ (ma5l::(*->*))
+      @ aa5m
+      @ ba5n
+      (wsqk::(base:GHCziBase.TZCMonad ma5l))
+      (w1sqr::aa5m -> ba5n -> (ma5l aa5m))
+      (w2sqs::aa5m)
+      (w3sqt::(ghczmprim:GHCziTypes.ZMZN ba5n)) ->
+        %case ((ma5l aa5m)) wsqk
+        %of (w4XrB::(base:GHCziBase.TZCMonad ma5l))
+          {base:GHCziBase.DZCMonad
+           (wwsqm::%forall a1adp b1adq . (ma5l a1adp) ->
+                                         (a1adp -> (ma5l b1adq)) -> (ma5l b1adq))
+           (ww1sqn::%forall a1afr b1afs . (ma5l a1afr) ->
+                                          (ma5l b1afs) -> (ma5l b1afs))
+           (ww2sqo::%forall a1adt . a1adt -> (ma5l a1adt))
+           (ww3sqp::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5l a1akw)) ->
+             base:ControlziMonad.zdwfoldM @ ma5l @ aa5m @ ba5n wwsqm ww2sqo
+             w1sqr w2sqs w3sqt};
+  base:ControlziMonad.zdwfoldMzu :: %forall (ma5i::(*->*)) aa5j ba5k . (%forall a1adp b1adq . (ma5i
+                                                                                               a1adp)
+                                                                                              ->
+                                                                                              (a1adp
+                                                                                               ->
+                                                                                               (ma5i
+                                                                                                b1adq))
+                                                                                              ->
+                                                                                              (ma5i
+                                                                                               b1adq))
+                                                                       ->
+                                                                       (%forall a1afr b1afs . (ma5i
+                                                                                               a1afr)
+                                                                                              ->
+                                                                                              (ma5i
+                                                                                               b1afs)
+                                                                                              ->
+                                                                                              (ma5i
+                                                                                               b1afs))
+                                                                       ->
+                                                                       (%forall a1adt . a1adt ->
+                                                                                        (ma5i
+                                                                                         a1adt))
+                                                                       ->
+                                                                       (aa5j -> ba5k -> (ma5i aa5j))
+                                                                       ->
+                                                                       aa5j ->
+                                                                       (ghczmprim:GHCziTypes.ZMZN
+                                                                        ba5k)
+                                                                       ->
+                                                                       (ma5i
+                                                                        ghczmprim:GHCziUnit.Z0T) =
+    \ @ (ma5i::(*->*))
+      @ aa5j
+      @ ba5k
+      (wwsqB::%forall a1adp b1adq . (ma5i a1adp) ->
+                                    (a1adp -> (ma5i b1adq)) -> (ma5i b1adq))
+      (ww1sqC::%forall a1afr b1afs . (ma5i a1afr) ->
+                                     (ma5i b1afs) -> (ma5i b1afs))
+      (ww2sqD::%forall a1adt . a1adt -> (ma5i a1adt))
+      (wsqG::aa5j -> ba5k -> (ma5i aa5j))
+      (w1sqH::aa5j)
+      (w2sqI::(ghczmprim:GHCziTypes.ZMZN ba5k)) ->
+        ww1sqC @ aa5j @ ghczmprim:GHCziUnit.Z0T
+        (base:ControlziMonad.zdwfoldM @ ma5i @ aa5j @ ba5k wwsqB ww2sqD
+         wsqG w1sqH w2sqI)
+        (ww2sqD @ ghczmprim:GHCziUnit.Z0T ghczmprim:GHCziUnit.Z0T);
+  base:ControlziMonad.foldMzu :: %forall (ma5i::(*->*)) aa5j ba5k . (base:GHCziBase.TZCMonad
+                                                                     ma5i)
+                                                                    ->
+                                                                    (aa5j -> ba5k -> (ma5i aa5j)) ->
+                                                                    aa5j ->
+                                                                    (ghczmprim:GHCziTypes.ZMZN ba5k)
+                                                                    ->
+                                                                    (ma5i ghczmprim:GHCziUnit.Z0T) =
+    \ @ (ma5i::(*->*))
+      @ aa5j
+      @ ba5k
+      (wsqzz::(base:GHCziBase.TZCMonad ma5i))
+      (w1sqG::aa5j -> ba5k -> (ma5i aa5j))
+      (w2sqH::aa5j)
+      (w3sqI::(ghczmprim:GHCziTypes.ZMZN ba5k)) ->
+        %case ((ma5i ghczmprim:GHCziUnit.Z0T)) wsqzz
+        %of (w4XrT::(base:GHCziBase.TZCMonad ma5i))
+          {base:GHCziBase.DZCMonad
+           (wwsqB::%forall a1adp b1adq . (ma5i a1adp) ->
+                                         (a1adp -> (ma5i b1adq)) -> (ma5i b1adq))
+           (ww1sqC::%forall a1afr b1afs . (ma5i a1afr) ->
+                                          (ma5i b1afs) -> (ma5i b1afs))
+           (ww2sqD::%forall a1adt . a1adt -> (ma5i a1adt))
+           (ww3sqE::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5i a1akw)) ->
+             base:ControlziMonad.zdwfoldMzu @ ma5i @ aa5j @ ba5k wwsqB ww1sqC
+             ww2sqD w1sqG w2sqH w3sqI};
+  base:ControlziMonad.zzipWithMzu :: %forall (ma5o::(*->*)) aa5p ba5q ca5r . (base:GHCziBase.TZCMonad
+                                                                              ma5o)
+                                                                             ->
+                                                                             (aa5p ->
+                                                                              ba5q -> (ma5o ca5r))
+                                                                             ->
+                                                                             (ghczmprim:GHCziTypes.ZMZN
+                                                                              aa5p)
+                                                                             ->
+                                                                             (ghczmprim:GHCziTypes.ZMZN
+                                                                              ba5q)
+                                                                             ->
+                                                                             (ma5o
+                                                                              ghczmprim:GHCziUnit.Z0T) =
+    \ @ (mahg::(*->*))
+      @ aahh
+      @ bahi
+      @ cahj
+      (zddMonadahk::(base:GHCziBase.TZCMonad mahg))
+      (fa6Q::aahh -> bahi -> (mahg cahj))
+      (xsa6R::(ghczmprim:GHCziTypes.ZMZN aahh))
+      (ysa6S::(ghczmprim:GHCziTypes.ZMZN bahi)) ->
+        base:GHCziList.foldr2 @ aahh @ bahi
+        @ ((mahg ghczmprim:GHCziUnit.Z0T))
+        (\ (xamd::aahh)
+           (yame::bahi)
+           (ramf::(mahg ghczmprim:GHCziUnit.Z0T)) ->
+             base:GHCziBase.zgzg @ mahg zddMonadahk @ cahj
+             @ ghczmprim:GHCziUnit.Z0T (fa6Q xamd yame) ramf)
+        (base:GHCziBase.return @ mahg zddMonadahk @ ghczmprim:GHCziUnit.Z0T
+         ghczmprim:GHCziUnit.Z0T)
+        xsa6R ysa6S;
+  base:ControlziMonad.zzipWithM :: %forall (ma5s::(*->*)) aa5t ba5u ca5v . (base:GHCziBase.TZCMonad
+                                                                            ma5s)
+                                                                           ->
+                                                                           (aa5t ->
+                                                                            ba5u -> (ma5s ca5v))
+                                                                           ->
+                                                                           (ghczmprim:GHCziTypes.ZMZN
+                                                                            aa5t)
+                                                                           ->
+                                                                           (ghczmprim:GHCziTypes.ZMZN
+                                                                            ba5u)
+                                                                           ->
+                                                                           (ma5s
+                                                                            ((ghczmprim:GHCziTypes.ZMZN
+                                                                              ca5v))) =
+    \ @ (maiw::(*->*))
+      @ aaix
+      @ baiy
+      @ caizz
+      (zddMonadaiA::(base:GHCziBase.TZCMonad maiw))
+      (fa6N::aaix -> baiy -> (maiw caizz))
+      (xsa6O::(ghczmprim:GHCziTypes.ZMZN aaix))
+      (ysa6P::(ghczmprim:GHCziTypes.ZMZN baiy)) ->
+        base:GHCziList.foldr2 @ aaix @ baiy
+        @ ((maiw ((ghczmprim:GHCziTypes.ZMZN caizz))))
+        (\ (xamd::aaix)
+           (yame::baiy)
+           (ramf::(maiw ((ghczmprim:GHCziTypes.ZMZN caizz)))) ->
+             base:GHCziBase.zgzgze @ maiw zddMonadaiA @ caizz
+             @ ((ghczmprim:GHCziTypes.ZMZN caizz)) (fa6N xamd yame)
+             (\ (x1a6l::caizz) ->
+                  base:GHCziBase.zgzgze @ maiw zddMonadaiA
+                  @ ((ghczmprim:GHCziTypes.ZMZN caizz))
+                  @ ((ghczmprim:GHCziTypes.ZMZN caizz)) ramf
+                  (\ (xs1a6m::(ghczmprim:GHCziTypes.ZMZN caizz)) ->
+                       base:GHCziBase.return @ maiw zddMonadaiA
+                       @ ((ghczmprim:GHCziTypes.ZMZN caizz))
+                       (ghczmprim:GHCziTypes.ZC @ caizz x1a6l xs1a6m))))
+        (base:GHCziBase.return @ maiw zddMonadaiA
+         @ ((ghczmprim:GHCziTypes.ZMZN caizz))
+         (ghczmprim:GHCziTypes.ZMZN @ caizz))
+        xsa6O ysa6P;
+  base:ControlziMonad.mapAndUnzzipM :: %forall (ma5w::(*->*)) aa5x ba5y ca5zz . (base:GHCziBase.TZCMonad
+                                                                                 ma5w)
+                                                                                ->
+                                                                                (aa5x ->
+                                                                                 (ma5w
+                                                                                  ((ghczmprim:GHCziTuple.Z2T
+                                                                                    ba5y
+                                                                                    ca5zz))))
+                                                                                ->
+                                                                                (ghczmprim:GHCziTypes.ZMZN
+                                                                                 aa5x)
+                                                                                ->
+                                                                                (ma5w
+                                                                                 ((ghczmprim:GHCziTuple.Z2T
+                                                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                                                     ba5y))
+                                                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                                                     ca5zz))))) =
+    \ @ (ma5w::(*->*))
+      @ aa5x
+      @ ba5y
+      @ ca5zz
+      (wsrv::(base:GHCziBase.TZCMonad ma5w))
+      (w1srC::aa5x -> (ma5w ((ghczmprim:GHCziTuple.Z2T ba5y ca5zz))))
+      (w2srD::(ghczmprim:GHCziTypes.ZMZN aa5x)) ->
+        %case ((ma5w
+                ((ghczmprim:GHCziTuple.Z2T
+                  ((ghczmprim:GHCziTypes.ZMZN ba5y))
+                  ((ghczmprim:GHCziTypes.ZMZN ca5zz)))))) wsrv
+        %of (w3XsS::(base:GHCziBase.TZCMonad ma5w))
+          {base:GHCziBase.DZCMonad
+           (wwsrx::%forall a1adp b1adq . (ma5w a1adp) ->
+                                         (a1adp -> (ma5w b1adq)) -> (ma5w b1adq))
+           (ww1sry::%forall a1afr b1afs . (ma5w a1afr) ->
+                                          (ma5w b1afs) -> (ma5w b1afs))
+           (ww2srzz::%forall a1adt . a1adt -> (ma5w a1adt))
+           (ww3srA::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5w a1akw)) ->
+             base:ControlziMonad.zdwmapAndUnzzipM @ ma5w @ aa5x @ ba5y @ ca5zz
+             wwsrx ww2srzz w1srC w2srD};
+  base:ControlziMonad.join :: %forall (ma5A::(*->*)) aa5B . (base:GHCziBase.TZCMonad
+                                                             ma5A)
+                                                            -> (ma5A ((ma5A aa5B))) -> (ma5A aa5B) =
+    \ @ (mafzz::(*->*))
+      @ aafA
+      (zddMonadafB::(base:GHCziBase.TZCMonad mafzz))
+      (xa6K::(mafzz ((mafzz aafA)))) ->
+        base:GHCziBase.zgzgze @ mafzz zddMonadafB @ ((mafzz aafA)) @ aafA
+        xa6K (base:GHCziBase.id @ ((mafzz aafA)));
+  base:ControlziMonad.void :: %forall (fa5C::(*->*)) aa5D . (base:GHCziBase.TZCFunctor
+                                                             fa5C)
+                                                            ->
+                                                            (fa5C aa5D) ->
+                                                            (fa5C ghczmprim:GHCziUnit.Z0T) =
+    \ @ (fafG::(*->*))
+      @ aafH
+      (zddFunctorafI::(base:GHCziBase.TZCFunctor fafG)) ->
+        base:GHCziBase.fmap @ fafG zddFunctorafI @ aafH
+        @ ghczmprim:GHCziUnit.Z0T (base:ControlziMonad.void1 @ aafH);
+  %rec
+  {base:ControlziMonad.zdwforever :: %forall (ma5E::(*->*)) aa5F ba5G . (%forall a1afr b1afs . (ma5E
+                                                                                                a1afr)
+                                                                                               ->
+                                                                                               (ma5E
+                                                                                                b1afs)
+                                                                                               ->
+                                                                                               (ma5E
+                                                                                                b1afs))
+                                                                        ->
+                                                                        (ma5E aa5F) -> (ma5E ba5G) =
+     \ @ (ma5E::(*->*))
+       @ aa5F
+       @ ba5G
+       (wwsqP::%forall a1afr b1afs . (ma5E a1afr) ->
+                                     (ma5E b1afs) -> (ma5E b1afs))
+       (wsqT::(ma5E aa5F)) ->
+         wwsqP @ aa5F @ ba5G wsqT
+         (base:ControlziMonad.zdwforever @ ma5E @ aa5F @ ba5G wwsqP wsqT)};
+  base:ControlziMonad.forever :: %forall (ma5E::(*->*)) aa5F ba5G . (base:GHCziBase.TZCMonad
+                                                                     ma5E)
+                                                                    -> (ma5E aa5F) -> (ma5E ba5G) =
+    \ @ (ma5E::(*->*))
+      @ aa5F
+      @ ba5G
+      (wsqM::(base:GHCziBase.TZCMonad ma5E))
+      (w1sqT::(ma5E aa5F)) ->
+        %case ((ma5E ba5G)) wsqM
+        %of (w2Xsa::(base:GHCziBase.TZCMonad ma5E))
+          {base:GHCziBase.DZCMonad
+           (wwsqO::%forall a1adp b1adq . (ma5E a1adp) ->
+                                         (a1adp -> (ma5E b1adq)) -> (ma5E b1adq))
+           (ww1sqP::%forall a1afr b1afs . (ma5E a1afr) ->
+                                          (ma5E b1afs) -> (ma5E b1afs))
+           (ww2sqQ::%forall a1adt . a1adt -> (ma5E a1adt))
+           (ww3sqR::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5E a1akw)) ->
+             base:ControlziMonad.zdwforever @ ma5E @ aa5F @ ba5G ww1sqP w1sqT};
+  base:ControlziMonad.zgzezg :: %forall (ma5L::(*->*)) aa5M ba5N ca5O . (base:GHCziBase.TZCMonad
+                                                                         ma5L)
+                                                                        ->
+                                                                        (aa5M -> (ma5L ba5N)) ->
+                                                                        (ba5N -> (ma5L ca5O)) ->
+                                                                        aa5M -> (ma5L ca5O) =
+    \ @ (mag0::(*->*))
+      @ aag1
+      @ bag2
+      @ cag3
+      (zddMonadag4::(base:GHCziBase.TZCMonad mag0))
+      (fa6G::aag1 -> (mag0 bag2))
+      (ga6H::bag2 -> (mag0 cag3))
+      (xa6I::aag1) ->
+        base:GHCziBase.zgzgze @ mag0 zddMonadag4 @ bag2 @ cag3 (fa6G xa6I)
+        ga6H;
+  base:ControlziMonad.zlzezl :: %forall (ma5H::(*->*)) ba5I ca5J aa5K . (base:GHCziBase.TZCMonad
+                                                                         ma5H)
+                                                                        ->
+                                                                        (ba5I -> (ma5H ca5J)) ->
+                                                                        (aa5K -> (ma5H ba5I)) ->
+                                                                        aa5K -> (ma5H ca5J) =
+    \ @ (mag9::(*->*))
+      @ baga
+      @ cagb
+      @ aagc
+      (zddMonadagd::(base:GHCziBase.TZCMonad mag9))
+      (etaB2::baga -> (mag9 cagb))
+      (eta1B1::aagc -> (mag9 baga)) ->
+        base:ControlziMonad.zgzezg @ mag9 @ aagc @ baga @ cagb zddMonadagd
+        eta1B1 etaB2;
+  base:ControlziMonad.msum :: %forall (ma5P::(*->*)) aa5Q . (base:ControlziMonad.TZCMonadPlus
+                                                             ma5P)
+                                                            ->
+                                                            (ghczmprim:GHCziTypes.ZMZN
+                                                             ((ma5P aa5Q)))
+                                                            -> (ma5P aa5Q) =
+    \ @ (magk::(*->*))
+      @ aagl
+      (zddMonadPlusagm::(base:ControlziMonad.TZCMonadPlus magk))
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN ((magk aagl)))) ->
+        %let zzstF :: (magk aagl) =
+               base:ControlziMonad.mzzero @ magk zddMonadPlusagm @ aagl
+        %in %let %rec
+                 {gostH :: (ghczmprim:GHCziTypes.ZMZN ((magk aagl))) ->
+                           (magk aagl) =
+                    \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN ((magk aagl)))) ->
+                        %case ((magk aagl)) dsakQ
+                        %of (wildakR::(ghczmprim:GHCziTypes.ZMZN ((magk aagl))))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             zzstF;
+                           ghczmprim:GHCziTypes.ZC
+                           (yakV::(magk aagl))
+                           (ysakW::(ghczmprim:GHCziTypes.ZMZN ((magk aagl)))) ->
+                             base:ControlziMonad.mplus @ magk zddMonadPlusagm @ aagl yakV
+                             (gostH ysakW)}}
+            %in gostH etaB1;
+  %rec
+  {base:ControlziMonad.zdwfilterM :: %forall (ma5X::(*->*)) aa5Y . (%forall a1adp badq . (ma5X
+                                                                                          a1adp)
+                                                                                         ->
+                                                                                         (a1adp ->
+                                                                                          (ma5X
+                                                                                           badq))
+                                                                                         ->
+                                                                                         (ma5X
+                                                                                          badq))
+                                                                   ->
+                                                                   (%forall a1adt . a1adt ->
+                                                                                    (ma5X a1adt))
+                                                                   ->
+                                                                   (aa5Y ->
+                                                                    (ma5X ghczmprim:GHCziBool.Bool))
+                                                                   ->
+                                                                   (ghczmprim:GHCziTypes.ZMZN aa5Y)
+                                                                   ->
+                                                                   (ma5X
+                                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                                      aa5Y))) =
+     \ @ (ma5X::(*->*))
+       @ aa5Y
+       (wwsr0::%forall a1adp badq . (ma5X a1adp) ->
+                                    (a1adp -> (ma5X badq)) -> (ma5X badq))
+       (ww1sr2::%forall a1adt . a1adt -> (ma5X a1adt))
+       (wsr5::aa5Y -> (ma5X ghczmprim:GHCziBool.Bool))
+       (w1sr6::(ghczmprim:GHCziTypes.ZMZN aa5Y)) ->
+         %case ((ma5X ((ghczmprim:GHCziTypes.ZMZN aa5Y)))) w1sr6
+         %of (wildB1::(ghczmprim:GHCziTypes.ZMZN aa5Y))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              ww1sr2 @ ((ghczmprim:GHCziTypes.ZMZN aa5Y))
+              (ghczmprim:GHCziTypes.ZMZN @ aa5Y);
+            ghczmprim:GHCziTypes.ZC
+            (xa6C::aa5Y) (xsa6D::(ghczmprim:GHCziTypes.ZMZN aa5Y)) ->
+              wwsr0 @ ghczmprim:GHCziBool.Bool
+              @ ((ghczmprim:GHCziTypes.ZMZN aa5Y)) (wsr5 xa6C)
+              (%let lvlstK :: (ma5X ((ghczmprim:GHCziTypes.ZMZN aa5Y))) =
+                      base:ControlziMonad.zdwfilterM @ ma5X @ aa5Y wwsr0 ww1sr2 wsr5
+                      xsa6D
+               %in \ (flga6E::ghczmprim:GHCziBool.Bool) ->
+                       wwsr0 @ ((ghczmprim:GHCziTypes.ZMZN aa5Y))
+                       @ ((ghczmprim:GHCziTypes.ZMZN aa5Y)) lvlstK
+                       (\ (ysa6F::(ghczmprim:GHCziTypes.ZMZN aa5Y)) ->
+                            ww1sr2 @ ((ghczmprim:GHCziTypes.ZMZN aa5Y))
+                            (%case ((ghczmprim:GHCziTypes.ZMZN aa5Y)) flga6E
+                             %of (wild1Xu::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  ysa6F;
+                                ghczmprim:GHCziBool.True ->
+                                  ghczmprim:GHCziTypes.ZC @ aa5Y xa6C ysa6F})))}};
+  base:ControlziMonad.filterM :: %forall (ma5X::(*->*)) aa5Y . (base:GHCziBase.TZCMonad
+                                                                ma5X)
+                                                               ->
+                                                               (aa5Y ->
+                                                                (ma5X ghczmprim:GHCziBool.Bool))
+                                                               ->
+                                                               (ghczmprim:GHCziTypes.ZMZN aa5Y) ->
+                                                               (ma5X
+                                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                                  aa5Y))) =
+    \ @ (ma5X::(*->*))
+      @ aa5Y
+      (wsqY::(base:GHCziBase.TZCMonad ma5X))
+      (w1sr5::aa5Y -> (ma5X ghczmprim:GHCziBool.Bool))
+      (w2sr6::(ghczmprim:GHCziTypes.ZMZN aa5Y)) ->
+        %case ((ma5X ((ghczmprim:GHCziTypes.ZMZN aa5Y)))) wsqY
+        %of (w3Xsr::(base:GHCziBase.TZCMonad ma5X))
+          {base:GHCziBase.DZCMonad
+           (wwsr0::%forall a1adp badq . (ma5X a1adp) ->
+                                        (a1adp -> (ma5X badq)) -> (ma5X badq))
+           (ww1sr1::%forall a1afr bafs . (ma5X a1afr) ->
+                                         (ma5X bafs) -> (ma5X bafs))
+           (ww2sr2::%forall a1adt . a1adt -> (ma5X a1adt))
+           (ww3sr3::%forall a1akw . (ghczmprim:GHCziTypes.ZMZN
+                                     ghczmprim:GHCziTypes.Char)
+                                    -> (ma5X a1akw)) ->
+             base:ControlziMonad.zdwfilterM @ ma5X @ aa5Y wwsr0 ww2sr2 w1sr5
+             w2sr6};
+  base:ControlziMonad.guard :: %forall (ma5ZZ::(*->*)) . (base:ControlziMonad.TZCMonadPlus
+                                                          ma5ZZ)
+                                                         ->
+                                                         ghczmprim:GHCziBool.Bool ->
+                                                         (ma5ZZ ghczmprim:GHCziUnit.Z0T) =
+    \ @ (magJ::(*->*))
+      (zddMonadPlusagK::(base:ControlziMonad.TZCMonadPlus magJ))
+      (etaB1::ghczmprim:GHCziBool.Bool) ->
+        %case ((magJ ghczmprim:GHCziUnit.Z0T)) etaB1
+        %of (wildX4::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             base:ControlziMonad.mzzero @ magJ zddMonadPlusagK
+             @ ghczmprim:GHCziUnit.Z0T;
+           ghczmprim:GHCziBool.True ->
+             base:GHCziBase.return @ magJ
+             (base:ControlziMonad.zdp1MonadPlus @ magJ zddMonadPlusagK)
+             @ ghczmprim:GHCziUnit.Z0T ghczmprim:GHCziUnit.Z0T};
+  base:ControlziMonad.mapMzu :: %forall (ma60::(*->*)) aa61 ba62 . (base:GHCziBase.TZCMonad
+                                                                    ma60)
+                                                                   ->
+                                                                   (aa61 -> (ma60 ba62)) ->
+                                                                   (ghczmprim:GHCziTypes.ZMZN aa61)
+                                                                   ->
+                                                                   (ma60 ghczmprim:GHCziUnit.Z0T) =
+    \ @ (mah0::(*->*))
+      @ aah1
+      @ bah2
+      (zddMonadah3::(base:GHCziBase.TZCMonad mah0))
+      (etaB2::aah1 -> (mah0 bah2))
+      (eta1B1::(ghczmprim:GHCziTypes.ZMZN aah1)) ->
+        %let zzstM :: (mah0 ghczmprim:GHCziUnit.Z0T) =
+               base:GHCziBase.return @ mah0 zddMonadah3 @ ghczmprim:GHCziUnit.Z0T
+               ghczmprim:GHCziUnit.Z0T
+        %in %let %rec
+                 {gostO :: (ghczmprim:GHCziTypes.ZMZN aah1) ->
+                           (mah0 ghczmprim:GHCziUnit.Z0T) =
+                    \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN aah1)) ->
+                        %case ((mah0 ghczmprim:GHCziUnit.Z0T)) dsakQ
+                        %of (wildakR::(ghczmprim:GHCziTypes.ZMZN aah1))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             zzstM;
+                           ghczmprim:GHCziTypes.ZC
+                           (yakV::aah1) (ysakW::(ghczmprim:GHCziTypes.ZMZN aah1)) ->
+                             base:GHCziBase.zgzg @ mah0 zddMonadah3 @ bah2
+                             @ ghczmprim:GHCziUnit.Z0T (etaB2 yakV) (gostO ysakW)}}
+            %in gostO eta1B1;
+  base:ControlziMonad.forMzu :: %forall (ma5R::(*->*)) aa5S ba5T . (base:GHCziBase.TZCMonad
+                                                                    ma5R)
+                                                                   ->
+                                                                   (ghczmprim:GHCziTypes.ZMZN aa5S)
+                                                                   ->
+                                                                   (aa5S -> (ma5R ba5T)) ->
+                                                                   (ma5R ghczmprim:GHCziUnit.Z0T) =
+    \ @ (mah9::(*->*))
+      @ aaha
+      @ bahb
+      (zddMonadahc::(base:GHCziBase.TZCMonad mah9))
+      (etaB2::(ghczmprim:GHCziTypes.ZMZN aaha))
+      (eta1B1::aaha -> (mah9 bahb)) ->
+        base:ControlziMonad.mapMzu @ mah9 @ aaha @ bahb zddMonadahc eta1B1
+        etaB2;
+  base:ControlziMonad.mapM :: %forall (ma63::(*->*)) aa64 ba65 . (base:GHCziBase.TZCMonad
+                                                                  ma63)
+                                                                 ->
+                                                                 (aa64 -> (ma63 ba65)) ->
+                                                                 (ghczmprim:GHCziTypes.ZMZN aa64) ->
+                                                                 (ma63
+                                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                                    ba65))) =
+    \ @ (mai1::(*->*))
+      @ aai2
+      @ bai3
+      (zddMonadai4::(base:GHCziBase.TZCMonad mai1))
+      (etaB2::aai2 -> (mai1 bai3))
+      (eta1B1::(ghczmprim:GHCziTypes.ZMZN aai2)) ->
+        %let zzstR :: (mai1 ((ghczmprim:GHCziTypes.ZMZN bai3))) =
+               base:GHCziBase.return @ mai1 zddMonadai4
+               @ ((ghczmprim:GHCziTypes.ZMZN bai3))
+               (ghczmprim:GHCziTypes.ZMZN @ bai3)
+        %in %let %rec
+                 {gostT :: (ghczmprim:GHCziTypes.ZMZN aai2) ->
+                           (mai1 ((ghczmprim:GHCziTypes.ZMZN bai3))) =
+                    \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN aai2)) ->
+                        %case ((mai1 ((ghczmprim:GHCziTypes.ZMZN bai3)))) dsakQ
+                        %of (wildakR::(ghczmprim:GHCziTypes.ZMZN aai2))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             zzstR;
+                           ghczmprim:GHCziTypes.ZC
+                           (yakV::aai2) (ysakW::(ghczmprim:GHCziTypes.ZMZN aai2)) ->
+                             base:GHCziBase.zgzgze @ mai1 zddMonadai4 @ bai3
+                             @ ((ghczmprim:GHCziTypes.ZMZN bai3)) (etaB2 yakV)
+                             (%let ys1stV :: (mai1 ((ghczmprim:GHCziTypes.ZMZN bai3))) =
+                                     gostT ysakW
+                              %in \ (xa6l::bai3) ->
+                                      base:GHCziBase.zgzgze @ mai1 zddMonadai4
+                                      @ ((ghczmprim:GHCziTypes.ZMZN bai3))
+                                      @ ((ghczmprim:GHCziTypes.ZMZN bai3)) ys1stV
+                                      (\ (xsa6m::(ghczmprim:GHCziTypes.ZMZN bai3)) ->
+                                           base:GHCziBase.return @ mai1 zddMonadai4
+                                           @ ((ghczmprim:GHCziTypes.ZMZN bai3))
+                                           (ghczmprim:GHCziTypes.ZC @ bai3 xa6l xsa6m)))}}
+            %in gostT eta1B1;
+  base:ControlziMonad.forM :: %forall (ma5U::(*->*)) aa5V ba5W . (base:GHCziBase.TZCMonad
+                                                                  ma5U)
+                                                                 ->
+                                                                 (ghczmprim:GHCziTypes.ZMZN aa5V) ->
+                                                                 (aa5V -> (ma5U ba5W)) ->
+                                                                 (ma5U
+                                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                                    ba5W))) =
+    \ @ (mai8::(*->*))
+      @ aai9
+      @ baia
+      (zddMonadaib::(base:GHCziBase.TZCMonad mai8))
+      (etaB2::(ghczmprim:GHCziTypes.ZMZN aai9))
+      (eta1B1::aai9 -> (mai8 baia)) ->
+        base:ControlziMonad.mapM @ mai8 @ aai9 @ baia zddMonadaib eta1B1
+        etaB2;
+  base:ControlziMonad.sequencezu :: %forall (ma66::(*->*)) aa67 . (base:GHCziBase.TZCMonad
+                                                                   ma66)
+                                                                  ->
+                                                                  (ghczmprim:GHCziTypes.ZMZN
+                                                                   ((ma66 aa67)))
+                                                                  ->
+                                                                  (ma66 ghczmprim:GHCziUnit.Z0T) =
+    \ @ (magR::(*->*))
+      @ aagS
+      (zddMonadagT::(base:GHCziBase.TZCMonad magR))
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN ((magR aagS)))) ->
+        %let zzsu0 :: (magR ghczmprim:GHCziUnit.Z0T) =
+               base:GHCziBase.return @ magR zddMonadagT @ ghczmprim:GHCziUnit.Z0T
+               ghczmprim:GHCziUnit.Z0T
+        %in %let %rec
+                 {gosu2 :: (ghczmprim:GHCziTypes.ZMZN ((magR aagS))) ->
+                           (magR ghczmprim:GHCziUnit.Z0T) =
+                    \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN ((magR aagS)))) ->
+                        %case ((magR ghczmprim:GHCziUnit.Z0T)) dsakQ
+                        %of (wildakR::(ghczmprim:GHCziTypes.ZMZN ((magR aagS))))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             zzsu0;
+                           ghczmprim:GHCziTypes.ZC
+                           (yakV::(magR aagS))
+                           (ysakW::(ghczmprim:GHCziTypes.ZMZN ((magR aagS)))) ->
+                             base:GHCziBase.zgzg @ magR zddMonadagT @ aagS
+                             @ ghczmprim:GHCziUnit.Z0T yakV (gosu2 ysakW)}}
+            %in gosu2 etaB1;
+  base:ControlziMonad.sequence :: %forall (ma68::(*->*)) aa69 . (base:GHCziBase.TZCMonad
+                                                                 ma68)
+                                                                ->
+                                                                (ghczmprim:GHCziTypes.ZMZN
+                                                                 ((ma68 aa69)))
+                                                                ->
+                                                                (ma68
+                                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                                   aa69))) =
+    \ @ (mahy::(*->*))
+      @ aahzz
+      (zddMonadahA::(base:GHCziBase.TZCMonad mahy))
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN ((mahy aahzz)))) ->
+        %let zzsu5 :: (mahy ((ghczmprim:GHCziTypes.ZMZN aahzz))) =
+               base:GHCziBase.return @ mahy zddMonadahA
+               @ ((ghczmprim:GHCziTypes.ZMZN aahzz))
+               (ghczmprim:GHCziTypes.ZMZN @ aahzz)
+        %in %let %rec
+                 {gosu7 :: (ghczmprim:GHCziTypes.ZMZN ((mahy aahzz))) ->
+                           (mahy ((ghczmprim:GHCziTypes.ZMZN aahzz))) =
+                    \ (dsakQ::(ghczmprim:GHCziTypes.ZMZN ((mahy aahzz)))) ->
+                        %case ((mahy ((ghczmprim:GHCziTypes.ZMZN aahzz)))) dsakQ
+                        %of (wildakR::(ghczmprim:GHCziTypes.ZMZN ((mahy aahzz))))
+                          {ghczmprim:GHCziTypes.ZMZN ->
+                             zzsu5;
+                           ghczmprim:GHCziTypes.ZC
+                           (yakV::(mahy aahzz))
+                           (ysakW::(ghczmprim:GHCziTypes.ZMZN ((mahy aahzz)))) ->
+                             base:GHCziBase.zgzgze @ mahy zddMonadahA @ aahzz
+                             @ ((ghczmprim:GHCziTypes.ZMZN aahzz)) yakV
+                             (%let mzqsu9 :: (mahy ((ghczmprim:GHCziTypes.ZMZN aahzz))) =
+                                     gosu7 ysakW
+                              %in \ (xa6l::aahzz) ->
+                                      base:GHCziBase.zgzgze @ mahy zddMonadahA
+                                      @ ((ghczmprim:GHCziTypes.ZMZN aahzz))
+                                      @ ((ghczmprim:GHCziTypes.ZMZN aahzz)) mzqsu9
+                                      (\ (xsa6m::(ghczmprim:GHCziTypes.ZMZN aahzz)) ->
+                                           base:GHCziBase.return @ mahy zddMonadahA
+                                           @ ((ghczmprim:GHCziTypes.ZMZN aahzz))
+                                           (ghczmprim:GHCziTypes.ZC @ aahzz xa6l xsa6m)))}}
+            %in gosu7 etaB1;
+  base:ControlziMonad.zezlzlzuzezlzl :: %forall aaiV baiW . (aaiV ->
+                                                             (ghczmprim:GHCziTypes.ZMZN baiW))
+                                                            ->
+                                                            (ghczmprim:GHCziTypes.ZMZN aaiV) ->
+                                                            (ghczmprim:GHCziTypes.ZMZN baiW) =
+    \ @ aaiV
+      @ baiW
+      (fa6f::aaiV -> (ghczmprim:GHCziTypes.ZMZN baiW))
+      (xa6g::(ghczmprim:GHCziTypes.ZMZN aaiV)) ->
+        base:GHCziBase.zdfMonadZMZNzuzdczgzgze @ aaiV @ baiW xa6g fa6f;
+  base:ControlziMonad.zezlzl :: %forall (ma6a::(*->*)) aa6b ba6c . (base:GHCziBase.TZCMonad
+                                                                    ma6a)
+                                                                   ->
+                                                                   (aa6b -> (ma6a ba6c)) ->
+                                                                   (ma6a aa6b) -> (ma6a ba6c) =
+    \ @ (maiK::(*->*))
+      @ aaiL
+      @ baiM
+      (zddMonadaiN::(base:GHCziBase.TZCMonad maiK))
+      (fa6f::aaiL -> (maiK baiM))
+      (xa6g::(maiK aaiL)) ->
+        base:GHCziBase.zgzgze @ maiK zddMonadaiN @ aaiL @ baiM xa6g fa6f;
+  base:ControlziMonad.zdfMonadPlusMaybezuzdcmplus :: %forall aa4H . (base:DataziMaybe.Maybe
+                                                                     aa4H)
+                                                                    ->
+                                                                    (base:DataziMaybe.Maybe aa4H) ->
+                                                                    (base:DataziMaybe.Maybe aa4H) =
+    \ @ aaj8
+      (dsdks::(base:DataziMaybe.Maybe aaj8))
+      (ysa7M::(base:DataziMaybe.Maybe aaj8)) ->
+        %case ((base:DataziMaybe.Maybe aaj8)) dsdks
+        %of (wildB1::(base:DataziMaybe.Maybe aaj8))
+          {base:DataziMaybe.Nothing ->
+             ysa7M;
+           base:DataziMaybe.Just (ipvsnW::aaj8) ->
+             wildB1};
+  base:ControlziMonad.zdfMonadPlusMaybe :: (base:ControlziMonad.TZCMonadPlus
+                                            base:DataziMaybe.Maybe) =
+    base:ControlziMonad.DZCMonadPlus @ base:DataziMaybe.Maybe
+    base:DataziMaybe.zdfMonadMaybe base:DataziMaybe.Nothing
+    base:ControlziMonad.zdfMonadPlusMaybezuzdcmplus;

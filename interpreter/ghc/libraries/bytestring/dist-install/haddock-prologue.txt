@@ -1,0 +1,9 @@
+A time and space-efficient implementation of byte vectors using
+packed Word8 arrays, suitable for high performance use, both in terms
+of large data quantities, or high speed requirements. Byte vectors
+are encoded as strict 'Word8' arrays of bytes, and lazy lists of
+strict chunks, held in a 'ForeignPtr', and can be passed between C
+and Haskell with little effort.
+
+Test coverage data for this library is available at:
+<http://code.haskell.org/~dons/tests/bytestring/hpc_index.html>

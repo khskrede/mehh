@@ -1,0 +1,4 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/bin-package-db/dist-boot/build/Distribution/InstalledPackageInfo/Binary.o : libraries/bin-package-db/Distribution/InstalledPackageInfo/Binary.hs
+# DO NOT DELETE: End of Haskell dependencies
+libraries/bin-package-db_dist-boot_depfile_haskell_EXISTS = YES

@@ -526,7 +526,10 @@ def make_partial_app(app, newargs):
             args.append(arg)
         func = app.getfunction()
     else:
-        raise NotImplementedError("Argument must be either AbstractFunction or PartialApp, was:" + repr(app))
+        arity = 0
+        args = []
+        func = app
+        #raise NotImplementedError("Argument must be either AbstractFunction or PartialApp, was:" + repr(app))
    
     print len(args), "<", arity
     print repr(func)

@@ -1,0 +1,2826 @@
+%module base:TextziParserCombinatorsziReadP
+  %newtype base:TextziParserCombinatorsziReadP.ReadP base:TextziParserCombinatorsziReadP.NTCoZCReadP aa5x
+    = %forall ba5y . (aa5x ->
+                      (base:TextziParserCombinatorsziReadP.P ba5y))
+                     -> (base:TextziParserCombinatorsziReadP.P ba5y);
+  %data base:TextziParserCombinatorsziReadP.P aa5zz =
+    {base:TextziParserCombinatorsziReadP.Get (ghczmprim:GHCziTypes.Char
+                                              -> (base:TextziParserCombinatorsziReadP.P aa5zz));
+     base:TextziParserCombinatorsziReadP.Look ((ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char)
+                                               -> (base:TextziParserCombinatorsziReadP.P aa5zz));
+     base:TextziParserCombinatorsziReadP.Fail;
+     base:TextziParserCombinatorsziReadP.Result aa5zz
+                                                ((base:TextziParserCombinatorsziReadP.P aa5zz));
+     base:TextziParserCombinatorsziReadP.Final ((ghczmprim:GHCziTypes.ZMZN
+                                                 ((ghczmprim:GHCziTuple.Z2T
+                                                   aa5zz
+                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                     ghczmprim:GHCziTypes.Char))))))};
+  base:TextziParserCombinatorsziReadP.count1 :: %forall aa60 bXse . ((ghczmprim:GHCziTypes.ZMZN
+                                                                      aa60)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                      bXse))
+                                                                    ->
+                                                                    (base:TextziParserCombinatorsziReadP.P
+                                                                     bXse) =
+    \ @ aa60
+      @ bXse
+      (kXgC::(ghczmprim:GHCziTypes.ZMZN aa60) ->
+             (base:TextziParserCombinatorsziReadP.P bXse)) ->
+        kXgC (ghczmprim:GHCziTypes.ZMZN @ aa60);
+  base:TextziParserCombinatorsziReadP.zdwcount :: %forall aa60 . ghczmprim:GHCziPrim.Intzh
+                                                                 ->
+                                                                 (base:TextziParserCombinatorsziReadP.ReadP
+                                                                  aa60)
+                                                                 ->
+                                                                 %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                  aa60)
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  ba5y))
+                                                                                ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y) =
+    \ @ aa60
+      (wwsF7::ghczmprim:GHCziPrim.Intzh)
+      (wsF9::(base:TextziParserCombinatorsziReadP.ReadP aa60)) ->
+        %case (%forall ba5y . ((ghczmprim:GHCziTypes.ZMZN aa60) ->
+                               (base:TextziParserCombinatorsziReadP.P ba5y))
+                              ->
+                              (base:TextziParserCombinatorsziReadP.P
+                               ba5y)) (ghczmprim:GHCziPrim.zlzezh wwsF7
+                                       (0::ghczmprim:GHCziPrim.Intzh))
+        %of (wild1axt::ghczmprim:GHCziBool.Bool)
+          {ghczmprim:GHCziBool.False ->
+             %let lvl3sGl :: %forall bX89 . ((ghczmprim:GHCziTypes.ZMZN aa60) ->
+                                             (base:TextziParserCombinatorsziReadP.P bX89))
+                                            -> (base:TextziParserCombinatorsziReadP.P bX89) =
+                    \ @ bX89
+                      (etaX2D::(ghczmprim:GHCziTypes.ZMZN aa60) ->
+                               (base:TextziParserCombinatorsziReadP.P bX89)) ->
+                        (%cast (wsF9)
+                         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aa60)))
+                        @ bX89
+                        (\ (a2ae0::aa60) ->
+                             etaX2D
+                             (ghczmprim:GHCziTypes.ZC @ aa60 a2ae0
+                              (ghczmprim:GHCziTypes.ZMZN @ aa60)))
+             %in %let %rec
+                      {xssFi :: ghczmprim:GHCziPrim.Intzh ->
+                                (base:TextziParserCombinatorsziReadP.ReadP
+                                 ((ghczmprim:GHCziTypes.ZMZN aa60))) =
+                         \ (maBzz::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ((base:TextziParserCombinatorsziReadP.ReadP
+                                     ((ghczmprim:GHCziTypes.ZMZN
+                                       aa60)))) (ghczmprim:GHCziPrim.zlzezh maBzz
+                                                 (1::ghczmprim:GHCziPrim.Intzh))
+                             %of (wildaBA::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  %let mzqsFk :: (base:TextziParserCombinatorsziReadP.ReadP
+                                                  ((ghczmprim:GHCziTypes.ZMZN aa60))) =
+                                         xssFi
+                                         (ghczmprim:GHCziPrim.zmzh maBzz
+                                          (1::ghczmprim:GHCziPrim.Intzh))
+                                  %in %cast (\ @ bX8a
+                                               (etaX2E::(ghczmprim:GHCziTypes.ZMZN aa60) ->
+                                                        (base:TextziParserCombinatorsziReadP.P
+                                                         bX8a)) ->
+                                                 (%cast (wsF9)
+                                                  ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                                    aa60)))
+                                                 @ bX8a
+                                                 (\ (a2ae0::aa60) ->
+                                                      (%cast (mzqsFk)
+                                                       ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                                         ((ghczmprim:GHCziTypes.ZMZN aa60)))))
+                                                      @ bX8a
+                                                      (\ (a3XgR::(ghczmprim:GHCziTypes.ZMZN
+                                                                  aa60)) ->
+                                                           etaX2E
+                                                           (ghczmprim:GHCziTypes.ZC @ aa60 a2ae0
+                                                            a3XgR))))
+                                      (%sym
+                                       ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                         ((ghczmprim:GHCziTypes.ZMZN aa60)))));
+                                ghczmprim:GHCziBool.True ->
+                                  %cast (lvl3sGl)
+                                  (%sym
+                                   ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                     ((ghczmprim:GHCziTypes.ZMZN aa60)))))}}
+                 %in %cast (xssFi wwsF7)
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                       ((ghczmprim:GHCziTypes.ZMZN aa60))));
+           ghczmprim:GHCziBool.True ->
+             base:TextziParserCombinatorsziReadP.count1 @ aa60};
+  base:TextziParserCombinatorsziReadP.eof1 :: %forall bXtv . (ghczmprim:GHCziUnit.Z0T
+                                                              ->
+                                                              (base:TextziParserCombinatorsziReadP.P
+                                                               bXtv))
+                                                             ->
+                                                             (base:TextziParserCombinatorsziReadP.P
+                                                              bXtv) =
+    \ @ bXtv
+      (kXi8::ghczmprim:GHCziUnit.Z0T ->
+             (base:TextziParserCombinatorsziReadP.P bXtv)) ->
+        base:TextziParserCombinatorsziReadP.Look @ bXtv
+        (%let lvl3sGn :: (base:TextziParserCombinatorsziReadP.P bXtv) =
+                kXi8 ghczmprim:GHCziUnit.Z0T
+         %in \ (a2ae0::(ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char)) ->
+                 %case ((base:TextziParserCombinatorsziReadP.P bXtv)) a2ae0
+                 %of (wilday9::(ghczmprim:GHCziTypes.ZMZN
+                                ghczmprim:GHCziTypes.Char))
+                   {ghczmprim:GHCziTypes.ZMZN ->
+                      lvl3sGn;
+                    ghczmprim:GHCziTypes.ZC
+                    (ds1ayc::ghczmprim:GHCziTypes.Char)
+                    (ds2ayd::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                      base:TextziParserCombinatorsziReadP.Fail @ bXtv});
+  base:TextziParserCombinatorsziReadP.munch3 :: %forall bXwS . ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                 bXwS))
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                bXwS) =
+    \ @ bXwS
+      (kXlh::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+             (base:TextziParserCombinatorsziReadP.P bXwS)) ->
+        kXlh (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char);
+  arIw :: %forall bXwg . (ghczmprim:GHCziUnit.Z0T ->
+                          (base:TextziParserCombinatorsziReadP.P bXwg))
+                         -> (base:TextziParserCombinatorsziReadP.P bXwg) =
+    \ @ bXwg
+      (kXkF::ghczmprim:GHCziUnit.Z0T ->
+             (base:TextziParserCombinatorsziReadP.P bXwg)) ->
+        kXkF ghczmprim:GHCziUnit.Z0T;
+  lvlrIy :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    base:GHCziBase.unpackCStringzh
+    ("do not use readS_to_P in gather!"::ghczmprim:GHCziPrim.Addrzh);
+  lvl1rIA :: %forall bakT . (base:TextziParserCombinatorsziReadP.P
+                             bakT) =
+    \ @ bakT ->
+        base:GHCziErr.error
+        @ ((base:TextziParserCombinatorsziReadP.P bakT)) lvlrIy;
+  lvl2rIC :: %forall aaq5 . (base:TextziParserCombinatorsziReadP.P
+                             aaq5) =
+    \ @ aaq5 ->
+        base:ControlziExceptionziBase.patError
+        @ ((base:TextziParserCombinatorsziReadP.P aaq5))
+        ("libraries/base/Text/ParserCombinators/ReadP.hs:(128,3)-(151,60)|function mplus"::ghczmprim:GHCziPrim.Addrzh);
+  base:TextziParserCombinatorsziReadP.zdgfromP2 :: %forall aajL . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                   ghczmprim:GHCziGenerics.Unit
+                                                                   ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                     ((ghczmprim:GHCziGenerics.ZCztZC
+                                                                       aajL
+                                                                       ((base:TextziParserCombinatorsziReadP.P
+                                                                         aajL))))
+                                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                                       ((ghczmprim:GHCziTuple.Z2T
+                                                                         aajL
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))))))))) =
+    \ @ aajL ->
+        ghczmprim:GHCziGenerics.Inl @ ghczmprim:GHCziGenerics.Unit
+        @ ((ghczmprim:GHCziGenerics.ZCzpZC
+            ((ghczmprim:GHCziGenerics.ZCztZC
+              aajL
+              ((base:TextziParserCombinatorsziReadP.P aajL))))
+            ((ghczmprim:GHCziTypes.ZMZN
+              ((ghczmprim:GHCziTuple.Z2T
+                aajL
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))
+        ghczmprim:GHCziGenerics.Unit;
+  base:TextziParserCombinatorsziReadP.zdgfromP1 :: %forall aajL . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                   ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                     (ghczmprim:GHCziTypes.Char ->
+                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                       aajL))
+                                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                                       ghczmprim:GHCziTypes.Char)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                       aajL))))
+                                                                   ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                     ghczmprim:GHCziGenerics.Unit
+                                                                     ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                       ((ghczmprim:GHCziGenerics.ZCztZC
+                                                                         aajL
+                                                                         ((base:TextziParserCombinatorsziReadP.P
+                                                                           aajL))))
+                                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                                         ((ghczmprim:GHCziTuple.Z2T
+                                                                           aajL
+                                                                           ((ghczmprim:GHCziTypes.ZMZN
+                                                                             ghczmprim:GHCziTypes.Char))))))))))) =
+    \ @ aajL ->
+        ghczmprim:GHCziGenerics.Inr
+        @ ((ghczmprim:GHCziGenerics.ZCzpZC
+            (ghczmprim:GHCziTypes.Char ->
+             (base:TextziParserCombinatorsziReadP.P aajL))
+            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+             (base:TextziParserCombinatorsziReadP.P aajL))))
+        @ ((ghczmprim:GHCziGenerics.ZCzpZC
+            ghczmprim:GHCziGenerics.Unit
+            ((ghczmprim:GHCziGenerics.ZCzpZC
+              ((ghczmprim:GHCziGenerics.ZCztZC
+                aajL
+                ((base:TextziParserCombinatorsziReadP.P aajL))))
+              ((ghczmprim:GHCziTypes.ZMZN
+                ((ghczmprim:GHCziTuple.Z2T
+                  aajL
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+        (base:TextziParserCombinatorsziReadP.zdgfromP2 @ aajL);
+  %rec
+  {base:TextziParserCombinatorsziReadP.zlzpzpzudiscard :: ghczmprim:GHCziPrim.Intzh
+                                                          ->
+                                                          (base:TextziParserCombinatorsziReadP.ReadP
+                                                           ghczmprim:GHCziUnit.Z0T) =
+     \ (dsdsQ::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((base:TextziParserCombinatorsziReadP.ReadP
+                 ghczmprim:GHCziUnit.Z0T)) dsdsQ
+         %of (ds1Xto::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              %let ksFq :: (base:TextziParserCombinatorsziReadP.ReadP
+                            ghczmprim:GHCziUnit.Z0T) =
+                     base:TextziParserCombinatorsziReadP.zlzpzpzudiscard
+                     (ghczmprim:GHCziPrim.zmzh ds1Xto (1::ghczmprim:GHCziPrim.Intzh))
+              %in %cast (\ @ bapn
+                           (k1adZZ::ghczmprim:GHCziUnit.Z0T ->
+                                    (base:TextziParserCombinatorsziReadP.P bapn)) ->
+                             base:TextziParserCombinatorsziReadP.Get @ bapn
+                             (%let lvl3sGp :: (base:TextziParserCombinatorsziReadP.P bapn) =
+                                     (%cast (ksFq)
+                                      ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                        ghczmprim:GHCziUnit.Z0T)))
+                                     @ bapn k1adZZ
+                              %in \ (a2ae0::ghczmprim:GHCziTypes.Char) -> lvl3sGp))
+                  (%sym
+                   ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                     ghczmprim:GHCziUnit.Z0T)));
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              %cast (arIw)
+              (%sym
+               ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                 ghczmprim:GHCziUnit.Z0T)))}};
+  base:TextziParserCombinatorsziReadP.char1 :: ghczmprim:GHCziTypes.Char
+                                               ->
+                                               %forall ba5y . (ghczmprim:GHCziTypes.Char ->
+                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                ba5y))
+                                                              ->
+                                                              (base:TextziParserCombinatorsziReadP.P
+                                                               ba5y) =
+    \ (ca74::ghczmprim:GHCziTypes.Char)
+      @ ba5y
+      (etaX2M::ghczmprim:GHCziTypes.Char ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Get @ ba5y
+        (\ (a2ae0::ghczmprim:GHCziTypes.Char) ->
+             %case ((base:TextziParserCombinatorsziReadP.P ba5y)) ca74
+             %of (wildaxZZ::ghczmprim:GHCziTypes.Char)
+               {ghczmprim:GHCziTypes.Czh (c1ay1::ghczmprim:GHCziPrim.Charzh) ->
+                  %case ((base:TextziParserCombinatorsziReadP.P ba5y)) a2ae0
+                  %of (wild1ay3::ghczmprim:GHCziTypes.Char)
+                    {ghczmprim:GHCziTypes.Czh (c2ay5::ghczmprim:GHCziPrim.Charzh) ->
+                       %case ((base:TextziParserCombinatorsziReadP.P
+                               ba5y)) (ghczmprim:GHCziPrim.eqCharzh c1ay1 c2ay5)
+                       %of (wild2X2L::ghczmprim:GHCziBool.Bool)
+                         {ghczmprim:GHCziBool.False ->
+                            base:TextziParserCombinatorsziReadP.Fail @ ba5y;
+                          ghczmprim:GHCziBool.True ->
+                            etaX2M wild1ay3}}});
+  base:TextziParserCombinatorsziReadP.satisfy1 :: (ghczmprim:GHCziTypes.Char
+                                                   -> ghczmprim:GHCziBool.Bool)
+                                                  ->
+                                                  %forall ba5y . (ghczmprim:GHCziTypes.Char ->
+                                                                  (base:TextziParserCombinatorsziReadP.P
+                                                                   ba5y))
+                                                                 ->
+                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                  ba5y) =
+    \ (pa72::ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool)
+      @ ba5y
+      (etaX2J::ghczmprim:GHCziTypes.Char ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Get @ ba5y
+        (\ (a2ae0::ghczmprim:GHCziTypes.Char) ->
+             %case ((base:TextziParserCombinatorsziReadP.P ba5y)) (pa72 a2ae0)
+             %of (wildX2L::ghczmprim:GHCziBool.Bool)
+               {ghczmprim:GHCziBool.False ->
+                  base:TextziParserCombinatorsziReadP.Fail @ ba5y;
+                ghczmprim:GHCziBool.True ->
+                  etaX2J a2ae0});
+  base:TextziParserCombinatorsziReadP.string1 :: (ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char)
+                                                 ->
+                                                 %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char)
+                                                                 ->
+                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                  ba5y))
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                 ba5y) =
+    \ (thisa76::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      @ ba5y
+      (etaX2G::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Look @ ba5y
+        (%let %rec
+              {a2sFt :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                        (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                        %forall b1X8v . ((ghczmprim:GHCziTypes.ZMZN
+                                          ghczmprim:GHCziTypes.Char)
+                                         -> (base:TextziParserCombinatorsziReadP.P b1X8v))
+                                        -> (base:TextziParserCombinatorsziReadP.P b1X8v) =
+                 \ (dsdsU::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   (ds1dsV::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   @ b1X8v
+                   (eta1B1::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                            (base:TextziParserCombinatorsziReadP.P b1X8v)) ->
+                     %case ((base:TextziParserCombinatorsziReadP.P b1X8v)) dsdsU
+                     %of (wildX2N::(ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char))
+                       {ghczmprim:GHCziTypes.ZMZN ->
+                          eta1B1 thisa76;
+                        ghczmprim:GHCziTypes.ZC
+                        (xa78::ghczmprim:GHCziTypes.Char)
+                        (xsa79::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                          %case ((base:TextziParserCombinatorsziReadP.P b1X8v)) ds1dsV
+                          %of (wild1X10::(ghczmprim:GHCziTypes.ZMZN
+                                          ghczmprim:GHCziTypes.Char))
+                            {ghczmprim:GHCziTypes.ZMZN ->
+                               base:TextziParserCombinatorsziReadP.Fail @ b1X8v;
+                             ghczmprim:GHCziTypes.ZC
+                             (ya7a::ghczmprim:GHCziTypes.Char)
+                             (ysa7b::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                               %case ((base:TextziParserCombinatorsziReadP.P b1X8v)) xa78
+                               %of (wild2axZZ::ghczmprim:GHCziTypes.Char)
+                                 {ghczmprim:GHCziTypes.Czh (c1ay1::ghczmprim:GHCziPrim.Charzh) ->
+                                    %case ((base:TextziParserCombinatorsziReadP.P b1X8v)) ya7a
+                                    %of (wild3ay3::ghczmprim:GHCziTypes.Char)
+                                      {ghczmprim:GHCziTypes.Czh
+                                       (c2ay5::ghczmprim:GHCziPrim.Charzh) ->
+                                         %case ((base:TextziParserCombinatorsziReadP.P
+                                                 b1X8v)) (ghczmprim:GHCziPrim.eqCharzh c1ay1 c2ay5)
+                                         %of (wild4X13::ghczmprim:GHCziBool.Bool)
+                                           {ghczmprim:GHCziBool.False ->
+                                              base:TextziParserCombinatorsziReadP.Fail @ b1X8v;
+                                            ghczmprim:GHCziBool.True ->
+                                              base:TextziParserCombinatorsziReadP.Get @ b1X8v
+                                              (%let lvl3sGq :: (base:TextziParserCombinatorsziReadP.P
+                                                                b1X8v) =
+                                                      a2sFt xsa79 ysa7b @ b1X8v eta1B1
+                                               %in \ (a3ae0::ghczmprim:GHCziTypes.Char) ->
+                                                       lvl3sGq)}}}}}}
+         %in \ (a3ae0::(ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char)) ->
+                 a2sFt thisa76 a3ae0 @ ba5y etaX2G);
+  base:TextziParserCombinatorsziReadP.munch2 :: (ghczmprim:GHCziTypes.Char
+                                                 -> ghczmprim:GHCziBool.Bool)
+                                                ->
+                                                %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                 ba5y))
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                ba5y) =
+    \ (pacP::ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool)
+      @ ba5y
+      (etaX2A::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Look @ ba5y
+        (%let %rec
+              {scansFw :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                          ->
+                          (base:TextziParserCombinatorsziReadP.ReadP
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))) =
+                 \ (dsdt2::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                     %case ((base:TextziParserCombinatorsziReadP.ReadP
+                             ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) dsdt2
+                     %of (wildX2F::(ghczmprim:GHCziTypes.ZMZN
+                                    ghczmprim:GHCziTypes.Char))
+                       {ghczmprim:GHCziTypes.ZMZN ->
+                          %cast (base:TextziParserCombinatorsziReadP.munch3)
+                          (%sym
+                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                             ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+                        ghczmprim:GHCziTypes.ZC
+                        (cacR::ghczmprim:GHCziTypes.Char)
+                        (csacS::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                          %case ((base:TextziParserCombinatorsziReadP.ReadP
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))) (pacP
+                                                                                             cacR)
+                          %of (wild1XV::ghczmprim:GHCziBool.Bool)
+                            {ghczmprim:GHCziBool.False ->
+                               %cast (base:TextziParserCombinatorsziReadP.munch3)
+                               (%sym
+                                ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+                             ghczmprim:GHCziBool.True ->
+                               %let ds1sFy :: (base:TextziParserCombinatorsziReadP.ReadP
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))) =
+                                      scansFw csacS
+                               %in %cast (\ @ b1Xtw
+                                            (kXi9::(ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char)
+                                                   ->
+                                                   (base:TextziParserCombinatorsziReadP.P b1Xtw)) ->
+                                              base:TextziParserCombinatorsziReadP.Get @ b1Xtw
+                                              (%let lvl3sGr :: (base:TextziParserCombinatorsziReadP.P
+                                                                b1Xtw) =
+                                                      (%cast (ds1sFy)
+                                                       ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                           ghczmprim:GHCziTypes.Char)))))
+                                                      @ b1Xtw
+                                                      (\ (a2Xid::(ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char)) ->
+                                                           kXi9
+                                                           (ghczmprim:GHCziTypes.ZC
+                                                            @ ghczmprim:GHCziTypes.Char cacR a2Xid))
+                                               %in \ (a2ae0::ghczmprim:GHCziTypes.Char) -> lvl3sGr))
+                                   (%sym
+                                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))}}}
+         %in \ (a2ae0::(ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char)) ->
+                 (%cast (scansFw a2ae0)
+                  ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                 @ ba5y etaX2A);
+  base:TextziParserCombinatorsziReadP.munch4 :: (ghczmprim:GHCziTypes.Char
+                                                 -> ghczmprim:GHCziBool.Bool)
+                                                ->
+                                                %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                 ba5y))
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                ba5y) =
+    \ (pacV::ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool)
+      @ ba5y
+      (etaX2D::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Get @ ba5y
+        (\ (a2ae0::ghczmprim:GHCziTypes.Char) ->
+             %case ((base:TextziParserCombinatorsziReadP.P ba5y)) (pacV a2ae0)
+             %of (wildX2F::ghczmprim:GHCziBool.Bool)
+               {ghczmprim:GHCziBool.False ->
+                  base:TextziParserCombinatorsziReadP.Fail @ ba5y;
+                ghczmprim:GHCziBool.True ->
+                  base:TextziParserCombinatorsziReadP.munch2 pacV @ ba5y
+                  (\ (a3Xi1::(ghczmprim:GHCziTypes.ZMZN
+                              ghczmprim:GHCziTypes.Char)) ->
+                       etaX2D
+                       (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char a2ae0
+                        a3Xi1))});
+  base:TextziParserCombinatorsziReadP.between1 :: %forall openakt closeaku aakv . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   openakt)
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   closeaku)
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   aakv)
+                                                                                  ->
+                                                                                  %forall ba5y . (aakv
+                                                                                                  ->
+                                                                                                  (base:TextziParserCombinatorsziReadP.P
+                                                                                                   ba5y))
+                                                                                                 ->
+                                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                                  ba5y) =
+    \ @ openakt
+      @ closeaku
+      @ aakv
+      (openad7::(base:TextziParserCombinatorsziReadP.ReadP openakt))
+      (closead8::(base:TextziParserCombinatorsziReadP.ReadP closeaku))
+      (pad9::(base:TextziParserCombinatorsziReadP.ReadP aakv))
+      @ ba5y
+      (etaX21::aakv -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (openad7)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP openakt)))
+        @ ba5y
+        (%let lvl3sGs :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+                (%cast (pad9)
+                 ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aakv)))
+                @ ba5y
+                (\ (a2XgW::aakv) ->
+                     (%cast (closead8)
+                      ((base:TextziParserCombinatorsziReadP.NTCoZCReadP closeaku)))
+                     @ ba5y
+                     (%let lvl4sGt :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+                             etaX21 a2XgW
+                      %in \ (a3XgT::closeaku) -> lvl4sGt))
+         %in \ (a2ae0::openakt) -> lvl3sGs);
+  a1rIN :: %forall aalo balp . (base:TextziParserCombinatorsziReadP.ReadP
+                                aalo)
+                               ->
+                               (base:TextziParserCombinatorsziReadP.ReadP balp) ->
+                               %forall b1a5y . (balp ->
+                                                (base:TextziParserCombinatorsziReadP.P b1a5y))
+                                               -> (base:TextziParserCombinatorsziReadP.P b1a5y) =
+    \ @ aalo
+      @ balp
+      (etaX1K::(base:TextziParserCombinatorsziReadP.ReadP aalo))
+      (eta1B1::(base:TextziParserCombinatorsziReadP.ReadP balp))
+      @ b1a5y
+      (eta2X3::balp -> (base:TextziParserCombinatorsziReadP.P b1a5y)) ->
+        (%cast (etaX1K)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalo)))
+        @ b1a5y
+        (%let lvl3sGu :: (base:TextziParserCombinatorsziReadP.P b1a5y) =
+                (%cast (eta1B1)
+                 ((base:TextziParserCombinatorsziReadP.NTCoZCReadP balp)))
+                @ b1a5y eta2X3
+         %in \ (a2ae0::aalo) -> lvl3sGu);
+  base:TextziParserCombinatorsziReadP.zdfFunctorReadP1 :: %forall aawO bawP . aawO
+                                                                              ->
+                                                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                                                               bawP)
+                                                                              ->
+                                                                              %forall b1a5y . (aawO
+                                                                                               ->
+                                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                                b1a5y))
+                                                                                              ->
+                                                                                              (base:TextziParserCombinatorsziReadP.P
+                                                                                               b1a5y) =
+    \ @ aawO
+      @ bawP
+      (xawQ::aawO)
+      (etaB2::(base:TextziParserCombinatorsziReadP.ReadP bawP))
+      @ b1a5y
+      (eta1B1::aawO -> (base:TextziParserCombinatorsziReadP.P b1a5y)) ->
+        (%cast (etaB2)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bawP)))
+        @ b1a5y
+        (%let lvl3sGv :: (base:TextziParserCombinatorsziReadP.P b1a5y) =
+                eta1B1 xawQ
+         %in \ (x1awC::bawP) -> lvl3sGv);
+  base:TextziParserCombinatorsziReadP.zdfMonadReadP3 :: %forall aapj bapk . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                             aapj)
+                                                                            ->
+                                                                            (aapj ->
+                                                                             (base:TextziParserCombinatorsziReadP.ReadP
+                                                                              bapk))
+                                                                            ->
+                                                                            %forall b1apn . (bapk ->
+                                                                                             (base:TextziParserCombinatorsziReadP.P
+                                                                                              b1apn))
+                                                                                            ->
+                                                                                            (base:TextziParserCombinatorsziReadP.P
+                                                                                             b1apn) =
+    \ @ aapj
+      @ bapk
+      (dsdtV::(base:TextziParserCombinatorsziReadP.ReadP aapj))
+      (fadY::aapj -> (base:TextziParserCombinatorsziReadP.ReadP bapk))
+      @ b1apn
+      (kadZZ::bapk -> (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+        (%cast (dsdtV)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapj)))
+        @ b1apn
+        (\ (a2ae0::aapj) ->
+             (%cast (fadY a2ae0)
+              ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bapk)))
+             @ b1apn kadZZ);
+  base:TextziParserCombinatorsziReadP.zdfMonadReadP2 :: %forall aapw . aapw
+                                                                       ->
+                                                                       %forall bapzz . (aapw ->
+                                                                                        (base:TextziParserCombinatorsziReadP.P
+                                                                                         bapzz))
+                                                                                       ->
+                                                                                       (base:TextziParserCombinatorsziReadP.P
+                                                                                        bapzz) =
+    \ @ aapw
+      (xadV::aapw)
+      @ bapzz
+      (kadW::aapw -> (base:TextziParserCombinatorsziReadP.P bapzz)) ->
+        kadW xadV;
+  base:TextziParserCombinatorsziReadP.zdfMonadReadP1 :: %forall aapD . (ghczmprim:GHCziTypes.ZMZN
+                                                                        ghczmprim:GHCziTypes.Char)
+                                                                       ->
+                                                                       %forall bapG . (aapD ->
+                                                                                       (base:TextziParserCombinatorsziReadP.P
+                                                                                        bapG))
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       bapG) =
+    \ @ aapD
+      (dsdtX::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      @ bapG
+      (ds1dtW::aapD -> (base:TextziParserCombinatorsziReadP.P bapG)) ->
+        base:TextziParserCombinatorsziReadP.Fail @ bapG;
+  base:TextziParserCombinatorsziReadP.zdfFunctorReadP2 :: %forall aapM bapN . (aapM
+                                                                               -> bapN)
+                                                                              ->
+                                                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                                                               aapM)
+                                                                              ->
+                                                                              %forall b1apQ . (bapN
+                                                                                               ->
+                                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                                b1apQ))
+                                                                                              ->
+                                                                                              (base:TextziParserCombinatorsziReadP.P
+                                                                                               b1apQ) =
+    \ @ aapM
+      @ bapN
+      (hae2::aapM -> bapN)
+      (dsdtY::(base:TextziParserCombinatorsziReadP.ReadP aapM))
+      @ b1apQ
+      (kae4::bapN -> (base:TextziParserCombinatorsziReadP.P b1apQ)) ->
+        (%cast (dsdtY)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapM)))
+        @ b1apQ
+        (base:GHCziBase.zi @ bapN
+         @ ((base:TextziParserCombinatorsziReadP.P b1apQ)) @ aapM kae4
+         hae2);
+  base:TextziParserCombinatorsziReadP.pfail1 :: %forall aan7 bana . (aan7
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                      bana))
+                                                                    ->
+                                                                    (base:TextziParserCombinatorsziReadP.P
+                                                                     bana) =
+    \ @ aan7
+      @ bXo8
+      (dsXtv::aan7 -> (base:TextziParserCombinatorsziReadP.P bXo8)) ->
+        base:TextziParserCombinatorsziReadP.Fail @ bXo8;
+  base:TextziParserCombinatorsziReadP.zdgtoP :: %forall aajJ . (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                  (ghczmprim:GHCziTypes.Char ->
+                                                                   (base:TextziParserCombinatorsziReadP.P
+                                                                    aajJ))
+                                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                                    ghczmprim:GHCziTypes.Char)
+                                                                   ->
+                                                                   (base:TextziParserCombinatorsziReadP.P
+                                                                    aajJ))))
+                                                                ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                  ghczmprim:GHCziGenerics.Unit
+                                                                  ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                    ((ghczmprim:GHCziGenerics.ZCztZC
+                                                                      aajJ
+                                                                      ((base:TextziParserCombinatorsziReadP.P
+                                                                        aajJ))))
+                                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                                      ((ghczmprim:GHCziTuple.Z2T
+                                                                        aajJ
+                                                                        ((ghczmprim:GHCziTypes.ZMZN
+                                                                          ghczmprim:GHCziTypes.Char)))))))))))
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                aajJ) =
+    \ @ aajJ
+      (g1aj9::(ghczmprim:GHCziGenerics.ZCzpZC
+               ((ghczmprim:GHCziGenerics.ZCzpZC
+                 (ghczmprim:GHCziTypes.Char ->
+                  (base:TextziParserCombinatorsziReadP.P aajJ))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P aajJ))))
+               ((ghczmprim:GHCziGenerics.ZCzpZC
+                 ghczmprim:GHCziGenerics.Unit
+                 ((ghczmprim:GHCziGenerics.ZCzpZC
+                   ((ghczmprim:GHCziGenerics.ZCztZC
+                     aajJ
+                     ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                   ((ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T
+                       aajJ
+                       ((ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char)))))))))))) ->
+        %case ((base:TextziParserCombinatorsziReadP.P aajJ)) g1aj9
+        %of (wildB1::(ghczmprim:GHCziGenerics.ZCzpZC
+                      ((ghczmprim:GHCziGenerics.ZCzpZC
+                        (ghczmprim:GHCziTypes.Char ->
+                         (base:TextziParserCombinatorsziReadP.P aajJ))
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                         (base:TextziParserCombinatorsziReadP.P aajJ))))
+                      ((ghczmprim:GHCziGenerics.ZCzpZC
+                        ghczmprim:GHCziGenerics.Unit
+                        ((ghczmprim:GHCziGenerics.ZCzpZC
+                          ((ghczmprim:GHCziGenerics.ZCztZC
+                            aajJ
+                            ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                          ((ghczmprim:GHCziTypes.ZMZN
+                            ((ghczmprim:GHCziTuple.Z2T
+                              aajJ
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))))
+          {ghczmprim:GHCziGenerics.Inl
+           (g2aja::(ghczmprim:GHCziGenerics.ZCzpZC
+                    (ghczmprim:GHCziTypes.Char ->
+                     (base:TextziParserCombinatorsziReadP.P aajJ))
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                     (base:TextziParserCombinatorsziReadP.P aajJ)))) ->
+             %case ((base:TextziParserCombinatorsziReadP.P aajJ)) g2aja
+             %of (wild1X6::(ghczmprim:GHCziGenerics.ZCzpZC
+                            (ghczmprim:GHCziTypes.Char ->
+                             (base:TextziParserCombinatorsziReadP.P aajJ))
+                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                             (base:TextziParserCombinatorsziReadP.P aajJ))))
+               {ghczmprim:GHCziGenerics.Inl
+                (g3ajb::ghczmprim:GHCziTypes.Char ->
+                        (base:TextziParserCombinatorsziReadP.P aajJ)) ->
+                  base:TextziParserCombinatorsziReadP.Get @ aajJ g3ajb;
+                ghczmprim:GHCziGenerics.Inr
+                (g3ajc::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                        (base:TextziParserCombinatorsziReadP.P aajJ)) ->
+                  base:TextziParserCombinatorsziReadP.Look @ aajJ g3ajc};
+           ghczmprim:GHCziGenerics.Inr
+           (g2ajd::(ghczmprim:GHCziGenerics.ZCzpZC
+                    ghczmprim:GHCziGenerics.Unit
+                    ((ghczmprim:GHCziGenerics.ZCzpZC
+                      ((ghczmprim:GHCziGenerics.ZCztZC
+                        aajJ
+                        ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                      ((ghczmprim:GHCziTypes.ZMZN
+                        ((ghczmprim:GHCziTuple.Z2T
+                          aajJ
+                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))))))) ->
+             %case ((base:TextziParserCombinatorsziReadP.P aajJ)) g2ajd
+             %of (wild1X6::(ghczmprim:GHCziGenerics.ZCzpZC
+                            ghczmprim:GHCziGenerics.Unit
+                            ((ghczmprim:GHCziGenerics.ZCzpZC
+                              ((ghczmprim:GHCziGenerics.ZCztZC
+                                aajJ
+                                ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                              ((ghczmprim:GHCziTypes.ZMZN
+                                ((ghczmprim:GHCziTuple.Z2T
+                                  aajJ
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+               {ghczmprim:GHCziGenerics.Inl
+                (dsdtH::ghczmprim:GHCziGenerics.Unit) ->
+                  base:TextziParserCombinatorsziReadP.Fail @ aajJ;
+                ghczmprim:GHCziGenerics.Inr
+                (g3ajf::(ghczmprim:GHCziGenerics.ZCzpZC
+                         ((ghczmprim:GHCziGenerics.ZCztZC
+                           aajJ
+                           ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                         ((ghczmprim:GHCziTypes.ZMZN
+                           ((ghczmprim:GHCziTuple.Z2T
+                             aajJ
+                             ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))))) ->
+                  %case ((base:TextziParserCombinatorsziReadP.P aajJ)) g3ajf
+                  %of (wild2X8::(ghczmprim:GHCziGenerics.ZCzpZC
+                                 ((ghczmprim:GHCziGenerics.ZCztZC
+                                   aajJ
+                                   ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                                 ((ghczmprim:GHCziTypes.ZMZN
+                                   ((ghczmprim:GHCziTuple.Z2T
+                                     aajJ
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))
+                    {ghczmprim:GHCziGenerics.Inl
+                     (g6ajg::(ghczmprim:GHCziGenerics.ZCztZC
+                              aajJ
+                              ((base:TextziParserCombinatorsziReadP.P aajJ)))) ->
+                       %case ((base:TextziParserCombinatorsziReadP.P aajJ)) g6ajg
+                       %of (wild3Xa::(ghczmprim:GHCziGenerics.ZCztZC
+                                      aajJ
+                                      ((base:TextziParserCombinatorsziReadP.P aajJ))))
+                         {ghczmprim:GHCziGenerics.ZCztZC
+                          (g4ajh::aajJ)
+                          (g5aji::(base:TextziParserCombinatorsziReadP.P aajJ)) ->
+                            base:TextziParserCombinatorsziReadP.Result @ aajJ g4ajh g5aji};
+                     ghczmprim:GHCziGenerics.Inr
+                     (g4ajj::(ghczmprim:GHCziTypes.ZMZN
+                              ((ghczmprim:GHCziTuple.Z2T
+                                aajJ
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                       base:TextziParserCombinatorsziReadP.Final @ aajJ g4ajj}}};
+  base:TextziParserCombinatorsziReadP.zdgfromP :: %forall aajL . (base:TextziParserCombinatorsziReadP.P
+                                                                  aajL)
+                                                                 ->
+                                                                 (ghczmprim:GHCziGenerics.ZCzpZC
+                                                                  ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                    (ghczmprim:GHCziTypes.Char ->
+                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                      aajL))
+                                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                                      ghczmprim:GHCziTypes.Char)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                      aajL))))
+                                                                  ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                    ghczmprim:GHCziGenerics.Unit
+                                                                    ((ghczmprim:GHCziGenerics.ZCzpZC
+                                                                      ((ghczmprim:GHCziGenerics.ZCztZC
+                                                                        aajL
+                                                                        ((base:TextziParserCombinatorsziReadP.P
+                                                                          aajL))))
+                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                                          aajL
+                                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char))))))))))) =
+    \ @ aajL (dsdtN::(base:TextziParserCombinatorsziReadP.P aajL)) ->
+        %case ((ghczmprim:GHCziGenerics.ZCzpZC
+                ((ghczmprim:GHCziGenerics.ZCzpZC
+                  (ghczmprim:GHCziTypes.Char ->
+                   (base:TextziParserCombinatorsziReadP.P aajL))
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P aajL))))
+                ((ghczmprim:GHCziGenerics.ZCzpZC
+                  ghczmprim:GHCziGenerics.Unit
+                  ((ghczmprim:GHCziGenerics.ZCzpZC
+                    ((ghczmprim:GHCziGenerics.ZCztZC
+                      aajL
+                      ((base:TextziParserCombinatorsziReadP.P aajL))))
+                    ((ghczmprim:GHCziTypes.ZMZN
+                      ((ghczmprim:GHCziTuple.Z2T
+                        aajL
+                        ((ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char)))))))))))) dsdtN
+        %of (wildB1::(base:TextziParserCombinatorsziReadP.P aajL))
+          {base:TextziParserCombinatorsziReadP.Get
+           (g3aj0::ghczmprim:GHCziTypes.Char ->
+                   (base:TextziParserCombinatorsziReadP.P aajL)) ->
+             ghczmprim:GHCziGenerics.Inl
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 (ghczmprim:GHCziTypes.Char ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))))
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 ghczmprim:GHCziGenerics.Unit
+                 ((ghczmprim:GHCziGenerics.ZCzpZC
+                   ((ghczmprim:GHCziGenerics.ZCztZC
+                     aajL
+                     ((base:TextziParserCombinatorsziReadP.P aajL))))
+                   ((ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T
+                       aajL
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+             (ghczmprim:GHCziGenerics.Inl
+              @ (ghczmprim:GHCziTypes.Char ->
+                 (base:TextziParserCombinatorsziReadP.P aajL))
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                 (base:TextziParserCombinatorsziReadP.P aajL))
+              g3aj0);
+           base:TextziParserCombinatorsziReadP.Look
+           (g3aj5::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P aajL)) ->
+             ghczmprim:GHCziGenerics.Inl
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 (ghczmprim:GHCziTypes.Char ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))))
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 ghczmprim:GHCziGenerics.Unit
+                 ((ghczmprim:GHCziGenerics.ZCzpZC
+                   ((ghczmprim:GHCziGenerics.ZCztZC
+                     aajL
+                     ((base:TextziParserCombinatorsziReadP.P aajL))))
+                   ((ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T
+                       aajL
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+             (ghczmprim:GHCziGenerics.Inr
+              @ (ghczmprim:GHCziTypes.Char ->
+                 (base:TextziParserCombinatorsziReadP.P aajL))
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                 (base:TextziParserCombinatorsziReadP.P aajL))
+              g3aj5);
+           base:TextziParserCombinatorsziReadP.Fail ->
+             base:TextziParserCombinatorsziReadP.zdgfromP1 @ aajL;
+           base:TextziParserCombinatorsziReadP.Result
+           (g4aj6::aajL)
+           (g5aj7::(base:TextziParserCombinatorsziReadP.P aajL)) ->
+             ghczmprim:GHCziGenerics.Inr
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 (ghczmprim:GHCziTypes.Char ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))))
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 ghczmprim:GHCziGenerics.Unit
+                 ((ghczmprim:GHCziGenerics.ZCzpZC
+                   ((ghczmprim:GHCziGenerics.ZCztZC
+                     aajL
+                     ((base:TextziParserCombinatorsziReadP.P aajL))))
+                   ((ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T
+                       aajL
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+             (ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+              @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                  ((ghczmprim:GHCziGenerics.ZCztZC
+                    aajL
+                    ((base:TextziParserCombinatorsziReadP.P aajL))))
+                  ((ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T
+                      aajL
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))
+              (ghczmprim:GHCziGenerics.Inl
+               @ ((ghczmprim:GHCziGenerics.ZCztZC
+                   aajL
+                   ((base:TextziParserCombinatorsziReadP.P aajL))))
+               @ ((ghczmprim:GHCziTypes.ZMZN
+                   ((ghczmprim:GHCziTuple.Z2T
+                     aajL
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+               (ghczmprim:GHCziGenerics.ZCztZC @ aajL
+                @ ((base:TextziParserCombinatorsziReadP.P aajL)) g4aj6 g5aj7)));
+           base:TextziParserCombinatorsziReadP.Final
+           (g4aj8::(ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T
+                      aajL
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+             ghczmprim:GHCziGenerics.Inr
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 (ghczmprim:GHCziTypes.Char ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P aajL))))
+             @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                 ghczmprim:GHCziGenerics.Unit
+                 ((ghczmprim:GHCziGenerics.ZCzpZC
+                   ((ghczmprim:GHCziGenerics.ZCztZC
+                     aajL
+                     ((base:TextziParserCombinatorsziReadP.P aajL))))
+                   ((ghczmprim:GHCziTypes.ZMZN
+                     ((ghczmprim:GHCziTuple.Z2T
+                       aajL
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))))
+             (ghczmprim:GHCziGenerics.Inr @ ghczmprim:GHCziGenerics.Unit
+              @ ((ghczmprim:GHCziGenerics.ZCzpZC
+                  ((ghczmprim:GHCziGenerics.ZCztZC
+                    aajL
+                    ((base:TextziParserCombinatorsziReadP.P aajL))))
+                  ((ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T
+                      aajL
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))))
+              (ghczmprim:GHCziGenerics.Inr
+               @ ((ghczmprim:GHCziGenerics.ZCztZC
+                   aajL
+                   ((base:TextziParserCombinatorsziReadP.P aajL))))
+               @ ((ghczmprim:GHCziTypes.ZMZN
+                   ((ghczmprim:GHCziTuple.Z2T
+                     aajL
+                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+               g4aj8))};
+  base:TextziParserCombinatorsziReadP.between :: %forall opena5X closea5Y aa5ZZ . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   opena5X)
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   closea5Y)
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   aa5ZZ)
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                   aa5ZZ) =
+    %cast (base:TextziParserCombinatorsziReadP.between1)
+    (%forall openakt closeaku aakv . (base:TextziParserCombinatorsziReadP.ReadP
+                                      openakt)
+                                     ->
+                                     (base:TextziParserCombinatorsziReadP.ReadP closeaku) ->
+                                     (base:TextziParserCombinatorsziReadP.ReadP aakv) ->
+                                     %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aakv)));
+  base:TextziParserCombinatorsziReadP.count :: %forall aa60 . ghczmprim:GHCziTypes.Int
+                                                              ->
+                                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                                               aa60)
+                                                              ->
+                                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                                               ((ghczmprim:GHCziTypes.ZMZN aa60))) =
+    \ @ aa60
+      (wsF5::ghczmprim:GHCziTypes.Int)
+      (w1sF9::(base:TextziParserCombinatorsziReadP.ReadP aa60)) ->
+        %case ((base:TextziParserCombinatorsziReadP.ReadP
+                ((ghczmprim:GHCziTypes.ZMZN aa60)))) wsF5
+        %of (w2XHc::ghczmprim:GHCziTypes.Int)
+          {ghczmprim:GHCziTypes.Izh (wwsF7::ghczmprim:GHCziPrim.Intzh) ->
+             %cast (base:TextziParserCombinatorsziReadP.zdwcount @ aa60 wwsF7
+                    w1sF9)
+             (%sym
+              ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                ((ghczmprim:GHCziTypes.ZMZN aa60)))))};
+  base:TextziParserCombinatorsziReadP.munch1 :: (ghczmprim:GHCziTypes.Char
+                                                 -> ghczmprim:GHCziBool.Bool)
+                                                ->
+                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char))) =
+    %cast (base:TextziParserCombinatorsziReadP.munch4)
+    ((ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool) ->
+     %sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+  base:TextziParserCombinatorsziReadP.munch :: (ghczmprim:GHCziTypes.Char
+                                                -> ghczmprim:GHCziBool.Bool)
+                                               ->
+                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char))) =
+    %cast (base:TextziParserCombinatorsziReadP.munch2)
+    ((ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool) ->
+     %sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+  base:TextziParserCombinatorsziReadP.string :: (ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char)
+                                                ->
+                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char))) =
+    %cast (base:TextziParserCombinatorsziReadP.string1)
+    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+     %sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+  base:TextziParserCombinatorsziReadP.eof :: (base:TextziParserCombinatorsziReadP.ReadP
+                                              ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:TextziParserCombinatorsziReadP.eof1)
+    (%sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ghczmprim:GHCziUnit.Z0T)));
+  base:TextziParserCombinatorsziReadP.char :: ghczmprim:GHCziTypes.Char
+                                              ->
+                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                               ghczmprim:GHCziTypes.Char) =
+    %cast (base:TextziParserCombinatorsziReadP.char1)
+    (ghczmprim:GHCziTypes.Char ->
+     %sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ghczmprim:GHCziTypes.Char)));
+  base:TextziParserCombinatorsziReadP.satisfy :: (ghczmprim:GHCziTypes.Char
+                                                  -> ghczmprim:GHCziBool.Bool)
+                                                 ->
+                                                 (base:TextziParserCombinatorsziReadP.ReadP
+                                                  ghczmprim:GHCziTypes.Char) =
+    %cast (base:TextziParserCombinatorsziReadP.satisfy1)
+    ((ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool) ->
+     %sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ghczmprim:GHCziTypes.Char)));
+  base:TextziParserCombinatorsziReadP.pfail :: %forall aa65 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                               aa65) =
+    %cast (base:TextziParserCombinatorsziReadP.pfail1)
+    (%forall aan7 . %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aan7)));
+  base:TextziParserCombinatorsziReadP.look :: (base:TextziParserCombinatorsziReadP.ReadP
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))) =
+    %cast (base:TextziParserCombinatorsziReadP.Look)
+    (%sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))));
+  base:TextziParserCombinatorsziReadP.get :: (base:TextziParserCombinatorsziReadP.ReadP
+                                              ghczmprim:GHCziTypes.Char) =
+    %cast (base:TextziParserCombinatorsziReadP.Get)
+    (%sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ghczmprim:GHCziTypes.Char)));
+  %rec
+  {base:TextziParserCombinatorsziReadP.run :: %forall aa66 . (base:TextziParserCombinatorsziReadP.P
+                                                              aa66)
+                                                             ->
+                                                             (ghczmprim:GHCziTypes.ZMZN
+                                                              ghczmprim:GHCziTypes.Char)
+                                                             ->
+                                                             (ghczmprim:GHCziTypes.ZMZN
+                                                              ((ghczmprim:GHCziTuple.Z2T
+                                                                aa66
+                                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char))))) =
+     \ @ aaoT
+       (dsdtb::(base:TextziParserCombinatorsziReadP.P aaoT))
+       (ds1dtc::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+         %case ((ghczmprim:GHCziTypes.ZMZN
+                 ((ghczmprim:GHCziTuple.Z2T
+                   aaoT
+                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) dsdtb
+         %of (wildB1::(base:TextziParserCombinatorsziReadP.P aaoT))
+           {base:TextziParserCombinatorsziReadP.Get
+            (fa69::ghczmprim:GHCziTypes.Char ->
+                   (base:TextziParserCombinatorsziReadP.P aaoT)) ->
+              %case ((ghczmprim:GHCziTypes.ZMZN
+                      ((ghczmprim:GHCziTuple.Z2T
+                        aaoT
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ds1dtc
+              %of (wild1Xe::(ghczmprim:GHCziTypes.ZMZN
+                             ghczmprim:GHCziTypes.Char))
+                {ghczmprim:GHCziTypes.ZMZN ->
+                   ghczmprim:GHCziTypes.ZMZN
+                   @ ((ghczmprim:GHCziTuple.Z2T
+                       aaoT
+                       ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                 ghczmprim:GHCziTypes.ZC
+                 (ca6a::ghczmprim:GHCziTypes.Char)
+                 (sa6b::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                   base:TextziParserCombinatorsziReadP.run @ aaoT (fa69 ca6a) sa6b};
+            base:TextziParserCombinatorsziReadP.Look
+            (fa6o::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P aaoT)) ->
+              base:TextziParserCombinatorsziReadP.run @ aaoT (fa6o ds1dtc)
+              ds1dtc;
+            base:TextziParserCombinatorsziReadP.Fail ->
+              ghczmprim:GHCziTypes.ZMZN
+              @ ((ghczmprim:GHCziTuple.Z2T
+                  aaoT
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+            base:TextziParserCombinatorsziReadP.Result
+            (xa6q::aaoT)
+            (pa6r::(base:TextziParserCombinatorsziReadP.P aaoT)) ->
+              ghczmprim:GHCziTypes.ZC
+              @ ((ghczmprim:GHCziTuple.Z2T
+                  aaoT
+                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+              (ghczmprim:GHCziTuple.Z2T @ aaoT
+               @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xa6q
+               ds1dtc)
+              (base:TextziParserCombinatorsziReadP.run @ aaoT pa6r ds1dtc);
+            base:TextziParserCombinatorsziReadP.Final
+            (ra6t::(ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T
+                      aaoT
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+              ra6t}};
+  base:TextziParserCombinatorsziReadP.readSzutozuP1 :: %forall aap2 . ((ghczmprim:GHCziTypes.ZMZN
+                                                                        ghczmprim:GHCziTypes.Char)
+                                                                       ->
+                                                                       (ghczmprim:GHCziTypes.ZMZN
+                                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                                          aap2
+                                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char))))))
+                                                                      ->
+                                                                      %forall bap5 . (aap2 ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       bap5))
+                                                                                     ->
+                                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                                      bap5) =
+    \ @ aap2
+      (radP::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+             (ghczmprim:GHCziTypes.ZMZN
+              ((ghczmprim:GHCziTuple.Z2T
+                aap2
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+      @ bap5
+      (kadQ::aap2 -> (base:TextziParserCombinatorsziReadP.P bap5)) ->
+        base:TextziParserCombinatorsziReadP.Look @ bap5
+        (%let %rec
+              {gosFF :: (ghczmprim:GHCziTypes.ZMZN
+                         ((ghczmprim:GHCziTuple.Z2T
+                           aap2
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                        ->
+                        (ghczmprim:GHCziTypes.ZMZN
+                         ((ghczmprim:GHCziTuple.Z2T
+                           bap5
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))) =
+                 \ (dsavg::(ghczmprim:GHCziTypes.ZMZN
+                            ((ghczmprim:GHCziTuple.Z2T
+                              aap2
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                     %case ((ghczmprim:GHCziTypes.ZMZN
+                             ((ghczmprim:GHCziTuple.Z2T
+                               bap5
+                               ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) dsavg
+                     %of (wildavh::(ghczmprim:GHCziTypes.ZMZN
+                                    ((ghczmprim:GHCziTuple.Z2T
+                                      aap2
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+                       {ghczmprim:GHCziTypes.ZMZN ->
+                          ghczmprim:GHCziTypes.ZMZN
+                          @ ((ghczmprim:GHCziTuple.Z2T
+                              bap5
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                        ghczmprim:GHCziTypes.ZC
+                        (yavl::(ghczmprim:GHCziTuple.Z2T
+                                aap2
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                        (ysavm::(ghczmprim:GHCziTypes.ZMZN
+                                 ((ghczmprim:GHCziTuple.Z2T
+                                   aap2
+                                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                          %case ((ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    bap5
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) yavl
+                          %of (wild1B1::(ghczmprim:GHCziTuple.Z2T
+                                         aap2
+                                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                            {ghczmprim:GHCziTuple.Z2T
+                             (a2adS::aap2)
+                             (szqadT::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                               base:GHCziBase.zpzp
+                               @ ((ghczmprim:GHCziTuple.Z2T
+                                   bap5
+                                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                               (base:TextziParserCombinatorsziReadP.run @ bap5 (kadQ a2adS)
+                                szqadT)
+                               (gosFF ysavm)}}}
+         %in \ (sadR::(ghczmprim:GHCziTypes.ZMZN
+                       ghczmprim:GHCziTypes.Char)) ->
+                 %case ((base:TextziParserCombinatorsziReadP.P bap5)) (gosFF
+                                                                       (radP sadR))
+                 %of (wildB1::(ghczmprim:GHCziTypes.ZMZN
+                               ((ghczmprim:GHCziTuple.Z2T
+                                 bap5
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+                   {ghczmprim:GHCziTypes.ZMZN ->
+                      base:TextziParserCombinatorsziReadP.Fail @ bap5;
+                    ghczmprim:GHCziTypes.ZC
+                    (ipvsv5::(ghczmprim:GHCziTuple.Z2T
+                              bap5
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                    (ipv1sv6::(ghczmprim:GHCziTypes.ZMZN
+                               ((ghczmprim:GHCziTuple.Z2T
+                                 bap5
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                      base:TextziParserCombinatorsziReadP.Final @ bap5 wildB1});
+  base:TextziParserCombinatorsziReadP.readSzutozuP :: %forall aa5B . ((ghczmprim:GHCziTypes.ZMZN
+                                                                       ghczmprim:GHCziTypes.Char)
+                                                                      ->
+                                                                      (ghczmprim:GHCziTypes.ZMZN
+                                                                       ((ghczmprim:GHCziTuple.Z2T
+                                                                         aa5B
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))))))
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      aa5B) =
+    %cast (base:TextziParserCombinatorsziReadP.readSzutozuP1)
+    (%forall aap2 . ((ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)
+                     ->
+                     (ghczmprim:GHCziTypes.ZMZN
+                      ((ghczmprim:GHCziTuple.Z2T
+                        aap2
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+                    -> %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aap2)));
+  base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcfail :: %forall aapC . (ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char)
+                                                                           ->
+                                                                           (base:TextziParserCombinatorsziReadP.P
+                                                                            aapC) =
+    \ @ aaqJ
+      (dsduP::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:TextziParserCombinatorsziReadP.Fail @ aaqJ;
+  base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn :: %forall aakF . aakF
+                                                                             ->
+                                                                             (base:TextziParserCombinatorsziReadP.P
+                                                                              aakF) =
+    \ @ aaqF (xaeD::aaqF) ->
+        base:TextziParserCombinatorsziReadP.Result @ aaqF xaeD
+        (base:TextziParserCombinatorsziReadP.Fail @ aaqF);
+  base:TextziParserCombinatorsziReadP.readPzutozuS :: %forall aa5C . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      aa5C)
+                                                                     ->
+                                                                     (ghczmprim:GHCziTypes.ZMZN
+                                                                      ghczmprim:GHCziTypes.Char)
+                                                                     ->
+                                                                     (ghczmprim:GHCziTypes.ZMZN
+                                                                      ((ghczmprim:GHCziTuple.Z2T
+                                                                        aa5C
+                                                                        ((ghczmprim:GHCziTypes.ZMZN
+                                                                          ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaoV
+      (dsdtk::(base:TextziParserCombinatorsziReadP.ReadP aaoV)) ->
+        base:TextziParserCombinatorsziReadP.run @ aaoV
+        ((%cast (dsdtk)
+          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aaoV)))
+         @ aaoV
+         (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aaoV));
+  %rec
+  {base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus :: %forall aakY . (base:TextziParserCombinatorsziReadP.P
+                                                                                  aakY)
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  aakY)
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  aakY) =
+     \ @ aaq5
+       (dsdtZZ::(base:TextziParserCombinatorsziReadP.P aaq5))
+       (ds1du0::(base:TextziParserCombinatorsziReadP.P aaq5)) ->
+         %let zdwfailsFJ :: (base:TextziParserCombinatorsziReadP.P aaq5) =
+                %case ((base:TextziParserCombinatorsziReadP.P aaq5)) ds1du0
+                %of (wildB1::(base:TextziParserCombinatorsziReadP.P aaq5))
+                  {%_ ->
+                     %case ((base:TextziParserCombinatorsziReadP.P aaq5)) dsdtZZ
+                     %of (wild1X1k::(base:TextziParserCombinatorsziReadP.P aaq5))
+                       {%_ ->
+                          %case ((base:TextziParserCombinatorsziReadP.P aaq5)) wildB1
+                          %of (wild2X1o::(base:TextziParserCombinatorsziReadP.P aaq5))
+                            {%_ ->
+                               %let zdwfail1sFH :: (base:TextziParserCombinatorsziReadP.P aaq5) =
+                                      %case ((base:TextziParserCombinatorsziReadP.P aaq5)) wild2X1o
+                                      %of (wild3X1u::(base:TextziParserCombinatorsziReadP.P aaq5))
+                                        {%_ ->
+                                           %case ((base:TextziParserCombinatorsziReadP.P
+                                                   aaq5)) wild1X1k
+                                           %of (wild4X1y::(base:TextziParserCombinatorsziReadP.P
+                                                           aaq5))
+                                             {%_ ->
+                                                %case ((base:TextziParserCombinatorsziReadP.P
+                                                        aaq5)) wild3X1u
+                                                %of (wild5X1C::(base:TextziParserCombinatorsziReadP.P
+                                                                aaq5))
+                                                  {base:TextziParserCombinatorsziReadP.Get
+                                                   (ipvsvY::ghczmprim:GHCziTypes.Char ->
+                                                            (base:TextziParserCombinatorsziReadP.P
+                                                             aaq5)) ->
+                                                     lvl2rIC @ aaq5;
+                                                   base:TextziParserCombinatorsziReadP.Look
+                                                   (faeB::(ghczmprim:GHCziTypes.ZMZN
+                                                           ghczmprim:GHCziTypes.Char)
+                                                          ->
+                                                          (base:TextziParserCombinatorsziReadP.P
+                                                           aaq5)) ->
+                                                     base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                                     (\ (saeC::(ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char)) ->
+                                                          base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus
+                                                          @ aaq5 wild4X1y (faeB saeC))};
+                                              base:TextziParserCombinatorsziReadP.Look
+                                              (faeu::(ghczmprim:GHCziTypes.ZMZN
+                                                      ghczmprim:GHCziTypes.Char)
+                                                     ->
+                                                     (base:TextziParserCombinatorsziReadP.P
+                                                      aaq5)) ->
+                                                %case ((base:TextziParserCombinatorsziReadP.P
+                                                        aaq5)) wild3X1u
+                                                %of (wild5Xt::(base:TextziParserCombinatorsziReadP.P
+                                                               aaq5))
+                                                  {base:TextziParserCombinatorsziReadP.Get
+                                                   (ipvsw1::ghczmprim:GHCziTypes.Char ->
+                                                            (base:TextziParserCombinatorsziReadP.P
+                                                             aaq5)) ->
+                                                     base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                                     (\ (saezz::(ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)) ->
+                                                          base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus
+                                                          @ aaq5 (faeu saezz) wild5Xt);
+                                                   base:TextziParserCombinatorsziReadP.Look
+                                                   (gaev::(ghczmprim:GHCziTypes.ZMZN
+                                                           ghczmprim:GHCziTypes.Char)
+                                                          ->
+                                                          (base:TextziParserCombinatorsziReadP.P
+                                                           aaq5)) ->
+                                                     base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                                     (\ (saew::(ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char)) ->
+                                                          base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus
+                                                          @ aaq5 (faeu saew) (gaev saew))}};
+                                         base:TextziParserCombinatorsziReadP.Final
+                                         (raes::(ghczmprim:GHCziTypes.ZMZN
+                                                 ((ghczmprim:GHCziTuple.Z2T
+                                                   aaq5
+                                                   ((ghczmprim:GHCziTypes.ZMZN
+                                                     ghczmprim:GHCziTypes.Char)))))) ->
+                                           base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                           (\ (saet::(ghczmprim:GHCziTypes.ZMZN
+                                                      ghczmprim:GHCziTypes.Char)) ->
+                                                base:TextziParserCombinatorsziReadP.Final @ aaq5
+                                                (base:GHCziBase.zpzp
+                                                 @ ((ghczmprim:GHCziTuple.Z2T
+                                                     aaq5
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))))
+                                                 (base:TextziParserCombinatorsziReadP.run @ aaq5
+                                                  wild1X1k saet)
+                                                 raes))}
+                               %in %case ((base:TextziParserCombinatorsziReadP.P aaq5)) wild1X1k
+                                   %of (wild3X1u::(base:TextziParserCombinatorsziReadP.P aaq5))
+                                     {%_ ->
+                                        zdwfail1sFH;
+                                      base:TextziParserCombinatorsziReadP.Look
+                                      (faeo::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                                             -> (base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                                        %case ((base:TextziParserCombinatorsziReadP.P
+                                                aaq5)) wild2X1o
+                                        %of (wild4Xs::(base:TextziParserCombinatorsziReadP.P aaq5))
+                                          {%_ ->
+                                             zdwfail1sFH;
+                                           base:TextziParserCombinatorsziReadP.Final
+                                           (raep::(ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaq5
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char)))))) ->
+                                             base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                             (\ (saeq::(ghczmprim:GHCziTypes.ZMZN
+                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                  base:TextziParserCombinatorsziReadP.Final @ aaq5
+                                                  (base:GHCziBase.zpzp
+                                                   @ ((ghczmprim:GHCziTuple.Z2T
+                                                       aaq5
+                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char))))
+                                                   (base:TextziParserCombinatorsziReadP.run @ aaq5
+                                                    (faeo saeq) saeq)
+                                                   raep))};
+                                      base:TextziParserCombinatorsziReadP.Final
+                                      (raeg::(ghczmprim:GHCziTypes.ZMZN
+                                              ((ghczmprim:GHCziTuple.Z2T
+                                                aaq5
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char)))))) ->
+                                        %case ((base:TextziParserCombinatorsziReadP.P
+                                                aaq5)) wild2X1o
+                                        %of (wild4Xs::(base:TextziParserCombinatorsziReadP.P aaq5))
+                                          {base:TextziParserCombinatorsziReadP.Get
+                                           (ipvswp::ghczmprim:GHCziTypes.Char ->
+                                                    (base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                                             base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                             (\ (saen::(ghczmprim:GHCziTypes.ZMZN
+                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                  base:TextziParserCombinatorsziReadP.Final @ aaq5
+                                                  (base:GHCziBase.zpzp
+                                                   @ ((ghczmprim:GHCziTuple.Z2T
+                                                       aaq5
+                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char))))
+                                                   raeg
+                                                   (base:TextziParserCombinatorsziReadP.run @ aaq5
+                                                    wild4Xs saen)));
+                                           base:TextziParserCombinatorsziReadP.Look
+                                           (faej::(ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char)
+                                                  ->
+                                                  (base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                                             base:TextziParserCombinatorsziReadP.Look @ aaq5
+                                             (\ (saek::(ghczmprim:GHCziTypes.ZMZN
+                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                  base:TextziParserCombinatorsziReadP.Final @ aaq5
+                                                  (base:GHCziBase.zpzp
+                                                   @ ((ghczmprim:GHCziTuple.Z2T
+                                                       aaq5
+                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char))))
+                                                   raeg
+                                                   (base:TextziParserCombinatorsziReadP.run @ aaq5
+                                                    (faej saek) saek)));
+                                           base:TextziParserCombinatorsziReadP.Final
+                                           (taeh::(ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaq5
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char)))))) ->
+                                             base:TextziParserCombinatorsziReadP.Final @ aaq5
+                                             (base:GHCziBase.zpzp
+                                              @ ((ghczmprim:GHCziTuple.Z2T
+                                                  aaq5
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char))))
+                                              raeg taeh)}};
+                             base:TextziParserCombinatorsziReadP.Fail ->
+                               wild1X1k};
+                        base:TextziParserCombinatorsziReadP.Fail ->
+                          wildB1};
+                   base:TextziParserCombinatorsziReadP.Result
+                   (xaec::aaq5)
+                   (qaed::(base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                     base:TextziParserCombinatorsziReadP.Result @ aaq5 xaec
+                     (base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ aaq5
+                      dsdtZZ qaed)}
+         %in %case ((base:TextziParserCombinatorsziReadP.P aaq5)) dsdtZZ
+             %of (wildB1::(base:TextziParserCombinatorsziReadP.P aaq5))
+               {%_ ->
+                  zdwfailsFJ;
+                base:TextziParserCombinatorsziReadP.Get
+                (f1ae5::ghczmprim:GHCziTypes.Char ->
+                        (base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                  %case ((base:TextziParserCombinatorsziReadP.P aaq5)) ds1du0
+                  %of (wild1Xo::(base:TextziParserCombinatorsziReadP.P aaq5))
+                    {%_ ->
+                       zdwfailsFJ;
+                     base:TextziParserCombinatorsziReadP.Get
+                     (f2ae6::ghczmprim:GHCziTypes.Char ->
+                             (base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                       base:TextziParserCombinatorsziReadP.Get @ aaq5
+                       (\ (cae7::ghczmprim:GHCziTypes.Char) ->
+                            base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ aaq5
+                            (f1ae5 cae7) (f2ae6 cae7))};
+                base:TextziParserCombinatorsziReadP.Result
+                (xae8::aaq5)
+                (pae9::(base:TextziParserCombinatorsziReadP.P aaq5)) ->
+                  base:TextziParserCombinatorsziReadP.Result @ aaq5 xae8
+                  (base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ aaq5
+                   pae9 ds1du0)}};
+  %rec
+  {base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze :: %forall aakx baky . (base:TextziParserCombinatorsziReadP.P
+                                                                                    aakx)
+                                                                                   ->
+                                                                                   (aakx ->
+                                                                                    (base:TextziParserCombinatorsziReadP.P
+                                                                                     baky))
+                                                                                   ->
+                                                                                   (base:TextziParserCombinatorsziReadP.P
+                                                                                    baky) =
+     \ @ aaqo
+       @ baqp
+       (dsduJ::(base:TextziParserCombinatorsziReadP.P aaqo))
+       (kaeF::aaqo -> (base:TextziParserCombinatorsziReadP.P baqp)) ->
+         %case ((base:TextziParserCombinatorsziReadP.P baqp)) dsduJ
+         %of (wildB1::(base:TextziParserCombinatorsziReadP.P aaqo))
+           {base:TextziParserCombinatorsziReadP.Get
+            (faeE::ghczmprim:GHCziTypes.Char ->
+                   (base:TextziParserCombinatorsziReadP.P aaqo)) ->
+              base:TextziParserCombinatorsziReadP.Get @ baqp
+              (\ (caeG::ghczmprim:GHCziTypes.Char) ->
+                   base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze @ aaqo
+                   @ baqp (faeE caeG) kaeF);
+            base:TextziParserCombinatorsziReadP.Look
+            (faeH::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P aaqo)) ->
+              base:TextziParserCombinatorsziReadP.Look @ baqp
+              (\ (saeJ::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                   base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze @ aaqo
+                   @ baqp (faeH saeJ) kaeF);
+            base:TextziParserCombinatorsziReadP.Fail ->
+              base:TextziParserCombinatorsziReadP.Fail @ baqp;
+            base:TextziParserCombinatorsziReadP.Result
+            (xaeK::aaqo)
+            (paeL::(base:TextziParserCombinatorsziReadP.P aaqo)) ->
+              base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ baqp
+              (kaeF xaeK)
+              (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze @ aaqo
+               @ baqp paeL kaeF);
+            base:TextziParserCombinatorsziReadP.Final
+            (raeN::(ghczmprim:GHCziTypes.ZMZN
+                    ((ghczmprim:GHCziTuple.Z2T
+                      aaqo
+                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+              %let %rec
+                   {gosFL :: (ghczmprim:GHCziTypes.ZMZN
+                              ((ghczmprim:GHCziTuple.Z2T
+                                aaqo
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                             ->
+                             (ghczmprim:GHCziTypes.ZMZN
+                              ((ghczmprim:GHCziTuple.Z2T
+                                baqp
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))) =
+                      \ (ds1avg::(ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    aaqo
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                          %case ((ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    baqp
+                                    ((ghczmprim:GHCziTypes.ZMZN
+                                      ghczmprim:GHCziTypes.Char)))))) ds1avg
+                          %of (wild1avh::(ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaqo
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))))
+                            {ghczmprim:GHCziTypes.ZMZN ->
+                               ghczmprim:GHCziTypes.ZMZN
+                               @ ((ghczmprim:GHCziTuple.Z2T
+                                   baqp
+                                   ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                             ghczmprim:GHCziTypes.ZC
+                             (yavl::(ghczmprim:GHCziTuple.Z2T
+                                     aaqo
+                                     ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                             (ysavm::(ghczmprim:GHCziTypes.ZMZN
+                                      ((ghczmprim:GHCziTuple.Z2T
+                                        aaqo
+                                        ((ghczmprim:GHCziTypes.ZMZN
+                                          ghczmprim:GHCziTypes.Char)))))) ->
+                               %case ((ghczmprim:GHCziTypes.ZMZN
+                                       ((ghczmprim:GHCziTuple.Z2T
+                                         baqp
+                                         ((ghczmprim:GHCziTypes.ZMZN
+                                           ghczmprim:GHCziTypes.Char)))))) yavl
+                               %of (wild2Xt::(ghczmprim:GHCziTuple.Z2T
+                                              aaqo
+                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char))))
+                                 {ghczmprim:GHCziTuple.Z2T
+                                  (xaeP::aaqo)
+                                  (saeQ::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                                    base:GHCziBase.zpzp
+                                    @ ((ghczmprim:GHCziTuple.Z2T
+                                        baqp
+                                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                                    (base:TextziParserCombinatorsziReadP.run @ baqp (kaeF xaeP)
+                                     saeQ)
+                                    (gosFL ysavm)}}}
+              %in %case ((base:TextziParserCombinatorsziReadP.P baqp)) (gosFL
+                                                                        raeN)
+                  %of (wild1X2e::(ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    baqp
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+                    {ghczmprim:GHCziTypes.ZMZN ->
+                       base:TextziParserCombinatorsziReadP.Fail @ baqp;
+                     ghczmprim:GHCziTypes.ZC
+                     (ipvsv5::(ghczmprim:GHCziTuple.Z2T
+                               baqp
+                               ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                     (ipv1sv6::(ghczmprim:GHCziTypes.ZMZN
+                                ((ghczmprim:GHCziTuple.Z2T
+                                  baqp
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                       base:TextziParserCombinatorsziReadP.Final @ baqp wild1X2e}}};
+  base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzg :: %forall aalo balp . (base:TextziParserCombinatorsziReadP.P
+                                                                                 aalo)
+                                                                                ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 balp)
+                                                                                ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 balp) =
+    \ @ aalo
+      @ balp
+      (etaB2::(base:TextziParserCombinatorsziReadP.P aalo))
+      (eta1B1::(base:TextziParserCombinatorsziReadP.P balp)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze @ aalo
+        @ balp etaB2 (\ (dsavW::aalo) -> eta1B1);
+  base:TextziParserCombinatorsziReadP.zdfMonadP :: (base:GHCziBase.TZCMonad
+                                                    base:TextziParserCombinatorsziReadP.P) =
+    base:GHCziBase.DZCMonad @ base:TextziParserCombinatorsziReadP.P
+    base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze
+    base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzg
+    base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn
+    base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcfail;
+  base:TextziParserCombinatorsziReadP.zlzpzp1 :: %forall aanm . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aanm)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aanm)
+                                                                ->
+                                                                %forall ba5y . (aanm ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aanm
+      (dsdsE::(base:TextziParserCombinatorsziReadP.ReadP aanm))
+      (qa6y::(base:TextziParserCombinatorsziReadP.ReadP aanm))
+      @ ba5y
+      (etaX1S::aanm -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.Look @ ba5y
+        (%let %rec
+              {probesFP :: (base:TextziParserCombinatorsziReadP.P aanm) ->
+                           (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                           ghczmprim:GHCziPrim.Intzh ->
+                           (base:TextziParserCombinatorsziReadP.ReadP aanm) =
+                 \ (ds1dsF::(base:TextziParserCombinatorsziReadP.P aanm))
+                   (ds2dsG::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                   (na6E::ghczmprim:GHCziPrim.Intzh) ->
+                     %case ((base:TextziParserCombinatorsziReadP.ReadP aanm)) ds1dsF
+                     %of (wildX21::(base:TextziParserCombinatorsziReadP.P aanm))
+                       {base:TextziParserCombinatorsziReadP.Get
+                        (fa6B::ghczmprim:GHCziTypes.Char ->
+                               (base:TextziParserCombinatorsziReadP.P aanm)) ->
+                          %case ((base:TextziParserCombinatorsziReadP.ReadP aanm)) ds2dsG
+                          %of (wild1XF::(ghczmprim:GHCziTypes.ZMZN
+                                         ghczmprim:GHCziTypes.Char))
+                            {ghczmprim:GHCziTypes.ZMZN ->
+                               qa6y;
+                             ghczmprim:GHCziTypes.ZC
+                             (ca6C::ghczmprim:GHCziTypes.Char)
+                             (sa6D::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                               probesFP (fa6B ca6C) sa6D
+                               (ghczmprim:GHCziPrim.zpzh na6E (1::ghczmprim:GHCziPrim.Intzh))};
+                        base:TextziParserCombinatorsziReadP.Look
+                        (fa6F::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                               (base:TextziParserCombinatorsziReadP.P aanm)) ->
+                          probesFP (fa6F ds2dsG) ds2dsG na6E;
+                        base:TextziParserCombinatorsziReadP.Fail ->
+                          qa6y;
+                        base:TextziParserCombinatorsziReadP.Result
+                        (ds3dsH::aanm)
+                        (ds4dsI::(base:TextziParserCombinatorsziReadP.P aanm)) ->
+                          %let ds5sFR :: (base:TextziParserCombinatorsziReadP.ReadP
+                                          ghczmprim:GHCziUnit.Z0T) =
+                                 base:TextziParserCombinatorsziReadP.zlzpzpzudiscard na6E
+                          %in %cast (\ @ b1apn
+                                       (kadZZ::aanm ->
+                                               (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                                         (%cast (ds5sFR)
+                                          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                            ghczmprim:GHCziUnit.Z0T)))
+                                         @ b1apn
+                                         (%let lvl3sGw :: (base:TextziParserCombinatorsziReadP.P
+                                                           b1apn) =
+                                                 base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze
+                                                 @ aanm @ b1apn wildX21 kadZZ
+                                          %in \ (a2ae0::ghczmprim:GHCziUnit.Z0T) -> lvl3sGw))
+                              (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanm)));
+                        base:TextziParserCombinatorsziReadP.Final
+                        (ra6K::(ghczmprim:GHCziTypes.ZMZN
+                                ((ghczmprim:GHCziTuple.Z2T
+                                  aanm
+                                  ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                          %cast (\ @ b1anE ->
+                                     base:TextziParserCombinatorsziReadP.zdfMonadPzuzdczgzgze @ aanm
+                                     @ b1anE wildX21)
+                          (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanm)))}}
+         %in %let lvl3sFN :: (base:TextziParserCombinatorsziReadP.P aanm) =
+                    (%cast (dsdsE)
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanm)))
+                    @ aanm
+                    (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aanm)
+             %in \ (a2ae0::(ghczmprim:GHCziTypes.ZMZN
+                            ghczmprim:GHCziTypes.Char)) ->
+                     (%cast (probesFP lvl3sFN a2ae0 (0::ghczmprim:GHCziPrim.Intzh))
+                      ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanm)))
+                     @ ba5y etaX1S);
+  base:TextziParserCombinatorsziReadP.zlzpzp :: %forall aa63 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa63)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa63)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa63) =
+    %cast (base:TextziParserCombinatorsziReadP.zlzpzp1)
+    (%forall aanm . (base:TextziParserCombinatorsziReadP.ReadP aanm) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP aanm) ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanm)));
+  base:TextziParserCombinatorsziReadP.manyTill1 :: %forall aanY endanZZ . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                           aanY)
+                                                                          ->
+                                                                          (base:TextziParserCombinatorsziReadP.ReadP
+                                                                           endanZZ)
+                                                                          ->
+                                                                          %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                           aanY)
+                                                                                          ->
+                                                                                          (base:TextziParserCombinatorsziReadP.P
+                                                                                           ba5y))
+                                                                                         ->
+                                                                                         (base:TextziParserCombinatorsziReadP.P
+                                                                                          ba5y) =
+    \ @ aanY
+      @ endanZZ
+      (padL::(base:TextziParserCombinatorsziReadP.ReadP aanY))
+      (endadM::(base:TextziParserCombinatorsziReadP.ReadP endanZZ))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aanY) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        %let a2sFV :: %forall b1apn . ((ghczmprim:GHCziTypes.ZMZN aanY) ->
+                                       (base:TextziParserCombinatorsziReadP.P b1apn))
+                                      -> (base:TextziParserCombinatorsziReadP.P b1apn) =
+               \ @ b1apn
+                 (kadZZ::(ghczmprim:GHCziTypes.ZMZN aanY) ->
+                         (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                   (%cast (endadM)
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP endanZZ)))
+                   @ b1apn
+                   (%let lvl3sGx :: (base:TextziParserCombinatorsziReadP.P b1apn) =
+                           kadZZ (ghczmprim:GHCziTypes.ZMZN @ aanY)
+                    %in \ (a3ae0::endanZZ) -> lvl3sGx)
+        %in base:TextziParserCombinatorsziReadP.zlzpzp1
+            @ ((ghczmprim:GHCziTypes.ZMZN aanY))
+            (%cast (a2sFV)
+             (%sym
+              ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                ((ghczmprim:GHCziTypes.ZMZN aanY))))))
+            (%let %rec
+                  {a3sFX :: %forall b1apn . ((ghczmprim:GHCziTypes.ZMZN aanY) ->
+                                             (base:TextziParserCombinatorsziReadP.P b1apn))
+                                            -> (base:TextziParserCombinatorsziReadP.P b1apn) =
+                     \ @ b1apn
+                       (kadZZ::(ghczmprim:GHCziTypes.ZMZN aanY) ->
+                               (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                         (%cast (padL)
+                          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanY)))
+                         @ b1apn
+                         (\ (a4ae0::aanY) ->
+                              base:TextziParserCombinatorsziReadP.zlzpzp1
+                              @ ((ghczmprim:GHCziTypes.ZMZN aanY))
+                              (%cast (a2sFV)
+                               (%sym
+                                ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                  ((ghczmprim:GHCziTypes.ZMZN aanY))))))
+                              (%cast (a3sFX)
+                               (%sym
+                                ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                  ((ghczmprim:GHCziTypes.ZMZN aanY))))))
+                              @ b1apn
+                              (\ (a5XgW::(ghczmprim:GHCziTypes.ZMZN aanY)) ->
+                                   kadZZ (ghczmprim:GHCziTypes.ZC @ aanY a4ae0 a5XgW)))}
+             %in %cast (a3sFX)
+                 (%sym
+                  ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                    ((ghczmprim:GHCziTypes.ZMZN aanY))))))
+            @ ba5y etaB1;
+  base:TextziParserCombinatorsziReadP.manyTill :: %forall aa5D enda5E . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                         aa5D)
+                                                                        ->
+                                                                        (base:TextziParserCombinatorsziReadP.ReadP
+                                                                         enda5E)
+                                                                        ->
+                                                                        (base:TextziParserCombinatorsziReadP.ReadP
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           aa5D))) =
+    %cast (base:TextziParserCombinatorsziReadP.manyTill1)
+    (%forall aanY endanZZ . (base:TextziParserCombinatorsziReadP.ReadP
+                             aanY)
+                            ->
+                            (base:TextziParserCombinatorsziReadP.ReadP endanZZ) ->
+                            %sym
+                            ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                              ((ghczmprim:GHCziTypes.ZMZN aanY)))));
+  %rec
+  {base:TextziParserCombinatorsziReadP.choice :: %forall aa61 . (ghczmprim:GHCziTypes.ZMZN
+                                                                 ((base:TextziParserCombinatorsziReadP.ReadP
+                                                                   aa61)))
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aa61) =
+     \ @ aanb
+       (dsdsx::(ghczmprim:GHCziTypes.ZMZN
+                ((base:TextziParserCombinatorsziReadP.ReadP aanb)))) ->
+         %case ((base:TextziParserCombinatorsziReadP.ReadP aanb)) dsdsx
+         %of (wildB1::(ghczmprim:GHCziTypes.ZMZN
+                       ((base:TextziParserCombinatorsziReadP.ReadP aanb))))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              %cast (base:TextziParserCombinatorsziReadP.pfail1 @ aanb)
+              (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanb)));
+            ghczmprim:GHCziTypes.ZC
+            (pacY::(base:TextziParserCombinatorsziReadP.ReadP aanb))
+            (ds1dsy::(ghczmprim:GHCziTypes.ZMZN
+                      ((base:TextziParserCombinatorsziReadP.ReadP aanb)))) ->
+              %case ((base:TextziParserCombinatorsziReadP.ReadP aanb)) ds1dsy
+              %of (wild1Xq::(ghczmprim:GHCziTypes.ZMZN
+                             ((base:TextziParserCombinatorsziReadP.ReadP aanb))))
+                {ghczmprim:GHCziTypes.ZMZN ->
+                   pacY;
+                 ghczmprim:GHCziTypes.ZC
+                 (ipvswu::(base:TextziParserCombinatorsziReadP.ReadP aanb))
+                 (ipv1swv::(ghczmprim:GHCziTypes.ZMZN
+                            ((base:TextziParserCombinatorsziReadP.ReadP aanb)))) ->
+                   %let ds2sFZZ :: (base:TextziParserCombinatorsziReadP.ReadP aanb) =
+                          base:TextziParserCombinatorsziReadP.choice @ aanb wild1Xq
+                   %in %cast (\ @ balc
+                                (ka6w::aanb -> (base:TextziParserCombinatorsziReadP.P balc)) ->
+                                  base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ balc
+                                  ((%cast (pacY)
+                                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanb)))
+                                   @ balc ka6w)
+                                  ((%cast (ds2sFZZ)
+                                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanb)))
+                                   @ balc ka6w))
+                       (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aanb)))}}};
+  base:TextziParserCombinatorsziReadP.zdfMonadPlusP :: (base:ControlziMonad.TZCMonadPlus
+                                                        base:TextziParserCombinatorsziReadP.P) =
+    base:ControlziMonad.DZCMonadPlus
+    @ base:TextziParserCombinatorsziReadP.P
+    base:TextziParserCombinatorsziReadP.zdfMonadP
+    base:TextziParserCombinatorsziReadP.Fail
+    base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus;
+  base:TextziParserCombinatorsziReadP.zpzpzp1 :: %forall aal9 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aal9)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aal9)
+                                                                ->
+                                                                %forall balc . (aal9 ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 balc))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                balc) =
+    \ @ aal9
+      (dsdsl::(base:TextziParserCombinatorsziReadP.ReadP aal9))
+      (ds1dsm::(base:TextziParserCombinatorsziReadP.ReadP aal9))
+      @ balc
+      (ka6w::aal9 -> (base:TextziParserCombinatorsziReadP.P balc)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ balc
+        ((%cast (dsdsl)
+          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aal9)))
+         @ balc ka6w)
+        ((%cast (ds1dsm)
+          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aal9)))
+         @ balc ka6w);
+  base:TextziParserCombinatorsziReadP.zpzpzp :: %forall aa64 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa64)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa64)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa64) =
+    %cast (base:TextziParserCombinatorsziReadP.zpzpzp1)
+    (%forall aal9 . (base:TextziParserCombinatorsziReadP.ReadP aal9) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP aal9) ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aal9)));
+  base:TextziParserCombinatorsziReadP.option1 :: %forall aalh . aalh
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aalh)
+                                                                ->
+                                                                %forall ba5y . (aalh ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aalh
+      (xadb::aalh)
+      (padc::(base:TextziParserCombinatorsziReadP.ReadP aalh))
+      @ ba5y
+      (etaX26::aalh -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ ba5y
+        ((%cast (padc)
+          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalh)))
+         @ ba5y etaX26)
+        (etaX26 xadb);
+  base:TextziParserCombinatorsziReadP.option :: %forall aa5W . aa5W
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5W)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5W) =
+    %cast (base:TextziParserCombinatorsziReadP.option1)
+    (%forall aalh . aalh ->
+                    (base:TextziParserCombinatorsziReadP.ReadP aalh) ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalh)));
+  base:TextziParserCombinatorsziReadP.chainr3 :: %forall aamu . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aamu)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aamu -> aamu -> aamu))
+                                                                ->
+                                                                %forall ba5y . (aamu ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aamu
+      (pady::(base:TextziParserCombinatorsziReadP.ReadP aamu))
+      (opadzz::(base:TextziParserCombinatorsziReadP.ReadP
+                (aamu -> aamu -> aamu)))
+      @ ba5y
+      (etaX2k::aamu -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (pady)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamu)))
+        @ ba5y
+        (%let %rec
+              {a2sG1 :: aamu ->
+                        %forall b1X84 . (aamu ->
+                                         (base:TextziParserCombinatorsziReadP.P b1X84))
+                                        -> (base:TextziParserCombinatorsziReadP.P b1X84) =
+                 \ (xadC::aamu)
+                   @ b1X84
+                   (eta1B1::aamu -> (base:TextziParserCombinatorsziReadP.P b1X84)) ->
+                     base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ b1X84
+                     ((%cast (opadzz)
+                       ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                         (aamu -> aamu -> aamu))))
+                      @ b1X84
+                      (\ (a3ae0::aamu -> aamu -> aamu) ->
+                           (%cast (pady)
+                            ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamu)))
+                           @ b1X84
+                           (%let ksG3 :: aamu ->
+                                         (base:TextziParserCombinatorsziReadP.P b1X84) =
+                                   \ (a4XgC::aamu) -> eta1B1 (a3ae0 xadC a4XgC)
+                            %in \ (a4XgD::aamu) -> a2sG1 a4XgD @ b1X84 ksG3)))
+                     (eta1B1 xadC)}
+         %in \ (a3ae0::aamu) -> a2sG1 a3ae0 @ ba5y etaX2k);
+  base:TextziParserCombinatorsziReadP.chainr1 :: %forall aa5G . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aa5G)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aa5G -> aa5G -> aa5G))
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aa5G) =
+    %cast (base:TextziParserCombinatorsziReadP.chainr3)
+    (%forall aamu . (base:TextziParserCombinatorsziReadP.ReadP aamu) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP (aamu -> aamu -> aamu))
+                    -> %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamu)));
+  base:TextziParserCombinatorsziReadP.chainr2 :: %forall aamK . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aamK)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aamK -> aamK -> aamK))
+                                                                ->
+                                                                aamK ->
+                                                                %forall ba5y . (aamK ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aamK
+      (pads::(base:TextziParserCombinatorsziReadP.ReadP aamK))
+      (opadt::(base:TextziParserCombinatorsziReadP.ReadP
+               (aamK -> aamK -> aamK)))
+      (xadu::aamK)
+      @ ba5y
+      (etaX2q::aamK -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ ba5y
+        (base:TextziParserCombinatorsziReadP.chainr3 @ aamK pads opadt
+         @ ba5y etaX2q)
+        (etaX2q xadu);
+  base:TextziParserCombinatorsziReadP.chainr :: %forall aa5I . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5I)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                (aa5I -> aa5I -> aa5I))
+                                                               ->
+                                                               aa5I ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5I) =
+    %cast (base:TextziParserCombinatorsziReadP.chainr2)
+    (%forall aamK . (base:TextziParserCombinatorsziReadP.ReadP aamK) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP (aamK -> aamK -> aamK))
+                    ->
+                    aamK ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamK)));
+  %rec
+  {base:TextziParserCombinatorsziReadP.gatherzugath :: %forall ba6P . ((ghczmprim:GHCziTypes.ZMZN
+                                                                        ghczmprim:GHCziTypes.Char)
+                                                                       ->
+                                                                       (ghczmprim:GHCziTypes.ZMZN
+                                                                        ghczmprim:GHCziTypes.Char))
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                                         ghczmprim:GHCziTypes.Char)
+                                                                        ->
+                                                                        (base:TextziParserCombinatorsziReadP.P
+                                                                         ba6P)))
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                       ba6P) =
+     \ @ bakT
+       (la6Q::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+              (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+       (dsdse::(base:TextziParserCombinatorsziReadP.P
+                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                 (base:TextziParserCombinatorsziReadP.P bakT)))) ->
+         %case ((base:TextziParserCombinatorsziReadP.P bakT)) dsdse
+         %of (wildX1w::(base:TextziParserCombinatorsziReadP.P
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                         (base:TextziParserCombinatorsziReadP.P bakT))))
+           {base:TextziParserCombinatorsziReadP.Get
+            (fa6R::ghczmprim:GHCziTypes.Char ->
+                   (base:TextziParserCombinatorsziReadP.P
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                     (base:TextziParserCombinatorsziReadP.P bakT)))) ->
+              base:TextziParserCombinatorsziReadP.Get @ bakT
+              (\ (ca6S::ghczmprim:GHCziTypes.Char) ->
+                   base:TextziParserCombinatorsziReadP.gatherzugath @ bakT
+                   (\ (xawC::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                        la6Q
+                        (ghczmprim:GHCziTypes.ZC @ ghczmprim:GHCziTypes.Char ca6S xawC))
+                   (fa6R ca6S));
+            base:TextziParserCombinatorsziReadP.Look
+            (fa6U::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                     (base:TextziParserCombinatorsziReadP.P bakT)))) ->
+              base:TextziParserCombinatorsziReadP.Look @ bakT
+              (\ (sa6V::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                   base:TextziParserCombinatorsziReadP.gatherzugath @ bakT la6Q
+                   (fa6U sa6V));
+            base:TextziParserCombinatorsziReadP.Fail ->
+              base:TextziParserCombinatorsziReadP.Fail @ bakT;
+            base:TextziParserCombinatorsziReadP.Result
+            (ka6X::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                   (base:TextziParserCombinatorsziReadP.P bakT))
+            (pa6Y::(base:TextziParserCombinatorsziReadP.P
+                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                     (base:TextziParserCombinatorsziReadP.P bakT)))) ->
+              base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ bakT
+              (ka6X
+               (la6Q (ghczmprim:GHCziTypes.ZMZN @ ghczmprim:GHCziTypes.Char)))
+              (base:TextziParserCombinatorsziReadP.gatherzugath @ bakT la6Q
+               pa6Y);
+            base:TextziParserCombinatorsziReadP.Final
+            (ds1dsf::(ghczmprim:GHCziTypes.ZMZN
+                      ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                         (base:TextziParserCombinatorsziReadP.P bakT))
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+              lvl1rIA @ bakT}};
+  base:TextziParserCombinatorsziReadP.gather1 :: %forall aakQ . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aakQ)
+                                                                ->
+                                                                %forall ba5y . ((ghczmprim:GHCziTuple.Z2T
+                                                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                                                   ghczmprim:GHCziTypes.Char))
+                                                                                 aakQ)
+                                                                                ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aakQ
+      (dsdsd::(base:TextziParserCombinatorsziReadP.ReadP aakQ))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTuple.Z2T
+               ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+               aakQ)
+              -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.gatherzugath @ ba5y
+        (base:GHCziBase.id
+         @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))
+        ((%cast (dsdsd)
+          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aakQ)))
+         @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+            (base:TextziParserCombinatorsziReadP.P ba5y))
+         (\ (a2a70::aakQ) ->
+              base:TextziParserCombinatorsziReadP.Result
+              @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                 (base:TextziParserCombinatorsziReadP.P ba5y))
+              (\ (sa71::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                   etaB1
+                   (ghczmprim:GHCziTuple.Z2T
+                    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) @ aakQ
+                    sa71 a2a70))
+              (base:TextziParserCombinatorsziReadP.Fail
+               @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                  (base:TextziParserCombinatorsziReadP.P ba5y)))));
+  base:TextziParserCombinatorsziReadP.gather :: %forall aa62 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa62)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                ((ghczmprim:GHCziTuple.Z2T
+                                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                                    ghczmprim:GHCziTypes.Char))
+                                                                  aa62))) =
+    %cast (base:TextziParserCombinatorsziReadP.gather1)
+    (%forall aakQ . (base:TextziParserCombinatorsziReadP.ReadP aakQ) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ((ghczmprim:GHCziTuple.Z2T
+                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                        aakQ)))));
+  base:TextziParserCombinatorsziReadP.optional1 :: %forall aalm . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                   aalm)
+                                                                  ->
+                                                                  %forall ba5y . (ghczmprim:GHCziUnit.Z0T
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.P
+                                                                                   ba5y))
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  ba5y) =
+    \ @ aalm
+      (padd::(base:TextziParserCombinatorsziReadP.ReadP aalm))
+      @ ba5y
+      (etaB1::ghczmprim:GHCziUnit.Z0T ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        %let lvl3sGy :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+               etaB1 ghczmprim:GHCziUnit.Z0T
+        %in base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus
+            @ ba5y
+            ((%cast (padd)
+              ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalm)))
+             @ ba5y (\ (a2ae0::aalm) -> lvl3sGy))
+            lvl3sGy;
+  base:TextziParserCombinatorsziReadP.optional :: %forall aa5V . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                  aa5V)
+                                                                 ->
+                                                                 (base:TextziParserCombinatorsziReadP.ReadP
+                                                                  ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:TextziParserCombinatorsziReadP.optional1)
+    (%forall aalm . (base:TextziParserCombinatorsziReadP.ReadP aalm) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ghczmprim:GHCziUnit.Z0T)));
+  base:TextziParserCombinatorsziReadP.chainl3 :: %forall aamP . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aamP)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aamP -> aamP -> aamP))
+                                                                ->
+                                                                %forall ba5y . (aamP ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aamP
+      (padF::(base:TextziParserCombinatorsziReadP.ReadP aamP))
+      (opadG::(base:TextziParserCombinatorsziReadP.ReadP
+               (aamP -> aamP -> aamP)))
+      @ ba5y
+      (etaB1::aamP -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (padF)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamP)))
+        @ ba5y
+        (%let %rec
+              {a2sG6 :: aamP ->
+                        %forall b1X88 . (aamP ->
+                                         (base:TextziParserCombinatorsziReadP.P b1X88))
+                                        -> (base:TextziParserCombinatorsziReadP.P b1X88) =
+                 \ (xadI::aamP)
+                   @ b1X88
+                   (eta1X2C::aamP -> (base:TextziParserCombinatorsziReadP.P b1X88)) ->
+                     base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ b1X88
+                     ((%cast (opadG)
+                       ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                         (aamP -> aamP -> aamP))))
+                      @ b1X88
+                      (\ (a3ae0::aamP -> aamP -> aamP) ->
+                           (%cast (padF)
+                            ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamP)))
+                           @ b1X88
+                           (\ (a4Xhs::aamP) -> a2sG6 (a3ae0 xadI a4Xhs) @ b1X88 eta1X2C)))
+                     (eta1X2C xadI)}
+         %in \ (a3ae0::aamP) -> a2sG6 a3ae0 @ ba5y etaB1);
+  base:TextziParserCombinatorsziReadP.chainl1 :: %forall aa5F . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aa5F)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aa5F -> aa5F -> aa5F))
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aa5F) =
+    %cast (base:TextziParserCombinatorsziReadP.chainl3)
+    (%forall aamP . (base:TextziParserCombinatorsziReadP.ReadP aamP) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP (aamP -> aamP -> aamP))
+                    -> %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aamP)));
+  base:TextziParserCombinatorsziReadP.chainl2 :: %forall aan2 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aan2)
+                                                                ->
+                                                                (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 (aan2 -> aan2 -> aan2))
+                                                                ->
+                                                                aan2 ->
+                                                                %forall ba5y . (aan2 ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+    \ @ aan2
+      (padv::(base:TextziParserCombinatorsziReadP.ReadP aan2))
+      (opadw::(base:TextziParserCombinatorsziReadP.ReadP
+               (aan2 -> aan2 -> aan2)))
+      (xadx::aan2)
+      @ ba5y
+      (etaB1::aan2 -> (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ ba5y
+        (base:TextziParserCombinatorsziReadP.chainl3 @ aan2 padv opadw
+         @ ba5y etaB1)
+        (etaB1 xadx);
+  base:TextziParserCombinatorsziReadP.chainl :: %forall aa5H . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5H)
+                                                               ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                (aa5H -> aa5H -> aa5H))
+                                                               ->
+                                                               aa5H ->
+                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                aa5H) =
+    %cast (base:TextziParserCombinatorsziReadP.chainl2)
+    (%forall aan2 . (base:TextziParserCombinatorsziReadP.ReadP aan2) ->
+                    (base:TextziParserCombinatorsziReadP.ReadP (aan2 -> aan2 -> aan2))
+                    ->
+                    aan2 ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aan2)));
+  %rec
+  {base:TextziParserCombinatorsziReadP.endBy3 :: %forall aalG . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                 aalG)
+                                                                ->
+                                                                %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                 aalG)
+                                                                                ->
+                                                                                (base:TextziParserCombinatorsziReadP.P
+                                                                                 ba5y))
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.P
+                                                                                ba5y) =
+     \ @ aalG
+       (pade::(base:TextziParserCombinatorsziReadP.ReadP aalG))
+       @ ba5y
+       (etaB1::(ghczmprim:GHCziTypes.ZMZN aalG) ->
+               (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+         base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ ba5y
+         (etaB1 (ghczmprim:GHCziTypes.ZMZN @ aalG))
+         ((%cast (pade)
+           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalG)))
+          @ ba5y
+          (\ (a2ae0::aalG) ->
+               base:TextziParserCombinatorsziReadP.endBy3 @ aalG pade @ ba5y
+               (\ (a3XgB::(ghczmprim:GHCziTypes.ZMZN aalG)) ->
+                    etaB1 (ghczmprim:GHCziTypes.ZC @ aalG a2ae0 a3XgB))))};
+  base:TextziParserCombinatorsziReadP.many :: %forall aa5U . (base:TextziParserCombinatorsziReadP.ReadP
+                                                              aa5U)
+                                                             ->
+                                                             (base:TextziParserCombinatorsziReadP.ReadP
+                                                              ((ghczmprim:GHCziTypes.ZMZN aa5U))) =
+    %cast (base:TextziParserCombinatorsziReadP.endBy3)
+    (%forall aalG . (base:TextziParserCombinatorsziReadP.ReadP aalG) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ((ghczmprim:GHCziTypes.ZMZN aalG)))));
+  base:TextziParserCombinatorsziReadP.many2 :: %forall aalx . (base:TextziParserCombinatorsziReadP.ReadP
+                                                               aalx)
+                                                              ->
+                                                              %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                               aalx)
+                                                                              ->
+                                                                              (base:TextziParserCombinatorsziReadP.P
+                                                                               ba5y))
+                                                                             ->
+                                                                             (base:TextziParserCombinatorsziReadP.P
+                                                                              ba5y) =
+    \ @ aalx
+      (padf::(base:TextziParserCombinatorsziReadP.ReadP aalx))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aalx) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (padf)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalx)))
+        @ ba5y
+        (\ (a2ae0::aalx) ->
+             base:TextziParserCombinatorsziReadP.endBy3 @ aalx padf @ ba5y
+             (\ (a3XgB::(ghczmprim:GHCziTypes.ZMZN aalx)) ->
+                  etaB1 (ghczmprim:GHCziTypes.ZC @ aalx a2ae0 a3XgB)));
+  base:TextziParserCombinatorsziReadP.many1 :: %forall aa5T . (base:TextziParserCombinatorsziReadP.ReadP
+                                                               aa5T)
+                                                              ->
+                                                              (base:TextziParserCombinatorsziReadP.ReadP
+                                                               ((ghczmprim:GHCziTypes.ZMZN aa5T))) =
+    %cast (base:TextziParserCombinatorsziReadP.many2)
+    (%forall aalx . (base:TextziParserCombinatorsziReadP.ReadP aalx) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ((ghczmprim:GHCziTypes.ZMZN aalx)))));
+  base:TextziParserCombinatorsziReadP.skipMany2 :: %forall aalV . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                   aalV)
+                                                                  ->
+                                                                  %forall ba5y . (ghczmprim:GHCziUnit.Z0T
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.P
+                                                                                   ba5y))
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  ba5y) =
+    \ @ aalV
+      (padg::(base:TextziParserCombinatorsziReadP.ReadP aalV))
+      @ ba5y
+      (etaB1::ghczmprim:GHCziUnit.Z0T ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        %let lvl3sGzz :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+               etaB1 ghczmprim:GHCziUnit.Z0T
+        %in base:TextziParserCombinatorsziReadP.endBy3 @ aalV padg @ ba5y
+            (\ (a2ae0::(ghczmprim:GHCziTypes.ZMZN aalV)) -> lvl3sGzz);
+  base:TextziParserCombinatorsziReadP.skipMany :: %forall aa5S . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                  aa5S)
+                                                                 ->
+                                                                 (base:TextziParserCombinatorsziReadP.ReadP
+                                                                  ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:TextziParserCombinatorsziReadP.skipMany2)
+    (%forall aalV . (base:TextziParserCombinatorsziReadP.ReadP aalV) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ghczmprim:GHCziUnit.Z0T)));
+  base:TextziParserCombinatorsziReadP.skipMany3 :: %forall aam2 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                   aam2)
+                                                                  ->
+                                                                  %forall ba5y . (ghczmprim:GHCziUnit.Z0T
+                                                                                  ->
+                                                                                  (base:TextziParserCombinatorsziReadP.P
+                                                                                   ba5y))
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.P
+                                                                                  ba5y) =
+    \ @ aam2
+      (padh::(base:TextziParserCombinatorsziReadP.ReadP aam2))
+      @ ba5y
+      (etaB1::ghczmprim:GHCziUnit.Z0T ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (padh)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aam2)))
+        @ ba5y
+        (%let lvl3sGA :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+                %let lvl4sGB :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+                       etaB1 ghczmprim:GHCziUnit.Z0T
+                %in base:TextziParserCombinatorsziReadP.endBy3 @ aam2 padh @ ba5y
+                    (\ (a2Xhg::(ghczmprim:GHCziTypes.ZMZN aam2)) -> lvl4sGB)
+         %in \ (a2ae0::aam2) -> lvl3sGA);
+  base:TextziParserCombinatorsziReadP.skipMany1 :: %forall aa5R . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                   aa5R)
+                                                                  ->
+                                                                  (base:TextziParserCombinatorsziReadP.ReadP
+                                                                   ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:TextziParserCombinatorsziReadP.skipMany3)
+    (%forall aam2 . (base:TextziParserCombinatorsziReadP.ReadP aam2) ->
+                    %sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ghczmprim:GHCziUnit.Z0T)));
+  base:TextziParserCombinatorsziReadP.sepBy3 :: %forall aam7 sepam8 . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aam7)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepam8)
+                                                                      ->
+                                                                      %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                       aam7)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       ba5y))
+                                                                                     ->
+                                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                                      ba5y) =
+    \ @ aam7
+      @ sepam8
+      (padk::(base:TextziParserCombinatorsziReadP.ReadP aam7))
+      (sepadl::(base:TextziParserCombinatorsziReadP.ReadP sepam8))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aam7) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (padk)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aam7)))
+        @ ba5y
+        (%let a2sGc :: %forall b1apn . (aam7 ->
+                                        (base:TextziParserCombinatorsziReadP.P b1apn))
+                                       -> (base:TextziParserCombinatorsziReadP.P b1apn) =
+                \ @ b1apn
+                  (kadZZ::aam7 -> (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                    (%cast (sepadl)
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP sepam8)))
+                    @ b1apn
+                    (%let lvl3sGC :: (base:TextziParserCombinatorsziReadP.P b1apn) =
+                            (%cast (padk)
+                             ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aam7)))
+                            @ b1apn kadZZ
+                     %in \ (a3ae0::sepam8) -> lvl3sGC)
+         %in \ (a3ae0::aam7) ->
+                 base:TextziParserCombinatorsziReadP.endBy3 @ aam7
+                 (%cast (a2sGc)
+                  (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aam7))))
+                 @ ba5y
+                 (\ (a4XgH::(ghczmprim:GHCziTypes.ZMZN aam7)) ->
+                      etaB1 (ghczmprim:GHCziTypes.ZC @ aam7 a3ae0 a4XgH)));
+  base:TextziParserCombinatorsziReadP.sepBy1 :: %forall aa5N sepa5O . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aa5N)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepa5O)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                                         aa5N))) =
+    %cast (base:TextziParserCombinatorsziReadP.sepBy3)
+    (%forall aam7 sepam8 . (base:TextziParserCombinatorsziReadP.ReadP
+                            aam7)
+                           ->
+                           (base:TextziParserCombinatorsziReadP.ReadP sepam8) ->
+                           %sym
+                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                             ((ghczmprim:GHCziTypes.ZMZN aam7)))));
+  base:TextziParserCombinatorsziReadP.endBy2 :: %forall aame sepamf . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aame)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepamf)
+                                                                      ->
+                                                                      %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                       aame)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       ba5y))
+                                                                                     ->
+                                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                                      ba5y) =
+    \ @ aame
+      @ sepamf
+      (padm::(base:TextziParserCombinatorsziReadP.ReadP aame))
+      (sepadn::(base:TextziParserCombinatorsziReadP.ReadP sepamf))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aame) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.endBy3 @ aame
+        (%cast (\ @ b1apn
+                  (kadZZ::aame -> (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                    (%cast (padm)
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aame)))
+                    @ b1apn
+                    (\ (a2ae0::aame) ->
+                         (%cast (sepadn)
+                          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP sepamf)))
+                         @ b1apn
+                         (%let lvl3sGD :: (base:TextziParserCombinatorsziReadP.P b1apn) =
+                                 kadZZ a2ae0
+                          %in \ (a3Xhh::sepamf) -> lvl3sGD)))
+         (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aame))))
+        @ ba5y etaB1;
+  base:TextziParserCombinatorsziReadP.endBy :: %forall aa5L sepa5M . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      aa5L)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      sepa5M)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                        aa5L))) =
+    %cast (base:TextziParserCombinatorsziReadP.endBy2)
+    (%forall aame sepamf . (base:TextziParserCombinatorsziReadP.ReadP
+                            aame)
+                           ->
+                           (base:TextziParserCombinatorsziReadP.ReadP sepamf) ->
+                           %sym
+                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                             ((ghczmprim:GHCziTypes.ZMZN aame)))));
+  base:TextziParserCombinatorsziReadP.endBy4 :: %forall aalL sepalM . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aalL)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepalM)
+                                                                      ->
+                                                                      %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                       aalL)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       ba5y))
+                                                                                     ->
+                                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                                      ba5y) =
+    \ @ aalL
+      @ sepalM
+      (padp::(base:TextziParserCombinatorsziReadP.ReadP aalL))
+      (sepadq::(base:TextziParserCombinatorsziReadP.ReadP sepalM))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aalL) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        (%cast (padp)
+         ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalL)))
+        @ ba5y
+        (%let a2sGg :: %forall b1apn . (aalL ->
+                                        (base:TextziParserCombinatorsziReadP.P b1apn))
+                                       -> (base:TextziParserCombinatorsziReadP.P b1apn) =
+                \ @ b1apn
+                  (kadZZ::aalL -> (base:TextziParserCombinatorsziReadP.P b1apn)) ->
+                    (%cast (padp)
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalL)))
+                    @ b1apn
+                    (\ (a3ae0::aalL) ->
+                         (%cast (sepadq)
+                          ((base:TextziParserCombinatorsziReadP.NTCoZCReadP sepalM)))
+                         @ b1apn
+                         (%let lvl3sGE :: (base:TextziParserCombinatorsziReadP.P b1apn) =
+                                 kadZZ a3ae0
+                          %in \ (a4Xhj::sepalM) -> lvl3sGE))
+         %in \ (a3ae0::aalL) ->
+                 (%cast (sepadq)
+                  ((base:TextziParserCombinatorsziReadP.NTCoZCReadP sepalM)))
+                 @ ba5y
+                 (%let lvl3sGF :: (base:TextziParserCombinatorsziReadP.P ba5y) =
+                         base:TextziParserCombinatorsziReadP.endBy3 @ aalL
+                         (%cast (a2sGg)
+                          (%sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aalL))))
+                         @ ba5y
+                         (\ (a4XgM::(ghczmprim:GHCziTypes.ZMZN aalL)) ->
+                              etaB1 (ghczmprim:GHCziTypes.ZC @ aalL a3ae0 a4XgM))
+                  %in \ (a4Xhj::sepalM) -> lvl3sGF));
+  base:TextziParserCombinatorsziReadP.endBy1 :: %forall aa5J sepa5K . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aa5J)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepa5K)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                                         aa5J))) =
+    %cast (base:TextziParserCombinatorsziReadP.endBy4)
+    (%forall aalL sepalM . (base:TextziParserCombinatorsziReadP.ReadP
+                            aalL)
+                           ->
+                           (base:TextziParserCombinatorsziReadP.ReadP sepalM) ->
+                           %sym
+                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                             ((ghczmprim:GHCziTypes.ZMZN aalL)))));
+  base:TextziParserCombinatorsziReadP.sepBy2 :: %forall aamo sepamp . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       aamo)
+                                                                      ->
+                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                       sepamp)
+                                                                      ->
+                                                                      %forall ba5y . ((ghczmprim:GHCziTypes.ZMZN
+                                                                                       aamo)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.P
+                                                                                       ba5y))
+                                                                                     ->
+                                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                                      ba5y) =
+    \ @ aamo
+      @ sepamp
+      (padi::(base:TextziParserCombinatorsziReadP.ReadP aamo))
+      (sepadj::(base:TextziParserCombinatorsziReadP.ReadP sepamp))
+      @ ba5y
+      (etaB1::(ghczmprim:GHCziTypes.ZMZN aamo) ->
+              (base:TextziParserCombinatorsziReadP.P ba5y)) ->
+        base:TextziParserCombinatorsziReadP.zdfMonadPlusPzuzdcmplus @ ba5y
+        (base:TextziParserCombinatorsziReadP.sepBy3 @ aamo @ sepamp padi
+         sepadj @ ba5y etaB1)
+        (etaB1 (ghczmprim:GHCziTypes.ZMZN @ aamo));
+  base:TextziParserCombinatorsziReadP.sepBy :: %forall aa5P sepa5Q . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      aa5P)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      sepa5Q)
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.ReadP
+                                                                      ((ghczmprim:GHCziTypes.ZMZN
+                                                                        aa5P))) =
+    %cast (base:TextziParserCombinatorsziReadP.sepBy2)
+    (%forall aamo sepamp . (base:TextziParserCombinatorsziReadP.ReadP
+                            aamo)
+                           ->
+                           (base:TextziParserCombinatorsziReadP.ReadP sepamp) ->
+                           %sym
+                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                             ((ghczmprim:GHCziTypes.ZMZN aamo)))));
+  base:TextziParserCombinatorsziReadP.zdfFunctorReadPzuzdczlzd :: %forall aarZZ bas0 . aarZZ
+                                                                                       ->
+                                                                                       (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                        bas0)
+                                                                                       ->
+                                                                                       (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                        aarZZ) =
+    %cast (base:TextziParserCombinatorsziReadP.zdfFunctorReadP1)
+    (%forall aawO bawP . aawO ->
+                         (base:TextziParserCombinatorsziReadP.ReadP bawP) ->
+                         %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aawO)));
+  base:TextziParserCombinatorsziReadP.zdfFunctorReadPzuzdcfmap :: %forall aapK bapL . (aapK
+                                                                                       -> bapL)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                       aapK)
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                       bapL) =
+    %cast (base:TextziParserCombinatorsziReadP.zdfFunctorReadP2)
+    (%forall aapM bapN . (aapM -> bapN) ->
+                         (base:TextziParserCombinatorsziReadP.ReadP aapM) ->
+                         %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bapN)));
+  base:TextziParserCombinatorsziReadP.zdfFunctorReadP :: (base:GHCziBase.TZCFunctor
+                                                          base:TextziParserCombinatorsziReadP.ReadP) =
+    base:GHCziBase.DZCFunctor
+    @ base:TextziParserCombinatorsziReadP.ReadP
+    (%cast (base:TextziParserCombinatorsziReadP.zdfFunctorReadP2)
+     (%forall aapM bapN . (aapM -> bapN) ->
+                          (base:TextziParserCombinatorsziReadP.ReadP aapM) ->
+                          %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bapN))))
+    (%cast (base:TextziParserCombinatorsziReadP.zdfFunctorReadP1)
+     (%forall aawO bawP . aawO ->
+                          (base:TextziParserCombinatorsziReadP.ReadP bawP) ->
+                          %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aawO))));
+  base:TextziParserCombinatorsziReadP.zdfMonadReadPzuzdcfail :: %forall aapC . (ghczmprim:GHCziTypes.ZMZN
+                                                                                ghczmprim:GHCziTypes.Char)
+                                                                               ->
+                                                                               (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                aapC) =
+    %cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP1)
+    (%forall aapD . (ghczmprim:GHCziTypes.ZMZN
+                     ghczmprim:GHCziTypes.Char)
+                    -> %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapD)));
+  base:TextziParserCombinatorsziReadP.zdfMonadReadPzuzdcreturn :: %forall aakF . aakF
+                                                                                 ->
+                                                                                 (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                  aakF) =
+    %cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP2)
+    (%forall aapw . aapw ->
+                    %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapw)));
+  base:TextziParserCombinatorsziReadP.zdfMonadReadPzuzdczgzgze :: %forall aakx baky . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                       aakx)
+                                                                                      ->
+                                                                                      (aakx ->
+                                                                                       (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                        baky))
+                                                                                      ->
+                                                                                      (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                       baky) =
+    %cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP3)
+    (%forall aapj bapk . (base:TextziParserCombinatorsziReadP.ReadP
+                          aapj)
+                         ->
+                         (aapj -> (base:TextziParserCombinatorsziReadP.ReadP bapk)) ->
+                         %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bapk)));
+  base:TextziParserCombinatorsziReadP.zdfMonadReadPzuzdczgzg :: %forall aalo balp . (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                     aalo)
+                                                                                    ->
+                                                                                    (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                     balp)
+                                                                                    ->
+                                                                                    (base:TextziParserCombinatorsziReadP.ReadP
+                                                                                     balp) =
+    %cast (a1rIN)
+    (%forall aalo balp . (base:TextziParserCombinatorsziReadP.ReadP
+                          aalo)
+                         ->
+                         (base:TextziParserCombinatorsziReadP.ReadP balp) ->
+                         %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP balp)));
+  base:TextziParserCombinatorsziReadP.zdfMonadReadP :: (base:GHCziBase.TZCMonad
+                                                        base:TextziParserCombinatorsziReadP.ReadP) =
+    base:GHCziBase.DZCMonad @ base:TextziParserCombinatorsziReadP.ReadP
+    (%cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP3)
+     (%forall aapj bapk . (base:TextziParserCombinatorsziReadP.ReadP
+                           aapj)
+                          ->
+                          (aapj -> (base:TextziParserCombinatorsziReadP.ReadP bapk)) ->
+                          %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP bapk))))
+    base:TextziParserCombinatorsziReadP.zdfMonadReadPzuzdczgzg
+    (%cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP2)
+     (%forall aapw . aapw ->
+                     %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapw))))
+    (%cast (base:TextziParserCombinatorsziReadP.zdfMonadReadP1)
+     (%forall aapD . (ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char)
+                     -> %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aapD))));
+  base:TextziParserCombinatorsziReadP.zdfMonadPlusReadP :: (base:ControlziMonad.TZCMonadPlus
+                                                            base:TextziParserCombinatorsziReadP.ReadP) =
+    base:ControlziMonad.DZCMonadPlus
+    @ base:TextziParserCombinatorsziReadP.ReadP
+    base:TextziParserCombinatorsziReadP.zdfMonadReadP
+    (%cast (base:TextziParserCombinatorsziReadP.pfail1)
+     (%forall aan7 . %sym
+                     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aan7))))
+    (%cast (base:TextziParserCombinatorsziReadP.zpzpzp1)
+     (%forall aal9 . (base:TextziParserCombinatorsziReadP.ReadP aal9) ->
+                     (base:TextziParserCombinatorsziReadP.ReadP aal9) ->
+                     %sym ((base:TextziParserCombinatorsziReadP.NTCoZCReadP aal9))));
+  %rec
+  {base:TextziParserCombinatorsziReadP.skipSpaceszuskip :: (ghczmprim:GHCziTypes.ZMZN
+                                                            ghczmprim:GHCziTypes.Char)
+                                                           ->
+                                                           (base:TextziParserCombinatorsziReadP.ReadP
+                                                            ghczmprim:GHCziUnit.Z0T) =
+     \ (dsdt7::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+         %case ((base:TextziParserCombinatorsziReadP.ReadP
+                 ghczmprim:GHCziUnit.Z0T)) dsdt7
+         %of (wildX2y::(ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char))
+           {ghczmprim:GHCziTypes.ZMZN ->
+              %cast (arIw)
+              (%sym
+               ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                 ghczmprim:GHCziUnit.Z0T)));
+            ghczmprim:GHCziTypes.ZC
+            (cad2::ghczmprim:GHCziTypes.Char)
+            (sad3::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+              %case ((base:TextziParserCombinatorsziReadP.ReadP
+                      ghczmprim:GHCziUnit.Z0T)) (base:GHCziUnicode.isSpace cad2)
+              %of (wild1XT::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   %cast (arIw)
+                   (%sym
+                    ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                      ghczmprim:GHCziUnit.Z0T)));
+                 ghczmprim:GHCziBool.True ->
+                   %let lvl3sGj :: (base:TextziParserCombinatorsziReadP.ReadP
+                                    ghczmprim:GHCziUnit.Z0T) =
+                          base:TextziParserCombinatorsziReadP.skipSpaceszuskip sad3
+                   %in %cast (\ @ bapn
+                                (kadZZ::ghczmprim:GHCziUnit.Z0T ->
+                                        (base:TextziParserCombinatorsziReadP.P bapn)) ->
+                                  base:TextziParserCombinatorsziReadP.Get @ bapn
+                                  (%let lvl4sGG :: (base:TextziParserCombinatorsziReadP.P bapn) =
+                                          (%cast (lvl3sGj)
+                                           ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                                             ghczmprim:GHCziUnit.Z0T)))
+                                          @ bapn kadZZ
+                                   %in \ (a2ae0::ghczmprim:GHCziTypes.Char) -> lvl4sGG))
+                       (%sym
+                        ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                          ghczmprim:GHCziUnit.Z0T)))}}};
+  base:TextziParserCombinatorsziReadP.skipSpaces1 :: %forall bapn . (ghczmprim:GHCziUnit.Z0T
+                                                                     ->
+                                                                     (base:TextziParserCombinatorsziReadP.P
+                                                                      bapn))
+                                                                    ->
+                                                                    (base:TextziParserCombinatorsziReadP.P
+                                                                     bapn) =
+    \ @ bapn
+      (kadZZ::ghczmprim:GHCziUnit.Z0T ->
+              (base:TextziParserCombinatorsziReadP.P bapn)) ->
+        base:TextziParserCombinatorsziReadP.Look @ bapn
+        (\ (a2ae0::(ghczmprim:GHCziTypes.ZMZN
+                    ghczmprim:GHCziTypes.Char)) ->
+             (%cast (base:TextziParserCombinatorsziReadP.skipSpaceszuskip a2ae0)
+              ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+                ghczmprim:GHCziUnit.Z0T)))
+             @ bapn kadZZ);
+  base:TextziParserCombinatorsziReadP.skipSpaces :: (base:TextziParserCombinatorsziReadP.ReadP
+                                                     ghczmprim:GHCziUnit.Z0T) =
+    %cast (base:TextziParserCombinatorsziReadP.skipSpaces1)
+    (%sym
+     ((base:TextziParserCombinatorsziReadP.NTCoZCReadP
+       ghczmprim:GHCziUnit.Z0T)));

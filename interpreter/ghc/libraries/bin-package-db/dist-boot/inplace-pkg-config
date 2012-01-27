@@ -1,0 +1,33 @@
+name: bin-package-db
+version: 0.0.0.0
+id: bin-package-db-0.0.0.0-inplace
+license: BSD3
+copyright:
+maintainer: cvs-ghc@haskell.org
+stability:
+homepage:
+package-url:
+description:
+category:
+author:
+exposed: True
+exposed-modules: Distribution.InstalledPackageInfo.Binary
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bin-package-db/dist-boot/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bin-package-db/dist-boot/build
+hs-libraries: HSbin-package-db-0.0.0.0
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: Cabal-1.10.1.0-inplace
+         base-4.3.1.0-c33a1741503ded8a0170884e8a2e4fa2
+         ghc-binary-0.5.0.2-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bin-package-db/dist-boot/doc/html/bin-package-db/bin-package-db.haddock
+haddock-html: ../bin-package-db-0.0.0.0
+

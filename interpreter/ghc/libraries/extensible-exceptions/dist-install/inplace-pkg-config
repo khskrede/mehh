@@ -1,0 +1,32 @@
+name: extensible-exceptions
+version: 0.1.1.2
+id: extensible-exceptions-0.1.1.2-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package provides extensible exceptions for both new and
+             old versions of GHC (i.e., < 6.10).
+category: Control
+author:
+exposed: True
+exposed-modules: Control.Exception.Extensible
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/extensible-exceptions/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/extensible-exceptions/dist-install/build
+hs-libraries: HSextensible-exceptions-0.1.1.2
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/extensible-exceptions/dist-install/doc/html/extensible-exceptions/extensible-exceptions.haddock
+haddock-html: ../extensible-exceptions-0.1.1.2
+

@@ -1,0 +1,40 @@
+name: ghc-binary
+version: 0.5.0.2
+id: ghc-binary-0.5.0.2-inplace
+license: BSD3
+copyright:
+maintainer: Lennart Kolmodin, Don Stewart <dons@galois.com>
+stability: provisional
+homepage: http://code.haskell.org/binary/
+package-url:
+description: Efficient, pure binary serialisation using lazy ByteStrings.
+             Haskell values may be encoded to and from binary formats,
+             written to disk as binary, or sent over the network.
+             Serialisation speeds of over 1 G\/sec have been observed,
+             so this library should be suitable for high performance
+             scenarios.
+category: Data, Parsing
+author: Lennart Kolmodin <kolmodin@dtek.chalmers.se>
+exposed: True
+exposed-modules: Data.Binary Data.Binary.Put Data.Binary.Get
+                 Data.Binary.Builder
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/ghc-binary/dist-boot/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/ghc-binary/dist-boot/build
+hs-libraries: HSghc-binary-0.5.0.2
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: array-0.3.0.2-143060371bda4ff52c270d1067551fe8
+         base-4.3.1.0-c33a1741503ded8a0170884e8a2e4fa2
+         bytestring-0.9.1.10-6aa1efbfa95d1689fc03d61e7c4b27c4
+         containers-0.4.0.0-b4885363abca642443ccd842502a3b7e
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/ghc-binary/dist-boot/doc/html/ghc-binary/ghc-binary.haddock
+haddock-html: ../ghc-binary-0.5.0.2
+

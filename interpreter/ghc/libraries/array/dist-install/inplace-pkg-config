@@ -1,0 +1,35 @@
+name: array
+version: 0.3.0.2
+id: array-0.3.0.2-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package defines the classes @IArray@ of immutable arrays and
+             @MArray@ of arrays mutable within appropriate monads, as well as
+             some instances of these classes.
+category: Data Structures
+author:
+exposed: True
+exposed-modules: Data.Array.Base Data.Array.IArray Data.Array.IO
+                 Data.Array.IO.Internals Data.Array.MArray Data.Array.ST
+                 Data.Array.Storable Data.Array.Unboxed Data.Array
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/array/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/array/dist-install/build
+hs-libraries: HSarray-0.3.0.2
+extra-libraries:
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/array/include
+includes:
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/array/dist-install/doc/html/array/array.haddock
+haddock-html: ../array-0.3.0.2
+

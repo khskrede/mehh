@@ -1,0 +1,17 @@
+libraries/unix/dist-install/build/cbits/HsUnix.o: libraries/unix/cbits/HsUnix.c libraries/unix/include/HsUnix.h \
+ libraries/unix/include/HsUnixConfig.h \
+ includes/HsFFI.h \
+ includes/ghcconfig.h \
+ includes/ghcautoconf.h \
+ includes/ghcplatform.h \
+ includes/stg/Types.h
+libraries/unix/dist-install/build/cbits/execvpe.o: libraries/unix/cbits/execvpe.c \
+ libraries/unix/include/execvpe.h libraries/unix/include/HsUnixConfig.h
+libraries/unix/dist-install/build/cbits/dirUtils.o: libraries/unix/cbits/dirUtils.c \
+ libraries/unix/include/HsUnix.h libraries/unix/include/HsUnixConfig.h \
+ includes/HsFFI.h \
+ includes/ghcconfig.h \
+ includes/ghcautoconf.h \
+ includes/ghcplatform.h \
+ includes/stg/Types.h
+libraries/unix_dist-install_depfile_c_asm_EXISTS = YES

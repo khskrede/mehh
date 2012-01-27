@@ -1,0 +1,13 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/random/dist-install/build/System/Random.o : libraries/random/System/Random.hs
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Numeric.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Data/IORef.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/System/IO/Unsafe.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Data/Char.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Data/Ratio.hi
+libraries/random/dist-install/build/System/Random.o : libraries/time/dist-install/build/Data/Time.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/System/CPUTime.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Data/Int.hi
+libraries/random/dist-install/build/System/Random.o : libraries/base/dist-install/build/Prelude.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/random_dist-install_depfile_haskell_EXISTS = YES

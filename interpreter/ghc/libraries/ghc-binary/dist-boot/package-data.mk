@@ -1,0 +1,25 @@
+libraries/ghc-binary_dist-boot_VERSION = 0.5.0.2
+libraries/ghc-binary_dist-boot_MODULES = Data.Binary Data.Binary.Put Data.Binary.Get Data.Binary.Builder
+libraries/ghc-binary_dist-boot_HIDDEN_MODULES = 
+libraries/ghc-binary_dist-boot_SYNOPSIS =Binary serialisation for Haskell values using lazy ByteStrings
+libraries/ghc-binary_dist-boot_HS_SRC_DIRS = src
+libraries/ghc-binary_dist-boot_DEPS = array-0.3.0.2 base-4.3.1.0 bytestring-0.9.1.10 containers-0.4.0.0
+libraries/ghc-binary_dist-boot_DEP_NAMES = array base bytestring containers
+libraries/ghc-binary_dist-boot_INCLUDE_DIRS = 
+libraries/ghc-binary_dist-boot_INCLUDES = 
+libraries/ghc-binary_dist-boot_INSTALL_INCLUDES = 
+libraries/ghc-binary_dist-boot_EXTRA_LIBRARIES = 
+libraries/ghc-binary_dist-boot_EXTRA_LIBDIRS = 
+libraries/ghc-binary_dist-boot_C_SRCS  = 
+libraries/ghc-binary_dist-boot_CMM_SRCS  = $(addprefix cbits/,$(notdir $(wildcard libraries/ghc-binary/cbits/*.cmm)))
+libraries/ghc-binary_dist-boot_DATA_FILES = 
+libraries/ghc-binary_dist-boot_HC_OPTS = -O2 -Wall -fliberate-case-threshold=1000 -XCPP -XFlexibleContexts
+libraries/ghc-binary_dist-boot_CC_OPTS = 
+libraries/ghc-binary_dist-boot_CPP_OPTS = -DAPPLICATIVE_IN_BASE
+libraries/ghc-binary_dist-boot_LD_OPTS = 
+libraries/ghc-binary_dist-boot_DEP_INCLUDE_DIRS = '/usr/lib/ghc-7.0.3/bytestring-0.9.1.10/include' '/usr/lib/ghc-7.0.3/base-4.3.1.0/include' '/usr/lib/ghc-7.0.3/include' '/usr/lib/ghc-7.0.3/include'
+libraries/ghc-binary_dist-boot_DEP_CC_OPTS = 
+libraries/ghc-binary_dist-boot_DEP_LIB_DIRS = '/usr/lib/ghc-7.0.3/containers-0.4.0.0' '/usr/lib/ghc-7.0.3/bytestring-0.9.1.10' '/usr/lib/ghc-7.0.3/array-0.3.0.2' '/usr/lib/ghc-7.0.3/base-4.3.1.0' '/usr/lib/ghc-7.0.3/integer-gmp-0.2.0.3' '/usr/lib/ghc-7.0.3/ghc-prim-0.2.0.0' '/usr/lib/ghc-7.0.3' '/usr/lib/ghc-7.0.3'
+libraries/ghc-binary_dist-boot_DEP_EXTRA_LIBS = gmp m rt dl
+libraries/ghc-binary_dist-boot_DEP_LD_OPTS = 
+libraries/ghc-binary_dist-boot_BUILD_GHCI_LIB = YES

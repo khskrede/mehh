@@ -1,0 +1,44 @@
+name: unix
+version: 2.4.2.0
+id: unix-2.4.2.0-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package gives you access to the set of operating system
+             services standardised by POSIX 1003.1b (or the IEEE Portable
+             Operating System Interface for Computing Environments -
+             IEEE Std. 1003.1).
+             .
+             The package is not supported under Windows (except under Cygwin).
+category: System
+author:
+exposed: True
+exposed-modules: System.Posix System.Posix.DynamicLinker.Module
+                 System.Posix.DynamicLinker.Prim System.Posix.Directory
+                 System.Posix.DynamicLinker System.Posix.Env System.Posix.Error
+                 System.Posix.Files System.Posix.IO System.Posix.Process
+                 System.Posix.Process.Internals System.Posix.Resource
+                 System.Posix.Temp System.Posix.Terminal System.Posix.Time
+                 System.Posix.Unistd System.Posix.User System.Posix.Signals
+                 System.Posix.Signals.Exts System.Posix.Semaphore
+                 System.Posix.SharedMem
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/unix/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/unix/dist-install/build
+hs-libraries: HSunix-2.4.2.0
+extra-libraries: rt util dl pthread
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/unix/include
+includes: HsUnix.h execvpe.h
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/unix/dist-install/doc/html/unix/unix.haddock
+haddock-html: ../unix-2.4.2.0
+

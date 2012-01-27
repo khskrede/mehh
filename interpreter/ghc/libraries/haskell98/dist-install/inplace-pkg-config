@@ -1,0 +1,41 @@
+name: haskell98
+version: 1.1.0.1
+id: haskell98-1.1.0.1-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage: http://www.haskell.org/definition/
+package-url:
+description: This package provides compatibility with the modules of Haskell
+             98 and the FFI addendum, by means of wrappers around modules from
+             the base package (which in many cases have additional features).
+             However Prelude, Numeric and Foreign are provided directly by
+             the base package.
+category: Haskell98
+author:
+exposed: True
+exposed-modules: Array CPUTime Char Complex Directory IO Ix List
+                 Locale Maybe Monad Random Ratio System Time Bits CError CForeign
+                 CString CTypes ForeignPtr Int MarshalAlloc MarshalArray
+                 MarshalError MarshalUtils Ptr StablePtr Storable Word
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/haskell98/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/haskell98/dist-install/build
+hs-libraries: HShaskell98-1.1.0.1
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: array-0.3.0.2-inplace base-4.3.1.0-inplace
+         directory-1.1.0.0-inplace old-locale-1.0.0.2-inplace
+         old-time-1.0.0.6-inplace process-1.0.1.5-inplace
+         random-1.0.0.3-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/haskell98/dist-install/doc/html/haskell98/haskell98.haddock
+haddock-html: ../haskell98-1.1.0.1
+

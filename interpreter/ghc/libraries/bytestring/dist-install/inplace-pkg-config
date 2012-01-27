@@ -1,0 +1,44 @@
+name: bytestring
+version: 0.9.1.10
+id: bytestring-0.9.1.10-inplace
+license: BSD3
+copyright: Copyright (c) Don Stewart   2005-2009,
+           (c) Duncan Coutts 2006-2009,
+           (c) David Roundy  2003-2005.
+maintainer: dons@galois.com, duncan@haskell.org
+stability:
+homepage: http://www.cse.unsw.edu.au/~dons/fps.html
+package-url:
+description: A time and space-efficient implementation of byte vectors using
+             packed Word8 arrays, suitable for high performance use, both in terms
+             of large data quantities, or high speed requirements. Byte vectors
+             are encoded as strict 'Word8' arrays of bytes, and lazy lists of
+             strict chunks, held in a 'ForeignPtr', and can be passed between C
+             and Haskell with little effort.
+             .
+             Test coverage data for this library is available at:
+             <http://code.haskell.org/~dons/tests/bytestring/hpc_index.html>
+category: Data
+author: Don Stewart, Duncan Coutts
+exposed: True
+exposed-modules: Data.ByteString Data.ByteString.Char8
+                 Data.ByteString.Unsafe Data.ByteString.Internal
+                 Data.ByteString.Lazy Data.ByteString.Lazy.Char8
+                 Data.ByteString.Lazy.Internal Data.ByteString.Fusion
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bytestring/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bytestring/dist-install/build
+hs-libraries: HSbytestring-0.9.1.10
+extra-libraries:
+extra-ghci-libraries:
+include-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bytestring/include
+includes: fpstring.h
+depends: base-4.3.1.0-inplace ghc-prim-0.2.0.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/bytestring/dist-install/doc/html/bytestring/bytestring.haddock
+haddock-html: ../bytestring-0.9.1.10
+

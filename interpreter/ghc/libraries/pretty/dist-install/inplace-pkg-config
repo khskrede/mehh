@@ -1,0 +1,32 @@
+name: pretty
+version: 1.0.1.2
+id: pretty-1.0.1.2-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: This package contains John Hughes's pretty-printing library,
+             heavily modified by Simon Peyton Jones.
+category: Text
+author:
+exposed: True
+exposed-modules: Text.PrettyPrint Text.PrettyPrint.HughesPJ
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/pretty/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/pretty/dist-install/build
+hs-libraries: HSpretty-1.0.1.2
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/pretty/dist-install/doc/html/pretty/pretty.haddock
+haddock-html: ../pretty-1.0.1.2
+

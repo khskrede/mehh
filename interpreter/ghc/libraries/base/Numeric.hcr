@@ -1,0 +1,1005 @@
+%module base:Numeric
+  lvlrWM :: %forall aaDv . aaDv ->
+                           (base:GHCziShow.TZCShow aaDv) ->
+                           (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaDv (wsTn::aaDv) (wwsTr::(base:GHCziShow.TZCShow aaDv)) ->
+        base:GHCziErr.error
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+        (base:GHCziBase.unpackAppendCStringzh
+         ("Numeric.showIntAtBase: applied to unsupported base "::ghczmprim:GHCziPrim.Addrzh)
+         (base:GHCziShow.show @ aaDv wwsTr wsTn));
+  lvl1rWO :: %forall aaDv . aaDv ->
+                            (base:GHCziShow.TZCShow aaDv) ->
+                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaDv (wsT7::aaDv) (wwsTb::(base:GHCziShow.TZCShow aaDv)) ->
+        base:GHCziErr.error
+        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+        (base:GHCziBase.unpackAppendCStringzh
+         ("Numeric.showIntAtBase: applied to negative number "::ghczmprim:GHCziPrim.Addrzh)
+         (base:GHCziShow.show @ aaDv wwsTb wsT7));
+  lvl2rWQ :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    base:GHCziBase.unpackCStringzh
+    ("Numeric.showInt: can\x27t show negative numbers"::ghczmprim:GHCziPrim.Addrzh);
+  lvl3rWS :: (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    base:GHCziErr.error
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) lvl2rWQ;
+  lvl4rWU :: integerzmgmp:GHCziIntegerziType.Integer =
+    integerzmgmp:GHCziIntegerziType.Szh
+    (10::ghczmprim:GHCziPrim.Intzh);
+  lvl5rWW :: integerzmgmp:GHCziIntegerziType.Integer =
+    integerzmgmp:GHCziIntegerziType.Szh (0::ghczmprim:GHCziPrim.Intzh);
+  base:Numeric.zdwshowInt :: %forall aaqc . (base:GHCziReal.TZCReal
+                                             aaqc)
+                                            ->
+                                            (aaqc -> aaqc -> (ghczmprim:GHCziTuple.Z2T aaqc aaqc))
+                                            ->
+                                            (aaqc -> integerzmgmp:GHCziIntegerziType.Integer) ->
+                                            aaqc ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaqc
+      (wwsUb::(base:GHCziReal.TZCReal aaqc))
+      (ww1sUh::aaqc -> aaqc -> (ghczmprim:GHCziTuple.Z2T aaqc aaqc))
+      (ww2sUj::aaqc -> integerzmgmp:GHCziIntegerziType.Integer)
+      (wsUl::aaqc)
+      (w1sUm::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        %let zddRealsV0 :: (base:GHCziReal.TZCReal aaqc) = wwsUb
+        %in %case ((ghczmprim:GHCziTypes.ZMZN
+                    ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zl @ aaqc
+                                                 (base:GHCziReal.zdp2Real @ aaqc zddRealsV0) wsUl
+                                                 (base:GHCziNum.fromInteger @ aaqc
+                                                  (base:GHCziReal.zdp1Real @ aaqc zddRealsV0)
+                                                  lvl5rWW))
+            %of (wildX7::ghczmprim:GHCziBool.Bool)
+              {ghczmprim:GHCziBool.False ->
+                 %let lvl9sV8 :: aaqc =
+                        base:GHCziNum.fromInteger @ aaqc
+                        (base:GHCziReal.zdp1Real @ aaqc zddRealsV0) lvl4rWU
+                 %in %let zddReal1sV2 :: (base:GHCziReal.TZCReal aaqc) = zddRealsV0
+                     %in %let zddOrdsV4 :: (base:GHCziClasses.TZCOrd aaqc) =
+                                base:GHCziReal.zdp2Real @ aaqc zddRealsV0
+                         %in %let %rec
+                                  {gosVc :: aaqc ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+                                     \ (naqE::aaqc)
+                                       (csaqF::(ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char)) ->
+                                         %case ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zl
+                                                                              @ aaqc zddOrdsV4 naqE
+                                                                              lvl9sV8)
+                                         %of (wild1XN::ghczmprim:GHCziBool.Bool)
+                                           {ghczmprim:GHCziBool.False ->
+                                              %let dssVf :: (ghczmprim:GHCziTuple.Z2T aaqc aaqc) =
+                                                     ww1sUh naqE lvl9sV8
+                                              %in %case ((ghczmprim:GHCziTypes.ZMZN
+                                                          ghczmprim:GHCziTypes.Char)) (integerzmgmp:GHCziInteger.toIntzh
+                                                                                       (ww2sUj
+                                                                                        (%case aaqc dssVf
+                                                                                         %of (wild2XP::(ghczmprim:GHCziTuple.Z2T
+                                                                                                        aaqc
+                                                                                                        aaqc))
+                                                                                           {ghczmprim:GHCziTuple.Z2T
+                                                                                            (qaqG::aaqc)
+                                                                                            (raqH::aaqc) ->
+                                                                                              raqH})))
+                                                  %of (wild2aQf::ghczmprim:GHCziPrim.Intzh)
+                                                    {%_ ->
+                                                       gosVc
+                                                       (%case aaqc dssVf
+                                                        %of (wild3XS::(ghczmprim:GHCziTuple.Z2T
+                                                                       aaqc
+                                                                       aaqc))
+                                                          {ghczmprim:GHCziTuple.Z2T
+                                                           (qaqG::aaqc) (raqH::aaqc) ->
+                                                             qaqG})
+                                                       (ghczmprim:GHCziTypes.ZC
+                                                        @ ghczmprim:GHCziTypes.Char
+                                                        (ghczmprim:GHCziTypes.Czh
+                                                         (ghczmprim:GHCziPrim.chrzh
+                                                          (ghczmprim:GHCziPrim.zpzh
+                                                           (48::ghczmprim:GHCziPrim.Intzh)
+                                                           wild2aQf)))
+                                                        csaqF)};
+                                            ghczmprim:GHCziBool.True ->
+                                              %case ((ghczmprim:GHCziTypes.ZMZN
+                                                      ghczmprim:GHCziTypes.Char)) (integerzmgmp:GHCziInteger.toIntzh
+                                                                                   (ww2sUj naqE))
+                                              %of (wild2aQf::ghczmprim:GHCziPrim.Intzh)
+                                                {%_ ->
+                                                   ghczmprim:GHCziTypes.ZC
+                                                   @ ghczmprim:GHCziTypes.Char
+                                                   (ghczmprim:GHCziTypes.Czh
+                                                    (ghczmprim:GHCziPrim.chrzh
+                                                     (ghczmprim:GHCziPrim.zpzh
+                                                      (48::ghczmprim:GHCziPrim.Intzh) wild2aQf)))
+                                                   csaqF}}}
+                             %in gosVc wsUl w1sUm;
+               ghczmprim:GHCziBool.True ->
+                 lvl3rWS};
+  base:Numeric.showOct1 :: integerzmgmp:GHCziIntegerziType.Integer =
+    integerzmgmp:GHCziIntegerziType.Szh (8::ghczmprim:GHCziPrim.Intzh);
+  base:Numeric.showHex1 :: integerzmgmp:GHCziIntegerziType.Integer =
+    integerzmgmp:GHCziIntegerziType.Szh
+    (16::ghczmprim:GHCziPrim.Intzh);
+  lvl6rX1 :: %forall aaDv . aaDv ->
+                            (base:GHCziNum.TZCNum aaDv) ->
+                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaDv (wsTn::aaDv) (w1sTo::(base:GHCziNum.TZCNum aaDv)) ->
+        %case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) w1sTo
+        %of (w2XU9::(base:GHCziNum.TZCNum aaDv))
+          {base:GHCziNum.DZCNum
+           (wwsTq::(base:GHCziClasses.TZCEq aaDv))
+           (ww1sTr::(base:GHCziShow.TZCShow aaDv))
+           (ww2sTs::aaDv -> aaDv -> aaDv)
+           (ww3sTt::aaDv -> aaDv -> aaDv)
+           (ww4sTu::aaDv -> aaDv -> aaDv)
+           (ww5sTv::aaDv -> aaDv)
+           (ww6sTw::aaDv -> aaDv)
+           (ww7sTx::aaDv -> aaDv)
+           (ww8sTy::integerzmgmp:GHCziIntegerziType.Integer -> aaDv) ->
+             lvlrWM @ aaDv wsTn ww1sTr};
+  lvl7rX3 :: %forall aaDv . aaDv ->
+                            (base:GHCziNum.TZCNum aaDv) ->
+                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaDv (wsT7::aaDv) (w1sT8::(base:GHCziNum.TZCNum aaDv)) ->
+        %case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) w1sT8
+        %of (w2XTU::(base:GHCziNum.TZCNum aaDv))
+          {base:GHCziNum.DZCNum
+           (wwsTa::(base:GHCziClasses.TZCEq aaDv))
+           (ww1sTb::(base:GHCziShow.TZCShow aaDv))
+           (ww2sTc::aaDv -> aaDv -> aaDv)
+           (ww3sTd::aaDv -> aaDv -> aaDv)
+           (ww4sTe::aaDv -> aaDv -> aaDv)
+           (ww5sTf::aaDv -> aaDv)
+           (ww6sTg::aaDv -> aaDv)
+           (ww7sTh::aaDv -> aaDv)
+           (ww8sTi::integerzmgmp:GHCziIntegerziType.Integer -> aaDv) ->
+             lvl1rWO @ aaDv wsT7 ww1sTb};
+  lvl8rX5 :: integerzmgmp:GHCziIntegerziType.Integer =
+    integerzmgmp:GHCziIntegerziType.Szh (1::ghczmprim:GHCziPrim.Intzh);
+  base:Numeric.zdwshowIntAtBase :: %forall aaq8 . (base:GHCziReal.TZCReal
+                                                   aaq8)
+                                                  ->
+                                                  (aaq8 ->
+                                                   aaq8 -> (ghczmprim:GHCziTuple.Z2T aaq8 aaq8))
+                                                  ->
+                                                  (aaq8 -> integerzmgmp:GHCziIntegerziType.Integer)
+                                                  ->
+                                                  aaq8 ->
+                                                  (ghczmprim:GHCziTypes.Int ->
+                                                   ghczmprim:GHCziTypes.Char)
+                                                  ->
+                                                  aaq8 ->
+                                                  (ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char)
+                                                  ->
+                                                  (ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char) =
+    \ @ aaq8
+      (wwsTR::(base:GHCziReal.TZCReal aaq8))
+      (ww1sTX::aaq8 -> aaq8 -> (ghczmprim:GHCziTuple.Z2T aaq8 aaq8))
+      (ww2sTZZ::aaq8 -> integerzmgmp:GHCziIntegerziType.Integer)
+      (wsU1::aaq8)
+      (w1sU2::ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Char)
+      (w2sU3::aaq8)
+      (w3sU4::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        %let zddRealsVh :: (base:GHCziReal.TZCReal aaq8) = wwsTR
+        %in %let zddOrdsVl :: (base:GHCziClasses.TZCOrd aaq8) =
+                   base:GHCziReal.zdp2Real @ aaq8 zddRealsVh
+            %in %let zddNumsVj :: (base:GHCziNum.TZCNum aaq8) =
+                       base:GHCziReal.zdp1Real @ aaq8 zddRealsVh
+                %in %case ((ghczmprim:GHCziTypes.ZMZN
+                            ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zlze @ aaq8
+                                                         zddOrdsVl wsU1
+                                                         (base:GHCziNum.fromInteger @ aaq8 zddNumsVj
+                                                          lvl8rX5))
+                    %of (wildXb::ghczmprim:GHCziBool.Bool)
+                      {ghczmprim:GHCziBool.False ->
+                         %case ((ghczmprim:GHCziTypes.ZMZN
+                                 ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zl @ aaq8 zddOrdsVl
+                                                              w2sU3
+                                                              (base:GHCziNum.fromInteger @ aaq8
+                                                               zddNumsVj lvl5rWW))
+                         %of (wild1XE::ghczmprim:GHCziBool.Bool)
+                           {ghczmprim:GHCziBool.False ->
+                              %case ((ghczmprim:GHCziTypes.ZMZN
+                                      ghczmprim:GHCziTypes.Char)) (ww1sTX w2sU3 wsU1)
+                              %of (w4XTG::(ghczmprim:GHCziTuple.Z2T aaq8 aaq8))
+                                {ghczmprim:GHCziTuple.Z2T (ww3sTF::aaq8) (ww4sTG::aaq8) ->
+                                   %let lvl9sVp :: aaq8 =
+                                          base:GHCziNum.fromInteger @ aaq8 zddNumsVj lvl5rWW
+                                   %in %let zddEqsVn :: (base:GHCziClasses.TZCEq aaq8) =
+                                              base:GHCziNum.zdp1Num @ aaq8 zddNumsVj
+                                       %in %let %rec
+                                                {zdwshowItsVr :: aaq8 ->
+                                                                 aaq8 ->
+                                                                 (ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char)
+                                                                 ->
+                                                                 (ghczmprim:GHCziTypes.ZMZN
+                                                                  ghczmprim:GHCziTypes.Char) =
+                                                   \ (ww5XUU::aaq8)
+                                                     (ww6XUW::aaq8)
+                                                     (w5sTI::(ghczmprim:GHCziTypes.ZMZN
+                                                              ghczmprim:GHCziTypes.Char)) ->
+                                                       %case ((ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char)) (w1sU2
+                                                                                            (%case ghczmprim:GHCziTypes.Int (integerzmgmp:GHCziInteger.toIntzh
+                                                                                                                             (ww2sTZZ
+                                                                                                                              ww6XUW))
+                                                                                             %of (wild2aQf::ghczmprim:GHCziPrim.Intzh)
+                                                                                               {%_ ->
+                                                                                                  ghczmprim:GHCziTypes.Izh
+                                                                                                  wild2aQf}))
+                                                       %of (tplXT::ghczmprim:GHCziTypes.Char)
+                                                         {ghczmprim:GHCziTypes.Czh
+                                                          (ipvsL1::ghczmprim:GHCziPrim.Charzh) ->
+                                                            %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                    ghczmprim:GHCziTypes.Char)) (base:GHCziClasses.zeze
+                                                                                                 @ aaq8
+                                                                                                 zddEqsVn
+                                                                                                 ww5XUU
+                                                                                                 lvl9sVp)
+                                                            %of (wild2X19::ghczmprim:GHCziBool.Bool)
+                                                              {ghczmprim:GHCziBool.False ->
+                                                                 %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                         ghczmprim:GHCziTypes.Char)) (ww1sTX
+                                                                                                      ww5XUU
+                                                                                                      wsU1)
+                                                                 %of (w6XV3::(ghczmprim:GHCziTuple.Z2T
+                                                                              aaq8
+                                                                              aaq8))
+                                                                   {ghczmprim:GHCziTuple.Z2T
+                                                                    (ww7XVe::aaq8) (ww8XVg::aaq8) ->
+                                                                      zdwshowItsVr ww7XVe ww8XVg
+                                                                      (ghczmprim:GHCziTypes.ZC
+                                                                       @ ghczmprim:GHCziTypes.Char
+                                                                       tplXT w5sTI)};
+                                                               ghczmprim:GHCziBool.True ->
+                                                                 ghczmprim:GHCziTypes.ZC
+                                                                 @ ghczmprim:GHCziTypes.Char tplXT
+                                                                 w5sTI}}}
+                                           %in zdwshowItsVr ww3sTF ww4sTG w3sU4};
+                            ghczmprim:GHCziBool.True ->
+                              lvl7rX3 @ aaq8 w2sU3 zddNumsVj};
+                       ghczmprim:GHCziBool.True ->
+                         lvl6rX1 @ aaq8 wsU1 zddNumsVj};
+  base:Numeric.showIntAtBase :: %forall aaq8 . (base:GHCziReal.TZCIntegral
+                                                aaq8)
+                                               ->
+                                               aaq8 ->
+                                               (ghczmprim:GHCziTypes.Int ->
+                                                ghczmprim:GHCziTypes.Char)
+                                               ->
+                                               aaq8 ->
+                                               (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                                               ->
+                                               (ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char) =
+    \ @ aaq8
+      (wsTP::(base:GHCziReal.TZCIntegral aaq8))
+      (w1sU1::aaq8)
+      (w2sU2::ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Char)
+      (w3sU3::aaq8)
+      (w4sU4::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        %case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) wsTP
+        %of (w5XUJ::(base:GHCziReal.TZCIntegral aaq8))
+          {base:GHCziReal.DZCIntegral
+           (wwsTR::(base:GHCziReal.TZCReal aaq8))
+           (ww1sTS::(base:GHCziEnum.TZCEnum aaq8))
+           (ww2sTT::aaq8 -> aaq8 -> aaq8)
+           (ww3sTU::aaq8 -> aaq8 -> aaq8)
+           (ww4sTV::aaq8 -> aaq8 -> aaq8)
+           (ww5sTW::aaq8 -> aaq8 -> aaq8)
+           (ww6sTX::aaq8 -> aaq8 -> (ghczmprim:GHCziTuple.Z2T aaq8 aaq8))
+           (ww7sTY::aaq8 -> aaq8 -> (ghczmprim:GHCziTuple.Z2T aaq8 aaq8))
+           (ww8sTZZ::aaq8 -> integerzmgmp:GHCziIntegerziType.Integer) ->
+             base:Numeric.zdwshowIntAtBase @ aaq8 wwsTR ww6sTX ww8sTZZ w1sU1
+             w2sU2 w3sU3 w4sU4};
+  base:Numeric.showHex :: %forall aaq7 . (base:GHCziReal.TZCIntegral
+                                          aaq7)
+                                         ->
+                                         aaq7 ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaE5 (zddIntegralaE6::(base:GHCziReal.TZCIntegral aaE5)) ->
+        %let wsVu :: aaE5 =
+               base:GHCziNum.fromInteger @ aaE5
+               (base:GHCziReal.zdp1Real @ aaE5
+                (base:GHCziReal.zdp1Integral @ aaE5 zddIntegralaE6))
+               base:Numeric.showHex1
+        %in \ (w1sU3::aaE5)
+              (w2sU4::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                %case ((ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char)) zddIntegralaE6
+                %of (w3XTW::(base:GHCziReal.TZCIntegral aaE5))
+                  {base:GHCziReal.DZCIntegral
+                   (wwsTR::(base:GHCziReal.TZCReal aaE5))
+                   (ww1sTS::(base:GHCziEnum.TZCEnum aaE5))
+                   (ww2sTT::aaE5 -> aaE5 -> aaE5)
+                   (ww3sTU::aaE5 -> aaE5 -> aaE5)
+                   (ww4sTV::aaE5 -> aaE5 -> aaE5)
+                   (ww5sTW::aaE5 -> aaE5 -> aaE5)
+                   (ww6sTX::aaE5 -> aaE5 -> (ghczmprim:GHCziTuple.Z2T aaE5 aaE5))
+                   (ww7sTY::aaE5 -> aaE5 -> (ghczmprim:GHCziTuple.Z2T aaE5 aaE5))
+                   (ww8sTZZ::aaE5 -> integerzmgmp:GHCziIntegerziType.Integer) ->
+                     base:Numeric.zdwshowIntAtBase @ aaE5 wwsTR ww6sTX ww8sTZZ wsVu
+                     base:GHCziShow.intToDigit w1sU3 w2sU4};
+  base:Numeric.showOct :: %forall aaq6 . (base:GHCziReal.TZCIntegral
+                                          aaq6)
+                                         ->
+                                         aaq6 ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaEc (zddIntegralaEd::(base:GHCziReal.TZCIntegral aaEc)) ->
+        %let wsVw :: aaEc =
+               base:GHCziNum.fromInteger @ aaEc
+               (base:GHCziReal.zdp1Real @ aaEc
+                (base:GHCziReal.zdp1Integral @ aaEc zddIntegralaEd))
+               base:Numeric.showOct1
+        %in \ (w1sU3::aaEc)
+              (w2sU4::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                %case ((ghczmprim:GHCziTypes.ZMZN
+                        ghczmprim:GHCziTypes.Char)) zddIntegralaEd
+                %of (w3XTW::(base:GHCziReal.TZCIntegral aaEc))
+                  {base:GHCziReal.DZCIntegral
+                   (wwsTR::(base:GHCziReal.TZCReal aaEc))
+                   (ww1sTS::(base:GHCziEnum.TZCEnum aaEc))
+                   (ww2sTT::aaEc -> aaEc -> aaEc)
+                   (ww3sTU::aaEc -> aaEc -> aaEc)
+                   (ww4sTV::aaEc -> aaEc -> aaEc)
+                   (ww5sTW::aaEc -> aaEc -> aaEc)
+                   (ww6sTX::aaEc -> aaEc -> (ghczmprim:GHCziTuple.Z2T aaEc aaEc))
+                   (ww7sTY::aaEc -> aaEc -> (ghczmprim:GHCziTuple.Z2T aaEc aaEc))
+                   (ww8sTZZ::aaEc -> integerzmgmp:GHCziIntegerziType.Integer) ->
+                     base:Numeric.zdwshowIntAtBase @ aaEc wwsTR ww6sTX ww8sTZZ wsVw
+                     base:GHCziShow.intToDigit w1sU3 w2sU4};
+  base:Numeric.showInt :: %forall aaqc . (base:GHCziReal.TZCIntegral
+                                          aaqc)
+                                         ->
+                                         aaqc ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaqc
+      (wsU9::(base:GHCziReal.TZCIntegral aaqc))
+      (w1sUl::aaqc)
+      (w2sUm::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        %case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) wsU9
+        %of (w3XV4::(base:GHCziReal.TZCIntegral aaqc))
+          {base:GHCziReal.DZCIntegral
+           (wwsUb::(base:GHCziReal.TZCReal aaqc))
+           (ww1sUc::(base:GHCziEnum.TZCEnum aaqc))
+           (ww2sUd::aaqc -> aaqc -> aaqc)
+           (ww3sUe::aaqc -> aaqc -> aaqc)
+           (ww4sUf::aaqc -> aaqc -> aaqc)
+           (ww5sUg::aaqc -> aaqc -> aaqc)
+           (ww6sUh::aaqc -> aaqc -> (ghczmprim:GHCziTuple.Z2T aaqc aaqc))
+           (ww7sUi::aaqc -> aaqc -> (ghczmprim:GHCziTuple.Z2T aaqc aaqc))
+           (ww8sUj::aaqc -> integerzmgmp:GHCziIntegerziType.Integer) ->
+             base:Numeric.zdwshowInt @ aaqc wwsUb ww6sUh ww8sUj w1sUl w2sUm};
+  base:Numeric.readSigned :: %forall aaqd . (base:GHCziReal.TZCReal
+                                             aaqd)
+                                            ->
+                                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)
+                                             ->
+                                             (ghczmprim:GHCziTypes.ZMZN
+                                              ((ghczmprim:GHCziTuple.Z2T
+                                                aaqd
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char))))))
+                                            ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN
+                                             ((ghczmprim:GHCziTuple.Z2T
+                                               aaqd
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaFe
+      (zddRealaFf::(base:GHCziReal.TZCReal aaFe))
+      (etaB2::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+              (ghczmprim:GHCziTypes.ZMZN
+               ((ghczmprim:GHCziTuple.Z2T
+                 aaFe
+                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+      (eta1B1::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+        base:GHCziRead.readParen @ aaFe ghczmprim:GHCziBool.False
+        (%let %rec
+              {gosVA :: (ghczmprim:GHCziTypes.ZMZN
+                         ((ghczmprim:GHCziTuple.Z2T
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                        ->
+                        (ghczmprim:GHCziTypes.ZMZN
+                         ((ghczmprim:GHCziTuple.Z2T
+                           aaFe
+                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))) =
+                 \ (dsaMu::(ghczmprim:GHCziTypes.ZMZN
+                            ((ghczmprim:GHCziTuple.Z2T
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                     %case ((ghczmprim:GHCziTypes.ZMZN
+                             ((ghczmprim:GHCziTuple.Z2T
+                               aaFe
+                               ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) dsaMu
+                     %of (wildaMv::(ghczmprim:GHCziTypes.ZMZN
+                                    ((ghczmprim:GHCziTuple.Z2T
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))))
+                       {ghczmprim:GHCziTypes.ZMZN ->
+                          ghczmprim:GHCziTypes.ZMZN
+                          @ ((ghczmprim:GHCziTuple.Z2T
+                              aaFe
+                              ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                        ghczmprim:GHCziTypes.ZC
+                        (yaMy::(ghczmprim:GHCziTuple.Z2T
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                        (ysaMzz::(ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                          %case ((ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    aaFe
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) yaMy
+                          %of (wild1X7::(ghczmprim:GHCziTuple.Z2T
+                                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                         ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                            {ghczmprim:GHCziTuple.Z2T
+                             (straqy::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                             (saqzz::(ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) ->
+                               %let %rec
+                                    {go1sVC :: (ghczmprim:GHCziTypes.ZMZN
+                                                ((ghczmprim:GHCziTuple.Z2T
+                                                  aaFe
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char)))))
+                                               ->
+                                               (ghczmprim:GHCziTypes.ZMZN
+                                                ((ghczmprim:GHCziTuple.Z2T
+                                                  aaFe
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char))))) =
+                                       \ (ds1XND::(ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaFe
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char)))))) ->
+                                           %case ((ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaFe
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char)))))) ds1XND
+                                           %of (wild2XNF::(ghczmprim:GHCziTypes.ZMZN
+                                                           ((ghczmprim:GHCziTuple.Z2T
+                                                             aaFe
+                                                             ((ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char))))))
+                                             {ghczmprim:GHCziTypes.ZMZN ->
+                                                ghczmprim:GHCziTypes.ZMZN
+                                                @ ((ghczmprim:GHCziTuple.Z2T
+                                                    aaFe
+                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                      ghczmprim:GHCziTypes.Char))));
+                                              ghczmprim:GHCziTypes.ZC
+                                              (y1XNJ::(ghczmprim:GHCziTuple.Z2T
+                                                       aaFe
+                                                       ((ghczmprim:GHCziTypes.ZMZN
+                                                         ghczmprim:GHCziTypes.Char))))
+                                              (ys1XNL::(ghczmprim:GHCziTypes.ZMZN
+                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                          aaFe
+                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                            ghczmprim:GHCziTypes.Char)))))) ->
+                                                %case ((ghczmprim:GHCziTypes.ZMZN
+                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                          aaFe
+                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                            ghczmprim:GHCziTypes.Char)))))) y1XNJ
+                                                %of (wild3Xg::(ghczmprim:GHCziTuple.Z2T
+                                                               aaFe
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char))))
+                                                  {ghczmprim:GHCziTuple.Z2T
+                                                   (naqA::aaFe)
+                                                   (ds2dKl::(ghczmprim:GHCziTypes.ZMZN
+                                                             ghczmprim:GHCziTypes.Char)) ->
+                                                     %case ((ghczmprim:GHCziTypes.ZMZN
+                                                             ((ghczmprim:GHCziTuple.Z2T
+                                                               aaFe
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)))))) ds2dKl
+                                                     %of (wild4Xj::(ghczmprim:GHCziTypes.ZMZN
+                                                                    ghczmprim:GHCziTypes.Char))
+                                                       {ghczmprim:GHCziTypes.ZMZN ->
+                                                          ghczmprim:GHCziTypes.ZC
+                                                          @ ((ghczmprim:GHCziTuple.Z2T
+                                                              aaFe
+                                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                                ghczmprim:GHCziTypes.Char))))
+                                                          (ghczmprim:GHCziTuple.Z2T @ aaFe
+                                                           @ ((ghczmprim:GHCziTypes.ZMZN
+                                                               ghczmprim:GHCziTypes.Char))
+                                                           naqA saqzz)
+                                                          (go1sVC ys1XNL);
+                                                        ghczmprim:GHCziTypes.ZC
+                                                        (ipvsMk::ghczmprim:GHCziTypes.Char)
+                                                        (ipv1sMl::(ghczmprim:GHCziTypes.ZMZN
+                                                                   ghczmprim:GHCziTypes.Char)) ->
+                                                          go1sVC ys1XNL}}}}
+                               %in %case ((ghczmprim:GHCziTypes.ZMZN
+                                           ((ghczmprim:GHCziTuple.Z2T
+                                             aaFe
+                                             ((ghczmprim:GHCziTypes.ZMZN
+                                               ghczmprim:GHCziTypes.Char)))))) (go1sVC
+                                                                                (etaB2 straqy))
+                                   %of (wild2aMB::(ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaFe
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))))))
+                                     {ghczmprim:GHCziTypes.ZMZN ->
+                                        gosVA ysaMzz;
+                                      ghczmprim:GHCziTypes.ZC
+                                      (xaMF::(ghczmprim:GHCziTuple.Z2T
+                                              aaFe
+                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char))))
+                                      (xsaMG::(ghczmprim:GHCziTypes.ZMZN
+                                               ((ghczmprim:GHCziTuple.Z2T
+                                                 aaFe
+                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char)))))) ->
+                                        ghczmprim:GHCziTypes.ZC
+                                        @ ((ghczmprim:GHCziTuple.Z2T
+                                            aaFe
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))
+                                        xaMF
+                                        (base:GHCziBase.zpzp
+                                         @ ((ghczmprim:GHCziTuple.Z2T
+                                             aaFe
+                                             ((ghczmprim:GHCziTypes.ZMZN
+                                               ghczmprim:GHCziTypes.Char))))
+                                         xsaMG (gosVA ysaMzz))}}}}
+         %in %let asW4 :: (base:GHCziNum.TZCNum aaFe) =
+                    base:GHCziReal.zdp1Real @ aaFe zddRealaFf
+             %in %let %rec
+                      {go1sVI :: (ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    aaFe
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                                 ->
+                                 (ghczmprim:GHCziTypes.ZMZN
+                                  ((ghczmprim:GHCziTuple.Z2T
+                                    aaFe
+                                    ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))) =
+                         \ (dsXNX::(ghczmprim:GHCziTypes.ZMZN
+                                    ((ghczmprim:GHCziTuple.Z2T
+                                      aaFe
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))) ->
+                             %case ((ghczmprim:GHCziTypes.ZMZN
+                                     ((ghczmprim:GHCziTuple.Z2T
+                                       aaFe
+                                       ((ghczmprim:GHCziTypes.ZMZN
+                                         ghczmprim:GHCziTypes.Char)))))) dsXNX
+                             %of (wildXNZZ::(ghczmprim:GHCziTypes.ZMZN
+                                             ((ghczmprim:GHCziTuple.Z2T
+                                               aaFe
+                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char))))))
+                               {ghczmprim:GHCziTypes.ZMZN ->
+                                  ghczmprim:GHCziTypes.ZMZN
+                                  @ ((ghczmprim:GHCziTuple.Z2T
+                                      aaFe
+                                      ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                                ghczmprim:GHCziTypes.ZC
+                                (yXO3::(ghczmprim:GHCziTuple.Z2T
+                                        aaFe
+                                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                                (ysXO5::(ghczmprim:GHCziTypes.ZMZN
+                                         ((ghczmprim:GHCziTuple.Z2T
+                                           aaFe
+                                           ((ghczmprim:GHCziTypes.ZMZN
+                                             ghczmprim:GHCziTypes.Char)))))) ->
+                                  %case ((ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaFe
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char)))))) yXO3
+                                  %of (wild1Xp::(ghczmprim:GHCziTuple.Z2T
+                                                 aaFe
+                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char))))
+                                    {ghczmprim:GHCziTuple.Z2T
+                                     (xaqv::aaFe)
+                                     (taqw::(ghczmprim:GHCziTypes.ZMZN
+                                             ghczmprim:GHCziTypes.Char)) ->
+                                       ghczmprim:GHCziTypes.ZC
+                                       @ ((ghczmprim:GHCziTuple.Z2T
+                                           aaFe
+                                           ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                                       (ghczmprim:GHCziTuple.Z2T @ aaFe
+                                        @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                        (base:GHCziNum.negate @ aaFe asW4 xaqv) taqw)
+                                       (go1sVI ysXO5)}}}
+                 %in %let %rec
+                          {go2sVG :: (ghczmprim:GHCziTypes.ZMZN
+                                      ((ghczmprim:GHCziTuple.Z2T
+                                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)))))
+                                     ->
+                                     (ghczmprim:GHCziTypes.ZMZN
+                                      ((ghczmprim:GHCziTuple.Z2T
+                                        aaFe
+                                        ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))) =
+                             \ (dsaMu::(ghczmprim:GHCziTypes.ZMZN
+                                        ((ghczmprim:GHCziTuple.Z2T
+                                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                          ((ghczmprim:GHCziTypes.ZMZN
+                                            ghczmprim:GHCziTypes.Char)))))) ->
+                                 %case ((ghczmprim:GHCziTypes.ZMZN
+                                         ((ghczmprim:GHCziTuple.Z2T
+                                           aaFe
+                                           ((ghczmprim:GHCziTypes.ZMZN
+                                             ghczmprim:GHCziTypes.Char)))))) dsaMu
+                                 %of (wildaMv::(ghczmprim:GHCziTypes.ZMZN
+                                                ((ghczmprim:GHCziTuple.Z2T
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char))
+                                                  ((ghczmprim:GHCziTypes.ZMZN
+                                                    ghczmprim:GHCziTypes.Char))))))
+                                   {ghczmprim:GHCziTypes.ZMZN ->
+                                      ghczmprim:GHCziTypes.ZMZN
+                                      @ ((ghczmprim:GHCziTuple.Z2T
+                                          aaFe
+                                          ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))));
+                                    ghczmprim:GHCziTypes.ZC
+                                    (yaMy::(ghczmprim:GHCziTuple.Z2T
+                                            ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))
+                                    (ysaMzz::(ghczmprim:GHCziTypes.ZMZN
+                                              ((ghczmprim:GHCziTuple.Z2T
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char))
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char)))))) ->
+                                      %case ((ghczmprim:GHCziTypes.ZMZN
+                                              ((ghczmprim:GHCziTuple.Z2T
+                                                aaFe
+                                                ((ghczmprim:GHCziTypes.ZMZN
+                                                  ghczmprim:GHCziTypes.Char)))))) yaMy
+                                      %of (wild1X9::(ghczmprim:GHCziTuple.Z2T
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char))))
+                                        {ghczmprim:GHCziTuple.Z2T
+                                         (ds1dKa::(ghczmprim:GHCziTypes.ZMZN
+                                                   ghczmprim:GHCziTypes.Char))
+                                         (saqu::(ghczmprim:GHCziTypes.ZMZN
+                                                 ghczmprim:GHCziTypes.Char)) ->
+                                           %case ((ghczmprim:GHCziTypes.ZMZN
+                                                   ((ghczmprim:GHCziTuple.Z2T
+                                                     aaFe
+                                                     ((ghczmprim:GHCziTypes.ZMZN
+                                                       ghczmprim:GHCziTypes.Char)))))) ds1dKa
+                                           %of (wild2Xh::(ghczmprim:GHCziTypes.ZMZN
+                                                          ghczmprim:GHCziTypes.Char))
+                                             {ghczmprim:GHCziTypes.ZMZN ->
+                                                go2sVG ysaMzz;
+                                              ghczmprim:GHCziTypes.ZC
+                                              (ds2dKb::ghczmprim:GHCziTypes.Char)
+                                              (ds3dKc::(ghczmprim:GHCziTypes.ZMZN
+                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                %case ((ghczmprim:GHCziTypes.ZMZN
+                                                        ((ghczmprim:GHCziTuple.Z2T
+                                                          aaFe
+                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                            ghczmprim:GHCziTypes.Char)))))) ds2dKb
+                                                %of (wild3Xk::ghczmprim:GHCziTypes.Char)
+                                                  {ghczmprim:GHCziTypes.Czh
+                                                   (ds4dKd::ghczmprim:GHCziPrim.Charzh) ->
+                                                     %case ((ghczmprim:GHCziTypes.ZMZN
+                                                             ((ghczmprim:GHCziTuple.Z2T
+                                                               aaFe
+                                                               ((ghczmprim:GHCziTypes.ZMZN
+                                                                 ghczmprim:GHCziTypes.Char)))))) ds4dKd
+                                                     %of (ds5XKy::ghczmprim:GHCziPrim.Charzh)
+                                                       {%_ ->
+                                                          go2sVG ysaMzz;
+                                                        ('-'::ghczmprim:GHCziPrim.Charzh) ->
+                                                          %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                  ((ghczmprim:GHCziTuple.Z2T
+                                                                    aaFe
+                                                                    ((ghczmprim:GHCziTypes.ZMZN
+                                                                      ghczmprim:GHCziTypes.Char)))))) ds3dKc
+                                                          %of (wild4Xn::(ghczmprim:GHCziTypes.ZMZN
+                                                                         ghczmprim:GHCziTypes.Char))
+                                                            {ghczmprim:GHCziTypes.ZMZN ->
+                                                               %case ((ghczmprim:GHCziTypes.ZMZN
+                                                                       ((ghczmprim:GHCziTuple.Z2T
+                                                                         aaFe
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char)))))) (go1sVI
+                                                                                                            (gosVA
+                                                                                                             (base:GHCziRead.lex
+                                                                                                              saqu)))
+                                                               %of (wild5aMB::(ghczmprim:GHCziTypes.ZMZN
+                                                                               ((ghczmprim:GHCziTuple.Z2T
+                                                                                 aaFe
+                                                                                 ((ghczmprim:GHCziTypes.ZMZN
+                                                                                   ghczmprim:GHCziTypes.Char))))))
+                                                                 {ghczmprim:GHCziTypes.ZMZN ->
+                                                                    go2sVG ysaMzz;
+                                                                  ghczmprim:GHCziTypes.ZC
+                                                                  (xaMF::(ghczmprim:GHCziTuple.Z2T
+                                                                          aaFe
+                                                                          ((ghczmprim:GHCziTypes.ZMZN
+                                                                            ghczmprim:GHCziTypes.Char))))
+                                                                  (xsaMG::(ghczmprim:GHCziTypes.ZMZN
+                                                                           ((ghczmprim:GHCziTuple.Z2T
+                                                                             aaFe
+                                                                             ((ghczmprim:GHCziTypes.ZMZN
+                                                                               ghczmprim:GHCziTypes.Char)))))) ->
+                                                                    ghczmprim:GHCziTypes.ZC
+                                                                    @ ((ghczmprim:GHCziTuple.Z2T
+                                                                        aaFe
+                                                                        ((ghczmprim:GHCziTypes.ZMZN
+                                                                          ghczmprim:GHCziTypes.Char))))
+                                                                    xaMF
+                                                                    (base:GHCziBase.zpzp
+                                                                     @ ((ghczmprim:GHCziTuple.Z2T
+                                                                         aaFe
+                                                                         ((ghczmprim:GHCziTypes.ZMZN
+                                                                           ghczmprim:GHCziTypes.Char))))
+                                                                     xsaMG (go2sVG ysaMzz))};
+                                                             ghczmprim:GHCziTypes.ZC
+                                                             (ipvsML::ghczmprim:GHCziTypes.Char)
+                                                             (ipv1sMM::(ghczmprim:GHCziTypes.ZMZN
+                                                                        ghczmprim:GHCziTypes.Char)) ->
+                                                               go2sVG ysaMzz}}}}}}}
+                     %in \ (raqt::(ghczmprim:GHCziTypes.ZMZN
+                                   ghczmprim:GHCziTypes.Char)) ->
+                             base:GHCziBase.zpzp
+                             @ ((ghczmprim:GHCziTuple.Z2T
+                                 aaFe
+                                 ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))))
+                             (gosVA
+                              (base:TextziParserCombinatorsziReadP.run
+                               @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                               base:GHCziRead.lex1 raqt))
+                             (go2sVG
+                              (base:TextziParserCombinatorsziReadP.run
+                               @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+                               base:GHCziRead.lex1 raqt)))
+        eta1B1;
+  base:Numeric.readFloat :: %forall aaqf . (base:GHCziReal.TZCRealFrac
+                                            aaqf)
+                                           ->
+                                           (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                           (ghczmprim:GHCziTypes.ZMZN
+                                            ((ghczmprim:GHCziTuple.Z2T
+                                              aaqf
+                                              ((ghczmprim:GHCziTypes.ZMZN
+                                                ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaGj (zddRealFracaGk::(base:GHCziReal.TZCRealFrac aaGj)) ->
+        base:TextziParserCombinatorsziReadP.run @ aaGj
+        (base:TextziReadziLex.lex1 @ aaGj
+         (%let asW6 :: (base:GHCziReal.TZCFractional aaGj) =
+                 base:GHCziReal.zdp2RealFrac @ aaGj zddRealFracaGk
+          %in %let a1sWa :: (base:GHCziReal.TZCReal aaGj) =
+                     base:GHCziReal.zdp1RealFrac @ aaGj zddRealFracaGk
+              %in %let a2sW8 :: (base:GHCziNum.TZCNum aaGj) =
+                         base:GHCziReal.zdp1Real @ aaGj a1sWa
+                  %in \ (a3aQX::base:TextziReadziLex.Lexeme) ->
+                          %case ((base:TextziParserCombinatorsziReadP.P aaGj)) a3aQX
+                          %of (wildB1::base:TextziReadziLex.Lexeme)
+                            {%_ ->
+                               base:TextziParserCombinatorsziReadP.Fail @ aaGj;
+                             base:TextziReadziLex.Int
+                             (iaqp::integerzmgmp:GHCziIntegerziType.Integer) ->
+                               base:TextziParserCombinatorsziReadP.Result @ aaGj
+                               (base:GHCziNum.fromInteger @ aaGj a2sW8 iaqp)
+                               (base:TextziParserCombinatorsziReadP.Fail @ aaGj);
+                             base:TextziReadziLex.Rat
+                             (yaqo::(base:GHCziReal.Ratio
+                                     integerzmgmp:GHCziIntegerziType.Integer)) ->
+                               base:TextziParserCombinatorsziReadP.Result @ aaGj
+                               (base:GHCziReal.fromRational @ aaGj asW6 yaqo)
+                               (base:TextziParserCombinatorsziReadP.Fail @ aaGj)}));
+  base:Numeric.readHex :: %forall aaqg . (base:GHCziNum.TZCNum aaqg)
+                                         ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaqg
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaGp (zddNumaGq::(base:GHCziNum.TZCNum aaGp)) ->
+        base:TextziParserCombinatorsziReadP.run @ aaGp
+        (base:TextziReadziLex.readDecP3 @ aaGp zddNumaGq
+         (base:GHCziNum.fromInteger @ aaGp zddNumaGq
+          base:TextziReadziLex.readHexP2)
+         @ aaGp
+         (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aaGp));
+  base:Numeric.readDec :: %forall aaqh . (base:GHCziNum.TZCNum aaqh)
+                                         ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaqh
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaGv (zddNumaGw::(base:GHCziNum.TZCNum aaGv)) ->
+        base:TextziParserCombinatorsziReadP.run @ aaGv
+        (base:TextziReadziLex.readDecP3 @ aaGv zddNumaGw
+         (base:GHCziNum.fromInteger @ aaGv zddNumaGw
+          base:TextziReadziLex.readDecP2)
+         @ aaGv
+         (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aaGv));
+  base:Numeric.readOct :: %forall aaqi . (base:GHCziNum.TZCNum aaqi)
+                                         ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaqi
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaGB (zddNumaGC::(base:GHCziNum.TZCNum aaGB)) ->
+        base:TextziParserCombinatorsziReadP.run @ aaGB
+        (base:TextziReadziLex.readDecP3 @ aaGB zddNumaGC
+         (base:GHCziNum.fromInteger @ aaGB zddNumaGC
+          base:TextziReadziLex.readOctP2)
+         @ aaGB
+         (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aaGB));
+  base:Numeric.readInt :: %forall aaqj . (base:GHCziNum.TZCNum aaqj)
+                                         ->
+                                         aaqj ->
+                                         (ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool) ->
+                                         (ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziTypes.Int) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN
+                                          ((ghczmprim:GHCziTuple.Z2T
+                                            aaqj
+                                            ((ghczmprim:GHCziTypes.ZMZN
+                                              ghczmprim:GHCziTypes.Char))))) =
+    \ @ aaGH
+      (zddNumaGI::(base:GHCziNum.TZCNum aaGH))
+      (baseaqk::aaGH)
+      (isDigitaql::ghczmprim:GHCziTypes.Char -> ghczmprim:GHCziBool.Bool)
+      (valDigitaqm::ghczmprim:GHCziTypes.Char ->
+                    ghczmprim:GHCziTypes.Int) ->
+        base:TextziParserCombinatorsziReadP.run @ aaGH
+        (base:TextziReadziLex.readDecP4 @ aaGH zddNumaGI baseaqk isDigitaql
+         valDigitaqm @ aaGH
+         (base:TextziParserCombinatorsziReadP.zdfMonadPzuzdcreturn @ aaGH));
+  base:Numeric.showEFloatzushowEFloat1 :: (base:DataziMaybe.Maybe
+                                           ghczmprim:GHCziTypes.Int)
+                                          ->
+                                          ghczmprim:GHCziTypes.Double ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawc::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawd::ghczmprim:GHCziTypes.Double) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawd
+         %of (wXSS::ghczmprim:GHCziTypes.Double)
+           {ghczmprim:GHCziTypes.Dzh (wwaSQ::ghczmprim:GHCziPrim.Doublezh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat base:GHCziFloat.FFExponent
+              dawc wwaSQ});
+  base:Numeric.showEFloatzushowEFloat :: (base:DataziMaybe.Maybe
+                                          ghczmprim:GHCziTypes.Int)
+                                         ->
+                                         ghczmprim:GHCziTypes.Float ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawc::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawd::ghczmprim:GHCziTypes.Float) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawd
+         %of (wXT1::ghczmprim:GHCziTypes.Float)
+           {ghczmprim:GHCziTypes.Fzh (wwaSZZ::ghczmprim:GHCziPrim.Floatzh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat1 base:GHCziFloat.FFExponent
+              dawc wwaSZZ});
+  base:Numeric.showEFloat :: %forall aaqb . (base:GHCziFloat.TZCRealFloat
+                                             aaqb)
+                                            ->
+                                            (base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int) ->
+                                            aaqb ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaEH
+      (zddRealFloataEI::(base:GHCziFloat.TZCRealFloat aaEH))
+      (dawc::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawd::aaEH) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (base:GHCziFloat.formatRealFloat @ aaEH zddRealFloataEI
+         base:GHCziFloat.FFExponent dawc xawd);
+  base:Numeric.showFFloatzushowFFloat1 :: (base:DataziMaybe.Maybe
+                                           ghczmprim:GHCziTypes.Int)
+                                          ->
+                                          ghczmprim:GHCziTypes.Double ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawe::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawf::ghczmprim:GHCziTypes.Double) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawf
+         %of (wXSS::ghczmprim:GHCziTypes.Double)
+           {ghczmprim:GHCziTypes.Dzh (wwaSQ::ghczmprim:GHCziPrim.Doublezh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat base:GHCziFloat.FFFixed dawe
+              wwaSQ});
+  base:Numeric.showFFloatzushowFFloat :: (base:DataziMaybe.Maybe
+                                          ghczmprim:GHCziTypes.Int)
+                                         ->
+                                         ghczmprim:GHCziTypes.Float ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawe::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawf::ghczmprim:GHCziTypes.Float) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawf
+         %of (wXT1::ghczmprim:GHCziTypes.Float)
+           {ghczmprim:GHCziTypes.Fzh (wwaSZZ::ghczmprim:GHCziPrim.Floatzh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat1 base:GHCziFloat.FFFixed dawe
+              wwaSZZ});
+  base:Numeric.showFFloat :: %forall aaqa . (base:GHCziFloat.TZCRealFloat
+                                             aaqa)
+                                            ->
+                                            (base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int) ->
+                                            aaqa ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaEy
+      (zddRealFloataEzz::(base:GHCziFloat.TZCRealFloat aaEy))
+      (dawe::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawf::aaEy) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (base:GHCziFloat.formatRealFloat @ aaEy zddRealFloataEzz
+         base:GHCziFloat.FFFixed dawe xawf);
+  base:Numeric.showGFloatzushowGFloat1 :: (base:DataziMaybe.Maybe
+                                           ghczmprim:GHCziTypes.Int)
+                                          ->
+                                          ghczmprim:GHCziTypes.Double ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                          (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawg::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawh::ghczmprim:GHCziTypes.Double) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawh
+         %of (wXSS::ghczmprim:GHCziTypes.Double)
+           {ghczmprim:GHCziTypes.Dzh (wwaSQ::ghczmprim:GHCziPrim.Doublezh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat base:GHCziFloat.FFGeneric
+              dawg wwaSQ});
+  base:Numeric.showGFloatzushowGFloat :: (base:DataziMaybe.Maybe
+                                          ghczmprim:GHCziTypes.Int)
+                                         ->
+                                         ghczmprim:GHCziTypes.Float ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                         (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ (dawg::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawh::ghczmprim:GHCziTypes.Float) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (%case ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char)) xawh
+         %of (wXT1::ghczmprim:GHCziTypes.Float)
+           {ghczmprim:GHCziTypes.Fzh (wwaSZZ::ghczmprim:GHCziPrim.Floatzh) ->
+              base:GHCziFloat.zdwzdsformatRealFloat1 base:GHCziFloat.FFGeneric
+              dawg wwaSZZ});
+  base:Numeric.showGFloat :: %forall aaq9 . (base:GHCziFloat.TZCRealFloat
+                                             aaq9)
+                                            ->
+                                            (base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int) ->
+                                            aaq9 ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) ->
+                                            (ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char) =
+    \ @ aaEi
+      (zddRealFloataEj::(base:GHCziFloat.TZCRealFloat aaEi))
+      (dawg::(base:DataziMaybe.Maybe ghczmprim:GHCziTypes.Int))
+      (xawh::aaEi) ->
+        base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+        (base:GHCziFloat.formatRealFloat @ aaEi zddRealFloataEj
+         base:GHCziFloat.FFGeneric dawg xawh);

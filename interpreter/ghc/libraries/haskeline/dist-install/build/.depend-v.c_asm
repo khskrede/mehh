@@ -1,0 +1,4 @@
+libraries/haskeline/dist-install/build/cbits/h_iconv.o: libraries/haskeline/cbits/h_iconv.c \
+ libraries/haskeline/includes/h_iconv.h
+libraries/haskeline/dist-install/build/cbits/h_wcwidth.o: libraries/haskeline/cbits/h_wcwidth.c
+libraries/haskeline_dist-install_depfile_c_asm_EXISTS = YES

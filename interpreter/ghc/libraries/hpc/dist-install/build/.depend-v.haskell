@@ -1,0 +1,32 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/hpc/Trace/Hpc/Util.hs
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/base/dist-install/build/Prelude.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/base/dist-install/build/Data/Word.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/base/dist-install/build/Data/Bits.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/base/dist-install/build/Data/Char.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Util.o : libraries/base/dist-install/build/Data/List.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Tix.o : libraries/hpc/Trace/Hpc/Tix.hs
+libraries/hpc/dist-install/build/Trace/Hpc/Tix.o : libraries/base/dist-install/build/Prelude.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Tix.o : libraries/hpc/dist-install/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Tix.o : libraries/base/dist-install/build/Data/List.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/hpc/Trace/Hpc/Mix.hs
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/base/dist-install/build/Prelude.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/hpc/dist-install/build/Trace/Hpc/Tix.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/hpc/dist-install/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/base/dist-install/build/Data/Char.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/containers/dist-install/build/Data/Tree.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/base/dist-install/build/Data/Maybe.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/directory/dist-install/build/System/Directory.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Mix.o : libraries/old-time/dist-install/build/System/Time.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-install/build/Trace/Hpc/Reflect.hs
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Prelude.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/System/IO/Unsafe.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-install/build/Trace/Hpc/Util.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Data/Word.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Foreign/Storable.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Foreign/Ptr.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Foreign/Marshal/Array.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/base/dist-install/build/Foreign/C/String.hi
+libraries/hpc/dist-install/build/Trace/Hpc/Reflect.o : libraries/hpc/dist-install/build/Trace/Hpc/Tix.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/hpc_dist-install_depfile_haskell_EXISTS = YES

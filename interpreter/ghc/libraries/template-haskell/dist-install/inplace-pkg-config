@@ -1,0 +1,35 @@
+name: template-haskell
+version: 2.5.0.0
+id: template-haskell-2.5.0.0-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description: Facilities for manipulating Haskell source code using Template Haskell.
+category:
+author:
+exposed: True
+exposed-modules: Language.Haskell.TH.Syntax.Internals
+                 Language.Haskell.TH.Syntax Language.Haskell.TH.PprLib
+                 Language.Haskell.TH.Ppr Language.Haskell.TH.Lib
+                 Language.Haskell.TH.Quote Language.Haskell.TH
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/template-haskell/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/template-haskell/dist-install/build
+hs-libraries: HStemplate-haskell-2.5.0.0
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace containers-0.4.0.0-inplace
+         pretty-1.0.1.2-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/template-haskell/dist-install/doc/html/template-haskell/template-haskell.haddock
+haddock-html: ../template-haskell-2.5.0.0
+

@@ -1,0 +1,33 @@
+name: hpc
+version: 0.5.0.6
+id: hpc-0.5.0.6-inplace
+license: BSD3
+copyright:
+maintainer: libraries@haskell.org
+stability:
+homepage:
+package-url:
+description:
+category: Control
+author: Andy Gill
+exposed: True
+exposed-modules: Trace.Hpc.Util Trace.Hpc.Mix Trace.Hpc.Tix
+                 Trace.Hpc.Reflect
+hidden-modules:
+import-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/hpc/dist-install/build
+library-dirs: /home/khs/documents/project/test5/ghc-7.0.3/libraries/hpc/dist-install/build
+hs-libraries: HShpc-0.5.0.6
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-4.3.1.0-inplace containers-0.4.0.0-inplace
+         directory-1.1.0.0-inplace old-time-1.0.0.6-inplace
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/khs/documents/project/test5/ghc-7.0.3/libraries/hpc/dist-install/doc/html/hpc/hpc.haddock
+haddock-html: ../hpc-0.5.0.6
+

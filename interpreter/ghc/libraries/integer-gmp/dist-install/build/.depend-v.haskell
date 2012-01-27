@@ -1,0 +1,10 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+libraries/integer-gmp/dist-install/build/GHC/Integer/Type.o : libraries/integer-gmp/GHC/Integer/Type.hs
+libraries/integer-gmp/dist-install/build/GHC/Integer/GMP/Internals.o : libraries/integer-gmp/GHC/Integer/GMP/Internals.hs
+libraries/integer-gmp/dist-install/build/GHC/Integer/GMP/Internals.o : libraries/integer-gmp/dist-install/build/GHC/Integer/Type.hi
+libraries/integer-gmp/dist-install/build/GHC/Integer.o : libraries/integer-gmp/GHC/Integer.lhs
+libraries/integer-gmp/dist-install/build/GHC/Integer.o : libraries/ghc-prim/dist-install/build/GHC/Ordering.hi
+libraries/integer-gmp/dist-install/build/GHC/Integer.o : libraries/ghc-prim/dist-install/build/GHC/Bool.hi
+libraries/integer-gmp/dist-install/build/GHC/Integer.o : libraries/integer-gmp/dist-install/build/GHC/Integer/GMP/Internals.hi
+# DO NOT DELETE: End of Haskell dependencies
+libraries/integer-gmp_dist-install_depfile_haskell_EXISTS = YES

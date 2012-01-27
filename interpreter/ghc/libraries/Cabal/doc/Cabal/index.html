@@ -1,0 +1,63 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Common Architecture for Building Applications and Libraries</title><link rel="stylesheet" type="text/css" href="fptools.css"><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"><link rel="home" href="index.html" title="Common Architecture for Building Applications and Libraries"><link rel="next" href="packages.html" title="2. Packages"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Common Architecture for Building Applications and Libraries</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="packages.html">Next</a></td></tr></table><hr></div><div class="article" title="Common Architecture for Building Applications and Libraries"><div class="titlepage"><div><div><h2 class="title"><a name="id481400"></a>Common Architecture for Building Applications and Libraries</h2></div><div><h3 class="subtitle"><i>User's Guide</i></h3></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="index.html#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="packages.html">2. Packages</a></span></dt><dt><span class="sect1"><a href="authors.html">3. Creating a package</a></span></dt><dd><dl><dt><span class="sect2"><a href="authors.html#pkg-descr">3.1. Package descriptions</a></span></dt><dd><dl><dt><span class="sect3"><a href="authors.html#general-fields">3.1.1. Package properties</a></span></dt><dt><span class="sect3"><a href="authors.html#library">3.1.2. Library</a></span></dt><dt><span class="sect3"><a href="authors.html#executable">3.1.3. Executables</a></span></dt><dt><span class="sect3"><a href="authors.html#buildinfo">3.1.4. Build information</a></span></dt><dt><span class="sect3"><a href="authors.html#configurations">3.1.5. Configurations</a></span></dt><dt><span class="sect3"><a href="authors.html#source-repos">3.1.6. Source Repositories</a></span></dt></dl></dd><dt><span class="sect2"><a href="authors.html#paths-module">3.2. Accessing data files from package code</a></span></dt><dt><span class="sect2"><a href="authors.html#system-dependent">3.3. System-dependent parameters</a></span></dt><dt><span class="sect2"><a href="authors.html#cpp">3.4. Conditional compilation</a></span></dt><dt><span class="sect2"><a href="authors.html#complex-packages">3.5. More complex packages</a></span></dt></dl></dd><dt><span class="sect1"><a href="builders.html">4. Building and installing a package</a></span></dt><dd><dl><dt><span class="sect2"><a href="builders.html#setup-configure">4.1. setup configure</a></span></dt><dd><dl><dt><span class="sect3"><a href="builders.html#setup-configure-programs">4.1.1. Programs used for building</a></span></dt><dt><span class="sect3"><a href="builders.html#setup-configure-paths">4.1.2. Installation paths</a></span></dt><dt><span class="sect3"><a href="builders.html#flag-control">4.1.3. Controlling Flag Assignments</a></span></dt><dt><span class="sect3"><a href="builders.html#setup-configure-misc">4.1.4. Miscellaneous options</a></span></dt></dl></dd><dt><span class="sect2"><a href="builders.html#setup-build">4.2. setup build</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-makefile">4.3. setup makefile</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-haddock">4.4. setup haddock</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-hscolour">4.5. setup hscolour</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-install">4.6. setup install</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-copy">4.7. setup copy</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-register">4.8. setup register</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-unregister">4.9. setup unregister</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-clean">4.10. setup clean</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-test">4.11. setup test</a></span></dt><dt><span class="sect2"><a href="builders.html#setup-sdist">4.12. setup sdist</a></span></dt></dl></dd><dt><span class="sect1"><a href="bugs.html">5. Reporting bugs and deficiencies</a></span></dt><dt><span class="sect1"><a href="stability.html">6. Stability of Cabal interfaces</a></span></dt><dd><dl><dt><span class="sect2"><a href="stability.html#id592977">6.1. Cabal file format</a></span></dt><dt><span class="sect2"><a href="stability.html#id592988">6.2. Command-line interface</a></span></dt><dd><dl><dt><span class="sect3"><a href="stability.html#id592994">6.2.1. Very Stable Command-line interfaces</a></span></dt><dt><span class="sect3"><a href="stability.html#id593051">6.2.2. Stable Command-line interfaces</a></span></dt><dt><span class="sect3"><a href="stability.html#id593060">6.2.3. Unstable command-line</a></span></dt></dl></dd><dt><span class="sect2"><a href="stability.html#id593070">6.3. Functions and Types</a></span></dt><dd><dl><dt><span class="sect3"><a href="stability.html#id593093">6.3.1. Very Stable API</a></span></dt><dt><span class="sect3"><a href="stability.html#id593135">6.3.2. Semi-stable API</a></span></dt><dt><span class="sect3"><a href="stability.html#id593172">6.3.3. Unstable API</a></span></dt></dl></dd><dt><span class="sect2"><a href="stability.html#id593190">6.4. Hackage</a></span></dt></dl></dd></dl></div><div class="abstract" title="Abstract"><div class="titlepage"></div><p><em class="firstterm">Cabal</em> aims to simplify the
+      distribution of <a class="ulink" href="http://www.haskell.org/" target="_top">Haskell</a>
+      software.  It does this by specifying a number of interfaces between
+      package authors, builders and users, as well as providing a library
+      implementing these interfaces.</p></div><div class="sect1" title="1. Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
+      Developers write Cabal packages. These can be for libraries or
+      executables. This involves writing the code obviously and also creating a
+      <code class="literal">.cabal</code> file. The .cabal file contains some information
+      about the package. Some of this information is needed to actually build
+      the package and some is just useful for identifying the package when it
+      comes to distribution.
+    </p><pre class="programlisting">
+name:     Foo
+version:  1.0
+
+library
+  build-depends:   base
+  exposed-modules: Foo
+    </pre><p>
+      Users install Cabal packages so they can use them. It is not expected
+      that users will have to modify any of the information in the
+      <code class="literal">.cabal</code> file. Cabal does provide a number of ways for
+      a user to customise how and where a package is installed. They can decide
+      where a package will be installed, which Haskell implementation to use
+      and whether to build optimised code or build with the ability to profile
+      code.
+    </p><pre class="programlisting">
+tar -xzf Foo-1.0.tar.gz
+cd Foo-1.0
+runhaskell Setup configure --with-compiler=ghc-6.4.2 --user
+runhaskell Setup build
+runhaskell Setup install
+    </pre><p>
+      One of the purposes of Cabal is to make it easier to build a package with
+      different Haskell implementations. So it provides abstractions of
+      features present in different Haskell implementations and wherever
+      possible it is best to take advantage of these to increase portability.
+      Where necessary however it is possible to use specific features of
+      specific implementations. For example one of the pieces of information a
+      package author can put in the package's <code class="literal">.cabal</code> file is
+      what language extensions the code uses. This is far preferable to
+      specifying flags for a specific compiler as it allows Cabal to pick the
+      right flags for the Haskell implementation that the user picks. It also
+      allows Cabal to figure out if the language extension is even supported by
+      the Haskell implementation that the user picks. Where compiler-specific
+      options are needed however, there is an "escape hatch" available. The
+      developer can specify implementation-specific options and more generally
+      there is a configuration mechanism to customise many aspects of how a
+      package is built depending on the Haskell implementation, the Operating
+      system, computer architecture and user-specified configuration flags.
+    </p><pre class="programlisting">
+name:     Foo
+version:  1.0
+
+library
+  build-depends:   base
+  exposed-modules: Foo
+  extensions:	   ForeignFunctionInterface
+  ghc-options:     -Wall
+  nhc98-options:   -K4m
+  if os(windows)
+    build-depends: Win32
+    </pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="packages.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. Packages</td></tr></table></div></body></html>

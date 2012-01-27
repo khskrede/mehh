@@ -1,25 +1,30 @@
 
 import haskell as h
+import module as m
 
+# Create Prim module
+prim = m.coremod("ghc-prim:GHC.Prim")
 
+# Define primitive functions
+# ____________________________________
 
+# ("->", a, b)
 @h.expose_primitive(2)
 def ZLzmzgZR(args):
     a = args[0]
     b = args[1]
     return constr("->", a, b)
 
+prim.qtycons["GHC.Prim.ZLzmzgZR"] = ZLzmzgZR
 
-#-----------------------
 # Char#
-#-----------------------
-
-
 class Charzh(h.Value):
     _immutable_fields_ = ["value"]
 
     def __init__(self, char):
         self.char = char
+
+# TODO: Where do values belong????
 
 @h.expose_primitive(2)
 def gtCharzh(args):
@@ -28,6 +33,8 @@ def gtCharzh(args):
     assert isinstance(a1, Charzh)
     return Charzh(a0.value > a1.value)
 
+prim.qvars["GHC.Prim.gtCharzh"] = gtCharzh
+
 @h.expose_primitive(2)
 def geCharzh(args):
     a0, a1 = args
@@ -35,14 +42,9 @@ def geCharzh(args):
     assert isinstance(a1, Charzh)
     return Charzh(a0.value >= a1.value)
 
-# TODO: Complete Char# implementation
+prim.qvars["GHC.Prim.geCharzh"] = geCharzh
 
-
-
-
-#------------------------
 # Int#
-#------------------------
 
 class Intzh(h.Value):
     _immutable_fields_ = ["value"]
@@ -77,6 +79,8 @@ def zpzh(args):
     assert isinstance(a1, Charzh)
     return Intzh(a0.value + a1.value)
 
+prim.qvars["GHC.Prim.zpzh"] = zpzh
+
 # (-#)
 
 @h.expose_primitive(2)
@@ -86,6 +90,8 @@ def zmzh(args):
     assert isinstance(a1, Charzh)
     return Intzh(a0.value - a1.value)
 
+prim.qvars["GHC.Prim.zmzh"] = zmzh
+
 # (*#)
 
 @h.expose_primitive(2)
@@ -94,6 +100,8 @@ def ztzh(args):
     assert isinstance(a0, Charzh)
     assert isinstance(a1, Charzh)
     return Intzh(a0.value * a1.value)
+
+prim.qvars["GHC.Prim.ztzh"] = ztzh
 
 # mulIntMayOflo#
 def mulIntMayOflozh(args):
@@ -106,10 +114,13 @@ def mulIntMayOflozh(args):
 def Statezh(args):
     return const("State#", args[0])
 
+prim.qtycons["GHC.Prim.Statezh"] = Statezh
+
 @h.expose_primitive(0)
 def RealWorld(args):
     return const("RealWorld")
 
+prim.qtycons["GHC.Prim.RealWorld"] = RealWorld
 
 # Tuples
 
@@ -117,10 +128,13 @@ def RealWorld(args):
 def Z0T(args):
     return const("()")
 
+prim.qtycons["GHC.Prim.Z0T"] = Z0T
+
 @h.expose_primitive(2)
 def Z2T(args):
     return const("()", args[0], args[1])
 
+prim.qtycons["GHC.Prim.Z2T"] = Z2T
 
 # Unboxed tuple
 
@@ -129,7 +143,11 @@ def Z2T(args):
 def Z0H(args):
     return const("()")
 
+prim.qtycons["GHC.Prim.Z0H"] = Z0H
+
 @h.expose_primitive(2)
 def Z2H(args):
     return const("()", args[0], args[1])
+
+prim.qtycons["GHC.Prim.Z2H"] = Z2H
 

@@ -1,7 +1,7 @@
 
 import haskell
 
-class module():
+class coremod():
     name = "" 
     qvars = {}
     qtycons = {}
@@ -18,3 +18,6 @@ class module():
             self.qtycons[key] = value
         for (key, value) in mod.qdcons.items():
             self.qdcons[key] = value
+
+coremods = {}
+

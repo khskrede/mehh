@@ -1,14 +1,14 @@
 import sys
 import jscparser as c
 import haskell as p
-
-modules = {}
+import module as m
 
 def interp(path):
     js = c.parse_js( path )
-    ast = c.AST( modules )
+    ast = c.AST()
     mod = ast.get_ast( js )
-    main = modules["main:Main"].qvars["ZCMain.main"]
+
+    main = m.coremods["main:Main"].qvars["ZCMain.main"]
 
     p.evaluate_hnf( main )
 
