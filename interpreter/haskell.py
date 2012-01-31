@@ -39,6 +39,7 @@ class HaskellObject(object):
 
     def enumerate_head(self, subst):
         """ Enumerate the variables in self. """
+        print "Self: ", repr(self)
         raise NotImplementedError
 
     def replace_vars(self, subst, occurrences):
@@ -533,6 +534,8 @@ def make_partial_app(app, newargs):
    
     print len(args), "<", arity
     print repr(func)
+
+    print ""
 
     if len(args) < arity:
         return PartialApp(func, args)

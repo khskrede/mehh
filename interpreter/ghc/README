@@ -2,4 +2,12 @@
 
 Current library files are from GHC 7.0.3
 
+To create library files from GHC source:
 
+ 1. Download source
+ 2. Navigate to ghc source and: "cp mk/build.mk.sample mk/build.mk"
+ 3. Add "-fext-core" to GhcLibHcOpts in mk/build.mk
+ 4. Run ./configure
+ 5. Navigate to ./libraries/ and run make
+ 6. Copy libraries folder to ghc folder in haskell-python source
+ 7. run makehcj.py from ghc folder in haskell-python source

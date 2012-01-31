@@ -1,14 +1,14 @@
 
 import haskell
 
-class coremod():
-    name = "" 
+class CoreMod():
+    mident = "" 
     qvars = {}
     qtycons = {}
     qdcons = {}
 
     def __init__(self, mident):
-        self.name = mident
+        self.mident = mident
         self.qvars = {}
 
     def loadmod(self,mod):

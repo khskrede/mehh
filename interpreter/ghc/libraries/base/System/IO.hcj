@@ -1,4 +1,4 @@
-{"%module": "main:SystemziIO", "tdefg": [],
+{"%module": "base:SystemziIO", "tdefg": [],
  "vdefg": [{"qvar": "pathSeparatorr1Iv",
             "ty": {"qtycon": "ghczmprim:GHCziTypes.Char"},
             "exp": {"aexp": {"qdcon": "ghczmprim:GHCziTypes.Czh"},

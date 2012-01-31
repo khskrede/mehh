@@ -3,7 +3,7 @@ import haskell as h
 import module as m
 
 # Create Prim module
-prim = m.coremod("ghc-prim:GHC.Prim")
+prim = m.CoreMod("ghc-prim:GHC.Prim")
 
 # Define primitive functions
 # ____________________________________
@@ -69,6 +69,8 @@ class Intzh(h.Value):
 
     def tostr(self):
         return str(self.value)
+
+prim.qdcons["GHC.Prim.Intzh"] = Intzh
 
 #  (+#)
 
