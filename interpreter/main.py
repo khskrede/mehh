@@ -1,3 +1,5 @@
+#!/usr/bin/python2.7
+
 import sys
 import jscparser as c
 import haskell as p

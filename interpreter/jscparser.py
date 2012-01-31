@@ -104,6 +104,10 @@ class AST(RPythonVisitor):
 
                 qtycon_id = mod + "." + name
 
+                tbinds = []
+                for tbind in node.children[1].children[1].children :
+                    tbinds.append(tbind.visit(self))
+
                 cdefs = []
                 for cdef in node.children[2].children[1].children :
                     cdefs.append(cdef.visit(self))
@@ -160,7 +164,7 @@ class AST(RPythonVisitor):
                     atys.append(aty.visit(self))
 
                 func = h.function("tbinds", tbinds)
-                const = h.make_partial_app(func , atys)
+                const = h.make_constructor(h.Symbol(qdcon_id) , atys)
 
                 m.coremods[self.mident].qdcons[qdcon_id].become(const)
 
@@ -353,8 +357,14 @@ class AST(RPythonVisitor):
                 for vbind in vbinds_:
                     vbinds.append(vbind.visit(self))
                 
+                print "------"
+                print qdcon_id
+
                 exp = node.children[3].children[1].visit(self)
+
                 const_alt = h.make_partial_app(qdcon, vbinds)
+
+                #assert isinstance(const_alt, h.Constructor)
 
                 # TODO ?
                 return ([const_alt], exp)
@@ -388,9 +398,8 @@ class AST(RPythonVisitor):
                 bty = node.children[0].children[1].visit(self)
                 aty = node.children[1].children[1].visit(self)
 
-                t_app = h.make_partial_app(bty, [aty])
-                #t_app = bty.apply(aty)
-                return t_app
+                t_const = h.make_partial_app(bty, [aty])
+                return t_const
 
             # Value binder (TODO: can probably be removed from JSCore language, see below)
             elif type_ == "vbind":
