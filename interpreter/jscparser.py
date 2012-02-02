@@ -23,6 +23,9 @@ ebnf = """
     pair: STRING [":"] value;
     """
 
+lifted_kind = h.make_constructor(h.Symbol("*"),[])
+unlifted_kind = h.make_constructor(h.Symbol("#"),[])
+open_kind = h.make_constructor(h.Symbol("?"),[])
 
 # Function takes a Core identifier, and returns the 
 # package name, module name and a reference to either 
@@ -78,6 +81,10 @@ class AST(RPythonVisitor):
             left = node.children[0]
             type_ = left.children[0].additional_info.replace("\"","")
 
+            for i in node.children:
+                print i.children[0].additional_info,
+            print ""
+
             # Module
             if type_ == "%module":
 
@@ -86,6 +93,8 @@ class AST(RPythonVisitor):
                 package, mod, _ = rewrite_id(info)
                 self.mident = package + ":" + mod
                 m.coremods[self.mident] = m.CoreMod(self.mident)
+
+                print "MODULE: ", self.mident
 
                 # Get constructor definitions
                 for tdef in node.children[1].children[1].children:
@@ -97,6 +106,10 @@ class AST(RPythonVisitor):
 
             # Data constructor
             elif type_ == "%data":
+
+                # An algebraic type definition is turned into a
+                # a function returning a Constructor
+
                 mident = self.mident
 
                 info = node.children[0].children[1].additional_info.replace("\"","")
@@ -109,10 +122,14 @@ class AST(RPythonVisitor):
                     tbinds.append(tbind.visit(self))
 
                 cdefs = []
+                #print "----"
                 for cdef in node.children[2].children[1].children :
+                #    print cdef.children[0].children[1].additional_info
                     cdefs.append(cdef.visit(self))
 
                 const = h.make_constructor(h.Symbol(qtycon_id), cdefs)
+
+                #print qtycon_id
 
                 m.coremods[mident].qtycons[qtycon_id] = const
 
@@ -120,6 +137,8 @@ class AST(RPythonVisitor):
 
             # Newtype
             elif type_ == "%newtype":
+
+                #print "newtype"
 
                 new_info = node.children[0].children[1].additional_info.replace("\"", "")
                 new_package, new_mod, new_name = rewrite_id(new_info)
@@ -141,34 +160,57 @@ class AST(RPythonVisitor):
 
                 const = h.make_constructor(h.Symbol(qtycon_id), [ty])
 
+                #print "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", newtype_id
+
                 m.coremods[new_mident].qtycons[newtype_id] = const
+                m.coremods[new_mident].qtycons[qtycon_id] = const # WHYYYY ???
 
                 return const
 
             # Constructor definition
             elif type_ == "qdcon" and len(node.children) == 3:
+
+                # A constructor definition is turned into a
+                # a function returning a constructor
+
                 info = node.children[0].children[1].additional_info.replace("\"","")
                 package, mod, name = rewrite_id(info)
 
                 mident = package + ":" + mod
                 qdcon_id = mod + "." + name
 
-                m.coremods[self.mident].qdcons[qdcon_id] = ForwardReference()
+#                m.coremods[self.mident].qdcons[qdcon_id] = ForwardReference()
 
                 tbinds = []
                 for tbind in node.children[1].children[1].children :
                     tbinds.append(tbind.visit(self))
 
+                #print "atys", qdcon_id
+
                 atys = []
-                for aty in node.children[1].children[1].children :
+                for aty in node.children[2].children[1].children :
                     atys.append(aty.visit(self))
 
-                func = h.function("tbinds", tbinds)
-                const = h.make_constructor(h.Symbol(qdcon_id) , atys)
+                #print repr(atys)
 
-                m.coremods[self.mident].qdcons[qdcon_id].become(const)
+                #var = h.Var("meh")
 
-                return const
+
+                constr = h.make_constructor(h.Symbol(qdcon_id), tbinds)
+                constr2 = h.make_partial_app( constr, atys)
+
+                #func = h.function("%data", [(_vars, constr)] )
+
+                #app1 = h.make_partial_app( atys, _vars )
+                #app2 = h.make_partial_app( func , [app1] )
+
+                #print repr(var)
+                #print repr(app2)
+
+                m.coremods[self.mident].qdcons[qdcon_id] = constr
+                m.coremods[self.mident].qtycons[qdcon_id] = constr
+
+                return constr
 
             # Recursive value definition
             elif type_ == "%rec":
@@ -192,6 +234,8 @@ class AST(RPythonVisitor):
 
                 mident = package + ":" + mod
                 qvar_id = mod + "." + name
+
+                print mident, qvar_id
                 
                 if mod == "":
 
@@ -202,7 +246,7 @@ class AST(RPythonVisitor):
                     exp = node.children[2].children[1].visit(self)
                     m.coremods[self.mident].qvars[qvar_id].become(exp)
 
-                elif m.coremods.has_key(mident):
+                else:#if m.coremods.has_key(mident):
                     #qvar = get_external_qvar(package, mod, name)
 
                     m.coremods[mident].qvars[qvar_id] = ForwardReference()
@@ -283,7 +327,11 @@ class AST(RPythonVisitor):
             # Type argument
             elif type_ == "aty" and len(node.children) == 1:
                 aty = node.children[0].children[1].visit(self)
+                return aty
 
+            # Symmetric coercion
+            elif type_ == "%sym":
+                aty = node.children[0].children[1].visit(self)
                 return aty
 
             # Lambda abstraction
@@ -301,6 +349,9 @@ class AST(RPythonVisitor):
 
             # Case expression
             elif type_ == "%case":
+
+                print "case"
+
                 case = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
                 of = node.children[2].children[1].visit(self)
@@ -311,28 +362,41 @@ class AST(RPythonVisitor):
                 for alt in alts_:
                     alts.append(alt.visit(self))
 
-                #alts.reverse()
+                # A case expression can be reduced to the application
+                # of an expression to a function
+
+                print repr(alts)
 
                 f = h.function("alts", alts)
-                app = h.make_partial_app(f, exp) 
+                app = h.make_partial_app(f, [exp]) 
 
                 return app
 
             # Default case-alternative
             elif type_ == "%_":
+
                 f = node.children[0].children[1].visit(self)
-                return ([h.Var("_")], f)
+
+                arg = h.Var("_")
+                func = h.make_partial_app(f, arg)
+
+                print "default"
+                return ([h.Var("_")], func)
 
             # Literal case-alternative
             elif type_ == "lit" and len(node.children) == 2:
+
                 pat = node.children[0].children[1].visit(self)
                 exp = node.children[1].children[1].visit(self)
 
-                case = ([pat], exp)
+                func = h.make_partial_app(exp, pat)
+
+                case = ([pat], func)
                 return case
 
             # Constructor case-alternative
             elif type_ == "qdcon" and len(node.children) == 4:
+
                 info = node.children[0].children[1].additional_info.replace("\"","")
                 package, mod, name = rewrite_id(info)
 
@@ -357,21 +421,18 @@ class AST(RPythonVisitor):
                 for vbind in vbinds_:
                     vbinds.append(vbind.visit(self))
                 
-                print "------"
-                print qdcon_id
-
                 exp = node.children[3].children[1].visit(self)
-
-                const_alt = h.make_partial_app(qdcon, vbinds)
-
-                #assert isinstance(const_alt, h.Constructor)
+                func = h.make_partial_app(exp, vbinds)
 
                 # TODO ?
-                return ([const_alt], exp)
+                print "constructor", qdcon_id
+                return ([qdcon], func)
 
             # Type coercion
             elif type_ == "%cast":
-                raise NotImplementedError
+                exp = node.children[0].children[1].visit(self)
+                aty = node.children[1].children[1].visit(self)
+                return exp # TODO ???
 
             # Expression note
             elif type_ == "%note":
@@ -403,14 +464,14 @@ class AST(RPythonVisitor):
 
             # Value binder (TODO: can probably be removed from JSCore language, see below)
             elif type_ == "vbind":
+                #info = node.children[0].children[1].children[0].children[1]
+                #qvar_id = info.replace("\"", "")
                 return node.children[0].children[1].visit(self)
 
             # Value binder
             elif type_ == "var" and node.children[1].children[0].additional_info == "\"ty\"":
-                var_name = node.children[0].children[1].additional_info.replace("\"","")
-
-
-                info = node.children[0].children[1].additional_info.replace("\"","")
+                var_name = node.children[0].children[1].additional_info
+                info = var_name.replace("\"","")
                 package, mod, name = rewrite_id(info)
 
                 if mod == "":
@@ -419,11 +480,16 @@ class AST(RPythonVisitor):
                 mident = package + ":" + mod
                 qvar_id = mod + "." + name
 
-                ty = node.children[1].children[1].visit(self)
+                if m.coremods[mident].qvars.has_key(qvar_id):
+                    ty = m.coremods[mident].qvars[qvar_id]
+                else:
+                    ty = node.children[1].children[1].visit(self)
 
-                m.coremods[mident].qvars[qvar_id] = ty
+                var = h.Var(qvar_id)
+                tyvar = h.make_partial_app( ty, [var] )
+                m.coremods[mident].qvars[qvar_id] = tyvar
 
-                return ty
+                return tyvar
 
 
             # Data constructor
@@ -459,10 +525,10 @@ class AST(RPythonVisitor):
                 mident = package + ":" + mod
                 ty_id = mod + "." + name
 
-                ty = h.Var(ty_id)
-                m.coremods[mident].qtycons[ty_id] = ty
+                kind = lifted_kind
+                m.coremods[mident].qvars[ty_id] = kind
 
-                return ty
+                return kind
 
             # Type binder (explicitly kinded)
             elif type_ == "tyvar" and len(node.children) == 2:
@@ -476,10 +542,46 @@ class AST(RPythonVisitor):
                 mident = package + ":" + mod
                 ty_id = mod + "." + name
 
-                ty = h.Var(ty_id)
-                m.coremods[mident].qtycons[ty_id] = ty
+                kind = node.children[1].children[1].visit(self)
+                m.coremods[mident].qvars[ty_id] = kind
 
-                return ty
+                return kind
+
+            # Atomic kind
+            elif type_ == "akind" and len(node.children) == 2:
+
+                akind = node.children[0].children[1]
+
+                if akind.additional_info == "\"*\"":
+                    kind = lifted_kind 
+                elif akind.additional_info == "\"#\"":
+                    kind = unlifted_kind
+                elif akind.additional_info == "\"?\"":
+                    kind = open_kind
+                else:
+                    kind = node.children[1].children[1].visit(self)
+
+                return kind
+
+            # Type abstraction
+            elif type_ == "%forall":
+                
+                # g :: b -> b
+                # is the same as:
+                # g :: forall b. (b -> b)
+
+                info = node.children[0].children[1].children[0].children[1].additional_info
+                forall = node.children[0].children[1].visit(self)
+                forall_id = info.replace("\"","")
+
+                print "==================", info
+
+                ty = node.children[1].children[1].visit(self)
+                abst = h.make_partial_app(ty, [forall])
+
+                m.coremods[self.mident].qtycons[forall_id] = abst
+
+                return abst
 
             else:
                 raise NotImplementedError
@@ -503,13 +605,14 @@ class AST(RPythonVisitor):
     def visit_STRING(self, node):
         # TODO: fix this, we can't simply replace the \"
         str_ = node.additional_info.replace("\"","")
-        return CString(node.additional_info)
+        print str_
+        return h.CString(str_)
 
     # Figure out how to do this correctly
     def visit_NUMBER(self, node):
         number = node.additional_info.replace("\"","")
-        num = m.coremods["ghc-prim:GHC.Prim"].qdcons["Intzh"]
-        return num(number)
+        num = m.coremods["ghc-prim:GHC.Prim"].qdcons["GHC.Prim.Intzh"]
+        return h.make_partial_app(num, [number])
 
 
 # Helper functions to fetch external references

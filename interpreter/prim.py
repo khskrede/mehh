@@ -18,11 +18,18 @@ def ZLzmzgZR(args):
 prim.qtycons["GHC.Prim.ZLzmzgZR"] = ZLzmzgZR
 
 # Char#
-class Charzh(h.Value):
+class charzh(h.Value):
     _immutable_fields_ = ["value"]
 
     def __init__(self, char):
         self.char = char
+
+
+@h.expose_primitive(1)
+def Charzh(args):
+    return charzh(args[0])
+
+prim.qtycons["GHC.Prim.Charzh"] = Charzh
 
 # TODO: Where do values belong????
 
@@ -46,7 +53,7 @@ prim.qvars["GHC.Prim.geCharzh"] = geCharzh
 
 # Int#
 
-class Intzh(h.Value):
+class intzh(h.Value):
     _immutable_fields_ = ["value"]
 
     def __init__(self, integer):
@@ -70,6 +77,11 @@ class Intzh(h.Value):
     def tostr(self):
         return str(self.value)
 
+@h.expose_primitive(1)
+def Intzh(args):
+    return intzh(args[0])
+
+prim.qtycons["GHC.Prim.Intzh"] = Intzh
 prim.qdcons["GHC.Prim.Intzh"] = Intzh
 
 #  (+#)
@@ -105,6 +117,40 @@ def ztzh(args):
 
 prim.qvars["GHC.Prim.ztzh"] = ztzh
 
+# Double#
+
+class doublezh(h.Value):
+    _immutable_fields_ = ["value"]
+
+    def __init__(self, char):
+        self.char = char
+
+@h.expose_primitive(1)
+def Doublezh(args):
+    return doublezh(args[0])
+
+prim.qtycons["GHC.Prim.Doublezh"] = Charzh
+
+
+# Double#
+
+class floatzh(h.Value):
+    _immutable_fields_ = ["value"]
+
+    def __init__(self, char):
+        self.char = char
+
+@h.expose_primitive(1)
+def Floatzh(args):
+    return floatzh(args[0])
+
+prim.qtycons["GHC.Prim.Floatzh"] = Charzh
+
+
+
+
+
+
 # mulIntMayOflo#
 def mulIntMayOflozh(args):
     raise NotImplementedError
@@ -131,11 +177,13 @@ def Z0T(args):
     return const("()")
 
 prim.qtycons["GHC.Prim.Z0T"] = Z0T
+prim.qdcons["GHC.Prim.Z0T"] = Z0T
 
 @h.expose_primitive(2)
 def Z2T(args):
     return const("()", args[0], args[1])
 
+prim.qtycons["GHC.Prim.Z2T"] = Z2T
 prim.qtycons["GHC.Prim.Z2T"] = Z2T
 
 # Unboxed tuple
@@ -146,10 +194,12 @@ def Z0H(args):
     return const("()")
 
 prim.qtycons["GHC.Prim.Z0H"] = Z0H
+prim.qdcons["GHC.Prim.Z0H"] = Z0H
 
 @h.expose_primitive(2)
 def Z2H(args):
     return const("()", args[0], args[1])
 
 prim.qtycons["GHC.Prim.Z2H"] = Z2H
+prim.qdcons["GHC.Prim.Z2H"] = Z2H
 

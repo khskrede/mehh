@@ -333,6 +333,7 @@ class Var(HaskellObject):
         return res
 
     def replace_vars(self, subst, occurrences):
+        print self.name
         res = subst[self]
         occurrences[res.index] += 1
         return res
@@ -506,7 +507,7 @@ class PartialApp(object):
 
 def make_partial_app(app, newargs):
 
-    print "Partial app"
+    #print "Partial app"
 
     arity = 0
     func = 0
@@ -532,10 +533,12 @@ def make_partial_app(app, newargs):
         func = app
         #raise NotImplementedError("Argument must be either AbstractFunction or PartialApp, was:" + repr(app))
    
-    print len(args), "<", arity
-    print repr(func)
+    #print len(args), "<", arity
+    #print repr(func)
 
-    print ""
+    #print ""
+
+    assert len(args) <= arity
 
     if len(args) < arity:
         return PartialApp(func, args)
