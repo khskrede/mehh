@@ -23,10 +23,6 @@ ebnf = """
     pair: STRING [":"] value;
     """
 
-lifted_kind = h.make_constructor(h.Symbol("*"),[])
-unlifted_kind = h.make_constructor(h.Symbol("#"),[])
-open_kind = h.make_constructor(h.Symbol("?"),[])
-
 # Function takes a Core identifier, and returns the 
 # package name, module name and a reference to either 
 # a qvar, qdcon or qtycon 
@@ -63,6 +59,11 @@ class ForwardReference(object):
         self.__dict__.update(x.__dict__)
     def replace_vars(self, subst, _):
         return self
+
+# Kinds
+lifted_kind = h.make_constructor(h.Symbol("*"),[])
+unlifted_kind = h.make_constructor(h.Symbol("#"),[])
+open_kind = h.make_constructor(h.Symbol("?"),[])
 
 # Class for traversing the JSON datastructure and
 # generate the Core' AST
@@ -117,6 +118,8 @@ class AST(RPythonVisitor):
 
                 qtycon_id = mod + "." + name
 
+                print "%data qtycon: ", qtycon_id
+
                 tbinds = []
                 for tbind in node.children[1].children[1].children :
                     tbinds.append(tbind.visit(self))
@@ -127,7 +130,9 @@ class AST(RPythonVisitor):
 
                 constr = h.make_constructor(h.Symbol(qtycon_id), cdefs)
 
-                m.coremods[mident].qtycons[qtycon_id] = constr
+                add_qtycon(package, mod, qtycon_id, constr)
+
+                #m.coremods[mident].qtycons[qtycon_id].become(constr)
 
                 return constr
 
@@ -180,7 +185,7 @@ class AST(RPythonVisitor):
                 constr = h.make_constructor(h.Symbol(qdcon_id), tbinds)
 
                 m.coremods[self.mident].qdcons[qdcon_id] = constr
-                m.coremods[self.mident].qtycons[qdcon_id] = constr
+                #m.coremods[self.mident].qtycons[qdcon_id] = constr
 
                 return constr
 
@@ -596,25 +601,69 @@ class AST(RPythonVisitor):
         return h.make_partial_app(num, [number])
 
 
-# Helper functions to fetch external references
+# Helper functions to fetch and add external references
 def get_external_qvar(package, mod, name):
     mident = package + ":" + mod
-    module = get_mod(package, mod)
- 
+    module = get_mod(package, mod) 
+
+    if not module.qvars.has_key(name):
+        module.qvars[name] = ForwardReference()
+
     return module.qvars[name]
+
+def add_qvar(package, mod, name, qvar):
+    mident = package + ":" + mod
+    module = get_mod(package, mod) 
+
+    if module.qvars.has_key(name):
+        mod = module.qvars[name]
+        if isinstance(mod, ForwardReference):
+            mod.become(qvar)
+        # Else, do nothing?
+    else:
+        module.qvars[name] = qvar
 
 def get_external_qtycon(package, mod, name):
     mident = package + ":" + mod
     module = get_mod(package, mod)
 
+    if not module.qtycons.has_key(name):
+        module.qtycons[name] = ForwardReference()
+
     return module.qtycons[name]
+
+def add_qtycon(package, mod, name, qtycon):
+    mident = package + ":" + mod
+    module = get_mod(package, mod) 
+
+    if module.qtycons.has_key(name):
+        mod = module.qtycons[name]
+        if isinstance(mod, ForwardReference):
+            mod.become(qtycon)
+        # Else, do nothing?
+    else:
+        module.qtycons[name] = qtycon
 
 def get_external_qdcon(package, mod, name):
     mident = package + ":" + mod
     module = get_mod(package, mod)
 
+    if not module.qdcons.has_key(name):
+        module.qdcons[name] = ForwardReference()
+
     return module.qdcons[name]
 
+def add_qdcon(package, mod, name, qdcon):
+    mident = package + ":" + mod
+    module = get_mod(package, mod) 
+
+    if module.qdcons.has_key(name):
+        mod = module.qdcons[name]
+        if isinstance(mod, ForwardReference):
+            mod.become(qdcon)
+        # Else, do nothing?
+    else:
+        module.qdcons[name] = qdcon
 
 # Loads external JSCore file if necessary
 def get_mod(package, mod):

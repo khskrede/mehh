@@ -1,0 +1,86 @@
+
+
+
+
+\chapter{Rewriting}
+
+\section{A definition of Core'}
+
+The Core' interpreter contains the Function, Application and Constructor constructs.
+
+\subsection{Value}
+
+A value is simply a value, an integer, a char and so on. Something that can be
+operated on by functions.
+
+\subsection{Function}
+
+A function is defined by a name and a list of pattern and function pairs,
+but can also be a primitive function.
+The evaluation of a function is performed by matching the arguments to
+the patterns, and applying the expression it is paired with.
+
+\subsection{Application}
+
+An application is represented by a function and an argumentlist. It is
+evaluated by applying the arguments to the function.
+
+\subsection{Constructor}
+
+A constructor is a function returning a Constructor object when applied. 
+
+\subsection{A Core' grammar}
+
+We define a grammar for Core', note that the grammar is not for syntactic
+purposes, but rather for rewriting rules to be defined later.
+
+\begin{longtable}{ l c l }
+
+\emph{application} 	& $\rightarrow$ & \emph{function} \emph{argumentlist} \\
+
+\emph{function} 	& $\rightarrow$ & \emph{prim-function} \\
+			& $|$ 		& \emph{name} \emph{patternlist} \\
+			& $|$ 		& \emph{name} \emph{value} \\
+
+\emph{patternlist} 	& $\rightarrow$ & (\emph{pattern}, \emph{function}), 
+\emph{patternlist} \\
+			& $|$ 		& $\epsilon$ \\
+
+\emph{pattern} 		& $\rightarrow$ & \emph{constructor} \emph{function} ??? \\
+			& $|$ 		& \emph{constructor} \emph{value} ??? \\
+
+\emph{constructor} 	& $\rightarrow$ & \emph{name}, \emph{argumentlist ???} \\
+
+\end{longtable}
+
+In addition to these constructs, the Core' interpreter has now been 
+extended with the following constructs:
+
+\begin{longtable}{ l c l }
+
+\emph{coremod} 		& $\rightarrow$ & \emph{name} \emph{typelist} \emph{valuelist}\\
+
+\emph{typelist}		& $\rightarrow$ & \emph{type}, \emph{typelist} \\
+			& $|$		& $\epsilon$ \\
+
+\emph{parapp} 		& $\rightarrow$ & \emph{parapp} \emph{argumentlist} \\
+			& $|$ 		& \emph{application} \\
+
+\end{longtable}
+
+Although we use the name partial application here, it is actually used to
+uncurry curried functions.
+
+These additions are for convenience, and are only usefull during 
+translation.
+
+
+
+
+
+\section{A definition of JSCore}
+
+
+
+\section{Translating from JSCore to Core'}
+

@@ -37,7 +37,7 @@ compile inFile outFile = do
     stuff <- liftIO $ B.readFile inFile
     let s = B.unpack stuff
     let c = parse s 0
-    writeFile outFile $ show $ pp_value $ getJS c
+    writeFile outFile $ show $ pp_value $ getJS c -- pp_value
 
 
 getJS :: ParseResult Module -> JSValue
