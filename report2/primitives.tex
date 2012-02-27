@@ -1,10 +1,18 @@
 
 
-\chapter{Primitives}
+\chapter{Primitive types and operations}
 
-\section{GHC Primitives}
+GHC uses a module called GHC.Prim, located in the ghc-prim package. This
+module is generated automatically from a file called "primops.txt.pp", this file
+contains information about the machine representations of the various types, as
+well as the operations that can be performed on them.
 
-\section{Python c-extension}
+\section*{GHC Primitives}
 
-\section{Primitives implementation}
+\section*{GHC Prelude}
+
+The GHC Prelude is a module that is implicitly imported into every Haskell program.
+
+\section*{Foreign functions}
+
 

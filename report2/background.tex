@@ -1,2 +1,44 @@
 
+\chapter{Background}
 
+
+Introduce imperative programming languages
+
+...
+
+Introduce declarative/functional programming languages as 
+
+
+
+\section*{Haskell}
+
+Haskell is a purely functional programming language. A functional programming language
+can be characterized as evaluating expressions. As opposed to an imperative 
+programming language, where a program is described as a sequence of statements.
+
+
+
+\section*{PyPy}
+
+The PyPy (Python in Python) project aims to implement a Python interpreter in Python.
+To do this, a restricted proper subset of Python called RPython has been designed.
+The reason for using RPython is that type inference can be performed on it. Type
+inference is the act of figuring out what type a variable has. In Python, a variable
+can have many different types during it's lifespan, and it is therefore not possible
+to perform type inference on it. However, in RPython, a variable can only have a 
+single type during it's lifespan. This makes it easier to translate RPython to a lower
+level language, like C. This is in fact what PyPy does, a Python interpreter is written
+in RPython, and then translated into C. Although PyPy can translate the RPython programs
+directly into C, it can also include a JIT compiler in this translation, and it has
+a number of garbage collectors ready in the GC framework.
+
+
+
+Functional programming languages is a paradigm currently
+unexplored by the PyPy project. The introduction of Haskell
+to the PyPy project will eventualy inspect wether or not 
+the methods used in the PyPy project are applicable to languages
+like Haskell.
+
+
+\section*{Similar work}
