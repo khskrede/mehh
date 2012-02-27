@@ -2,34 +2,31 @@
 
 
 
-\chapter{Rewriting}
+\chapter{From Core to Core'}
 
-\section{A definition of Core'}
+The translation from Core to Core' can be seen as a graph rewriting problem. For
+every construct in the Core language, there must be a rewrite rule to translate it
+to the Core' language. In order to discuss these rules, we first describe a grammar
+and semantics for the Core' and Core languages.
+
+\section*{A definition of Core'}
 
 The Core' interpreter contains the Function, Application and Constructor constructs.
 
-\subsection{Value}
-
 A value is simply a value, an integer, a char and so on. Something that can be
 operated on by functions.
-
-\subsection{Function}
 
 A function is defined by a name and a list of pattern and function pairs,
 but can also be a primitive function.
 The evaluation of a function is performed by matching the arguments to
 the patterns, and applying the expression it is paired with.
 
-\subsection{Application}
-
 An application is represented by a function and an argumentlist. It is
 evaluated by applying the arguments to the function.
 
-\subsection{Constructor}
-
 A constructor is a function returning a Constructor object when applied. 
 
-\subsection{A Core' grammar}
+\section*{A Core' grammar}
 
 We define a grammar for Core', note that the grammar is not for syntactic
 purposes, but rather for rewriting rules to be defined later.
@@ -78,9 +75,9 @@ translation.
 
 
 
-\section{A definition of JSCore}
+\section*{A definition of JSCore}
 
 
 
-\section{Translating from JSCore to Core'}
+\section*{Translating from JSCore to Core'}
 
