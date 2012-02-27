@@ -1,0 +1,166 @@
+
+
+
+
+\chapter{The Core language}
+
+The Core language is chosen to be as small as possible, while still maintaining 
+the full expressive power of Haskell
+
+\section*{Syntax and Semantics}
+
+The syntax described here is that of External-Core. The goal of this section is
+however not so much to descirbe the syntax, but rather to describe the semantics and 
+how the various constructs are related.
+
+\subsection*{Module}
+
+The module construct is represented by the \emph{\%module} keyword, an identifier,
+a list of type definitions and a list of value definitions:
+
+\begin{grammar}
+<module> ::= '\%module' <mident> \{ <tdefg> ';' \} \{ <vdefg> ';' \}
+\end{grammar}
+
+\subsection*{Type definitions}
+
+\begin{grammar}
+<tdefg> ::= '\%data' <qtycon> <tbind> '=' <cdef>
+       \alt '\%newtype' <qtycon> <qtycon> <tbind> '=' <ty>
+\end{grammar}
+
+
+\subsection*{Constructor definitions}
+
+\begin{grammar}
+<cdef> ::= <qdcon> \{ '@' <tbind> \} \{ <aty> \}
+\end{grammar}
+
+\subsection*{Value definitions}
+
+\begin{grammar}
+<vdefg> ::= '\%rec' \{ <vdef> \{ ; <vdef> \} \}
+       \alt <vdef>
+\end{grammar}
+
+\begin{grammar}
+<vdef> ::= <qvar> '::' <ty> '=' <exp>
+\end{grammar}
+
+\subsection*{Atomic expressions}
+
+\begin{grammar}
+<aexp> ::= <qvar>
+      \alt <qdcon>
+      \alt <lit>
+      \alt '(' <exp> ')'
+\end{grammar}
+
+\subsection*{Expression}
+
+\begin{grammar}
+<exp> ::= <aexp>
+     \alt <aexp> \{ <arg> \}
+     \alt '\' \{ <binder> \} '-$>$' <exp>
+     \alt '\%let' 
+     \alt '\%case'
+     \alt '\%cast'
+     \alt '\%note'
+     \alt '\%external ccall' '"' \{ <char> '"' \} <aty>
+     \alt '\%dynexternal ccall' <aty>
+     \alt '\%label' \{ <char> \}
+\end{grammar}
+
+\subsection*{Argument}
+
+\begin{grammar}
+<arg> ::= '@' <aty>
+     \alt <aexp>
+\end{grammar}
+
+\subsection*{Case alternative}
+
+\begin{grammar}
+<alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} '-$>$' <exp>
+     \alt <lit> '-$>$' <exp>
+     \alt '\%\_' '-$>$' <exp>
+\end{grammar}
+
+\subsection*{Binder}
+
+\begin{grammar}
+<binder> ::= '@' <tbind>
+        \alt <vbind>
+\end{grammar}
+
+\subsection*{Type binder}
+
+\begin{grammar}
+<tbind> ::= <tyvar>
+       \alt '(' tyvar '::' <kind> ')'
+\end{grammar}
+
+\subsection*{Value binder}
+
+\begin{grammar}
+<vbind> ::= '(' <var> :: <ty> ')'
+\end{grammar}
+
+\subsection*{Literal}
+
+\begin{grammar}
+<lit> ::= '(' [-] \{ <digit> \} :: <ty> ')'
+     \alt '(' [-] \{ <digit> \} '\%' \{ <digit> \} :: <ty> ')'
+     \alt '(' <char> :: <ty> ')'
+     \alt '(' \{ <char> \} ')'
+\end{grammar}
+
+\subsection*{Atomic type}
+
+\begin{grammar}
+<aty> ::= <tyvar>
+     \alt <qtycon>
+     \alt '(' <ty> ')'
+\end{grammar}
+
+\subsection*{Basic type}
+
+\begin{grammar}
+<bty> ::= <aty>
+     \alt <bty> <aty>
+     \alt '\%trans' <aty> <aty>
+     \alt '\%sym' <aty>
+     \alt '\%unsafe' <aty> <aty>
+     \alt '\%left' <aty>
+     \alt '\%right' <aty>
+     \alt '\%inst' <aty> <aty>
+\end{grammar}
+
+\subsection*{Type}
+
+\begin{grammar}
+<ty> ::= <bty>
+    \alt '\%forall' \{ <tbind> \} '.' <ty>
+    \alt <bty> '-$>$' <ty>
+\end{grammar}
+
+\subsection*{Atomic kind}
+
+\begin{grammar}
+<akind> ::= '*'
+       \alt '\#'
+       \alt '?'
+       \alt <bty> ':=:' <bty>
+       \alt '(' <kind> ')'
+\end{grammar}
+
+\subsection*{Kind}
+
+\begin{grammar}
+<kind> ::= <akind>
+      \alt <akind> '-$>$' <kind>
+\end{grammar}
+
+\section*{Translation into the Stg language}
+
+
