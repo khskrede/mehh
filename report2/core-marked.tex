@@ -16,7 +16,106 @@ The launchbury semantics is an operational semantics for lazy evaluation. This s
 will be a brief introduction to the Launcbury semantics, for a more complete introduction;
 see \cite{launchbury1993natural}. 
 
+\subsection*{Normalising terms}
+
+\normalfont\itshape 
+x $\in$ Var 
+\normalfont
+\begin{grammar}
+ <e $\in$ Exp> ::= $\lambda$ <x> . <e>
+              \alt <e> <x>
+              \alt <x>
+              \alt let $x_1 = e_1, \; ... \; x_n = e_n$ in $e$
+\end{grammar}
+
+
+\subsection*{Dynamic semantics}
+
+The rewriting rules are presented below... The following naming conventions
+are used:
+
+\begin{grammar}
+<$\Gamma$, $\Delta$, $\Theta$ $\in$ Heap> = <Var> $\mapsto$ <Exp>
+
+<z $\in$ Val> ::= $\lambda$ <x> . <e>
+\end{grammar}
+
+\begin{table}
+
+\centering
+
+\begin{tabular}{|cl|}
+\hline
+& \\
+
+$\Gamma$ : $\lambda x . e$ $\Downarrow$ $\Gamma$ : $\lambda x . e$ & Lambda \\
+
+& \\
+
+$\dfrac{\Gamma : e \Downarrow \Delta : \lambda y . e' \;\;\;\;\;\;\;\;\; \Delta : e' [x/y] \Downarrow \Theta : z }{ \Gamma : e \; x \Downarrow \Theta : z}$ & Application \\
+
+& \\
+
+$\dfrac{\Gamma : e \Downarrow \Delta : z}{( \Gamma , x \mapsto e) : x \Downarrow (\Delta , x \mapsto z) : z' }$ & Variable \\
+
+& \\
+
+$\dfrac{(\Gamma , x_1 \mapsto e_1 \; ... \; x_n \mapsto e_n) : e \Downarrow \Delta : z}{ \
+\Gamma : let \; x_1 = e_1 \; ... \; x_n = e_n \; in \; e \Downarrow \Delta : z }$ & Let \\
+
+& \\
+
+\hline
+\end{tabular}
+
+\caption{Reduction rules}
+
+\end{table}
+
+
+\begin{table}
+\centering
+\begin{tabular}{|cl|}
+\hline
+& \\
+
+$\Gamma : c \; x_1 \; ... \; x_n \Downarrow \Gamma c \; x_1 \; ... \; x_n$ & Constructors \\
+
+& \\
+
+$\dfrac{ \Gamma : e \Downarrow \Delta : c_k \; x_1 \; ... \; x_{m_k}  \;\;\;\;\;\;\;\;\; \Delta : e_k [x_i/y_i]^{m_k}_{i=1 \Downarrow \Theta : z} }{ \Gamma : \; case \; e \; of \; \{c_i \; y_1 \; ... \; y_m \mapsto e_i\}^{n}_{i=1} \Downarrow \Theta : z }$  & Case \\
+
+& \\
+
+$\dfrac{\Gamma : e_1 \Downarrow \Delta : n_1  \;\;\;\;\;\;\;\;\; \Delta : e_2 \Downarrow \Theta : n_2 }{ \Gamma : e_1 \oplus e_2 \Downarrow \Theta : n_1 \oplus n_2 }$  & Primitive \\
+
+& \\
+
+\hline
+\end{tabular}
+
+\caption{Extended reduction rules}
+
+\end{table}
+
+
+
+
+
+
 \section*{The interpreter}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section*{System $F_w$}

@@ -19,32 +19,32 @@ The module construct is represented by the \emph{\%module} keyword, an identifie
 a list of type definitions and a list of value definitions:
 
 \begin{grammar}
-<module> ::= '\%module' <mident> \{ <tdefg> ';' \} \{ <vdefg> ';' \}
+<module> ::= \%module <mident> \{ <tdefg> ; \} \{ <vdefg> ; \}
 \end{grammar}
 
 \subsection*{Type definitions}
 
 \begin{grammar}
-<tdefg> ::= '\%data' <qtycon> <tbind> '=' <cdef>
-       \alt '\%newtype' <qtycon> <qtycon> <tbind> '=' <ty>
+<tdefg> ::= \%data <qtycon> <tbind> = <cdef>
+       \alt \%newtype <qtycon> <qtycon> <tbind> = <ty>
 \end{grammar}
 
 
 \subsection*{Constructor definitions}
 
 \begin{grammar}
-<cdef> ::= <qdcon> \{ '@' <tbind> \} \{ <aty> \}
+<cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
 \end{grammar}
 
 \subsection*{Value definitions}
 
 \begin{grammar}
-<vdefg> ::= '\%rec' \{ <vdef> \{ ; <vdef> \} \}
+<vdefg> ::= \%rec \{ <vdef> \{ ; <vdef> \} \}
        \alt <vdef>
 \end{grammar}
 
 \begin{grammar}
-<vdef> ::= <qvar> '::' <ty> '=' <exp>
+<vdef> ::= <qvar> :: <ty> = <exp>
 \end{grammar}
 
 \subsection*{Atomic expressions}
@@ -53,7 +53,7 @@ a list of type definitions and a list of value definitions:
 <aexp> ::= <qvar>
       \alt <qdcon>
       \alt <lit>
-      \alt '(' <exp> ')'
+      \alt ( <exp> )
 \end{grammar}
 
 \subsection*{Expression}
@@ -61,35 +61,35 @@ a list of type definitions and a list of value definitions:
 \begin{grammar}
 <exp> ::= <aexp>
      \alt <aexp> \{ <arg> \}
-     \alt '\' \{ <binder> \} '-$>$' <exp>
-     \alt '\%let' 
-     \alt '\%case'
-     \alt '\%cast'
-     \alt '\%note'
-     \alt '\%external ccall' '"' \{ <char> '"' \} <aty>
-     \alt '\%dynexternal ccall' <aty>
-     \alt '\%label' \{ <char> \}
+     \alt \textbackslash \{ <binder> \} -$>$ <exp>
+     \alt \%let 
+     \alt \%case
+     \alt \%cast
+     \alt \%note
+     \alt \%external ccall " \{ <char> " \} <aty>
+     \alt \%dynexternal ccall <aty>
+     \alt \%label \{ <char> \}
 \end{grammar}
 
 \subsection*{Argument}
 
 \begin{grammar}
-<arg> ::= '@' <aty>
+<arg> ::= @ <aty>
      \alt <aexp>
 \end{grammar}
 
 \subsection*{Case alternative}
 
 \begin{grammar}
-<alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} '-$>$' <exp>
-     \alt <lit> '-$>$' <exp>
-     \alt '\%\_' '-$>$' <exp>
+<alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} -$>$ <exp>
+     \alt <lit> -$>$ <exp>
+     \alt \%\_ -$>$ <exp>
 \end{grammar}
 
 \subsection*{Binder}
 
 \begin{grammar}
-<binder> ::= '@' <tbind>
+<binder> ::= @ <tbind>
         \alt <vbind>
 \end{grammar}
 
@@ -97,22 +97,22 @@ a list of type definitions and a list of value definitions:
 
 \begin{grammar}
 <tbind> ::= <tyvar>
-       \alt '(' tyvar '::' <kind> ')'
+       \alt ( tyvar :: <kind> )
 \end{grammar}
 
 \subsection*{Value binder}
 
 \begin{grammar}
-<vbind> ::= '(' <var> :: <ty> ')'
+<vbind> ::= ( <var> :: <ty> )
 \end{grammar}
 
 \subsection*{Literal}
 
 \begin{grammar}
-<lit> ::= '(' [-] \{ <digit> \} :: <ty> ')'
-     \alt '(' [-] \{ <digit> \} '\%' \{ <digit> \} :: <ty> ')'
-     \alt '(' <char> :: <ty> ')'
-     \alt '(' \{ <char> \} ')'
+<lit> ::= ( [-] \{ <digit> \} :: <ty> )
+     \alt ( [-] \{ <digit> \} \% \{ <digit> \} :: <ty> )
+     \alt ( <char> :: <ty> )
+     \alt ( \{ <char> \} )
 \end{grammar}
 
 \subsection*{Atomic type}
@@ -120,7 +120,7 @@ a list of type definitions and a list of value definitions:
 \begin{grammar}
 <aty> ::= <tyvar>
      \alt <qtycon>
-     \alt '(' <ty> ')'
+     \alt ( <ty> )
 \end{grammar}
 
 \subsection*{Basic type}
@@ -128,39 +128,40 @@ a list of type definitions and a list of value definitions:
 \begin{grammar}
 <bty> ::= <aty>
      \alt <bty> <aty>
-     \alt '\%trans' <aty> <aty>
-     \alt '\%sym' <aty>
-     \alt '\%unsafe' <aty> <aty>
-     \alt '\%left' <aty>
-     \alt '\%right' <aty>
-     \alt '\%inst' <aty> <aty>
+     \alt \%trans <aty> <aty>
+     \alt \%sym <aty>
+     \alt \%unsafe <aty> <aty>
+     \alt \%left <aty>
+     \alt \%right <aty>
+     \alt \%inst <aty> <aty>
 \end{grammar}
 
 \subsection*{Type}
 
 \begin{grammar}
 <ty> ::= <bty>
-    \alt '\%forall' \{ <tbind> \} '.' <ty>
-    \alt <bty> '-$>$' <ty>
+    \alt \%forall \{ <tbind> \} . <ty>
+    \alt <bty> -$>$ <ty>
 \end{grammar}
 
 \subsection*{Atomic kind}
 
 \begin{grammar}
-<akind> ::= '*'
-       \alt '\#'
-       \alt '?'
-       \alt <bty> ':=:' <bty>
-       \alt '(' <kind> ')'
+<akind> ::= *
+       \alt \#
+       \alt ?
+       \alt <bty> :=: <bty>
+       \alt ( <kind> )
 \end{grammar}
 
 \subsection*{Kind}
 
 \begin{grammar}
 <kind> ::= <akind>
-      \alt <akind> '-$>$' <kind>
+      \alt <akind> -$>$ <kind>
 \end{grammar}
 
 \section*{Translation into the Stg language}
 
-
+% Understanding this may help us understand how to write
+% our translation.
