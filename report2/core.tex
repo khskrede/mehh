@@ -1,16 +1,21 @@
 
 \chapter{The Core language}
 
-The Core language is chosen to be as small as possible, while still maintaining 
-the full expressive power of Haskell
+The Haskell 98 report mentions a Haskell kernel language, although it is not
+formally defined, it is mentioned how some Haskell constructs can be translated into
+simpler ones. In the case of GHC, the Core language is likely to be this simpler 
+representation.
 
-\section*{Syntax and Semantics}
+The Core language is chosen to be as small as possible, while still maintaining 
+the full expressive power of Haskell.
+
+\section{Syntax and Semantics}
 
 The syntax described here is that of External-Core. The goal of this section is
 however not so much to descirbe the syntax, but rather to describe the semantics and 
 how the various constructs are related.
 
-\subsection*{Module}
+\subsection{Module}
 
 The module construct is represented by the \emph{\%module} keyword, an identifier,
 a list of \emph{type definitions} and a list of \emph{value definitions}:
@@ -23,7 +28,7 @@ The module construct directly corresponds to Haskell modules. The module identif
 contains the necessary information of what package and module it belongs to, as
 well as it's name.
 
-\subsection*{Type definitions}
+\subsection{Type definitions}
 
 \begin{grammar}
 <tdefg> ::= \%data <qtycon> <tbind> = <cdef>
@@ -31,13 +36,13 @@ well as it's name.
 \end{grammar}
 
 
-\subsection*{Constructor definitions}
+\subsection{Constructor definitions}
 
 \begin{grammar}
 <cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
 \end{grammar}
 
-\subsection*{Value definitions}
+\subsection{Value definitions}
 
 \begin{grammar}
 <vdefg> ::= \%rec \{ <vdef> \{ ; <vdef> \} \}
@@ -48,7 +53,7 @@ well as it's name.
 <vdef> ::= <qvar> :: <ty> = <exp>
 \end{grammar}
 
-\subsection*{Atomic expressions}
+\subsection{Atomic expressions}
 
 \begin{grammar}
 <aexp> ::= <qvar>
@@ -57,7 +62,7 @@ well as it's name.
       \alt ( <exp> )
 \end{grammar}
 
-\subsection*{Expression}
+\subsection{Expression}
 
 \begin{grammar}
 <exp> ::= <aexp>
@@ -72,14 +77,14 @@ well as it's name.
      \alt \%label \{ <char> \}
 \end{grammar}
 
-\subsection*{Argument}
+\subsection{Argument}
 
 \begin{grammar}
 <arg> ::= @ <aty>
      \alt <aexp>
 \end{grammar}
 
-\subsection*{Case alternative}
+\subsection{Case alternative}
 
 \begin{grammar}
 <alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} -$>$ <exp>
@@ -87,27 +92,27 @@ well as it's name.
      \alt \%\_ -$>$ <exp>
 \end{grammar}
 
-\subsection*{Binder}
+\subsection{Binder}
 
 \begin{grammar}
 <binder> ::= @ <tbind>
         \alt <vbind>
 \end{grammar}
 
-\subsection*{Type binder}
+\subsection{Type binder}
 
 \begin{grammar}
 <tbind> ::= <tyvar>
        \alt ( tyvar :: <kind> )
 \end{grammar}
 
-\subsection*{Value binder}
+\subsection{Value binder}
 
 \begin{grammar}
 <vbind> ::= ( <var> :: <ty> )
 \end{grammar}
 
-\subsection*{Literal}
+\subsection{Literal}
 
 \begin{grammar}
 <lit> ::= ( [-] \{ <digit> \} :: <ty> )
@@ -116,7 +121,7 @@ well as it's name.
      \alt ( \{ <char> \} )
 \end{grammar}
 
-\subsection*{Atomic type}
+\subsection{Atomic type}
 
 \begin{grammar}
 <aty> ::= <tyvar>
@@ -124,7 +129,7 @@ well as it's name.
      \alt ( <ty> )
 \end{grammar}
 
-\subsection*{Basic type}
+\subsection{Basic type}
 
 \begin{grammar}
 <bty> ::= <aty>
@@ -137,7 +142,7 @@ well as it's name.
      \alt \%inst <aty> <aty>
 \end{grammar}
 
-\subsection*{Type}
+\subsection{Type}
 
 \begin{grammar}
 <ty> ::= <bty>
@@ -145,7 +150,7 @@ well as it's name.
     \alt <bty> -$>$ <ty>
 \end{grammar}
 
-\subsection*{Atomic kind}
+\subsection{Atomic kind}
 
 \begin{grammar}
 <akind> ::= *
@@ -155,14 +160,25 @@ well as it's name.
        \alt ( <kind> )
 \end{grammar}
 
-\subsection*{Kind}
+\subsection{Kind}
 
 \begin{grammar}
 <kind> ::= <akind>
       \alt <akind> -$>$ <kind>
 \end{grammar}
 
-\section*{Translation into the Stg language}
+\section{System $F_w$}
+
+System $F_w$ is an extension to the ... lambda calculus ...
+
+
+
+\section{Translation into the Stg language}
 
 % Understanding this may help us understand how to write
 % our translation.
+
+
+\section{GHC Extensions to Haskell 98}
+
+\subsection{Existensial quantification}
