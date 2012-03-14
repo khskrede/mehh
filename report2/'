@@ -1,60 +1,17 @@
 
 \chapter{Background}
 
-This chapter discusses some of the background information necessary to make sence of the
-following chapters; short introductions to the fundamentals of \emph{functional programming} 
-(\emph{combinatory logic} and \emph{the lambda calculus}), the \emph{Haskell} 
-programming language, and \emph{virtual machines} (\emph{JIT compilation}, \emph{VM construction} 
-and the \emph{PyPy project})
-
-
-
-
-
-
-\section{Functional programming}
-
-Functional programming is a programming paradigm where computation is modelled as the evaluation
-of expressions. Mutability and state is avoided. Functional programming is based on the 
-lambda calculus, a formal system invented by Alonzo Church.
-
-\subsection{Combinatory logic}
-
-...
-
-\subsection{Lambda calculus}
-
-In mathematical form, one
-could write a function as $f : x \mapsto x^2$. However, this notation is not adequate when
-higher order functions are involved, i.e. functions that return other functions. The lambda calculi
-(invented by A. Church) is another formal system for function notation that allows for higher
-order functions. In the lambda calculus, such a function would be written $\lambda x.x^2$, and the
-lambda abstraction would be applied to a value by parenthesis. In the same way $f : x \mapsto x^2$
-applied to $2$ would result in $f : 2 \mapsto 2^2$, in lambda calculus would be 
-written $((\lambda x.x^2) \;\; 2)$ and reduced to $2$.
-
-\subsection{Lambda calculus with types}
-
-
-...
-
-
-
 
 
 \section{Haskell}
 
-% TODO: Fix the following paragraph
-
 \emph{Haskell} is a \emph{non-strict} \emph{purely-functional} programming language. The
-name is was chosen. \cite{hudak2007history}
+name is was chosen
+
+\cite{hudak2007history}
 
 
 \subsection{Syntax}
-
-This section covers some of the main design choises made by the Haskell commity when
-creating the syntax for Haskell. For a more formal definition of the syntax, 
-see \cite{jones2003haskell} 
 
 \subsubsection {Layout}
 
@@ -81,8 +38,8 @@ function definitions. Function application is left associative, so $f\;x\;y$ is 
 \cite{hudak2007history}
 
 \item{Anonymous functions} are syntactically similar to the lambda calculus:
-represented by the \inhas{\textbackslash} symbol since it is the ASCII character
-most similar to the $\lambda$:  \inhas{\textbackslash x->exp}. 
+represented by the \inhas{\\} symbol since it is the ASCII character
+most similar to the $\lambda$:  \inhas{\x->exp}. 
 The \inhas{->} is used however, since the period is reserved
 for function composition. \cite{hudak2007history}
 
@@ -131,31 +88,12 @@ scope.
 
 \subsubsection{Declaration style vs. expression style}
 
-There are two main styles in which a functional program can be written in Haskell: 
-\emph{declaration style} or \emph{expression style}. 
-
-The declaration style uses pattern matching and guards, and multiple equations
-to define a function. In the expression style, a function is defined by composing it from smaller 
-expressions. Each style can be characterised by a small set of syntactic constructs. 
-
-The declaration style constructs beeing: \inhas{where} clause, function arguments on left hand side, 
-pattern matching in function definitions and guards on function definitions. 
-And the expression style constructs beeing:
-\inhas{let} expressions, lambda expressions, \inhas{case} expressions and \inhas{if} expressions
-
-As opposed to Miranda, which placed guards on the right side of expressions 
-(similar to mathematic notation), in Haskell guards are put on the left side. Also,
-in Haskell, a where clause is attached to a declaration, not an expression. This means that
-it scopes over guards as well as the right-hand side of declarations.\cite{hudak2007history}
-
+There are two main ways a functional program can be written: in \emph{declaration style} or
+\emph{expression style}.
 
 \subsubsection{List comprehensions}
 
-List comprehensions are very usefull;
-
-\begin{lstlisting}
-[ x*x | x <- xs ]
-\end{lstlisting}
+...
 
 \subsubsection{Comments}
 
@@ -174,6 +112,37 @@ List comprehensions are very usefull;
 
 
 
+
+
+\section{Functional programming}
+
+\subsection{Combinatory logic}
+
+\subsection{Lambda calculus}
+
+In mathematical form, one
+could write a function as $f : x \mapsto x^2$. However, this notation is not adequate when
+higher order functions are involved, i.e. functions that return other functions. The lambda calculi
+(invented by A. Church) is another formal system for function notation that allows for higher
+order functions. In the lambda calculus, such a function would be written $\lambda x.x^2$, and the
+lambda abstraction would be applied to a value by parenthesis. In the same way $f : x \mapsto x^2$
+applied to $2$ would result in $f : 2 \mapsto 2^2$, in lambda calculus would be 
+written $((\lambda x.x^2) \;\; 2)$ and reduced to $2$.
+
+\subsection{Lambda calculus with types}
+
+
+
+\subsection{Haskell}
+
+Haskell is a purely functional programming language. A functional programming language
+can be characterized as evaluating expressions. As opposed to an imperative 
+programming language, where a program is described as a sequence of statements.
+
+
+\subsection{GHC}
+
+Optimization by transformation +++
 
 \section{Virtual machines}
 

@@ -1,16 +1,20 @@
 
 \chapter{Core' interpreter}
 
+% TODO: Fix this section.
+
 Haskell-Python is an interpreter for a language similar to Core, we call it Core' here.
 This interpreter is the base for our JIT compiler. In this chapter we explain the 
 operational semantics of the Core' interpreter, so that we can later discuss the 
 extensions that are necessary to make it a full Haskell interpreter.
 
+% TODO: Are any extensions necessary.
+
 \section{Launchbury semantics}
 
-The interpreter follows the Launchbury semantics for lazy evaluation rather closely.
-The launchbury semantics is an operational semantics for lazy evaluation. This section
-will be a brief introduction to the Launcbury semantics, for a more complete introduction;
+The \emph{Launchbury semantics} is an \emph{operational semantics} for \emph{lazy evaluation}, 
+which our interpreter follows rather closely. This section
+will be a brief introduction to the \emph{Launcbury semantics}, for a more complete introduction;
 see \cite{launchbury1993natural}. 
 
 \subsection{Normalising terms}
@@ -37,64 +41,57 @@ are used:
 <z $\in$ Val> ::= $\lambda$ <x> . <e>
 \end{grammar}
 
-\begin{table}
+\subsubsection{Lambda}
 
-\centering
+A lambda abstraction is simply a function definition and cannot be reduced.
 
-\begin{tabular}{|cl|}
-\hline
-& \\
+\begin{equation}
+\Gamma \; : \; \lambda x . e \; \Downarrow \; \Gamma \; : \; \lambda x . e
+\end{equation}
 
-$\Gamma$ : $\lambda x . e$ $\Downarrow$ $\Gamma$ : $\lambda x . e$ & Lambda \\
-
-& \\
-
-$\dfrac{\Gamma : e \Downarrow \Delta : \lambda y . e' \;\;\;\;\;\;\;\;\; \Delta : e' [x/y] \Downarrow \Theta : z }{ \Gamma : e \; x \Downarrow \Theta : z}$ & Application \\
-
-& \\
-
-$\dfrac{\Gamma : e \Downarrow \Delta : z}{( \Gamma , x \mapsto e) : x \Downarrow (\Delta , x \mapsto z) : z' }$ & Variable \\
-
-& \\
-
-$\dfrac{(\Gamma , x_1 \mapsto e_1 \; ... \; x_n \mapsto e_n) : e \Downarrow \Delta : z}{ \
-\Gamma : let \; x_1 = e_1 \; ... \; x_n = e_n \; in \; e \Downarrow \Delta : z }$ & Let \\
-
-& \\
-
-\hline
-\end{tabular}
-
-\caption{Reduction rules}
-
-\end{table}
+\subsubsection{Application}
 
 
-\begin{table}
-\centering
-\begin{tabular}{|cl|}
-\hline
-& \\
+An application is the combination of reducing a named expression $e$ to a lambda abstraction
+and applying a value to it.
 
-$\Gamma : c \; x_1 \; ... \; x_n \Downarrow \Gamma c \; x_1 \; ... \; x_n$ & Constructors \\
+\begin{equation}
+\dfrac{\Gamma : e \Downarrow \Delta : \lambda y . e' \;\;\;\;\;\;\;\;\; \Delta : e' [x/y] \Downarrow \Theta : z }{ \Gamma : e \; x \Downarrow \Theta : z}
+\end{equation}
 
-& \\
+\subsubsection{Variable}
 
-$\dfrac{ \Gamma : e \Downarrow \Delta : c_k \; x_1 \; ... \; x_{m_k}  \;\;\;\;\;\;\;\;\; \Delta : e_k [x_i/y_i]^{m_k}_{i=1} \Downarrow \Theta : z }{ \Gamma : \; case \; e \; of \; \{c_i \; y_1 \; ... \; y_m \mapsto e_i\}^{n}_{i=1} \Downarrow \Theta : z }$  & Case \\
 
-& \\
 
-$\dfrac{\Gamma : e_1 \Downarrow \Delta : n_1  \;\;\;\;\;\;\;\;\; \Delta : e_2 \Downarrow \Theta : n_2 }{ \Gamma : e_1 \oplus e_2 \Downarrow \Theta : n_1 \oplus n_2 }$  & Primitive \\
+\begin{equation}
+\dfrac{\Gamma : e \Downarrow \Delta : z}{( \Gamma , x \mapsto e) : x \Downarrow (\Delta , x \mapsto z) : z' }
+\end{equation}
 
-& \\
+\subsubsection{Let}
 
-\hline
-\end{tabular}
+\begin{equation}
+\dfrac{(\Gamma , x_1 \mapsto e_1 \; ... \; x_n \mapsto e_n) : e \Downarrow \Delta : z}{ \
+\Gamma : let \; x_1 = e_1 \; ... \; x_n = e_n \; in \; e \Downarrow \Delta : z }
+\end{equation}
 
-\caption{Extended reduction rules}
 
-\end{table}
+\subsubsection{Constructors}
 
+\begin{equation}
+\Gamma : c \; x_1 \; ... \; x_n \Downarrow \Gamma c \; x_1 \; ... \; x_n
+\end{equation}
+
+\subsubsection{Case}
+
+\begin{equation}
+\dfrac{ \Gamma : e \Downarrow \Delta : c_k \; x_1 \; ... \; x_{m_k}  \;\;\;\;\;\;\;\;\; \Delta : e_k [x_i/y_i]^{m_k}_{i=1} \Downarrow \Theta : z }{ \Gamma : \; case \; e \; of \; \{c_i \; y_1 \; ... \; y_m \mapsto e_i\}^{n}_{i=1} \Downarrow \Theta : z }
+\end{equation}
+
+\subsubsection{Primitive}
+
+\begin{equation}
+\dfrac{\Gamma : e_1 \Downarrow \Delta : n_1  \;\;\;\;\;\;\;\;\; \Delta : e_2 \Downarrow \Theta : n_2 }{ \Gamma : e_1 \oplus e_2 \Downarrow \Theta : n_1 \oplus n_2 }
+\end{equation}
 
 
 

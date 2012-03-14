@@ -1,6 +1,21 @@
 
 
-\chapter{Primitive types and operations}
+\chapter{Primitives and Libraries}
+
+
+\begin{quotation}
+"Over the fifteen years of its life so far, GHC has grown a huge num-
+ber of features. It supports dozens of language extensions (notably
+in the type system), an interactive read/eval/print interface (GHCi),
+concurrency (Peyton Jones et al., 1996; Marlow et al., 2004), trans-
+actional memory (Harris et al., 2005), Template Haskell (Sheard
+and Peyton Jones, 2002), support for packages, and much more be-
+sides. This makes GHC a dauntingly complex beast to understand
+and modify and, mainly for that reason, development of the core
+GHC functionality remains with Peyton Jones and Simon Marlow,
+who both moved to Microsoft Research in 1997." - (A History of Haskell: Being lazy pp.29)
+\end{quotation}
+
 
 GHC uses a module called GHC.Prim, located in the ghc-prim package. This
 module is generated automatically from a file called "primops.txt.pp", this file
