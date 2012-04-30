@@ -5,15 +5,62 @@
 
 \section{Project description}
 
-Use PyPy as the back-end and GHC as the front-end for a Haskell JIT Compiler.
+The project aims to investigate the feasibility of JIT compilation of functional 
+languages. To achieve this, the techniques used by the PyPy project is applied to 
+Haskell.
 
-\section{Motivation}
+
+\subsection{Python in Python}
+
+The \emph{PyPy} (Python in Python) project is successfull at boosting the speed 
+of the Python programming language
+through the use of a Just-In-Time compiler. The PyPy project contains a tracing JIT for 
+RPython (a restricted proper subset of Python.) The RPython program is translated 
+into a C program containing a JIT compiler. 
+
+A tracing JIT compiler works by tracing the execution of the program, and then feeding
+this information back in order to exploit it for increased performance. The PyPy 
+project manages to trace the meta-level; by tracing the interpreter written in RPython,
+the program being interpreted are also, in effect being traced.
 
 
-To see if the \emph{Glasgow Haskell Compiler} is suitable as a front-end for
-Haskell compiler development. ???
 
-To see if the PyPy methods can work for a functional language like Haskell.
+\subsection{Haskell, GHC and External-Core}
+
+GHC (The Glasgow Haskell Compiler) uses an intermediate language throughout it's 
+simplification phase. The extcore project presents a formal definition of the syntax 
+of this language. And in addition to this, enables the representation to be exported 
+to files. The idea is that this allows compiler implementors and researchers to use GHC
+as a front-end for Haskell compilers. Before outputting external-core files,
+the Haskell files are typechecked, desugared and simplified. \cite{tolmach2010ghc}
+
+\begin{comment}
+The linkcore project implements a linker for core programs, i.e. it transforms
+a single Haskell module into a single closed external-core module. In addition to
+this, since the linker requires external-core representation of the ghc-libraries,
+it also contains instructions on how to create these. 
+\end{comment}
+
+
 
 
 \section{Similar work}
+
+
+\subsection{External-core and Linkcore}
+
+
+
+\subsection{Other PyPy interpreters}
+
+\subsubsection{PyPy Prolog}
+
+
+\section{Motivation}
+
+% Write about the use-cases of laguages like Haskell, and the benefits of 
+% Jit compilation
+
+% + Research blahblah... Just to see if it works well.
+
+

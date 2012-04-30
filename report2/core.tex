@@ -9,30 +9,11 @@ representation.
 The Core language is chosen to be as small as possible, while still maintaining 
 the full expressive power of Haskell.
 
-\section{System $F_w$}
 
-System $F$, or the second-order polymorphically typed lambda calculus...
+\section{Syntax}
 
-System $F_w$ is an extension to the ... lambda calculus ... 
-(System $F$ but with an arbitrarily lifted kind system... i.e. ( * $->$ ( * $->$ ( * $->$ * ) ) ))
-
-
-\section{Semantics}
-
-"Program meaning can be defined in several different ways. A straightforward intui-
-tive idea of program meaning is “whatever happens in a (real or model) computer when
-the program is executed.” A precise characterization of this idea is called operational
-semantics."
-
-
-
-\section{Syntax and Semantics}
-
-
-
-The syntax described here is that of External-Core. The goal of this section is
-however not so much to descirbe the syntax, but rather to describe the semantics and 
-how the various constructs are related.
+The syntax described here is that of External-Core, and is in effect identical to the
+one presented in \cite{tolmach2010ghc}. 
 
 \subsection{Module}
 
@@ -189,6 +170,29 @@ well as it's name.
 
 
 
+\section{Semantics: System $F_w$}
+
+"Program meaning can be defined in several different ways. A straightforward intui-
+tive idea of program meaning is “whatever happens in a (real or model) computer when
+the program is executed.” A precise characterization of this idea is called operational
+semantics."
+
+
+
+
+System $F$, or the second-order polymorphically typed lambda calculus...
+
+System $F_w$ is an extension to the ... lambda calculus ... 
+(System $F$ but with an arbitrarily lifted kind system... i.e. ( * $->$ ( * $->$ ( * $->$ * ) ) ))
+
+
+
+
+
+
+
+\begin{comment}
+
 
 \section{Translation into the Stg language}
 
@@ -199,3 +203,5 @@ well as it's name.
 \section{GHC Extensions to Haskell 98}
 
 \subsection{Existensial quantification}
+
+\end{comment}

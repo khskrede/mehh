@@ -1,0 +1,55 @@
+
+
+\chapter{Challenges}
+
+
+
+\section{Building Haskell libraries}
+
+One of the main challenges of the project was to create External-Core for
+the Haskell libraries. This was supposed to be simple, however, due to some GHC
+bugs, it was not.
+
+\subsection{Using GHC's '-ext-core' flag}
+
+Not successfull due to bugs in GHC. Milestone set to 7.6.1 (currently at 7.4.1)
+
+\begin{itemize}
+\item Panic on generating Core code. (http://hackage.haskell.org/trac/ghc/ticket/5844) 
+\item Compiling base with cabal fails. (http://hackage.haskell.org/trac/ghc/ticket/3103)
+\end{itemize}
+
+\subsection{Using Cabal to parse '.cabal' file}
+
+Need to translate Cabal information into something understandable by
+the GHC API. How do we do that?
+
+\subsection{Interface as GHC}
+
+Create a "fake ghc" program using the GHC API and write simple functionality to 
+dump a External-core-like format.
+
+Unfortunately, this is unlikely to work any better, due to wired-in stuff in the
+Base package. (Unable to build base independently of GHC)
+
+\subsection{Ignore the problem, implement libraries in Python}
+
+Currently the most attractive solution. But I don't think it's very nice.
+The dependencies in external-core programs are complex. Implementing a
+"helloworld" program pulls in all kinds of dependencies. Our problem is to 
+that we can't implement the functionality at too high a level, and we can't
+implement it at too low a level.
+
+Unfortunately, this is also unlikely to work any better, due to wired-in stuff in the
+Base package. (Unable to build base independently of GHC)
+
+We can in no way expect to implement all the functionality on our own.
+
+\subsubsection{Perform a dependency check?}
+
+\begin{itemize}
+\item Build an AST. 
+\item Prune all functionality our program does not depend on.
+\item Dump dependency graph.
+\item Implement top-most unimplemented functionality. (PROBLEM, we don't know what dependencies a module have without seeing the External-Core of the module).
+\end{itemize}

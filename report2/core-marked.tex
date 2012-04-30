@@ -1,22 +1,115 @@
 
 \chapter{Core' interpreter}
 
-% TODO: Fix this section.
-
 Haskell-Python is an interpreter for a language similar to Core, we call it Core' here.
 This interpreter is the base for our JIT compiler. In this chapter we explain the 
 operational semantics of the Core' interpreter, so that we can later discuss the 
 extensions that are necessary to make it a full Haskell interpreter.
 
-% TODO: Are any extensions necessary.
 
-\section{Launchbury semantics}
+\section{Core' syntax}
 
-The \emph{Launchbury semantics} is an \emph{operational semantics} for \emph{lazy evaluation}, 
-which our interpreter follows rather closely. This section
-will be a brief introduction to the \emph{Launcbury semantics}, for a more complete introduction;
-see \cite{launchbury1993natural}. 
+Although Core' does not have a syntax, we define one here, as we use it later 
+to show how Core is translated to Core'.
 
+In the following grammar, the '[' and ']' symbols are used to mean that
+anything between can be repeated, 0 or more times. If the symbols are followed by an
+exponentiated + symbol, the pattern can be repeated 1 or more times. Non-terminals are 
+written with italic font throughout the paper.
+
+\begin{grammar}
+
+<constructor> ::= c( <symbol> [ <value> ] )
+
+<function> ::= f( <symbol> [ <rule> ]$^+$ )
+
+<rule> ::= r( [ <value> ]$^+$ = <exp> )
+
+<exp> ::= e( <value> )
+     \alt e( <primitive-function> )
+     \alt e( <function> )
+     \alt e( <application> )
+
+<application> ::= a( <exp> [ <value> ] )
+
+<value> ::= <literal>
+       \alt <constructor>
+       \alt <variable>
+
+<literal> ::= l( <string> )
+	 \alt l( <number> )
+	 \alt l( <character> )
+
+<symbol> ::= A symbol is just a string-identifier.
+
+<string> ::= A list of characters
+
+<number> ::= A number
+
+<character> ::= A character
+
+<primitive-function> ::= A function that can't be defined in terms of other functions.
+
+\end{grammar}
+
+
+\section{Core' semantics}
+
+The \emph{Launchbury semantics} is an \emph{operational semantics} for 
+\emph{lazy evaluation}, which the Core' interpreter follows rather closely. 
+This section will be a brief introduction to the semantics of the interpreter.
+For a more complete introduction to 
+the \emph{Launchbury semantics}, see \cite{launchbury1993natural}. 
+
+A Core' program is evaluated by reducing the main application to \emph{whnf} 
+(\emph{weak head normal form}). A construct is in \emph{whnf} if it can't be
+reduced any further.
+
+%\subsection{Value}
+
+A value can be a literal, constructor, or a variable. All values are in \emph{whnf}.
+
+%\subsection{Constructor}
+
+A constructor is just a value, containing other values.
+
+%\subsection{Function}
+
+A function is a named collection of rules.
+
+%\subsection{Rule}
+
+A rule is a list of values, followed by an expression.
+
+%\subsection{Expression (exp)}
+
+An expression can be a value, a primitive-function, a function, or an application.
+
+%\subsection{Application}
+
+An application represents the evaluation of a function with variables applied to it.
+When the application is evaluated, the arguments are matched against the list of 
+values contained in the list of rules. 
+When the arguments match a rule, the expression contained in this rule is evaluated. 
+The variables in the expression are replaced by the values that matched the same-name
+variables in the value list. Then the expression is evaluated, returning a new value.
+
+%\subsection{Literal}
+
+A literal is a value such as an integer, a string or a character.
+
+%\subsection{Symbol}
+
+A symbol is just a name that can be matched against.
+
+
+\section{Evaluation}
+
+A Core' program is executed by reducing an Application to \emph{whnf} (weak head normal form).
+
+
+
+\begin{comment}
 \subsection{Normalising terms}
 
 \normalfont\itshape 
@@ -29,7 +122,6 @@ x $\in$ Var
               \alt let $x_1 = e_1, \; ... \; x_n = e_n$ in $e$
 \end{grammar}
 
-
 \subsection{Dynamic semantics}
 
 The rewriting rules are presented below... The following naming conventions
@@ -40,6 +132,14 @@ are used:
 
 <z $\in$ Val> ::= $\lambda$ <x> . <e>
 \end{grammar}
+
+The symbol '$\Downarrow$' should be read as "reduces to", the pattern 'x:e' should be
+read as "e in the context of x". So that, for instance, the rewrite rule for the 
+application (see \eqref{eq:app}) should be read as:
+
+If ( e in the context of gamma reduces to lambda y dot e ) and 
+( e marked(with variable x replaced by y)  in the context of delta reduces to 
+z in the context of  ) then 
 
 \subsubsection{Lambda}
 
@@ -55,7 +155,7 @@ A lambda abstraction is simply a function definition and cannot be reduced.
 An application is the combination of reducing a named expression $e$ to a lambda abstraction
 and applying a value to it.
 
-\begin{equation}
+\begin{equation} \label{eq:app}
 \dfrac{\Gamma : e \Downarrow \Delta : \lambda y . e' \;\;\;\;\;\;\;\;\; \Delta : e' [x/y] \Downarrow \Theta : z }{ \Gamma : e \; x \Downarrow \Theta : z}
 \end{equation}
 
@@ -92,6 +192,7 @@ and applying a value to it.
 \begin{equation}
 \dfrac{\Gamma : e_1 \Downarrow \Delta : n_1  \;\;\;\;\;\;\;\;\; \Delta : e_2 \Downarrow \Theta : n_2 }{ \Gamma : e_1 \oplus e_2 \Downarrow \Theta : n_1 \oplus n_2 }
 \end{equation}
+
 
 
 
@@ -143,4 +244,4 @@ otherwise, it returns an $Application$
 
 \subsection{Primitives}
 
-
+\end{comment}

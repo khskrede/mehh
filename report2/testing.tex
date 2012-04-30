@@ -1,4 +1,33 @@
 
 \chapter{Testing}
 
+\section{Current testing of interpreter}
+
+The current testing used on the project is done by a python-script that performs
+the following actions:
+
+\begin{itemize}
+
+\item For all folders in folder 'test':
+
+\begin{itemize}
+
+\item Compile haskell program with GHC and dumping to external-core
+
+\item Run the core2js program on resulting external-core file
+
+\item Run the main interpreter on the JSCore file.
+
+\end{itemize}
+
+\item Dump return-values of programs.
+
+\end{itemize}
+
+Our testing should be extended by checking if the output is correct.
+
+
 \section{GHC test suit}
+
+GHC uses a testsuit. Getting the interpreter to pass these tests are the
+ultimate goal, however, the project is not there yet.

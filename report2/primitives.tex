@@ -3,7 +3,7 @@
 \chapter{Primitives and Libraries}
 
 
-\begin{quotation}
+\begin{comment}
 "Over the fifteen years of its life so far, GHC has grown a huge num-
 ber of features. It supports dozens of language extensions (notably
 in the type system), an interactive read/eval/print interface (GHCi),
@@ -14,13 +14,53 @@ sides. This makes GHC a dauntingly complex beast to understand
 and modify and, mainly for that reason, development of the core
 GHC functionality remains with Peyton Jones and Simon Marlow,
 who both moved to Microsoft Research in 1997." - (A History of Haskell: Being lazy pp.29)
-\end{quotation}
-
+\end{comment}
 
 GHC uses a module called GHC.Prim, located in the ghc-prim package. This
 module is generated automatically from a file called "primops.txt.pp", this file
 contains information about the machine representations of the various types, as
 well as the operations that can be performed on them.
+
+\section{The initial plan}
+
+Initially, it was assumed that it would be trivial to translate the Haskell
+libraries used by GHC into Core. This way, it would only be necessary to implement
+the primitive types and functions.
+
+Unfortunately, this turned out not to be the case. Due to bugs in GHC, it was not 
+possible to generate Core without changing GHC code, and this would be a daunting task.
+Some alternatives was considered;
+
+\begin{itemize}
+
+\item Build the GHC libraries with the -fext-core flag.
+
+\item Use Cabal API
+
+\item Interface as GHC
+
+\item Implement library functionality in Python
+
+\end{itemize}
+
+\begin{comment}
+\section{Getting libraries from GHC to Python}
+
+\subsection{Building GHC libraries with '-fext-core'}
+
+
+\subsection{Going through Cabal}
+
+Cabal is a package system for Haskell. The Haskell modules all contain a *.cabal file,
+this file contains all the information necessary to build the modules.
+
+
+\subsection{Using the GHC library}
+
+GHC implements a library to access some of it's functionality. It should be possible
+to compile the files using this library and export them to an intermediate format, 
+something similar to JSCore.
+
 
 \section{GHC Primitives}
 
@@ -39,4 +79,4 @@ well as the operations that can be performed on them.
 Prelude lives in Base.
 
 The GHC Prelude is a module that is implicitly imported into every Haskell program.
-
+\end{comment}
