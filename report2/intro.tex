@@ -1,20 +1,32 @@
 
-
 \chapter{Introduction}
-
 
 \section{Project description}
 
-The project aims to investigate the feasibility of JIT compilation of functional 
-languages. To achieve this, the techniques used by the PyPy project is applied to 
-Haskell.
+The project aims to investigate the feasibility of JIT (Just-in-time) 
+compilation of pure functional languages. To achieve this, the techniques used by the 
+PyPy (Python in Python) project is applied to the Haskell programming 
+language. By implementing a full back-end for a Haskell compiler in RPython 
+(restricted Python), and using GHC (the Glasgow Haskell Compiler) as a 
+front-end, we can effectively implement a full Haskell JIT compiler.
 
+To do this, we focus on implementing a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from that format to our interpreter. By implementing
+some simple programs in Haskell, and running them in this way, we hope to show that the
+methods of the PyPy project can be applied to languages such as Haskell.
 
-\subsection{Python in Python}
+\subsection{PyPy}
 
-The \emph{PyPy} (Python in Python) project is successfull at boosting the speed 
-of the Python programming language
-through the use of a Just-In-Time compiler. The PyPy project contains a tracing JIT for 
+\begin{comment}
+PyPy has defined a proper subset of Python called RPython. RPython is defined
+such that it is possible to perform type inference on it.
+
+The PyPy (Python in Python) project is successfull at boosting the speed 
+of the Python programming language through the use of a Just-In-Time compiler. 
+To do this, PyPy utilizes an environment where the implementation of dynamic languages
+can be done in a simple but efficient way.
+ 
+The PyPy project contains a tracing JIT for 
 RPython (a restricted proper subset of Python.) The RPython program is translated 
 into a C program containing a JIT compiler. 
 
@@ -22,10 +34,58 @@ A tracing JIT compiler works by tracing the execution of the program, and then f
 this information back in order to exploit it for increased performance. The PyPy 
 project manages to trace the meta-level; by tracing the interpreter written in RPython,
 the program being interpreted are also, in effect being traced.
+\end{comment}
 
 
+% What is the PyPy project ?
+
+The PyPy environment contains a tracing-JIT for RPython (restricted Python). This JIT is
+then used to trace the execution of a number of languages implemented in RPython. In effect,
+this JIT works on the meta-level, tracing the execution of the interpreter, and not the 
+execution of the program being interpreted. The approach is called meta-tracing. In addition
+to just tracing the meta-level, the RPython translator (the Python program that translates
+RPython to C) allows for some annotations, speeding up the JIT. The efficiency of the 
+resulting dynamic compiler relies on information fetched during runtime. As an example of 
+this kind of runtime information, is variables that vary slowly. This information can be
+exploited by compiling multiple instances of the code, with seperate values for these variables. 
+\cite{bolz2011runtime}
+
+% What is RPython and why is it used ?
+
+The methods used by PyPy is to implement interpreters in RPython. RPython is a proper 
+subset of Python chosen such that it is possible to perform type inference on it. This
+means that RPython programs can be translated into efficient C programs. Translating a 
+program to C adds a number of implementation details that are not present in the RPython
+implementation, such as a garbage collector. In addition to this, a tracing-JIT compiler 
+can be added semi-automatically. This means that writing an interpreter in RPython containing
+a tracing-JIT is much easier and less error-prone than implementing a tracing-JIT. \cite{bolz2011runtime}
+
+% What is a tracing JIT ?
+
+A tracing-JIT records the execution of a program. The result is a set of traces of concrete
+execution, these traces are linear lists of operations. These lists are then 
+
+\subsection{Haskell-Python}
+
+% What is Haskell-Python ?
+
+...
+
+% What is lambda-calculus ??? perhaps ?
 
 \subsection{Haskell, GHC and External-Core}
+
+% What is Haskell ?
+
+\subsubsection{Haskell}
+
+% What is GHC
+
+\subsubsection{GHC}
+
+% What is External-Core
+
+\subsubsection{External-Core}
 
 GHC (The Glasgow Haskell Compiler) uses an intermediate language throughout it's 
 simplification phase. The extcore project presents a formal definition of the syntax 
@@ -47,13 +107,19 @@ it also contains instructions on how to create these.
 \section{Similar work}
 
 
-\subsection{External-core and Linkcore}
+%\subsection{External-core and Linkcore}
 
 
 
-\subsection{Other PyPy interpreters}
+%\subsection{Other PyPy interpreters}
 
-\subsubsection{PyPy Prolog}
+\subsection{PyPy Prolog}
+
+In addition to the implementation of Python, PyPy has also shown that it's techniques
+are applicable to other languages. The Prolog VM (Virtual Machine) is an example of this.
+
+
+\cite{bolz2010towards}
 
 
 \section{Motivation}
