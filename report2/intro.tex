@@ -1,126 +1,191 @@
 
 \chapter{Introduction}
 
-\section{Project description}
+\section{Motivation and project description}
 
+% Why are we doing what we are doing?
 The project aims to investigate the feasibility of JIT (Just-in-time) 
-compilation of pure functional languages. To achieve this, the techniques used by the 
-PyPy (Python in Python) project is applied to the Haskell programming 
-language. By implementing a full back-end for a Haskell compiler in RPython 
-(restricted Python), and using GHC (the Glasgow Haskell Compiler) as a 
-front-end, we can effectively implement a full Haskell JIT compiler.
+compilation of a strongly-typed purely-functional language. Since
+programs written in such a language can be heavily optimized at 
+compile time, it us uncertain whether such programs can benefit from
+JIT compilation. 
 
-To do this, we focus on implementing a serializer from Haskell to an intermediate
-format using GHC, and a deserializer from that format to our interpreter. By implementing
-some simple programs in Haskell, and running them in this way, we hope to show that the
-methods of the PyPy project can be applied to languages such as Haskell.
+To test this, the techniques 
+used by the PyPy (Python in Python) project is applied to the Haskell 
+programming language. By implementing the back-end for a Haskell compiler 
+in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
+as a front-end, we can effectively implement a full Haskell JIT compiler. An 
+interpreter for a language very similar to the intermediate language used
+by GHC was allready implemented, and this is the base for our work.
+
+% What are we doing?
+We focus on implementing a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from that format to the interpreter. The 
+interpreter is for a language similar to Core (an intermediate format used by GHC.)
+By implementing some simple programs in Haskell, and running them in this way, 
+we hope to show that the methods of the PyPy project can be applied to pure 
+functional languages such as Haskell.
+
+% What are the contributions of this paper?
+The contributions of this paper is a sytem for translating Haskell programs
+into Core', and a description of the full compilation system, including the 
+Haskell-Python. In addition to this,
+we present a plan for the future development of the system.
 
 \subsection{PyPy}
 
-\begin{comment}
-PyPy has defined a proper subset of Python called RPython. RPython is defined
-such that it is possible to perform type inference on it.
-
-The PyPy (Python in Python) project is successfull at boosting the speed 
-of the Python programming language through the use of a Just-In-Time compiler. 
-To do this, PyPy utilizes an environment where the implementation of dynamic languages
-can be done in a simple but efficient way.
- 
-The PyPy project contains a tracing JIT for 
-RPython (a restricted proper subset of Python.) The RPython program is translated 
-into a C program containing a JIT compiler. 
-
-A tracing JIT compiler works by tracing the execution of the program, and then feeding
-this information back in order to exploit it for increased performance. The PyPy 
-project manages to trace the meta-level; by tracing the interpreter written in RPython,
-the program being interpreted are also, in effect being traced.
-\end{comment}
-
-
 % What is the PyPy project ?
-
-The PyPy environment contains a tracing-JIT for RPython (restricted Python). This JIT is
-then used to trace the execution of a number of languages implemented in RPython. In effect,
-this JIT works on the meta-level, tracing the execution of the interpreter, and not the 
-execution of the program being interpreted. The approach is called meta-tracing. In addition
-to just tracing the meta-level, the RPython translator (the Python program that translates
-RPython to C) allows for some annotations, speeding up the JIT. The efficiency of the 
-resulting dynamic compiler relies on information fetched during runtime. As an example of 
-this kind of runtime information, is variables that vary slowly. This information can be
-exploited by compiling multiple instances of the code, with seperate values for these variables. 
-\cite{bolz2011runtime}
+PyPy is a project that shows the feasability of constructing a VM (Virtual Machine) 
+for a dynamic  language in a dynamic language, specifically, Python. The PyPy 
+environment aims to translate (i.e. compile) the VM into arbitrary targets. This 
+means that an interpreter constructed in the PyPy environment will be able to 
+run on any target supported by PyPy. Instead of writing multiple versions of 
+the interpreter (one for C/Posix, JAVA, and one for CLI/.NET), it can be 
+written in RPython, and translated to those back-ends. PyPy uses the 
+"meta-programming" argument, if the VM can be written at a level of abstraction 
+high enough, then it can be translated to any lower level platform. Implementing 
+programming languages using a direct encoding approach is a complex task, and it 
+usually results in an implementation that is specifically designed for a target platform. 
+In effect this means that the implementation is not generic, and it is difficult to 
+reuse the code for anything other than it's specific purpose. In contrast, 
+PyPy's approach puts weight on portability and reusability\cite{pypy}. Although the
+PyPy project puts most of its effort into its Python implementation, other projects
+(such as a Prolog implementation \cite{bolz2010towards}) clearly shows the benefits of
+such a generic approach.
 
 % What is RPython and why is it used ?
-
 The methods used by PyPy is to implement interpreters in RPython. RPython is a proper 
-subset of Python chosen such that it is possible to perform type inference on it. This
+subset of Python (a RPython program can be executed by a Python interpreter) 
+chosen such that it is possible to perform type inference on it. This
 means that RPython programs can be translated into efficient C programs. Translating a 
 program to C adds a number of implementation details that are not present in the RPython
 implementation, such as a garbage collector. In addition to this, a tracing-JIT compiler 
 can be added semi-automatically. This means that writing an interpreter in RPython containing
-a tracing-JIT is much easier and less error-prone than implementing a tracing-JIT. \cite{bolz2011runtime}
+a tracing-JIT is much easier and less error-prone than implementing a tracing-JIT. 
+\cite{bolz2011runtime}
+
+% What is a JIT? TODO ???
+PyPys tracing JIT is used to trace the execution of a number of languages implemented 
+in RPython. In effect,
+this JIT works on the meta-level, tracing the execution of the interpreter, and not the 
+execution of the program being interpreted. The approach is called meta-tracing. In addition
+to just tracing the meta-level, the RPython translator (the Python program that translates
+RPython to C) allows for some annotations, speeding up the JIT. The efficiency of the 
+resulting dynamic compiler relies on information fetched during runtime. Slowly changing 
+variables is an example of such information, as it can be exploited by the compiler at 
+run time by compiling multiple instances of code (one for each value of the variable),
+resulting in faster code. \cite{bolz2011runtime}
 
 % What is a tracing JIT ?
-
-A tracing-JIT records the execution of a program. The result is a set of traces of concrete
-execution, these traces are linear lists of operations. These lists are then 
+A tracing-JIT works by recording the execution of a program. The result is a set of 
+traces of concrete execution, these traces are linear lists of operations. The lists of
+operations are then optimized and turned into machine code. Among other benefits, the
+result is free inlining of functions, as the functions operations are simply added to
+the trace. \cite{bolz2011runtime}
 
 \subsection{Haskell-Python}
 
 % What is Haskell-Python ?
+Haskell-Python is an interpreter for a Haskell inspired lambda-calculs (we call it Core'). 
+It is meant to serve as the backend for a complete Haskell compiler, after taking advantage 
+of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
+and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
 
-...
-
-% What is lambda-calculus ??? perhaps ?
+% What is lambda-calculus ???
 
 \subsection{Haskell, GHC and External-Core}
 
-% What is Haskell ?
 
 \subsubsection{Haskell}
 
-% What is GHC
+% What is Haskell ?
+Haskell is a lazy, pure functional language with non-strict semantics and static 
+polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
+list comprehensions, a system for modules, a system for monadic I/O, and a large 
+standard library. We do not go into too much detail here, for a full description 
+of Haskell, see the "Haskell 2010 language report"\cite{marlow2010haskell}. 
+Or for a complete history of Haskell, see "A history of Haskell: being lazy 
+with class"\cite{hudak2007history}.
+
+Two specific features
+of Haskell stand out: it is purely functional; this means that the functions 
+can not have side-effects, or mutate data. For equal arguments, a function 
+must provide equal results. The fact that Haskell is lazy refers to the techniques
+used to evaluate a Haskell program, meaning that the arguments to a function are passed
+unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
+non-functional language features are impossible, as the two cannot work in conjunction.
+\cite{marlow2010haskell, marlow2012glasgow}
 
 \subsubsection{GHC}
 
-% What is External-Core
+GHC can be divided into three parts, the compiler, the boot libraries
+(libraries the compiler itself depends on) and the RTS (Runtime System). 
+The compiler is the part
+that turns Haskell source code into executable code. The boot libraries are the 
+libraries that the compiler itself depends on. The RTS is a large library
+of C code that is responsible for running the Haskell programs, such as the 
+GC (Garbage Collector) implementation. The RTS system is linked into all 
+Haskell programs compiled by GHC. These three parts corresponds to subdirectries
+in the GHC source, namely "compiler", "libraries" and "rts".
+\cite{marlow2012glasgow}
 
-\subsubsection{External-Core}
+The compiler can also be divided into three parts. The Compilation Manager is 
+responsible for the compilation of multiple Haskell source files. Its job is to
+determine the order in which the files must be compiled. The Haskell Compiler 
+(abbreviated "Hsc" inside GHC), handles the compilation of a single Haskell source
+file.
 
-GHC (The Glasgow Haskell Compiler) uses an intermediate language throughout it's 
+% TODO! THIS IS WHERE I STOPPED!
+
+\subsubsection{GHC API}
+
+The compiler exports an API.
+
+\subsubsection{External-Core and Linkcore}
+
+% What is External-Core ?
+GHC uses an intermediate language throughout it's 
 simplification phase. The extcore project presents a formal definition of the syntax 
 of this language. And in addition to this, enables the representation to be exported 
 to files. The idea is that this allows compiler implementors and researchers to use GHC
 as a front-end for Haskell compilers. Before outputting external-core files,
 the Haskell files are typechecked, desugared and simplified. \cite{tolmach2010ghc}
 
-\begin{comment}
+% What is linkcore ?
 The linkcore project implements a linker for core programs, i.e. it transforms
 a single Haskell module into a single closed external-core module. In addition to
 this, since the linker requires external-core representation of the ghc-libraries,
 it also contains instructions on how to create these. 
-\end{comment}
 
-
-
+% They have both bitrotted!
+Unfortunately, at the time of this writing, both the external-core and linkcore 
+packages have bitrotted. Although there seems to be interest for the continued 
+maintainance of external-core.
 
 \section{Similar work}
 
-
-%\subsection{External-core and Linkcore}
-
-
-
-%\subsection{Other PyPy interpreters}
+A number of experiments have been done by the PyPy team, but most notable is perhaps
+the Prolog interpreter. 
+%Prolog is a declarative programming language with roots in 
+%formal logic, evaluation is performed when the user asks the program a question 
+%(a query), and an evaluation algorithm  answers the question by using the program as
+%a knowledge base.
 
 \subsection{PyPy Prolog}
 
 In addition to the implementation of Python, PyPy has also shown that it's techniques
-are applicable to other languages. The Prolog VM (Virtual Machine) is an example of this.
+are applicable to other languages. The Prolog VM is an example of this. Implementations
+of Prolog are usually written in low level languages such as C, this usually results in
+good performance, but means they are difficult to write and maintain. The PyPy Prolog 
+interpreter clearly outperforms other Prolog interpreters written in other high level
+languages, and it also outperforms state-of-the-art Prolog VMs at specific benchmarks,
+which shows that other Prolog implementations can benefit from the techniques used by
+PyPy. \cite{bolz2010towards}
 
 
-\cite{bolz2010towards}
+\subsection{HappyJIT}
 
+\subsection{Pygirl}
 
 \section{Motivation}
 
