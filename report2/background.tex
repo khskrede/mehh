@@ -1,209 +1,198 @@
 
-
-
-
-\chapter{Background}
-
-This chapter discusses some of the background information necessary to make sence of the
-following chapters; short introductions to the fundamentals of \emph{functional programming} 
-(\emph{combinatory logic} and \emph{the lambda calculus}), the \emph{Haskell} 
-programming language, and \emph{virtual machines} (\emph{JIT compilation}, \emph{VM construction} 
-and the \emph{PyPy project})
-
-
-
-
-
-
-\section{Functional programming}
-
-Functional programming is a programming paradigm where computation is modelled as the evaluation
-of expressions. Mutability and state is avoided. Functional programming is based on the 
-lambda calculus, a formal system invented by Alonzo Church.
-
-\subsection{Combinatory logic}
-
-...
-
-\subsection{Lambda calculus}
-
-In mathematical form, one
-could write a function as $f : x \mapsto x^2$. However, this notation is not adequate when
-higher order functions are involved, i.e. functions that return other functions. The lambda calculi
-(invented by A. Church) is another formal system for function notation that allows for higher
-order functions. In the lambda calculus, such a function would be written $\lambda x.x^2$, and the
-lambda abstraction would be applied to a value by parenthesis. In the same way $f : x \mapsto x^2$
-applied to $2$ would result in $f : 2 \mapsto 2^2$, in lambda calculus would be 
-written $((\lambda x.x^2) \;\; 2)$ and reduced to $2$.
-
-\subsection{Lambda calculus with types}
-
-
-...
-
-
-
-
-
-\section{Haskell}
-
-% TODO: Fix the following paragraph
-
-\emph{Haskell} is a \emph{non-strict} \emph{purely-functional} programming language. The
-name is was chosen. \cite{hudak2007history}
-
-
-\subsection{Syntax}
-
-This section covers some of the main design choises made by the Haskell commity when
-creating the syntax for Haskell. For a more formal definition of the syntax, 
-see \cite{jones2003haskell} 
-
-\subsubsection {Layout}
-
-In many imperative programming languages, the semicolon is used to separate sequential
-statements. However, in Haskell, the notion of sequence is completely absent due to the
-fact that it is a language without side effects. \cite{hudak2007history}
-
-Haskell exploits the physical layout of the text (in a way similar to Python) in order
-to avoid unnecessary syntactic constructs (such as the use of curly braces in \emph{C}).
-Haskell does however support the use of explicit curly braces and semicolons, the reason
-for this being that people may want to write Haskell programs that generate Haskell programs,
-and this would be easier without the need to keep track of indentation. \cite{hudak2007history}
-
-\subsubsection{Functions and function application}
-
-Defining functions in Haskell can be done in many different ways. It is a functional programming
-language...
-
-\begin{itemize}
-
-\item{Currying}, a function taking two arguments can be defined by a function taking one argument,
-and returning a function taking the second argument. Haskell supports both curried and uncurried
-function definitions. Function application is left associative, so $f\;x\;y$ is applied $(f\;x)\;y$.
-\cite{hudak2007history}
-
-\item{Anonymous functions} are syntactically similar to the lambda calculus:
-represented by the \inhas{\textbackslash} symbol since it is the ASCII character
-most similar to the $\lambda$:  \inhas{\textbackslash x->exp}. 
-The \inhas{->} is used however, since the period is reserved
-for function composition. \cite{hudak2007history}
-
-\item{Prefix operators}; Haskell has only a single prefix operator defined. This is the arithmetic
-negation operator.\cite{hudak2007history}
-
-\item{Infix operators} are very important in Haskell, as it is meant to look as much like mathematics
-as possible. Infix operators are also definable by the user, including precedence and associativity.
-The relationship between infix application and conventional function application is simple; infix
-application always have precedence. This means that the expression 
-\inhas{f x + g y} never has
-to be parenthesized.\cite{hudak2007history}
-
-\item{Sections} are partial applications of infix operators to no arguments, both the left argument and
-the right. By surrounding the result in parenthesis. 
-Since all values in Haskell are "first class", especially functions, 
-this solves the problem of what is meant by the
-expression \inhas{f + x}, without sections, this could mean that 
-\inhas{+} takes the arguments \inhas{f} and 
-\inhas{x},
-or that \inhas{f} takes the arguments \inhas{+} 
-and \inhas{x}. This also gives the ability to partially apply infix
-operators. Ordinary functions can also be applied infix by surrounding the function name in single
-quotes; \inhas{x 'f' y} is the same as \inhas{f x y}. 
-\cite{hudak2007history}
-
-\end{itemize}
-
-\subsubsection{Namespaces and keywords}
-
-Namespaces in Haskell are designed to give the user as much freedom as possible, while avoiding
-ambiguity. Therefore, a set of lexemes are defined for each namespace in such a way that this,
-together with the context, is enough to determine which namespace a keyword refers to. For example,
-in the following, \inhas{Vector} can refer to both a type constructor and a data constructor:
-
-\lstset{language=Haskell}
-\begin{lstlisting}
-data Vector = Vector Float Float
-\end{lstlisting}
-
-However, it is clear from the context that the leftmost reference is in the namespace of type
-constructors, and the rightmost in the namespace of data constructors.
-
-Haskell also allows for shadowing of variebles, i.e., reusing a variable name in a deeper 
-scope.
-
-\subsubsection{Declaration style vs. expression style}
-
-There are two main styles in which a functional program can be written in Haskell: 
-\emph{declaration style} or \emph{expression style}. 
-
-The declaration style uses pattern matching and guards, and multiple equations
-to define a function. In the expression style, a function is defined by composing it from smaller 
-expressions. Each style can be characterised by a small set of syntactic constructs. 
-
-The declaration style constructs beeing: \inhas{where} clause, function arguments on left hand side, 
-pattern matching in function definitions and guards on function definitions. 
-And the expression style constructs beeing:
-\inhas{let} expressions, lambda expressions, \inhas{case} expressions and \inhas{if} expressions
-
-As opposed to Miranda, which placed guards on the right side of expressions 
-(similar to mathematic notation), in Haskell guards are put on the left side. Also,
-in Haskell, a where clause is attached to a declaration, not an expression. This means that
-it scopes over guards as well as the right-hand side of declarations.\cite{hudak2007history}
-
-
-\subsubsection{List comprehensions}
-
-List comprehensions are very usefull;
-
-\begin{lstlisting}
-[ x*x | x <- xs ]
-\end{lstlisting}
-
-\subsubsection{Comments}
-
-...
-
-\subsection{Algebraic data types}
-
-\subsection{Type system and type classes}
-
-\subsection{I/O and monads}
-
-\subsection{Modules, packages and the Foreign Function Interface}
-
-
-
-
-
-
-
-\section{Virtual machines}
-
-\subsection{Just-in-time compilation}
-
-... ...
-
-\subsection{The PyPy project}
-
-The PyPy (Python in Python) project aims to implement a Python interpreter in Python.
-To do this, a restricted proper subset of Python called RPython has been designed.
-The reason for using RPython is that type inference can be performed on it. Type
-inference is the act of figuring out what type a variable has. In Python, a variable
-can have many different types during it's lifespan, and it is therefore not possible
-to perform type inference on it. However, in RPython, a variable can only have a 
-single type during it's lifespan. This makes it easier to translate RPython to a lower
-level language, like C. This is in fact what PyPy does, a Python interpreter is written
-in RPython, and then translated into C. Although PyPy can translate the RPython programs
-directly into C, it can also include a JIT compiler in this translation, and it has
-a number of garbage collectors ready in the GC framework.
-
-
-
-Functional programming languages is a paradigm currently
-unexplored by the PyPy project. The introduction of Haskell
-to the PyPy project will eventualy inspect wether or not 
-the methods used in the PyPy project are applicable to languages
-like Haskell.
+\chapter{Introduction}
+
+\section{Motivation and project description}
+
+% Why are we doing what we are doing?
+The project aims to investigate the feasibility of JIT (Just-in-time) 
+compilation of a strongly-typed purely-functional language. Since
+programs written in such a language can be heavily optimized at 
+compile time, it us uncertain whether such programs can benefit from
+JIT compilation. However, a JIT compiler has a lot more information to
+work with than a static compiler. 
+
+To test this, the techniques 
+used by the PyPy (Python in Python) project is applied to the Haskell 
+programming language. By implementing the back-end for a Haskell compiler 
+in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
+as a front-end, we can effectively implement a full Haskell JIT compiler. An 
+interpreter for a language very similar to the intermediate language used
+by GHC was allready implemented, and this is the base for our work.
+
+% What are we doing?
+We focus on implementing a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from that format to the interpreter. The 
+interpreter is for a language similar to Core (an intermediate format used by GHC.)
+By implementing some simple programs in Haskell, and running them in this way, 
+we hope to show that the methods of the PyPy project can be applied to pure 
+functional languages such as Haskell.
+
+% What are the contributions of this paper?
+The contributions of this paper is a sytem for translating Haskell programs
+into Core', and a description of the full compilation system, including the 
+Haskell-Python. In addition to this,
+we present a plan for the future development of the system.
+
+\subsection{PyPy}
+
+% What is the PyPy project ?
+PyPy is a project that shows the feasability of constructing a VM (Virtual Machine) 
+for a dynamic  language in a dynamic language, specifically, Python. The PyPy 
+environment aims to translate (i.e. compile) the VM into arbitrary targets. This 
+means that an interpreter constructed in the PyPy environment will be able to 
+run on any target supported by PyPy. Instead of writing multiple versions of 
+the interpreter (one for C/Posix, JAVA, and one for CLI/.NET), it can be 
+written in RPython, and translated to those back-ends. PyPy uses the 
+"meta-programming" argument, if the VM can be written at a level of abstraction 
+high enough, then it can be translated to any lower level platform. Implementing 
+programming languages using a direct encoding approach is a complex task, and it 
+usually results in an implementation that is specifically designed for a target platform. 
+In effect this means that the implementation is not generic, and it is difficult to 
+reuse the code for anything other than it's specific purpose. In contrast, 
+PyPy's approach puts weight on portability and reusability\cite{pypy}. Although the
+PyPy project puts most of its effort into its Python implementation, other projects
+(such as a Prolog implementation \cite{bolz2010towards}) clearly shows the benefits of
+such a generic approach.
+
+% What is RPython and why is it used ?
+The methods used by PyPy is to implement interpreters in RPython. RPython is a proper 
+subset of Python (a RPython program can be executed by a Python interpreter) 
+chosen such that it is possible to perform type inference on it. This
+means that RPython programs can be translated into efficient C programs. Translating a 
+program to C adds a number of implementation details that are not present in the RPython
+implementation, such as a garbage collector. In addition to this, a tracing-JIT compiler 
+can be added semi-automatically. This means that writing an interpreter in RPython containing
+a tracing-JIT is much easier and less error-prone than implementing a tracing-JIT. 
+\cite{bolz2011runtime}
+
+% What is a JIT? TODO ???
+PyPys tracing JIT is used to trace the execution of a number of languages implemented 
+in RPython. In effect,
+this JIT works on the meta-level, tracing the execution of the interpreter, and not the 
+execution of the program being interpreted. The approach is called meta-tracing. In addition
+to just tracing the meta-level, the RPython translator (the Python program that translates
+RPython to C) allows for some annotations, speeding up the JIT. The efficiency of the 
+resulting dynamic compiler relies on information fetched during runtime. Slowly changing 
+variables is an example of such information, as it can be exploited by the compiler at 
+run time by compiling multiple instances of code (one for each value of the variable),
+resulting in faster code. \cite{bolz2011runtime}
+
+% What is a tracing JIT ?
+A tracing-JIT works by recording the execution of a program. The result is a set of 
+traces of concrete execution, these traces are linear lists of operations. The lists of
+operations are then optimized and turned into machine code. Among other benefits, the
+result is free inlining of functions, as the functions operations are simply added to
+the trace. \cite{bolz2011runtime}
+
+\subsection{Haskell-Python}
+
+% What is Haskell-Python ?
+Haskell-Python is an interpreter for a Haskell inspired lambda-calculs (we call it Core'). 
+It is meant to serve as the backend for a complete Haskell compiler, after taking advantage 
+of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
+and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
+
+% What is lambda-calculus ???
+
+\subsection{Haskell, GHC and External-Core}
+
+
+\subsubsection{Haskell}
+
+% What is Haskell ?
+Haskell is a lazy, pure functional language with non-strict semantics and static 
+polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
+list comprehensions, a system for modules, a system for monadic I/O, and a large 
+standard library. We do not go into too much detail here, for a full description 
+of Haskell, see the "Haskell 2010 language report"\cite{marlow2010haskell}. 
+Or for a complete history of Haskell, see "A history of Haskell: being lazy 
+with class"\cite{hudak2007history}.
+
+Two specific features
+of Haskell stand out: it is purely functional; this means that the functions 
+can not have side-effects, or mutate data. For equal arguments, a function 
+must provide equal results. The fact that Haskell is lazy refers to the techniques
+used to evaluate a Haskell program, meaning that the arguments to a function are passed
+unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
+non-functional language features are impossible, as the two cannot work in conjunction.
+\cite{marlow2010haskell, marlow2012glasgow}
+
+\subsubsection{GHC}
+
+GHC can be divided into three parts, the compiler, the boot libraries
+(libraries the compiler itself depends on) and the RTS (Runtime System). 
+The compiler is the part
+that turns Haskell source code into executable code. The boot libraries are the 
+libraries that the compiler itself depends on. The RTS is a large library
+of C code that is responsible for running the Haskell programs, such as the 
+GC (Garbage Collector) implementation. The RTS system is linked into all 
+Haskell programs compiled by GHC. These three parts corresponds to subdirectries
+in the GHC source, namely "compiler", "libraries" and "rts".
+\cite{marlow2012glasgow}
+
+The compiler can also be divided into three parts. The Compilation Manager is 
+responsible for the compilation of multiple Haskell source files. Its job is to
+determine the order in which the files must be compiled. The Haskell Compiler 
+(abbreviated "Hsc" inside GHC), handles the compilation of a single Haskell source
+file.
+
+% TODO! THIS IS WHERE I STOPPED!
+
+\subsubsection{GHC API}
+
+The compiler exports an API.
+
+\subsubsection{External-Core and Linkcore}
+
+% What is External-Core ?
+GHC uses an intermediate language throughout it's 
+simplification phase. The extcore project presents a formal definition of the syntax 
+of this language. And in addition to this, enables the representation to be exported 
+to files. The idea is that this allows compiler implementors and researchers to use GHC
+as a front-end for Haskell compilers. Before outputting external-core files,
+the Haskell files are typechecked, desugared and simplified. \cite{tolmach2010ghc}
+
+% What is linkcore ?
+The linkcore project implements a linker for core programs, i.e. it transforms
+a single Haskell module into a single closed external-core module. In addition to
+this, since the linker requires external-core representation of the ghc-libraries,
+it also contains instructions on how to create these. 
+
+% They have both bitrotted!
+Unfortunately, at the time of this writing, both the external-core and linkcore 
+packages have bitrotted. Although there seems to be interest for the continued 
+maintainance of external-core.
+
+\section{Similar work}
+
+A number of experiments have been done by the PyPy team, but most notable is perhaps
+the Prolog interpreter. 
+%Prolog is a declarative programming language with roots in 
+%formal logic, evaluation is performed when the user asks the program a question 
+%(a query), and an evaluation algorithm  answers the question by using the program as
+%a knowledge base.
+
+\subsection{PyPy Prolog}
+
+In addition to the implementation of Python, PyPy has also shown that it's techniques
+are applicable to other languages. The Prolog VM is an example of this. Implementations
+of Prolog are usually written in low level languages such as C, this usually results in
+good performance, but means they are difficult to write and maintain. The PyPy Prolog 
+interpreter clearly outperforms other Prolog interpreters written in other high level
+languages, and it also outperforms state-of-the-art Prolog VMs at specific benchmarks,
+which shows that other Prolog implementations can benefit from the techniques used by
+PyPy. \cite{bolz2010towards}
+
+
+\subsection{HappyJIT}
+
+\subsection{Pygirl}
+
+\section{Motivation}
+
+% Write about the use-cases of laguages like Haskell, and the benefits of 
+% Jit compilation
+
+% + Research blahblah... Just to see if it works well.
 
 
