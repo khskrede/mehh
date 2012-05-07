@@ -1,0 +1,209 @@
+
+
+
+
+\chapter{Background}
+
+This chapter discusses some of the background information necessary to make sence of the
+following chapters; short introductions to the fundamentals of \emph{functional programming} 
+(\emph{combinatory logic} and \emph{the lambda calculus}), the \emph{Haskell} 
+programming language, and \emph{virtual machines} (\emph{JIT compilation}, \emph{VM construction} 
+and the \emph{PyPy project})
+
+
+
+
+
+
+\section{Functional programming}
+
+Functional programming is a programming paradigm where computation is modelled as the evaluation
+of expressions. Mutability and state is avoided. Functional programming is based on the 
+lambda calculus, a formal system invented by Alonzo Church.
+
+\subsection{Combinatory logic}
+
+...
+
+\subsection{Lambda calculus}
+
+In mathematical form, one
+could write a function as $f : x \mapsto x^2$. However, this notation is not adequate when
+higher order functions are involved, i.e. functions that return other functions. The lambda calculi
+(invented by A. Church) is another formal system for function notation that allows for higher
+order functions. In the lambda calculus, such a function would be written $\lambda x.x^2$, and the
+lambda abstraction would be applied to a value by parenthesis. In the same way $f : x \mapsto x^2$
+applied to $2$ would result in $f : 2 \mapsto 2^2$, in lambda calculus would be 
+written $((\lambda x.x^2) \;\; 2)$ and reduced to $2$.
+
+\subsection{Lambda calculus with types}
+
+
+...
+
+
+
+
+
+\section{Haskell}
+
+% TODO: Fix the following paragraph
+
+\emph{Haskell} is a \emph{non-strict} \emph{purely-functional} programming language. The
+name is was chosen. \cite{hudak2007history}
+
+
+\subsection{Syntax}
+
+This section covers some of the main design choises made by the Haskell commity when
+creating the syntax for Haskell. For a more formal definition of the syntax, 
+see \cite{jones2003haskell} 
+
+\subsubsection {Layout}
+
+In many imperative programming languages, the semicolon is used to separate sequential
+statements. However, in Haskell, the notion of sequence is completely absent due to the
+fact that it is a language without side effects. \cite{hudak2007history}
+
+Haskell exploits the physical layout of the text (in a way similar to Python) in order
+to avoid unnecessary syntactic constructs (such as the use of curly braces in \emph{C}).
+Haskell does however support the use of explicit curly braces and semicolons, the reason
+for this being that people may want to write Haskell programs that generate Haskell programs,
+and this would be easier without the need to keep track of indentation. \cite{hudak2007history}
+
+\subsubsection{Functions and function application}
+
+Defining functions in Haskell can be done in many different ways. It is a functional programming
+language...
+
+\begin{itemize}
+
+\item{Currying}, a function taking two arguments can be defined by a function taking one argument,
+and returning a function taking the second argument. Haskell supports both curried and uncurried
+function definitions. Function application is left associative, so $f\;x\;y$ is applied $(f\;x)\;y$.
+\cite{hudak2007history}
+
+\item{Anonymous functions} are syntactically similar to the lambda calculus:
+represented by the \inhas{\textbackslash} symbol since it is the ASCII character
+most similar to the $\lambda$:  \inhas{\textbackslash x->exp}. 
+The \inhas{->} is used however, since the period is reserved
+for function composition. \cite{hudak2007history}
+
+\item{Prefix operators}; Haskell has only a single prefix operator defined. This is the arithmetic
+negation operator.\cite{hudak2007history}
+
+\item{Infix operators} are very important in Haskell, as it is meant to look as much like mathematics
+as possible. Infix operators are also definable by the user, including precedence and associativity.
+The relationship between infix application and conventional function application is simple; infix
+application always have precedence. This means that the expression 
+\inhas{f x + g y} never has
+to be parenthesized.\cite{hudak2007history}
+
+\item{Sections} are partial applications of infix operators to no arguments, both the left argument and
+the right. By surrounding the result in parenthesis. 
+Since all values in Haskell are "first class", especially functions, 
+this solves the problem of what is meant by the
+expression \inhas{f + x}, without sections, this could mean that 
+\inhas{+} takes the arguments \inhas{f} and 
+\inhas{x},
+or that \inhas{f} takes the arguments \inhas{+} 
+and \inhas{x}. This also gives the ability to partially apply infix
+operators. Ordinary functions can also be applied infix by surrounding the function name in single
+quotes; \inhas{x 'f' y} is the same as \inhas{f x y}. 
+\cite{hudak2007history}
+
+\end{itemize}
+
+\subsubsection{Namespaces and keywords}
+
+Namespaces in Haskell are designed to give the user as much freedom as possible, while avoiding
+ambiguity. Therefore, a set of lexemes are defined for each namespace in such a way that this,
+together with the context, is enough to determine which namespace a keyword refers to. For example,
+in the following, \inhas{Vector} can refer to both a type constructor and a data constructor:
+
+\lstset{language=Haskell}
+\begin{lstlisting}
+data Vector = Vector Float Float
+\end{lstlisting}
+
+However, it is clear from the context that the leftmost reference is in the namespace of type
+constructors, and the rightmost in the namespace of data constructors.
+
+Haskell also allows for shadowing of variebles, i.e., reusing a variable name in a deeper 
+scope.
+
+\subsubsection{Declaration style vs. expression style}
+
+There are two main styles in which a functional program can be written in Haskell: 
+\emph{declaration style} or \emph{expression style}. 
+
+The declaration style uses pattern matching and guards, and multiple equations
+to define a function. In the expression style, a function is defined by composing it from smaller 
+expressions. Each style can be characterised by a small set of syntactic constructs. 
+
+The declaration style constructs beeing: \inhas{where} clause, function arguments on left hand side, 
+pattern matching in function definitions and guards on function definitions. 
+And the expression style constructs beeing:
+\inhas{let} expressions, lambda expressions, \inhas{case} expressions and \inhas{if} expressions
+
+As opposed to Miranda, which placed guards on the right side of expressions 
+(similar to mathematic notation), in Haskell guards are put on the left side. Also,
+in Haskell, a where clause is attached to a declaration, not an expression. This means that
+it scopes over guards as well as the right-hand side of declarations.\cite{hudak2007history}
+
+
+\subsubsection{List comprehensions}
+
+List comprehensions are very usefull;
+
+\begin{lstlisting}
+[ x*x | x <- xs ]
+\end{lstlisting}
+
+\subsubsection{Comments}
+
+...
+
+\subsection{Algebraic data types}
+
+\subsection{Type system and type classes}
+
+\subsection{I/O and monads}
+
+\subsection{Modules, packages and the Foreign Function Interface}
+
+
+
+
+
+
+
+\section{Virtual machines}
+
+\subsection{Just-in-time compilation}
+
+... ...
+
+\subsection{The PyPy project}
+
+The PyPy (Python in Python) project aims to implement a Python interpreter in Python.
+To do this, a restricted proper subset of Python called RPython has been designed.
+The reason for using RPython is that type inference can be performed on it. Type
+inference is the act of figuring out what type a variable has. In Python, a variable
+can have many different types during it's lifespan, and it is therefore not possible
+to perform type inference on it. However, in RPython, a variable can only have a 
+single type during it's lifespan. This makes it easier to translate RPython to a lower
+level language, like C. This is in fact what PyPy does, a Python interpreter is written
+in RPython, and then translated into C. Although PyPy can translate the RPython programs
+directly into C, it can also include a JIT compiler in this translation, and it has
+a number of garbage collectors ready in the GC framework.
+
+
+
+Functional programming languages is a paradigm currently
+unexplored by the PyPy project. The introduction of Haskell
+to the PyPy project will eventualy inspect wether or not 
+the methods used in the PyPy project are applicable to languages
+like Haskell.
+
+

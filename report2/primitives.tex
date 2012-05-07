@@ -2,20 +2,6 @@
 
 \chapter{Primitives and Libraries}
 
-
-\begin{comment}
-"Over the fifteen years of its life so far, GHC has grown a huge num-
-ber of features. It supports dozens of language extensions (notably
-in the type system), an interactive read/eval/print interface (GHCi),
-concurrency (Peyton Jones et al., 1996; Marlow et al., 2004), trans-
-actional memory (Harris et al., 2005), Template Haskell (Sheard
-and Peyton Jones, 2002), support for packages, and much more be-
-sides. This makes GHC a dauntingly complex beast to understand
-and modify and, mainly for that reason, development of the core
-GHC functionality remains with Peyton Jones and Simon Marlow,
-who both moved to Microsoft Research in 1997." - (A History of Haskell: Being lazy pp.29)
-\end{comment}
-
 GHC uses a module called GHC.Prim, located in the ghc-prim package. This
 module is generated automatically from a file called "primops.txt.pp", this file
 contains information about the machine representations of the various types, as
@@ -31,52 +17,18 @@ Unfortunately, this turned out not to be the case. Due to bugs in GHC, it was no
 possible to generate Core without changing GHC code, and this would be a daunting task.
 Some alternatives was considered;
 
-\begin{itemize}
+\section{Our approach}
 
-\item Build the GHC libraries with the -fext-core flag.
+...
 
-\item Use Cabal API
+\section{Why it does not work}
 
-\item Interface as GHC
+...
 
-\item Implement library functionality in Python
+\section{How to fix it}
 
-\end{itemize}
-
-\begin{comment}
-\section{Getting libraries from GHC to Python}
-
-\subsection{Building GHC libraries with '-fext-core'}
+... Use the GHC API ... Figure out how to compile multiple files with
+the API, how to set language extensions, how to. Using cabal with the API.. 
+Poorly documented...
 
 
-\subsection{Going through Cabal}
-
-Cabal is a package system for Haskell. The Haskell modules all contain a *.cabal file,
-this file contains all the information necessary to build the modules.
-
-
-\subsection{Using the GHC library}
-
-GHC implements a library to access some of it's functionality. It should be possible
-to compile the files using this library and export them to an intermediate format, 
-something similar to JSCore.
-
-
-\section{GHC Primitives}
-
-\subsection{Foreign functions}
-
-\subsubsection{C functions}
-
-\subsubsection{C-- functions}
-
-\section{GHC Libraries}
-
-
-
-\section{GHC Prelude}
-
-Prelude lives in Base.
-
-The GHC Prelude is a module that is implicitly imported into every Haskell program.
-\end{comment}

@@ -5,18 +5,193 @@
 
 \section{External-Core and JSCore}
 
+...
 
-\section{System $F_w$}
+\section{System $F_c$}
+
+... Introduction to System $F_c$
+
+\cite{sulzmann2007system}
+
 
 \subsection{Type erasure}
 
-\section{The Case statement}
+... Why we don't need kinds.
 
 
-\section{Partial function application}
+\section{Parsing}
+
+In this section, we go through each the tokens in JSCore, and describes
+how they are converted into Core'.
+
+Since Haskell-Python had no way of dealing with packages and modules, 
+we had to implement a system for this first.
+
+\subsection{Packages}
+
+We don't really deal with packages, GHC handles this for us. Whenever we
+need a module, the package referred to is contained in its name.
+
+\subsection{Modules}
+
+When we parse a module, we create a object of type Module. This object is
+the put in a dictionary, where we can look it up by its full identifier name.
+
+\subsection{The Program}
+
+This sub section describes all the constructs of JSCore, what they are, how we 
+convert them to Core', and wether or not the conversion is tested.
+
+\subsubsection{Module}
+
+The module construct is represented by the '\%module' keyword, an identifier,
+a list of 'type definitions' and a list of 'value definitions':
+
+\begin{grammar}
+<module> ::= \%module <mident> \{ <tdefg> ; \} \{ <vdefg> ; \}
+\end{grammar}
+
+The module construct directly corresponds to Haskell modules. The module identifier
+contains the necessary information of what package and module it belongs to, as
+well as it's name.
+
+\subsubsection{Type definitions}
+
+\begin{grammar}
+<tdefg> ::= \%data <qtycon> <tbind> = <cdef>
+       \alt \%newtype <qtycon> <qtycon> <tbind> = <ty>
+\end{grammar}
 
 
-\section{Getting the primitive types}
+\subsubsection{Constructor definitions}
 
+\begin{grammar}
+<cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
+\end{grammar}
+
+\subsubsection{Value definitions}
+
+\begin{grammar}
+<vdefg> ::= \%rec \{ <vdef> \{ ; <vdef> \} \}
+       \alt <vdef>
+\end{grammar}
+
+\begin{grammar}
+<vdef> ::= <qvar> :: <ty> = <exp>
+\end{grammar}
+
+\subsubsection{Atomic expressions}
+
+\begin{grammar}
+<aexp> ::= <qvar>
+      \alt <qdcon>
+      \alt <lit>
+      \alt ( <exp> )
+\end{grammar}
+
+\subsubsection{Expression}
+
+\begin{grammar}
+<exp> ::= <aexp>
+     \alt <aexp> \{ <arg> \}
+     \alt \textbackslash \{ <binder> \} -$>$ <exp>
+     \alt \%let 
+     \alt \%case
+     \alt \%cast
+     \alt \%note
+     \alt \%external ccall " \{ <char> " \} <aty>
+     \alt \%dynexternal ccall <aty>
+     \alt \%label \{ <char> \}
+\end{grammar}
+
+\subsubsection{Argument}
+
+\begin{grammar}
+<arg> ::= @ <aty>
+     \alt <aexp>
+\end{grammar}
+
+\subsubsection{Case alternative}
+
+\begin{grammar}
+<alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} -$>$ <exp>
+     \alt <lit> -$>$ <exp>
+     \alt \%\_ -$>$ <exp>
+\end{grammar}
+
+\subsubsection{Binder}
+
+\begin{grammar}
+<binder> ::= @ <tbind>
+        \alt <vbind>
+\end{grammar}
+
+\subsubsection{Type binder}
+
+\begin{grammar}
+<tbind> ::= <tyvar>
+       \alt ( tyvar :: <kind> )
+\end{grammar}
+
+\subsubsection{Value binder}
+
+\begin{grammar}
+<vbind> ::= ( <var> :: <ty> )
+\end{grammar}
+
+\subsubsection{Literal}
+
+\begin{grammar}
+<lit> ::= ( [-] \{ <digit> \} :: <ty> )
+     \alt ( [-] \{ <digit> \} \% \{ <digit> \} :: <ty> )
+     \alt ( <char> :: <ty> )
+     \alt ( \{ <char> \} )
+\end{grammar}
+
+\subsubsection{Atomic type}
+
+\begin{grammar}
+<aty> ::= <tyvar>
+     \alt <qtycon>
+     \alt ( <ty> )
+\end{grammar}
+
+\subsubsection{Basic type}
+
+\begin{grammar}
+<bty> ::= <aty>
+     \alt <bty> <aty>
+     \alt \%trans <aty> <aty>
+     \alt \%sym <aty>
+     \alt \%unsafe <aty> <aty>
+     \alt \%left <aty>
+     \alt \%right <aty>
+     \alt \%inst <aty> <aty>
+\end{grammar}
+
+\subsubsection{Type}
+
+\begin{grammar}
+<ty> ::= <bty>
+    \alt \%forall \{ <tbind> \} . <ty>
+    \alt <bty> -$>$ <ty>
+\end{grammar}
+
+\subsubsection{Atomic kind}
+
+\begin{grammar}
+<akind> ::= *
+       \alt \#
+       \alt ?
+       \alt <bty> :=: <bty>
+       \alt ( <kind> )
+\end{grammar}
+
+\subsubsection{Kind}
+
+\begin{grammar}
+<kind> ::= <akind>
+      \alt <akind> -$>$ <kind>
+\end{grammar}
 
 

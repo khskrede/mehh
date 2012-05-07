@@ -1,0 +1,45 @@
+
+\chapter{Introduction}
+
+\section{Motivation and project description}
+
+% Why are we doing what we are doing?
+The project aims to investigate the feasibility of JIT (Just-in-time) 
+compilation of a strongly-typed purely-functional language. Since
+programs written in such a language can be heavily optimized at 
+compile time, it us uncertain whether such programs can benefit from
+JIT compilation. However, a JIT compiler has a lot more information to
+work with than a static compiler. 
+
+To test this, the techniques 
+used by the PyPy (Python in Python) project is applied to the Haskell 
+programming language. By implementing the back-end for a Haskell compiler 
+in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
+as a front-end, we can effectively implement a full Haskell JIT compiler. An 
+interpreter for a language very similar to the intermediate language used
+by GHC was allready implemented, and this is the base for our work.
+
+% What are we doing?
+We focus on implementing a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from that format to the interpreter. The 
+interpreter is for a language similar to Core (an intermediate format used by GHC.)
+By implementing some simple programs in Haskell, and running them in this way, 
+we hope to show that the methods of the PyPy project can be applied to pure 
+functional languages such as Haskell.
+
+% What are the contributions of this paper?
+The contributions of this paper is a sytem for translating Haskell programs
+into Core', and a description of the full compilation system at its current
+state, including the Core' interpreter (Haskell-Python). In addition to this,
+we present a plan for the future development of the system.
+
+
+% Structure of the paper. TODO
+
+
+% Write about the use-cases of laguages like Haskell, and the benefits of 
+% Jit compilation
+
+% + Research blahblah... Just to see if it works well.
+
+

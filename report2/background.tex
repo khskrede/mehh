@@ -1,39 +1,29 @@
 
-\chapter{Introduction}
+\chapter{Background}
 
-\section{Motivation and project description}
+\section{Haskell}
 
-% Why are we doing what we are doing?
-The project aims to investigate the feasibility of JIT (Just-in-time) 
-compilation of a strongly-typed purely-functional language. Since
-programs written in such a language can be heavily optimized at 
-compile time, it us uncertain whether such programs can benefit from
-JIT compilation. However, a JIT compiler has a lot more information to
-work with than a static compiler. 
+% What is Haskell ?
+Haskell is a lazy, pure functional language with non-strict semantics and static 
+polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
+list comprehensions, a system for modules, a system for monadic I/O, and a large 
+standard library. In addition to beeing strongly typed, Haskell supports type
+inference, which means type annotations are seldom required. We do not go into 
+too much detail here, for a full description 
+of Haskell, see the "Haskell 2010 language report"\cite{marlow2010haskell}. 
+Or for a complete history of Haskell, see "A history of Haskell: being lazy 
+with class"\cite{hudak2007history}.
 
-To test this, the techniques 
-used by the PyPy (Python in Python) project is applied to the Haskell 
-programming language. By implementing the back-end for a Haskell compiler 
-in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
-as a front-end, we can effectively implement a full Haskell JIT compiler. An 
-interpreter for a language very similar to the intermediate language used
-by GHC was allready implemented, and this is the base for our work.
+Two specific features
+of Haskell stand out: it is purely functional; this means that the functions 
+can not have side-effects, or mutate data. For equal arguments, a function 
+must provide equal results. The fact that Haskell is lazy refers to the techniques
+used to evaluate a Haskell program, meaning that the arguments to a function are passed
+unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
+non-functional language features are impossible, as the two cannot work in conjunction.
+\cite{marlow2010haskell, marlow2012glasgow}
 
-% What are we doing?
-We focus on implementing a serializer from Haskell to an intermediate
-format using GHC, and a deserializer from that format to the interpreter. The 
-interpreter is for a language similar to Core (an intermediate format used by GHC.)
-By implementing some simple programs in Haskell, and running them in this way, 
-we hope to show that the methods of the PyPy project can be applied to pure 
-functional languages such as Haskell.
-
-% What are the contributions of this paper?
-The contributions of this paper is a sytem for translating Haskell programs
-into Core', and a description of the full compilation system, including the 
-Haskell-Python. In addition to this,
-we present a plan for the future development of the system.
-
-\subsection{PyPy}
+\section{PyPy}
 
 % What is the PyPy project ?
 PyPy is a project that shows the feasability of constructing a VM (Virtual Machine) 
@@ -91,33 +81,19 @@ Haskell-Python is an interpreter for a Haskell inspired lambda-calculs (we call 
 It is meant to serve as the backend for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
+For more on Haskell-Python, see chapter \ref{chap:hs}.
 
-% What is lambda-calculus ???
-
-\subsection{Haskell, GHC and External-Core}
+% What is lambda-calculus ??? TODO
 
 
-\subsubsection{Haskell}
 
-% What is Haskell ?
-Haskell is a lazy, pure functional language with non-strict semantics and static 
-polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
-list comprehensions, a system for modules, a system for monadic I/O, and a large 
-standard library. We do not go into too much detail here, for a full description 
-of Haskell, see the "Haskell 2010 language report"\cite{marlow2010haskell}. 
-Or for a complete history of Haskell, see "A history of Haskell: being lazy 
-with class"\cite{hudak2007history}.
+\section{GHC}
 
-Two specific features
-of Haskell stand out: it is purely functional; this means that the functions 
-can not have side-effects, or mutate data. For equal arguments, a function 
-must provide equal results. The fact that Haskell is lazy refers to the techniques
-used to evaluate a Haskell program, meaning that the arguments to a function are passed
-unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
-non-functional language features are impossible, as the two cannot work in conjunction.
-\cite{marlow2010haskell, marlow2012glasgow}
-
-\subsubsection{GHC}
+GHC is a 20 years old project, and it has been under development during
+all these years. It started out with the goals of beeing a freely available
+robust and portable compiler for Haskell, to provide a modular framework that
+could be extended and developed by other researchers, and to learn how real
+Haskell programs behave. \cite{marlow2012glasgow}
 
 GHC can be divided into three parts, the compiler, the boot libraries
 (libraries the compiler itself depends on) and the RTS (Runtime System). 
@@ -134,15 +110,23 @@ The compiler can also be divided into three parts. The Compilation Manager is
 responsible for the compilation of multiple Haskell source files. Its job is to
 determine the order in which the files must be compiled. The Haskell Compiler 
 (abbreviated "Hsc" inside GHC), handles the compilation of a single Haskell source
-file.
+file. The Pipeline handles any preprocessing that is necessary, and the output
+from Hsc is usually an assembly file that must be fed to an assembler.
 
 % TODO! THIS IS WHERE I STOPPED!
 
-\subsubsection{GHC API}
+\subsection{GHC API}
 
-The compiler exports an API.
+The compiler is (in addition to being a binary) itself a library that exports an API.
 
-\subsubsection{External-Core and Linkcore}
+... \cite{marlow2012glasgow} 
+
+\subsection{Core}
+
+...
+\cite{marlow2012glasgow}
+
+\subsection{External-Core and Linkcore}
 
 % What is External-Core ?
 GHC uses an intermediate language throughout it's 
@@ -186,13 +170,11 @@ PyPy. \cite{bolz2010towards}
 
 \subsection{HappyJIT}
 
+...
+
 \subsection{Pygirl}
 
-\section{Motivation}
+...
 
-% Write about the use-cases of laguages like Haskell, and the benefits of 
-% Jit compilation
-
-% + Research blahblah... Just to see if it works well.
 
 
