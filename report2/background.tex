@@ -1,5 +1,5 @@
 
-\chapter{Background}
+\chapter{Background }
 
 \section{Haskell}
 
@@ -10,7 +10,7 @@ list comprehensions, a system for modules, a system for monadic I/O, and a large
 standard library. In addition to beeing strongly typed, Haskell supports type
 inference, which means type annotations are seldom required. We do not go into 
 too much detail here, for a full description 
-of Haskell, see the "Haskell 2010 language report"\cite{marlow2010haskell}. 
+of Haskell, see "the Haskell 2010 language report"\cite{marlow2010haskell}. 
 Or for a complete history of Haskell, see "A history of Haskell: being lazy 
 with class"\cite{hudak2007history}.
 
@@ -117,11 +117,34 @@ from Hsc is usually an assembly file that must be fed to an assembler.
 
 \subsection{GHC API}
 
+% TODO
 The compiler is (in addition to being a binary) itself a library that exports an API.
+The GHC API was a goal from the beginning of its development, in the wording of
+"being modular". A few notable projects have taken advantage of this modularity,
+including a version of GHC containing a Lisp front-end, and a version that generates
+Java code. With the groving popularity of Haskell, interest in tools that deal with
+the language is required. These tools need a lot of the functionality that is already
+present in GHC. For this reason, GHC is built as a library, rather than a monolithic
+program. The library is linked by a small Main module. In addition to this, GHC
+exposes an API to deal with the library.\cite{marlow2012glasgow} 
 
-... \cite{marlow2012glasgow} 
+\subsection{The Runtime System}
+
+The RTS provides the support that is necessary for a Haskell program to run, this
+includes; memory management, scheduling and thread management, primitive operations
+and a bytecode interpreter and dynamic linker for GHCi (GHCs interactive environment).
+\cite{marlow2012glasgow} 
 
 \subsection{Core}
+
+% TODO
+Haskell is intended to be easy to read and write by humans. For this reason, it
+incorporates a lot of syntactic constructs. This means that there are
+usually many ways to write the same program. The definition of the Haskell language
+defines these syntactic constructs in terms of their translation into simpler
+constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
+After removing all of the syntactic suger (desugaring) GHC is left with a much 
+simpler language. This language is called Core.
 
 ...
 \cite{marlow2012glasgow}

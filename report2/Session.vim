@@ -24,18 +24,23 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 abstract.tex
-badd +0 background.tex
+badd +130 background.tex
 badd +1 index.tex
-badd +0 intro.tex
+badd +1 intro.tex
+badd +4 rewriting.tex
+badd +195 haskell-python.tex
+badd +16 future.tex
+badd +7 conclusion.tex
+badd +41 primitives.tex
 args abstract.tex background.tex index.tex
-edit intro.tex
+edit background.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-edit intro.tex
+edit background.tex
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -137,12 +142,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 30) / 60)
+let s:l = 149 - ((41 * winheight(0) + 30) / 60)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+149
+normal! 02l
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

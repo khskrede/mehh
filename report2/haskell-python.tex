@@ -96,12 +96,6 @@ variables in the value list. Then the expression is evaluated, returning a new v
 \subsection{Literal}
 A literal is a value such as an integer, a string or a character.
 
-\subsection{Symbol}
-
-% TODO, this is implementation specific... Remove ?
-
-Constructors contain a Symbol, the Symbol is a name that is used in pattern matching.
-
 
 \section{Evaluation}
 
@@ -154,7 +148,8 @@ be reduced any further (they are already in WHNF).
 % Can a constructor contain all HaskellObjects ??? Why ?
 The Constructor classes can contain Values as their arguments, however, since
 a Constructor is itself a Value, it can not have unevaluated applications as
-arguments.
+arguments. The Constructor is characterized by a Symbol. A Symbol is simply
+a name that can be matched by identity.
 
 The PrimFunction class represents a function that is not implemented in 
 Haskell, but is implemented at the machine level.
@@ -177,6 +172,20 @@ The evaluation stack is represented by a base class, StackElement. Two other
 classes inherits from this class, UpdateStackElement and CopyStackElement. Note that
 the stack is implemented by a linked list (each StackElement points to the next).
 
+% TODO ! Describe how recursion works in this same way.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../diags/eval-stack.pdf}
+
+\caption{Overly simplified concept sketch of the evaluation stack; 
+Nothing will be done to Value 2, it is
+in WHNF. The point is, that by the time we get to Function Application 2, we can be
+sure that all its arguments have been evaluated. And when we reach Function Application 1,
+the same can be said for it.}
+\label{fig:classdia}
+
+\end{figure}
+
 
 \begin{sidewaysfigure}
 \begin{figure}[H]
@@ -188,3 +197,33 @@ the stack is implemented by a linked list (each StackElement points to the next)
 
 \end{figure}
 \end{sidewaysfigure}
+
+\section{Extensions}
+
+\subsection{GHC usage}
+
+% TODO
+
+By using GHC to compile the Haskell programs and dump its intermediate
+format to a file, we can effectively turn Haskell-Python into a full
+Haskell compiler. However, the format dumped by GHC is external-core.
+
+We turn external-core into JSCore with a Haskell program called core2js.
+JSCore is a JSON compliant representation of external-core. This means that
+we can parse JSON and get a representation we can easily traverse when building
+the AST (Abstract Syntax Tree) for the Core' interpreter.
+
+\subsection{Module system}
+
+% TODO
+...
+
+\subsection{Parser}
+
+% TODO
+...  See chapter \ref{chap:rewrite} for a detailed description of the parser.
+
+\subsection{Primitives}
+
+% TODO
+...
