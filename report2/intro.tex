@@ -26,14 +26,17 @@ We focus on implementing a serializer from Haskell to an intermediate
 format using GHC, and a deserializer from that format to the interpreter. The 
 interpreter is for a language similar to Core (an intermediate format used by GHC.)
 By implementing some simple programs in Haskell, and running them in this way, 
-we hope to show that the methods of the PyPy project can be applied to pure 
-functional languages such as Haskell.
+we hope to show that the methods of the PyPy project can be successfully applied 
+to pure functional languages such as Haskell.
 
 % What are the contributions of this paper?
+
+\section{Contributions}
 The contributions of this paper is a sytem for translating Haskell programs
 into Core', and a description of the full compilation system at its current
 state, including the Core' interpreter (Haskell-Python). In addition to this,
-we present a plan for the future development of the system.
+we present a plan for the future development of the system based on the 
+successes and failures so far.
 
 % Write about the use-cases of laguages like Haskell, and the benefits of 
 % Jit compilation
@@ -41,6 +44,7 @@ we present a plan for the future development of the system.
 % + Research blahblah... Just to see if it works well.
 
 % Structure of the paper. TODO
+\section{Structure of paper}
 In chapter \ref{chap:back} we present background information, including 
 some terms and concepts and similar work. 
 %

@@ -2,6 +2,8 @@
 \chapter{Haskell-Python}
 \label{chap:hs}
 
+% TODO !!! Give credit to the developers !!!
+
 Haskell-Python is an interpreter for a language similar to Core, we call it Core' here.
 This interpreter is the base for our JIT compiler. In this chapter we descripe a 
 syntax and an informal semantics for Core'.
@@ -16,43 +18,49 @@ In the following grammar, the '[' and ']' symbols are used to mean that
 anything between can be repeated, 0 or more times. We use '[' and '$]^+$' to 
 mean that the pattern can be repeated 1 or more times. Non-terminals are 
 written with italic font throughout the paper.
-\\
-\\
+See figure \ref{coresyn} for the full syntax.
+
+\begin{figure}
+\centering
+
 \begin{grammar}
 
-<constructor> ::= c( <symbol> [ <value> ] )
+<Constructor> ::= const( <Symbol>, [ <Value> ] )
 
-<function> ::= f( <symbol> [ <rule> ]$^+$ )
+<Function> ::= func( <Name>, [ <Rule> ]$^+$ )
 
-<rule> ::= r( [ <value> ]$^+$ = <exp> )
+<Rule> ::= rule( [ <Value> ]$^+$ = <Exp> )
 
-<exp> ::= e( <value> )
-     \alt e( <primitive-function> )
-     \alt e( <function> )
-     \alt e( <application> )
+<Exp> ::= exp( <Value> )
+     \alt exp( <Prim-Function> )
+     \alt exp( <Function> )
+     \alt exp( <Application> )
 
-<application> ::= a( <exp> [ <value> ] )
+<Application> ::= app( <Exp>, [ <Value> ] )
 
-<value> ::= <literal>
-       \alt <constructor>
-       \alt <variable>
+<Literal> ::= lit( <String> )
+	 \alt lit( <Number> )
+	 \alt lit( <Character> )
 
-<literal> ::= l( <string> )
-	 \alt l( <number> )
-	 \alt l( <character> )
+<Value> ::= <Literal>
+       \alt <Constructor>
+       \alt <Variable>
 
-<symbol> ::= A symbol is just a string-identifier.
+<Symbol> ::= An identifier that can be matched against.
 
-<string> ::= A list of characters
+<String> ::= A list of characters
 
-<number> ::= A number
+<Number> ::= A number
 
-<character> ::= A character
+<Character> ::= A character
 
-<primitive-function> ::= A function that can't be defined in terms of other functions.
+<Prim-Function> ::= A function that is implemented at the machine level.
 
 \end{grammar}
 
+\label{coresyn}
+\caption{Core' syntax}
+\end{figure}
 
 \section{Informal semantics}
 
@@ -105,13 +113,12 @@ A Core' program is executed by reducing a main Application to WHNF.
 
 When an Application is evaluated; two things can happen. If it does not contain
 other unevaluated Applications it can be evaluated directly. However, if it does
-contain unevaluated Applications, it is turned into a Thunk (a suspended evaluation)
-untill its unevaluated parts have become evaluated (reduced to WHNF).
-
-When a Thunk is created, it is pushed onto the evaluation stack, and its 
-unevaluated parts are pushed ontop of it. Since evaluation is proceeded from the
-top of the stack, this ensures that when the Thunk is reached, its applications
-have been evaluated.
+contain unevaluated Applications, it is added to the evaluation stack, and its 
+arguments are added on top of it, with any Applications turned into a Thunk 
+(a suspended evaluation). Evaluation proceeds from the top of the stack.
+untill its unevaluated parts have become evaluated (reduced to WHNF), and the
+Application itself is ready to be evaluated.
+See figure \ref{fig:classdia} for a concept sketch.
 
 %it's unevaluated parts is pushed onto an 
 %evaluation stack. The stack can contain two kinds of elements, a CopyStackElement,
@@ -173,26 +180,21 @@ classes inherits from this class, UpdateStackElement and CopyStackElement. Note 
 the stack is implemented by a linked list (each StackElement points to the next).
 
 % TODO ! Describe how recursion works in this same way.
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../diags/eval-stack.pdf}
-
-\caption{Overly simplified concept sketch of the evaluation stack; 
-Nothing will be done to Value 2, it is
-in WHNF. The point is, that by the time we get to Function Application 2, we can be
-sure that all its arguments have been evaluated. And when we reach Function Application 1,
-the same can be said for it.}
-\label{fig:classdia}
-
-\end{figure}
-
-
 \begin{sidewaysfigure}
 \begin{figure}[H]
 \centering
-\includegraphics[angle=270, width=\textheight]{../diags/core-interp.pdf}
+\includegraphics[width=\textheight]{../diags/eval-stack.pdf}
 
-\caption{Haskell-Python class diagram}
+\caption{Overly simplified concept sketch of the evaluation stack; 
+when the first Application is to be evaluated, it is discovered that it
+contains unevaluated expressions. The Application is turned into a Thunk.
+The Thunk is then popped from the stack, and the Application is added to
+the stack, the Application arguments are popped on the stack with any 
+Applications turned into thunks. The top of the stack is again a Thunk.
+The same routine is performed on the new Thunk, until the expression top
+Application can be reduced to a Value. After this, the initial Application
+can also be reduced to a Value.
+}
 \label{fig:classdia}
 
 \end{figure}
@@ -216,14 +218,26 @@ the AST (Abstract Syntax Tree) for the Core' interpreter.
 \subsection{Module system}
 
 % TODO
-...
+A module system was implemented for the interpreter. A module object contains
+a dictionary for variables, type-constructors and data-constructors. The 
+"library" contains a dictionary of modules. This structure corresponds to the
+module hierarchy used by GHC.
 
 \subsection{Parser}
 
 % TODO
-...  See chapter \ref{chap:rewrite} for a detailed description of the parser.
+
+The parser is implemented using some of the native PyPy tools. A simple 
+JSON grammar is described in EBNF form in a Python string. This string
+is den parsed by the PyPy tool and a parser is created. by traversing the
+resulting datastructure, we build the AST for the interpreter. See chapter 
+\ref{chap:rewrite} for a detailed description of the parser and the 
+Core to Core' mapping.
 
 \subsection{Primitives}
 
 % TODO
-...
+The Primitive values extend the Value class. Primitive functions handle
+these values.
+See chapter \ref{chap:prims} for a more in-depth discussion of the
+library and primitives.
