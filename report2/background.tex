@@ -1,5 +1,6 @@
 
-\chapter{Background }
+\chapter{Background}
+\label{chap:back}
 
 \section{Haskell}
 
@@ -74,11 +75,11 @@ operations are then optimized and turned into machine code. Among other benefits
 result is free inlining of functions, as the functions operations are simply added to
 the trace. \cite{bolz2011runtime}
 
-\subsection{Haskell-Python}
+\section{Haskell-Python}
 
 % What is Haskell-Python ?
 Haskell-Python is an interpreter for a Haskell inspired lambda-calculs (we call it Core'). 
-It is meant to serve as the backend for a complete Haskell compiler, after taking advantage 
+It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
 For more on Haskell-Python, see chapter \ref{chap:hs}.
@@ -112,6 +113,7 @@ determine the order in which the files must be compiled. The Haskell Compiler
 (abbreviated "Hsc" inside GHC), handles the compilation of a single Haskell source
 file. The Pipeline handles any preprocessing that is necessary, and the output
 from Hsc is usually an assembly file that must be fed to an assembler.
+\cite{marlow2012glasgow}
 
 % TODO! THIS IS WHERE I STOPPED!
 
@@ -123,7 +125,7 @@ The GHC API was a goal from the beginning of its development, in the wording of
 "being modular". A few notable projects have taken advantage of this modularity,
 including a version of GHC containing a Lisp front-end, and a version that generates
 Java code. With the groving popularity of Haskell, interest in tools that deal with
-the language is required. These tools need a lot of the functionality that is already
+the language has increased. These tools need a lot of the functionality that is already
 present in GHC. For this reason, GHC is built as a library, rather than a monolithic
 program. The library is linked by a small Main module. In addition to this, GHC
 exposes an API to deal with the library.\cite{marlow2012glasgow} 
@@ -137,17 +139,16 @@ and a bytecode interpreter and dynamic linker for GHCi (GHCs interactive environ
 
 \subsection{Core}
 
-% TODO
+% TODO ???
 Haskell is intended to be easy to read and write by humans. For this reason, it
 incorporates a lot of syntactic constructs. This means that there are
 usually many ways to write the same program. The definition of the Haskell language
 defines these syntactic constructs in terms of their translation into simpler
 constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
 After removing all of the syntactic suger (desugaring) GHC is left with a much 
-simpler language. This language is called Core.
-
-...
-\cite{marlow2012glasgow}
+simpler language. This language is called Core (or system $F_C$ when referring to
+the theory).\cite{marlow2012glasgow} We discuss Core in more detail in chapter 
+\ref{chap:rewrite}.
 
 \subsection{External-Core and Linkcore}
 
@@ -172,8 +173,9 @@ maintainance of external-core.
 
 \section{Similar work}
 
-A number of experiments have been done by the PyPy team, but most notable is perhaps
-the Prolog interpreter. 
+In addition to the Python implementation, a low-level hardware emulator (PyGirl),
+a PHP interpreter, a Prolog interpreter and various other experiments have been
+created by the PyPy team. 
 %Prolog is a declarative programming language with roots in 
 %formal logic, evaluation is performed when the user asks the program a question 
 %(a query), and an evaluation algorithm  answers the question by using the program as
@@ -183,21 +185,48 @@ the Prolog interpreter.
 
 In addition to the implementation of Python, PyPy has also shown that it's techniques
 are applicable to other languages. The Prolog VM is an example of this. Implementations
-of Prolog are usually written in low level languages such as C, this usually results in
+of Prolog are usually written in low-level languages such as C, this usually results in
 good performance, but means they are difficult to write and maintain. The PyPy Prolog 
-interpreter clearly outperforms other Prolog interpreters written in other high level
+interpreter clearly outperforms other Prolog interpreters written in other high-level
 languages, and it also outperforms state-of-the-art Prolog VMs at specific benchmarks,
 which shows that other Prolog implementations can benefit from the techniques used by
 PyPy. \cite{bolz2010towards}
 
-
+% TODO !
 \subsection{HappyJIT}
 
-...
+PHP (Hypertext Preprocessor) is a language used to develop the server-side of 
+websites. The request for a website is received by the server, the PHP scripts
+then executes the request, often involving querying a database and then generating 
+the actual HTML for the user. Increasing the effectiveness of this process would
+reduce the time it takes for a user to request a website, to the time it is presented. 
+The HappyJIT project implements a PHP interpreter in RPython, this interpreter is 
+translated by the PyPy translater into a tracing-JIT. The approach show that 
+the techniques significantly improve the performance of several common use cases.
+\cite{homescu2011happyjit}
 
-\subsection{Pygirl}
+% TODO 
+\subsection{PyGirl}
 
-...
+As a case study, PyGirl implements an emulater for the Nintendo Game Boy. The project 
+shows the feasibility of implementing a low-level VM for hardware in a high-level 
+language to improve portability, and reduce complexity. The project shows that the
+reduction in implementation complexity with this approach is substantial, 
+and that the performance loss is not.
+\cite{bruni2009pygirl}
 
+% TODO !
+\subsection{The GHC LLVM back-end}
 
+The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
+programs throughout it's lifetime. The LLVM provides high-level information 
+to the compilation system during compile-time, run-time and in idle time between
+runs. By creating codegenerators for the virtual instruction set supported by
+LLVM, implementors can take full advantage of its features.
+\cite{lattner2004llvm}
+
+GHC can generate LLVM code from Cmm (C minus minus; is a low-level imperative
+language with an explicit stack). In some cases the 
+LLVM back-end can produce significantly faster code than the traditional route. 
+\cite{marlow2012glasgow, terei2010llvm}
 

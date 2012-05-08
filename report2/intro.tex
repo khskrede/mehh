@@ -18,6 +18,8 @@ in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler)
 as a front-end, we can effectively implement a full Haskell JIT compiler. An 
 interpreter for a language very similar to the intermediate language used
 by GHC was allready implemented, and this is the base for our work.
+Although it is already possible to have JIT compilation with GHC through
+its LLVM backend, the PyPy approach will interpret code at a much higher level.
 
 % What are we doing?
 We focus on implementing a serializer from Haskell to an intermediate
@@ -33,13 +35,27 @@ into Core', and a description of the full compilation system at its current
 state, including the Core' interpreter (Haskell-Python). In addition to this,
 we present a plan for the future development of the system.
 
-
-% Structure of the paper. TODO
-
-
 % Write about the use-cases of laguages like Haskell, and the benefits of 
 % Jit compilation
 
 % + Research blahblah... Just to see if it works well.
 
-
+% Structure of the paper. TODO
+In chapter \ref{chap:back} we present background information, including 
+some terms and concepts and similar work. 
+%
+A description of the 
+Haskell-Python interpreter is given in chapter \ref{chap:hs}.
+%
+Chapter \ref{chap:rewrite} goes into detail regarding the intermediate 
+languages, and the mapping between them.
+%
+In chapter \ref{chap:prims} the Haskell libraries and necessary primitives
+are discussed.
+%
+Chapter \ref{chap:pipe} describes the entire pipeline of the compilation system.
+%
+Chapter \ref{chap:test} describes the test-system used.
+%
+Everything is wrapped up in chapter \ref{chap:conc}, which discusses the 
+results and future work.
