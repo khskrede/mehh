@@ -12,6 +12,7 @@
 \usepackage{rotating}
 \usepackage{appendix}
 \usepackage{amsmath}
+\usepackage{longtable}
 
 \usepackage{color}
 \definecolor{Grey}{rgb}{0.5,0.5,0.5} 
@@ -20,6 +21,8 @@
 % Make margin of captions smaller
 %\usepackage[margin=1cm]{caption}
 
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
 
 % BNF Grammar stuff
 \usepackage{syntax}
@@ -35,7 +38,7 @@
   \parbox{\textwidth}{\colorbox{Gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
 
 \lstset{ %
-%basicstyle=\scriptsize,         % the size of the fonts that are used for the code
+basicstyle=\small,%\scriptsize,         % the size of the fonts that are used for the code
 %basicstyle=\ttfamily,
 %numbers=left,                   % where to put the line-numbers
 %numberstyle=\scriptsize,        % the size of the fonts that are used for the line-numbers
@@ -50,8 +53,8 @@ captionpos=b,                   % sets the caption-position to bottom
 breaklines=true,                % sets automatic line breaking
 breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
 %title=\lstname,			% include title (file name)
-xleftmargin=25pt,
-xrightmargin=15pt,
+xleftmargin=5pt,
+xrightmargin=5pt,
 %framextopmargin=45pt.
 %framexbottommargin=45pt,
 rulecolor=\color{Grey}
@@ -65,7 +68,7 @@ rulecolor=\color{Grey}
 
 \begin{document}
 
-\title{Just-In-Time compilation of\\Haskell using PyPy and GHC}
+\title{Just-In-Time compilation of\\Haskell with PyPy and GHC}
 \author{Knut Halvor Skrede}
 
 \begin{titlepage}
@@ -91,13 +94,14 @@ rulecolor=\color{Grey}
 \input{conclusion.tex}
 %\input{future.tex}
 
-%\clearpage
-%\appendix
-%\appendixpage
-%\input{appendices/notation.tex}
-
 \clearpage
 \bibliographystyle{plain}
 \bibliography{papers}
+
+\clearpage
+\appendix
+\appendixpage
+\input{appendices/core-grammar.tex}
+\input{appendices/jscore-grammar.tex}
 
 \end{document}

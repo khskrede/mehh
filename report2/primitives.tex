@@ -3,42 +3,250 @@
 \chapter{Primitives and Libraries}
 \label{chap:prims}
 
-% TODO: Libraries use language extensions not supported by us...
+
+
+\section{The initial plan}
 
 GHC uses a module called GHC.Prim, located in the ghc-prim package. This
 module is generated automatically from a file called "primops.txt.pp", this file
 contains information about the machine representations of the various types, as
 well as the operations that can be performed on them.
 
-\section{The initial plan}
-
 Initially, it was assumed that it would be trivial to translate the Haskell
-libraries used by GHC into Core. This way, it would only be necessary to implement
-the primitive types and functions.
+libraries used by GHC into External-Core using GHC. This way, it would only 
+be necessary to implement the primitive types and functions.
 
-Unfortunately, this turned out not to be the case. Due to bugs in GHC, it was not 
-possible to generate Core without changing GHC code, and this would be a daunting task.
-Some alternatives was considered;
+The External-Core functionality of GHC has bitrotted, and because of this, it can't be
+used to create External-Core files for all the GHC libraries. This is a GHC bug. 
+Although it produces correct
+External-Core for some Haskell code, it does not for all. Since many crucial library files
+can not be created External-Core for, we can not continue to use this approach.
 
 \section{Our approach}
 
-Why did we choose to go with External-Core ???
+Currently, GHC is used to parse, typecheck, desugar and generate the 
+External-Core representation of our program. By implementing the
+primitive types and library functionality in Python, we are able to
+get some simple programs running.
 
-...
 
 \section{Why it does not work}
 
-Why External-Core did not work for us...
+% TODO: Libraries use Haskell code not supported by the External-Core libraries.
 
-...
+The initial reasoning for using External-Core was as follows;
+it has a clearly defined syntax that is easy to work with, and it was 
+assumed that it was decently supported. Unfortunately, there are bugs in
+the parts of GHC responsible for generating External-Core, this in turn
+results in the fact that we are unable to create External-Core files for the
+necessary libraries.
+
 
 \section{How to fix it}
 
-... Use the GHC API ... Figure out how to compile multiple files with
-the API, how to set language extensions, how to. Using cabal with the API.. 
-Poorly documented...
+% TODO: Should i link to the bugs ???
 
+GHC includes a library, it should be doable to use this library to get
+GHCs own internal Core representation when compiling a file. Using this 
+representation, it should be easy to create a JSCore-like format to use.
+
+However, to do this, the step performing this must be a linked into the
+actual GHC binary, as it is not possible to compile the Base package without
+actually compiling GHC. This is also due to a bug in GHC.
 
 \section{Our current implementation}
 
-How we cheat...
+
+% TODO: Present all library functionaliyt implemented !
+
+Following is a description of some of the most notable implemented library 
+functions.
+
+All the builtin functionality is located in the "toplevel/pyhaskell/builtin/"
+folder. When describing the implementation of a Value or a Function, we note
+the Python file and the Haskell module it refers to.
+
+\subsection{Primitive Values}
+
+A few primitive Value types has been implemented. The ones that are currently
+tested are Char and Int. See listing \ref{lst:int} for an example of a 
+Value implementation. 
+
+% TODO: _immutable_fields_ = ["value"] hit to the translator
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Python class implementing the Haskell Int Value.,
+label=lst:int
+}
+\begin{lstlisting}
+class Int(haskell.Value):
+    _immutable_fields_ = ["value"]
+
+    def __init__(self, integer):
+        assert isinstance(integer, int)
+        self.value = integer
+
+    def match(self, other, subst):
+        value = other.getvalue()
+        if value:
+            assert isinstance(value, Int)
+            if self.value == value.value:
+                return haskell.DEFINITE_MATCH
+            return haskell.NO_MATCH
+        return haskell.NEEDS_HNF
+
+    def __eq__(self, other):
+        return (isinstance(other, Int) and self.value == other.value)
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def tostr(self):
+        return str(self.value)
+\end{lstlisting}
+\end{figure}
+
+\subsection{Lists}
+
+The cons (or, ":") constructor. A constructor is created with the "haskell.constr()"
+function.
+
+A Python-decorator is used to turn a Python function into a Haskell primitive function.
+The decorator "@mod.expose(name, arity)" implemented in the Module class, turns a Python 
+function into a haskell function by creating a PrimFunction and adding it to the 
+variable-dictionary of the "mod" module. See \ref{lst:cons} for an example.
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Implementation of the Haskell ++ (concatenation) operator.,
+label=lst:cons
+}
+
+\begin{lstlisting}
+mod = module.CoreMod("base:GHC.Base")
+
+@mod.expose("++", 2)
+def concatenation(args):
+    def conc(a, b):
+        if len(a.getargs() ) > 1:
+            return haskell.constr(":", a.getarg(0), conc(a.getarg(1), b) )
+        else:
+            return b
+
+    a, b = args
+    t = conc(a,b)
+
+    return t 
+\end{lstlisting}
+\end{figure}
+
+
+The end of a list refors to a "[]" constructor (haskell.constr("[]")).
+
+
+\subsection{unpackCString}
+
+The unpackCString function is implemented simply. \ref{lst:unpack}
+
+
+
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Implementation of the unpackCString function.,
+label=lst:unpack
+}
+
+\begin{lstlisting}
+mod = module.CoreMod("ghc-prim:GHC.CString")
+
+@mod.expose("unpackCString#", 1)
+def unpackCString(args):
+    a = args[0]
+    b = str(a.value)
+    t = types.zmzn 
+    for i in range(len(b)-1, -1, -1):
+        c = haskell.constr( "Czh", Char(b[i]) )
+        t = haskell.constr( ":", c, t )
+    return t 
+\end{lstlisting}
+\end{figure}
+
+
+
+
+ 
+
+\subsection{putStrLn}
+
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Implementation of the putStrLn function.,
+label=lst:put
+}
+
+\begin{lstlisting}
+mod = module.CoreMod("base:System.IO")
+
+@mod.expose("putStrLn", 1)
+def putStrLn(args):
+    t = args[0]
+    while len(t.getargs()) > 1:
+        sys.stdout.write( t.getarg(0).getarg(0).value )
+        t = t.getarg(1)
+    sys.stdout.write("\n")
+    return args[0]
+\end{lstlisting}
+\end{figure}
+
+
+
+
+\subsection{TopHandler}
+
+base:GHC.TopHandler ....
+
+runMainIO ....
+
+wrapper for:
+main ....
+
+\subsection{The Num class}
+
+The Num class implements some generic functions. The ones implemented
+in our Python library is multiplication, subtraction and addition. These
+are pretty much implemented in the same way, so we only present the
+multiplication function as an example here, see listing \ref{lst:mul}.
+Note that the function takes 3 arguments, the first argument 
+(in the fibonacci test case, \$fNumInt) is used to tell the
+generic multiplication function which specific function to use.
+See section \label{subsec:classes} for a description. In our 
+implementation however, the first argument is just an Int that we 
+check against.
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Implementation of the generic multiplication function.,
+label=lst:mul
+}
+
+\begin{lstlisting}
+@mod.expose("*", 3)
+def multiply(args):
+    ty, a, b = args
+    if ty == mod.qvars["$fNumInt"]:
+        return haskell.make_application(izhconstr,
+            [haskell.make_application(prim.multiply, [a.getarg(0), b.getarg(0)])])
+    else:
+        raise NotImplementedError
+\end{lstlisting}
+\end{figure}
+
+

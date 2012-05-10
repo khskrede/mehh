@@ -18,13 +18,12 @@ In the following grammar, the '[' and ']' symbols are used to mean that
 anything between can be repeated, 0 or more times. We use '[' and '$]^+$' to 
 mean that the pattern can be repeated 1 or more times. Non-terminals are 
 written with italic font throughout the paper.
-See figure \ref{coresyn} for the full syntax.
+See figure \ref{gr:coresyn} for the full syntax.
 
-\begin{figure}
+\begin{figure}%[H]
 \centering
 
 \begin{grammar}
-
 <Constructor> ::= const( <Symbol>, [ <Value> ] )
 
 <Function> ::= func( <Name>, [ <Rule> ]$^+$ )
@@ -58,7 +57,7 @@ See figure \ref{coresyn} for the full syntax.
 
 \end{grammar}
 
-\label{coresyn}
+\label{gr:coresyn}
 \caption{Core' syntax}
 \end{figure}
 
@@ -76,6 +75,7 @@ reduced any further.
 
 \subsection{Value}
 A value can be a literal, constructor, or a variable. All values are in WHNF.
+% What about the implementation of low-level types ???
 
 \subsection{Constructor}
 A constructor is just a value, containing other values.

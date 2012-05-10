@@ -26,23 +26,24 @@ set shortmess=aoO
 badd +1 abstract.tex
 badd +230 background.tex
 badd +92 index.tex
-badd +53 intro.tex
-badd +13 rewriting.tex
+badd +44 intro.tex
+badd +175 rewriting.tex
 badd +60 haskell-python.tex
 badd +4 future.tex
-badd +16 conclusion.tex
+badd +15 conclusion.tex
 badd +4 primitives.tex
-badd +167 papers.bib
+badd +28 papers.bib
 badd +1 pipeline.tex
+badd +0 testing.tex
 args abstract.tex background.tex index.tex
-edit intro.tex
+edit testing.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-edit intro.tex
+edit testing.tex
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -144,11 +145,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 44 - ((43 * winheight(0) + 30) / 60)
+let s:l = 1 - ((0 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-44
+1
 normal! 0
 tabnext 1
 if exists('s:wipebuf')

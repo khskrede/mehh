@@ -5,41 +5,69 @@
 
 \section{External-Core and JSCore}
 
-...
+Both External-Core and JSCore are formal definitions of a System $F_C$ syntax.
+The Core language (as it is called in GHC), is a representation used in the 
+simplification phase of compilation. External-Core is an external representation 
+of this language, the point being that researchers can 
+\ref{tolmach2010ghc}
 
-\section{System $F_c$}
+\section{System $F_C$}
 
-... Introduction to System $F_c$
-
+System $F$ is a typed lambda calculus, very popular as an intermediate language
+for functional language compilers. System $F_C$ is a super-set of System $F$ 
+that uses explicit type-equality coercions as witnesses to justify explicit
+type-cast operations. System $F_C$ is currently GHCs intermediate language.
 \cite{sulzmann2007system}
 
+Both types and coercions are eliminated before running the program, so they have
+no operational effect and no run-time cost.
+\cite{sulzmann2007system}
+
+No compilers use a pure System $F$ as its intermediate language as this would
+require very heavy encoding. Most compilers extend System $F$ with algebraic
+data types, data constructors and case Expressions.
+\cite{sulzmann2007system}
+
+Although Cast coercions have no operational effect, they serve to help the
+type system.
+
+\subsection{Classes}
+\label{subsec:classes}
+
+A Haskell type class is generally turned into System $F$ by creating a 
+record type for each class, called a dictionary, containing the class methods.
+Each instance is converted into a dictionary value, and passing such 
+dictionaries to the functions mentioning a class in its signature. 
+\cite{sulzmann2007system}
 
 \subsection{Type erasure}
 
-... Why we don't need kinds.
-
+In System $F_C$, evidence is passed around for type equalities. However,
+since this evidence are represented in the form of types, and types are
+erased before running the program, this evidence has no effect.
+\cite{sulzmann2007system}
 
 \section{Parsing}
 
-In this section, we go through each the tokens in JSCore, and describes
+In this section, we go through each of the constructs of Core, and describe
 how they are converted into Core'.
 
 Since Haskell-Python had no way of dealing with packages and modules, 
 we had to implement a system for this first.
 
-\subsection{Packages}
+\subsection{Packages and Modules}
 
 We don't really deal with packages, GHC handles this for us. Whenever we
 need a module, the package referred to is contained in its name.
-
-\subsection{Modules}
 
 When we parse a module, we create a object of type Module. This object is
 the put in a dictionary, where we can look it up by its full identifier name.
 
 \subsection{The Program}
 
-This sub section describes all the constructs of JSCore, what they are, how we 
+% TODO ! A STACK OF VARIABLES ARE KEPT UP TO DATE !
+
+This sub section describes all the constructs of Core, what they are, how we 
 convert them to Core', and wether or not the conversion is tested.
 
 \subsubsection{Module}
@@ -62,12 +90,18 @@ well as it's name.
        \alt \%newtype <qtycon> <qtycon> <tbind> = <ty>
 \end{grammar}
 
+Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
+visiting its children. (A constructor is created for each constructor definition).
+% What about the type from the ADT ? and newtype ???
 
 \subsubsection{Constructor definitions}
 
 \begin{grammar}
 <cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
 \end{grammar}
+
+When we find a constructor definition, we make a constructor. "qdcon" is the 
+constructors name, and the repeating "aty" values are turned into Core' variables.
 
 \subsubsection{Value definitions}
 
@@ -76,11 +110,22 @@ well as it's name.
        \alt <vdef>
 \end{grammar}
 
+When encountering a recursive value definition, we simply remember that it is
+recursive by adding "True" to a stack. A stack is needed, since Value definitions
+can be non-recursive within a let statement inside the recursive definition. If
+a value-definition is non-recursive, we add "False" to the stack.
+
+When we return from creating the value definitions we pop from the stack to get
+back our initial "recursion" value.
+
 \begin{grammar}
 <vdef> ::= <qvar> :: <ty> = <exp>
 \end{grammar}
 
-\subsubsection{Atomic expressions}
+The actual value definition gets a function from visiting the Expression and adds 
+it to a dictionary with the name of "qvar".
+
+\subsubsection{Atomic Expressions}
 
 \begin{grammar}
 <aexp> ::= <qvar>
@@ -89,20 +134,48 @@ well as it's name.
       \alt ( <exp> )
 \end{grammar}
 
+When encountering an Atomic Expression in the form of a variable or data constructor, 
+we simply look them up in the module and variable/data constructor dictionaries.
+
+When encountering a literal, we create a new literal value, and when encountering an
+Expression, we visit and return the expression.
+
 \subsubsection{Expression}
 
 \begin{grammar}
 <exp> ::= <aexp>
      \alt <aexp> \{ <arg> \}
      \alt \textbackslash \{ <binder> \} -$>$ <exp>
-     \alt \%let 
-     \alt \%case
-     \alt \%cast
-     \alt \%note
+     \alt \%let <vdefg> \%in <exp>
+     \alt \%case (<aty>) <exp> \%of <vbind> \{<alt> \{ ; <alt> \}  \}
+     \alt \%cast <exp> <aty>
+     \alt \%note " \{ <char> \} " <exp>
      \alt \%external ccall " \{ <char> " \} <aty>
      \alt \%dynexternal ccall <aty>
-     \alt \%label \{ <char> \}
+     \alt \%label " \{ <char> \} "
 \end{grammar}
+
+When encountering an Atomic Expression without arguments, we simply visit and return
+it. When finding an Atomic Expression with arguments, we make a PartialApp object.
+A PartialApp object is simply a temporary object that contains the Expression and the
+argument. If the arity of the Expression equals the number of arguments it is turned
+into a normal Core' function application.
+
+The lambda abstraction is simply turned into a function.
+
+The let statement simply stores the current recursion variable, and restores it after
+visiting its value definition. Note that the let statement is not yet properly tested.
+
+The case statement is the most complicated of all the statements in the Core language.
+When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
+is in turn applied to the function. Note that, since the only variables that are in
+scope in a functions rules, is the pattern it matches against, we need to pass all 
+variables downwards from the top Expression.
+
+The note, external c-call, dynamic external c-call and label statements are currently
+not implemented or tested. However, some functionality for implementing them have been
+created, including a function turning a arrow-type Expression into a low-level list
+of types for interfacing with C.
 
 \subsubsection{Argument}
 
@@ -110,6 +183,9 @@ well as it's name.
 <arg> ::= @ <aty>
      \alt <aexp>
 \end{grammar}
+
+The type arguments have no operational effect, and are ignored by our parser.
+The Atomic Expression simply finds the referenced expression and returns it.
 
 \subsubsection{Case alternative}
 
@@ -119,12 +195,21 @@ well as it's name.
      \alt \%\_ -$>$ <exp>
 \end{grammar}
 
+The case alternatives all return a pair of pattern-list and Expression. The
+data constructor alternative returns a list with a single constructor element and
+the Expression. The literal alternative simply returns a Value object and the 
+Expression it matches against. The default alternative returns a newly created
+Variable and the Expression it matches for.
+
 \subsubsection{Binder}
 
 \begin{grammar}
 <binder> ::= @ <tbind>
         \alt <vbind>
 \end{grammar}
+
+The type binder has no operational effect and is ignored by our parser. The 
+value binder simply visits its child and returns it.
 
 \subsubsection{Type binder}
 
@@ -133,11 +218,15 @@ well as it's name.
        \alt ( tyvar :: <kind> )
 \end{grammar}
 
+The type binder is simply ignored.
+
 \subsubsection{Value binder}
 
 \begin{grammar}
 <vbind> ::= ( <var> :: <ty> )
 \end{grammar}
+
+The value binder symply returns a Core' Variable, as Core' does not have Types.
 
 \subsubsection{Literal}
 
@@ -148,6 +237,8 @@ well as it's name.
      \alt ( \{ <char> \} )
 \end{grammar}
 
+The literal returns a Core' Value.
+
 \subsubsection{Atomic type}
 
 \begin{grammar}
@@ -155,6 +246,8 @@ well as it's name.
      \alt <qtycon>
      \alt ( <ty> )
 \end{grammar}
+
+Types have no effect.
 
 \subsubsection{Basic type}
 
@@ -169,6 +262,8 @@ well as it's name.
      \alt \%inst <aty> <aty>
 \end{grammar}
 
+Types have no effect.
+
 \subsubsection{Type}
 
 \begin{grammar}
@@ -176,6 +271,8 @@ well as it's name.
     \alt \%forall \{ <tbind> \} . <ty>
     \alt <bty> -$>$ <ty>
 \end{grammar}
+
+Types have no effect.
 
 \subsubsection{Atomic kind}
 
@@ -187,11 +284,15 @@ well as it's name.
        \alt ( <kind> )
 \end{grammar}
 
+Kinds have no effect.
+
 \subsubsection{Kind}
 
 \begin{grammar}
 <kind> ::= <akind>
       \alt <akind> -$>$ <kind>
 \end{grammar}
+
+Kinds have no effect.
 
 

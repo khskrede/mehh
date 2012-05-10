@@ -1,0 +1,183 @@
+
+\section{Formal definition of External-core}
+\label{coregrammar}
+
+The following semantics is used to define the Core grammar, 
+as seen in \cite{tolmach2010ghc}:
+
+\begin{longtable}{ l c l }
+
+$[$ pat $]$		& :	& optional			\\
+$\{$ pat $\}$		& :	& zero or more repetitions	\\
+$\{$ pat $\}^{+}$	& :	& one or more repetitions	\\
+$pat_{1}|pat_{2}$	& :	& choice			\\
+
+\end{longtable}
+
+\begin{scriptsize}
+\begin{longtable}{ r c l r }
+
+
+\\[0.01in]
+
+\multicolumn{4}{l}{Module}			 \\
+\\[0.01in]
+$module$	& $ \rightarrow $ 	& \%module $mident$ $\{$ $tdefg$ ; $\}$ $\{$ $vdefg$ ; $\}$				&			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type defn.}			 \\
+\\[0.01in]
+$tdefg$ 	& $ \rightarrow $	& \%data $qtycon$ $\{$ $tbind$ $\}$  = $\{$ $[$ $cdef$ $\{$ ; $cdef$ $\}$ $]$ $\}$	& algebraic type	\\
+		& $ | $			& \%newtype $qtycon$ $qtycon$ $\{ tbind \}$ = $ty$					& newtype		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Constr. defn.}			 \\
+\\[0.01in]
+$cdef$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $aty$ $\}^{+}$ 					& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value defn.}			 \\
+\\[0.01in]
+$vdefg$		& $ \rightarrow $	& \%rec $\{$ $vdef$ $\{$ ; $vdef$ $\}$ $\}$						& recursive		\\
+		& $ | $			& $vdef$										& non-recursive		\\
+$vdef$ 		& $ \rightarrow $	& $qvar$ :: $ty$ = $exp$								& 			\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic expr.}			 \\
+\\[0.01in]
+$aexp$		& $ \rightarrow $	& $qvar$										& variable		\\
+		& $ | $			& $qdcon$										& data constructor	\\
+		& $ | $			& $lit$											& literal		\\
+		& $ | $			& ( $exp$ ) 										& nested expr.		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Expression}			 \\
+\\[0.01in]
+$exp$		& $ \rightarrow $	& $aexp$										& atomic expr.		\\
+		& $ | $			& $aexp$ $\{$ $arg$ $\}^{+}$ 								& application		\\
+		& $ | $			& $\backslash$ $\{$ $binder$ $\}$ -$>$ $exp$						& abstraction		\\
+		& $ | $			& \%let	$vdefg$ \%in $exp$								& local definition	\\
+		& $ | $			& \%case ( $aty$ ) $exp$ \%of $vbind$ $\{$ $alt$ $\{$ ; $alt$ $\}$ $\}$			& case expr.		\\
+		& $ | $			& \%cast $exp$ $aty$									& type coercion		\\
+		& $ | $			& \%note "  $\{$ $char$ $\}$ " $exp$							& expression note	\\
+		& $ | $			& \%external ccal " $\{$ $char$ $\}$ " $aty$						& external reference	\\
+		& $ | $			& \%dynexternal ccal $aty$								& external reference (dynamic)	\\
+		& $ | $			& \%label " $\{$ $char$ $\}$ "								& external label	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Argument}			 \\
+\\[0.01in]
+$arg$		& $ \rightarrow $	& @ $aty$										& type argument		\\
+		& $ | $			& $aexp$										& value argument	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Case alt}			 \\
+\\[0.01in]
+$alt$		& $ \rightarrow $	& $qdcon$ $\{$ @ $tbind$ $\}$ $\{$ $vbind$ $\}$ -$>$ $exp$				& constructor alternative \\
+		& $ | $			& $lit$ -$>$ $exp$									& literal alternative 	\\
+		& $ | $			& \%\_ -$>$ $exp$									& default alternative	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Binder}			 \\
+\\[0.01in]
+$binder$	& $ \rightarrow $	& @ $tbind$										& type binder		\\
+		& $ | $			& $vbind$										& value binder		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type binder}			 \\
+\\[0.01in]
+$tbind$		& $ \rightarrow $	& $tyvar$										& implicit of kind * 	\\
+		& $ | $			& ( $tyvar$ :: $kind$ )									& explicitly kinded	\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Value binder}			 \\
+\\[0.01in]
+$vbind$		& $ \rightarrow $	& ( $var$ :: $ty$ )									& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Literal}			 \\
+\\[0.01in]
+$lit$		& $ \rightarrow $	& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ :: $ty$ )						& integer 		\\ 
+		& $ | $			& ( $[$-$]$ $\{$ $digit$ $\}^{+}$ \% $\{$ $digit$ $\}^{+}$ :: $ty$ )			& rational		\\
+		& $ | $			& ( ' $char$ ' :: $ty$ )								& character		\\
+		& $ | $			& ( " $\{$ $char$ $\}$ " :: $ty$ )							& string		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Character}			 \\
+\\[0.01in]
+$char$		& $ \rightarrow $	& \multicolumn{2}{l}{Any ASCII character in range 0x20-0x7E except 0x22, 0x27, 0x5c}			 \\
+		& $ | $			& $\backslash$x $hex$ $hex$								& ASCII code escape sequence \\
+$hex$		& $ \rightarrow $	& 0 $|$ ... $|$ 9 $|$ a $|$ ... f							& \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic type}			 \\
+\\[0.01in]
+$aty$		& $ \rightarrow $	& $tyvar$										& type variable 	\\
+		& $ | $			& $qtycon$										& type constructor	\\
+		& $ | $ 		& ( $ty$ )										& nested type 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Basic type}			 \\
+\\[0.01in]
+$bty$		& $ \rightarrow $	& $aty$											& atomic type		\\
+		& $ | $			& $bty$ $aty$										& type application	\\
+		& $ | $			& \%trans $aty$ $aty$									& transitive coercion 	\\
+		& $ | $			& \%sym	$aty$										& symmetric coercion	\\
+		& $ | $			& \%unsafe $aty$ $aty$									& unsafe coercion	\\
+		& $ | $			& \%left $aty$										& left coercion		\\
+		& $ | $			& \%right $aty$										& right coercion	\\
+		& $ | $			& \%inst $aty$ $aty$									& instantiation coercion \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Type}			 \\
+\\[0.01in]
+$ty$		& $ \rightarrow $	& $bty$											& basic type 		\\
+		& $ | $			& \%forall $\{$ $tbind$ $\}^{+}$ . $ty$							& type abstraction	\\
+		& $ | $			& $bty$ -$>$ $ty$									& arrow type construction \\
+\\[0.01in]
+
+\multicolumn{4}{l}{Atomic kind}			 \\
+\\[0.01in]
+$akind$		& $ \rightarrow $	& $*$											& lifted kind 		\\
+		& $ | $			& \#											& unlifted kind 	\\
+		& $ | $			& ?											& open kind 		\\
+		& $ | $			& $bty$ :=: $bty$									& equality kind 	\\
+		& $ | $			& ( $kind$ ) 										& nested kind 		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Kind}			 \\
+\\[0.01in]
+$kind$		& $ \rightarrow $	& $akind$										& atomic kind		\\
+		& $ | $			& $akind$ -$>$ $kind$									& arrow kind		\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Identifier}			 \\
+\\[0.01in]
+$mident$	& $ \rightarrow $	& $pname$ : $uname$									& module		\\
+$tycon$		& $ \rightarrow $	& $uname$										& type constr.		\\
+$qtycon$	& $ \rightarrow $	& $mident$ . $tycon$									& qualified type constr.\\
+$tyvar$		& $ \rightarrow $	& $lname$										& type variable		\\
+$dcon$		& $ \rightarrow $	& $uname$										& data constr.		\\
+$qdcon$		& $ \rightarrow $	& $mident$ . $dcon$									& qualified data constr.\\
+$var$		& $ \rightarrow $	& $lname$										& variable		\\
+$qvar$		& $ \rightarrow $	& $[$ $mident$ . $]$ $var$								& optionally qualified variable\\
+\\[0.01in]
+
+\multicolumn{4}{l}{Name}			 \\
+\\[0.01in]
+$lname$		& $ \rightarrow $	& $lower$ $\{$ $namechar$ $\}$								& \\
+$uname$		& $ \rightarrow $	& $upper$ $\{$ $namechar$ $\}$								& \\
+$pname$		& $ \rightarrow $	& $\{$ $namechar$ $\}^{+}$								& \\
+$namechar$	& $ \rightarrow $	& $lower$ $|$ $upper$ $|$ $digit$							& \\
+$lower$		& $ \rightarrow $	& a$|$b$|$...$|$z$|$\_									& \\
+$upper$		& $ \rightarrow $	& A$|$B$|$...$|$Z$|$									& \\
+$digit$		& $ \rightarrow $	& 0$|$1$|$...$|$9									& \\
+\\[0.01in]
+
+\caption{Grammar for External-core}
+\label{core}
+
+\end{longtable}
+\end{scriptsize}
+
+
