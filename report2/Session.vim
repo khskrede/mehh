@@ -24,26 +24,30 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 abstract.tex
-badd +230 background.tex
-badd +92 index.tex
-badd +44 intro.tex
-badd +175 rewriting.tex
-badd +60 haskell-python.tex
+badd +2 background.tex
+badd +32 index.tex
+badd +2 intro.tex
+badd +75 rewriting.tex
+badd +59 haskell-python.tex
 badd +4 future.tex
-badd +15 conclusion.tex
-badd +4 primitives.tex
-badd +28 papers.bib
+badd +13 conclusion.tex
+badd +137 primitives.tex
+badd +171 papers.bib
 badd +1 pipeline.tex
-badd +0 testing.tex
+badd +1 testing.tex
+badd +213 implementation.tex
+badd +4 appendices/json-grammar.tex
+badd +159 appendices/jscore-grammar.tex
+badd +39 appendices/core-grammar.tex
 args abstract.tex background.tex index.tex
-edit testing.tex
+edit implementation.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-edit testing.tex
+edit implementation.tex
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -145,11 +149,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 31) / 62)
+let s:l = 213 - ((29 * winheight(0) + 30) / 60)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+213
 normal! 0
 tabnext 1
 if exists('s:wipebuf')

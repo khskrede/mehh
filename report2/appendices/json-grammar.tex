@@ -1,0 +1,60 @@
+
+\chapter{Formal definition of JSON}
+
+\begin{grammar}
+
+<object> ::= \{ \}
+	\alt \{ <members> \}
+
+<members> ::= <pair>
+	\alt <pair> , <members>
+
+<pair> ::= <string> : <value>
+
+<array> ::= [ ]
+	\alt [ <elements> ]
+
+<elements> ::= <value>
+	\alt <vale> , <elements>
+
+<value> ::= <string>
+	\alt <number>
+	\alt <object>
+	\alt <array>
+	\alt true
+	\alt false
+	\alt null
+
+<string> ::= '' ''
+	\alt '' <chars> ''
+
+<chars> ::= <char>
+	\alt <char>, <chars>
+
+<char> ::= Any unicode character except \, or control characters (escaped characters)<>
+
+<number> ::= <int>
+	\alt <int> <frac>
+	\alt <int> <exp>
+	\alt <int> <frac> <exp>
+
+<int> ::= <digit>
+	\alt <digit1-9> <digits>
+	\alt - <digit>
+	\alt - <digit1-9> <digits>
+
+<frac> ::= . <digits>
+
+<exp> ::= <e> <digits>
+
+<digits> ::= <digit>
+	\alt <digit> <digits>
+
+<e> ::=  e
+	\alt e+
+	\alt e-
+	\alt E
+	\alt E+
+	\alt E-
+
+\end{grammar}

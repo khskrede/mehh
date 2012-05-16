@@ -1,61 +1,7 @@
 
 
-\chapter{Primitives and Libraries}
+\section{Primitives and Libraries}
 \label{chap:prims}
-
-
-
-\section{The initial plan}
-
-GHC uses a module called GHC.Prim, located in the ghc-prim package. This
-module is generated automatically from a file called "primops.txt.pp", this file
-contains information about the machine representations of the various types, as
-well as the operations that can be performed on them.
-
-Initially, it was assumed that it would be trivial to translate the Haskell
-libraries used by GHC into External-Core using GHC. This way, it would only 
-be necessary to implement the primitive types and functions.
-
-The External-Core functionality of GHC has bitrotted, and because of this, it can't be
-used to create External-Core files for all the GHC libraries. This is a GHC bug. 
-Although it produces correct
-External-Core for some Haskell code, it does not for all. Since many crucial library files
-can not be created External-Core for, we can not continue to use this approach.
-
-\section{Our approach}
-
-Currently, GHC is used to parse, typecheck, desugar and generate the 
-External-Core representation of our program. By implementing the
-primitive types and library functionality in Python, we are able to
-get some simple programs running.
-
-
-\section{Why it does not work}
-
-% TODO: Libraries use Haskell code not supported by the External-Core libraries.
-
-The initial reasoning for using External-Core was as follows;
-it has a clearly defined syntax that is easy to work with, and it was 
-assumed that it was decently supported. Unfortunately, there are bugs in
-the parts of GHC responsible for generating External-Core, this in turn
-results in the fact that we are unable to create External-Core files for the
-necessary libraries.
-
-
-\section{How to fix it}
-
-% TODO: Should i link to the bugs ???
-
-GHC includes a library, it should be doable to use this library to get
-GHCs own internal Core representation when compiling a file. Using this 
-representation, it should be easy to create a JSCore-like format to use.
-
-However, to do this, the step performing this must be a linked into the
-actual GHC binary, as it is not possible to compile the Base package without
-actually compiling GHC. This is also due to a bug in GHC.
-
-\section{Our current implementation}
-
 
 % TODO: Present all library functionaliyt implemented !
 
@@ -149,10 +95,8 @@ The end of a list refors to a "[]" constructor (haskell.constr("[]")).
 
 \subsection{unpackCString}
 
-The unpackCString function is implemented simply. \ref{lst:unpack}
-
-
-
+The unpackCString function simply takes a 'Addr' object and returns a
+Haskell String. A Haskell String as a linked list of Chars. \ref{lst:unpack}
 
 \begin{figure}[H]
 \lstset{ %
@@ -176,13 +120,10 @@ def unpackCString(args):
 \end{lstlisting}
 \end{figure}
 
-
-
-
- 
-
 \subsection{putStrLn}
 
+The putStrLn function takes a Haskell String and prints the characters in it,
+followed by a 'newline'.
 
 \begin{figure}[H]
 \lstset{ %
@@ -206,17 +147,6 @@ def putStrLn(args):
 \end{figure}
 
 
-
-
-\subsection{TopHandler}
-
-base:GHC.TopHandler ....
-
-runMainIO ....
-
-wrapper for:
-main ....
-
 \subsection{The Num class}
 
 The Num class implements some generic functions. The ones implemented
@@ -226,7 +156,7 @@ multiplication function as an example here, see listing \ref{lst:mul}.
 Note that the function takes 3 arguments, the first argument 
 (in the fibonacci test case, \$fNumInt) is used to tell the
 generic multiplication function which specific function to use.
-See section \label{subsec:classes} for a description. In our 
+See subsection \label{subsec:classes} for a description. In our 
 implementation however, the first argument is just an Int that we 
 check against.
 

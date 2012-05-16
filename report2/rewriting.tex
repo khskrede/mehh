@@ -3,14 +3,6 @@
 \chapter{Core to Core' mapping}
 \label{chap:rewrite}
 
-\section{External-Core and JSCore}
-
-Both External-Core and JSCore are formal definitions of a System $F_C$ syntax.
-The Core language (as it is called in GHC), is a representation used in the 
-simplification phase of compilation. External-Core is an external representation 
-of this language, the point being that researchers can 
-\ref{tolmach2010ghc}
-
 \section{System $F_C$}
 
 System $F$ is a typed lambda calculus, very popular as an intermediate language
@@ -47,6 +39,14 @@ since this evidence are represented in the form of types, and types are
 erased before running the program, this evidence has no effect.
 \cite{sulzmann2007system}
 
+\section{External-Core and JSCore}
+
+Both External-Core and JSCore are formal definitions of a System $F_C$ syntax.
+The Core language (as it is called in GHC), is a representation used in the 
+simplification phase of compilation. External-Core is an external representation 
+of this language, the point being that researchers can 
+\cite{tolmach2010ghc}
+
 \section{Parsing}
 
 In this section, we go through each of the constructs of Core, and describe
@@ -70,10 +70,8 @@ the put in a dictionary, where we can look it up by its full identifier name.
 This sub section describes all the constructs of Core, what they are, how we 
 convert them to Core', and wether or not the conversion is tested.
 
-\subsubsection{Module}
 
-The module construct is represented by the '\%module' keyword, an identifier,
-a list of 'type definitions' and a list of 'value definitions':
+\paragraph{Module}
 
 \begin{grammar}
 <module> ::= \%module <mident> \{ <tdefg> ; \} \{ <vdefg> ; \}
@@ -83,7 +81,7 @@ The module construct directly corresponds to Haskell modules. The module identif
 contains the necessary information of what package and module it belongs to, as
 well as it's name.
 
-\subsubsection{Type definitions}
+\paragraph{Type definitions}
 
 \begin{grammar}
 <tdefg> ::= \%data <qtycon> <tbind> = <cdef>
@@ -94,7 +92,7 @@ Nothing is done when visiting an algebraic datatype definition, rather, it is do
 visiting its children. (A constructor is created for each constructor definition).
 % What about the type from the ADT ? and newtype ???
 
-\subsubsection{Constructor definitions}
+\paragraph{Constructor definitions}
 
 \begin{grammar}
 <cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
@@ -103,7 +101,13 @@ visiting its children. (A constructor is created for each constructor definition
 When we find a constructor definition, we make a constructor. "qdcon" is the 
 constructors name, and the repeating "aty" values are turned into Core' variables.
 
-\subsubsection{Value definitions}
+The Core constructor definitions have the following Core' equivalent:
+
+\begin{grammar}
+<cdef> ::= const( <qdcon>, [ <aty> ]
+\end{grammar}
+
+\paragraph{Value definitions}
 
 \begin{grammar}
 <vdefg> ::= \%rec \{ <vdef> \{ ; <vdef> \} \}
@@ -125,7 +129,11 @@ back our initial "recursion" value.
 The actual value definition gets a function from visiting the Expression and adds 
 it to a dictionary with the name of "qvar".
 
-\subsubsection{Atomic Expressions}
+\begin{grammar}
+<vdef> ::= func( <qvar>, <exp> )
+\end{grammar}
+
+\paragraph{Atomic Expressions}
 
 \begin{grammar}
 <aexp> ::= <qvar>
@@ -140,7 +148,7 @@ we simply look them up in the module and variable/data constructor dictionaries.
 When encountering a literal, we create a new literal value, and when encountering an
 Expression, we visit and return the expression.
 
-\subsubsection{Expression}
+\paragraph{Expression}
 
 \begin{grammar}
 <exp> ::= <aexp>
@@ -177,7 +185,7 @@ not implemented or tested. However, some functionality for implementing them hav
 created, including a function turning a arrow-type Expression into a low-level list
 of types for interfacing with C.
 
-\subsubsection{Argument}
+\paragraph{Argument}
 
 \begin{grammar}
 <arg> ::= @ <aty>
@@ -187,7 +195,7 @@ of types for interfacing with C.
 The type arguments have no operational effect, and are ignored by our parser.
 The Atomic Expression simply finds the referenced expression and returns it.
 
-\subsubsection{Case alternative}
+\paragraph{Case alternative}
 
 \begin{grammar}
 <alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} -$>$ <exp>
@@ -201,7 +209,7 @@ the Expression. The literal alternative simply returns a Value object and the
 Expression it matches against. The default alternative returns a newly created
 Variable and the Expression it matches for.
 
-\subsubsection{Binder}
+\paragraph{Binder}
 
 \begin{grammar}
 <binder> ::= @ <tbind>
@@ -210,25 +218,7 @@ Variable and the Expression it matches for.
 
 The type binder has no operational effect and is ignored by our parser. The 
 value binder simply visits its child and returns it.
-
-\subsubsection{Type binder}
-
-\begin{grammar}
-<tbind> ::= <tyvar>
-       \alt ( tyvar :: <kind> )
-\end{grammar}
-
-The type binder is simply ignored.
-
-\subsubsection{Value binder}
-
-\begin{grammar}
-<vbind> ::= ( <var> :: <ty> )
-\end{grammar}
-
-The value binder symply returns a Core' Variable, as Core' does not have Types.
-
-\subsubsection{Literal}
+\paragraph{Literal}
 
 \begin{grammar}
 <lit> ::= ( [-] \{ <digit> \} :: <ty> )
@@ -239,7 +229,34 @@ The value binder symply returns a Core' Variable, as Core' does not have Types.
 
 The literal returns a Core' Value.
 
-\subsubsection{Atomic type}
+
+\paragraph{Value binder}
+
+\begin{grammar}
+<vbind> ::= ( <var> :: <ty> )
+\end{grammar}
+
+The value binder symply returns a Core' Variable, as Core' does not have Types.
+
+
+\paragraph{Type binder}
+
+\begin{grammar}
+<tbind> ::= <tyvar>
+       \alt ( tyvar :: <kind> )
+\end{grammar}
+
+The type binder is simply ignored.
+
+\paragraph{Other}
+
+External-Core contains a set of other constructs. These are;
+Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
+have no operational effect, and are not tested.
+
+\begin{comment}
+
+\paragraph{Atomic type}
 
 \begin{grammar}
 <aty> ::= <tyvar>
@@ -249,7 +266,7 @@ The literal returns a Core' Value.
 
 Types have no effect.
 
-\subsubsection{Basic type}
+\paragraph{Basic type}
 
 \begin{grammar}
 <bty> ::= <aty>
@@ -264,7 +281,7 @@ Types have no effect.
 
 Types have no effect.
 
-\subsubsection{Type}
+\paragraph{Type}
 
 \begin{grammar}
 <ty> ::= <bty>
@@ -274,7 +291,7 @@ Types have no effect.
 
 Types have no effect.
 
-\subsubsection{Atomic kind}
+\paragraph{Atomic kind}
 
 \begin{grammar}
 <akind> ::= *
@@ -286,7 +303,7 @@ Types have no effect.
 
 Kinds have no effect.
 
-\subsubsection{Kind}
+\paragraph{Kind}
 
 \begin{grammar}
 <kind> ::= <akind>
@@ -295,4 +312,4 @@ Kinds have no effect.
 
 Kinds have no effect.
 
-
+\end{comment}

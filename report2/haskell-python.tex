@@ -4,9 +4,12 @@
 
 % TODO !!! Give credit to the developers !!!
 
-Haskell-Python is an interpreter for a language similar to Core, we call it Core' here.
-This interpreter is the base for our JIT compiler. In this chapter we descripe a 
-syntax and an informal semantics for Core'.
+Haskell-Python\cite{haskellpython}
+is an interpreter for a language similar to Core, we call it Core' here.
+This interpreter is the base for our JIT compiler. In this section we descripe a 
+syntax and an informal semantics for Core', as well as a description of the 
+interpreter.
+
 
 \section{Syntax}
 \label{sec:syntax}
@@ -20,7 +23,7 @@ mean that the pattern can be repeated 1 or more times. Non-terminals are
 written with italic font throughout the paper.
 See figure \ref{gr:coresyn} for the full syntax.
 
-\begin{figure}%[H]
+\begin{figure}[H]
 \centering
 
 \begin{grammar}
@@ -37,13 +40,15 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 <Application> ::= app( <Exp>, [ <Value> ] )
 
-<Literal> ::= lit( <String> )
-	 \alt lit( <Number> )
-	 \alt lit( <Character> )
+<Literal> ::= str( <String> )
+	 \alt num( <Number> )
+	 \alt char( <Character> )
 
 <Value> ::= <Literal>
        \alt <Constructor>
        \alt <Variable>
+
+<Variable> ::= var( <Name> )
 
 <Symbol> ::= An identifier that can be matched against.
 
@@ -57,8 +62,9 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 \end{grammar}
 
-\label{gr:coresyn}
 \caption{Core' syntax}
+\label{gr:coresyn}
+
 \end{figure}
 
 \section{Informal semantics}
@@ -74,42 +80,77 @@ A Core' program is evaluated by reducing the main application to WHNF
 reduced any further.
 
 \subsection{Value}
-A value can be a literal, constructor, or a variable. All values are in WHNF.
+A Value can be a Literal, Constructor, or a Variable. All values are in WHNF.
 % What about the implementation of low-level types ???
 
 \subsection{Constructor}
-A constructor is just a value, containing other values.
+A Constructor is just a Value, containing other Values.
 
 \subsection{Function}
-A function is a named collection of rules. It must contain at least one rule.
+A Function is a named collection of Rules. It must contain at least one Rule.
 
 \subsection{Rule}
-A rule is a list of values, followed by an expression. Note that the only variables
-that are in scope in the expression, are those defined in the list of values.
+A Rule is a list of Values, followed by an Expression. Note that the only Variables
+that are in scope in the Expression, are those defined in the list of Values within 
+the Rule.
 
 \subsection{Expression}
-An expression can be a value, a primitive-function, a function, or an application.
-An expression is in WHNF if it does not contain any unevaluated applications.
+An Expression can be a Value, a Primitive-Function, a Function, or an Application.
+An Expression is in WHNF if it does not contain any unevaluated Applications.
 
 \subsection{Application}
-An application represents the evaluation of a function with variables applied to it.
-An application is not in WHNF.
+An Application represents the evaluation of a function with variables applied to it.
+An Application is not in WHNF.
 
-When the application is evaluated, the arguments are matched against the list of 
-values contained in the list of rules. 
-When the arguments match a rule, the expression contained in this rule is evaluated. 
-The variables in the expression are replaced by the values that matched the same-name
-variables in the value list. Then the expression is evaluated, returning a new value.
+When the Application is evaluated, the arguments are matched against the list of 
+Values contained in the list of Rules. 
+When the arguments match a Rule, the Expression contained in this rule is evaluated. 
+The Variables in the expression are replaced by the values that matched the same-name
+Variables in the Value list. Then the Expression is evaluated, returning a new Value.
 
 \subsection{Literal}
-A literal is a value such as an integer, a string or a character.
+A Literal is a Value such as an integer, a string or a character.
 
+
+
+
+
+\section{Evaluation}
+
+The evaluation of a Core' Application is performed on a stack called the
+todo-stack. All the objects handled by the interpreter has a function called
+step. This function takes the todo-stack as an argument, and performs an
+interpretation step, with the goal of moving the object towards a state
+closer to evaluated. The step-function returns a new Value object and a
+stack object. The todo-stack can grow or shrink, depending on the state of
+the object "stepping".
+
+The todo-stack consists of two types of objects, the UpdateStackElement,
+and the CopyStackElement. 
+
+The CopyStackElement is created by an Applications eval\_after function. The
+eval\_after function is called when an Application is attempted applied, but
+the arguments need to be evaluated first. Alternatively, the eval\_after
+function is called when an Application is evaluated and returns a new
+Application (A higher-order function). 
+
+The step function of the CopyStackElement takes a argument called value,
+and returns a new Application with one of the Applications arguments
+replaced by the value-argument. Or the Applications Function is replaced
+by the value-argument.
+
+The UpdateStackElement contains a Thunk (an unevaluated Application). The
+The step function of the UpdateStackElement returns the Application contained
+in the Thunk, and the next part of the stack (the stack is implemented as a
+linked list).
+
+\begin{comment}
 
 \section{Evaluation}
 
 A Core' program is executed by reducing a main Application to WHNF.
 
-\subsection{The evaluation stack}
+%\subsection{The evaluation stack}
 
 When an Application is evaluated; two things can happen. If it does not contain
 other unevaluated Applications it can be evaluated directly. However, if it does
@@ -118,7 +159,7 @@ arguments are added on top of it, with any Applications turned into a Thunk
 (a suspended evaluation). Evaluation proceeds from the top of the stack.
 untill its unevaluated parts have become evaluated (reduced to WHNF), and the
 Application itself is ready to be evaluated.
-See figure \ref{fig:classdia} for a concept sketch.
+See figure \ref{fig:sketch} for a concept sketch.
 
 %it's unevaluated parts is pushed onto an 
 %evaluation stack. The stack can contain two kinds of elements, a CopyStackElement,
@@ -132,6 +173,31 @@ See figure \ref{fig:classdia} for a concept sketch.
 
 %A Thunk is a suspended evaluation, in effect, an unevaluated function application.
 
+\end{comment}
+
+\section{Example Core' program}
+
+Fibonacci:
+
+\begin{lstlisting}
+func( "fib", [
+	rule( lit(0) = num(1) )
+	rule( lit(1) = num(1) )
+	rule( var(x) = 
+		app( +, [
+				app( fib, [ app( -, [var(x), num(1)] ) ] ), 
+				app( fib, [ app( -. [var(x), num(2)] ) ] )
+			])
+		)
+	])
+\end{lstlisting}
+
+Note that "+" and "-" refers to the primitive implementations of addition 
+and subtraction respectively.
+
+
+\begin{comment}
+
 \section{Implementation}
 
 The description of Haskell-Python can be 
@@ -144,8 +210,7 @@ Programs are represented by a set of Classes; Value, Constructor, Function, Rule
 PrimFunction, Var, Application (Additional classes are created for Constructor
 and Application for various number of arguments through the classes ConstructorN 
 and ApplicationN). The syntax defined in \ref{sec:syntax} corresponds very much
-to the organization of classes in the interpreter. See figure \ref{fig:classdia} 
-for a full class diagram of the interpreter.
+to the organization of classes in the interpreter. 
 
 A Value is a base class for objects in WHNF. A Constructor inherits from Value.
 The Function and PrimFunction also inherits from Value (indirectly 
@@ -195,12 +260,17 @@ The same routine is performed on the new Thunk, until the expression top
 Application can be reduced to a Value. After this, the initial Application
 can also be reduced to a Value.
 }
-\label{fig:classdia}
+\label{fig:sketch}
 
 \end{figure}
 \end{sidewaysfigure}
 
+\end{comment}
+
 \section{Extensions}
+
+This project involved extending Haskell-Python to a Haskell interpreter 
+through the use of GHC.
 
 \subsection{GHC usage}
 
@@ -208,9 +278,9 @@ can also be reduced to a Value.
 
 By using GHC to compile the Haskell programs and dump its intermediate
 format to a file, we can effectively turn Haskell-Python into a full
-Haskell compiler. However, the format dumped by GHC is external-core.
+Haskell compiler. However, the format dumped by GHC is External-Core.
 
-We turn external-core into JSCore with a Haskell program called core2js.
+We turn External-Core into JSCore with a Haskell program called "core2js".
 JSCore is a JSON compliant representation of external-core. This means that
 we can parse JSON and get a representation we can easily traverse when building
 the AST (Abstract Syntax Tree) for the Core' interpreter.
@@ -227,17 +297,18 @@ module hierarchy used by GHC.
 
 % TODO
 
-The parser is implemented using some of the native PyPy tools. A simple 
+The parser is implemented using some of the PyPy parsing tools. A simple 
 JSON grammar is described in EBNF form in a Python string. This string
-is den parsed by the PyPy tool and a parser is created. by traversing the
-resulting datastructure, we build the AST for the interpreter. See chapter 
-\ref{chap:rewrite} for a detailed description of the parser and the 
-Core to Core' mapping.
+is then parsed by the PyPy tool and a parser is created. By using this JSON
+parser and traversing the resulting datastructure, we build the AST for the 
+interpreter. See section \ref{chap:rewrite} for a detailed description of 
+the parser and the Core to Core' mapping.
 
 \subsection{Primitives}
 
 % TODO
 The Primitive values extend the Value class. Primitive functions handle
 these values.
-See chapter \ref{chap:prims} for a more in-depth discussion of the
+See section \ref{chap:prims} for a more in-depth discussion of the
 library and primitives.
+

@@ -28,8 +28,8 @@
 \usepackage{syntax}
 \newdimen\grammarindent
 \grammarindent10em
-\renewcommand{\syntleft}{\normalfont\itshape}
-\renewcommand{\syntright}{}
+%\renewcommand{\syntleft}{\normalfont\itshape}
+%\renewcommand{\syntright}{}
 
 % Listings stuff
 \usepackage{xcolor}
@@ -76,22 +76,38 @@ rulecolor=\color{Grey}
 \end{titlepage}
 
 \input{abstract.tex}
+\clearpage
+\input{preface.tex}
+\clearpage
 
 \tableofcontents
 %\clearpage
 %\listoffigures
 %\listoftables
 %\clearpage
+\clearpage
 
 \input{intro.tex}
+\clearpage
 \input{background.tex}
+\clearpage
 %\input{core.tex}
+%\clearpage
+
 \input{haskell-python.tex}
+\clearpage
 \input{rewriting.tex}
-\input{primitives.tex}
+\clearpage
+\input{implementation.tex}
+\clearpage
+%\input{primitives.tex}
+%\clearpage
 \input{pipeline.tex}
+\clearpage
 \input{testing.tex}
+\clearpage
 \input{conclusion.tex}
+\clearpage
 %\input{future.tex}
 
 \clearpage
@@ -103,5 +119,6 @@ rulecolor=\color{Grey}
 \appendixpage
 \input{appendices/core-grammar.tex}
 \input{appendices/jscore-grammar.tex}
+\input{appendices/json-grammar.tex}
 
 \end{document}
