@@ -15,11 +15,32 @@ called "pyhaskell".
 
 \section{Pyhaskell toplevel}
 
+
 \subsection{main}
+
+"main.py" is the entrypoint of the compilation system. It defines
+the target for the RPython translation tool, imports the \emph{builtin}
+functionality and 
 
 \subsection{makegraph}
 
 \subsection{runtests}
+
+
+
+\begin{sidewaysfigure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textheight]{../diags/overview.pdf}
+
+\caption{Overview of source tree}
+\label{fig:overview}
+
+\end{figure}
+\end{sidewaysfigure}
+
+
+
 
 \section{Interpreter}
 
@@ -123,6 +144,20 @@ simply a wrapper for the \emph{main\_loop function}
 
 \end{itemize}
 
+
+\begin{sidewaysfigure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textheight]{../diags/core-interp.pdf}
+
+\caption{Haskell-Python class diagram}
+\label{fig:coreinterp}
+
+\end{figure}
+\end{sidewaysfigure}
+
+
+
 \subsection{primtypes}
 
 The file "primtypes.py" in the folder "interpreter" contains the primitive types
@@ -194,23 +229,27 @@ it is at once added to the list of Haskell Modules.
 
 \subsection{jscparser}
 
-The file "jscparser.py" in the "interpreter" folder contains the parser code. This
-code is responsible for loading JSCore files, and creating the AST based on the
-interpreter and module-system implementations.
+The file "jscparser.py" in the "interpreter" folder contains the parser code. 
+This code is responsible for loading JSCore files, and creating the AST based 
+on the interpreter and module-system implementations.
 
-The parser implementation takes advantage of some of the parsing tools available from
-the PyPy codebase. By creating a EBNF grammar for JSON, and giving it to a function
-called \emph{parse\_ebnf}, a JSON parser is created.
+The parser implementation takes advantage of some of the parsing tools 
+available from
+the PyPy codebase. By creating a EBNF grammar for JSON, and giving it to a 
+function called \emph{parse\_ebnf}, a JSON parser is created.
 
-The resulting parser is a base class called \emph{RPythonVisitor}. The RPythonVisitor
-class implements \emph{visit} functions for the constructs created by the EBNF grammar.
-For JSON this becomes \emph{visit\_object}, \emph{visit\_number} etc.
+The resulting parser is a base class called \emph{RPythonVisitor}. The 
+RPythonVisitor
+class implements \emph{visit} functions for the constructs created by the 
+EBNF grammar. For JSON this becomes \emph{visit\_object}, 
+\emph{visit\_number} etc.
 
-The result of this is that we have a set of functions that get called when visiting
-JSON constructs. Since JSCore is a description of External-Core compatible with
-JSON this lets us parse the Core programs by branching on the visitor functions.
+The result of this is that we have a set of functions that get called when 
+visiting JSON constructs. Since JSCore is a description of External-Core 
+compatible with JSON this lets us parse the Core programs by branching 
+on the visitor functions.
 
-
+\subsubsection{Module}
 
 
 \section{Builtin}
@@ -220,28 +259,4 @@ JSON this lets us parse the Core programs by branching on the visitor functions.
 \section{GHC modules}
 
 \section{Tests}
-
-\begin{sidewaysfigure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textheight]{../diags/overview.pdf}
-
-\caption{Overview of source tree}
-\label{fig:overview}
-
-\end{figure}
-\end{sidewaysfigure}
-
-
-\begin{sidewaysfigure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textheight]{../diags/core-interp.pdf}
-
-\caption{Haskell-Python class diagram}
-\label{fig:coreinterp}
-
-\end{figure}
-\end{sidewaysfigure}
-
 
