@@ -8,6 +8,7 @@ map <silent> <F3> :call BufferList()
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set backspace=indent,eol,start
+set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set hidden
@@ -15,10 +16,11 @@ set history=50
 set mouse=a
 set ruler
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set tabstop=4
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/documents/project/repos/mehh/report2
+cd ~/documents/repos/mehh/report2
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -149,7 +151,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 213 - ((29 * winheight(0) + 30) / 60)
+let s:l = 213 - ((0 * winheight(0) + 33) / 67)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

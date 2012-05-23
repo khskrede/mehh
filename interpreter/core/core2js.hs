@@ -18,7 +18,7 @@ import Control.Monad.State.Strict
 -- IO utilities
 
 import System.IO
-import System                       ( getArgs )
+import System.Environment                       ( getArgs )
 
 -- JSON utilities
 
