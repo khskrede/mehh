@@ -3,7 +3,25 @@
 \chapter{Core to Core' mapping}
 \label{chap:rewrite}
 
-\section{System $F_C$}
+
+\section{Core}
+
+\subsection{External representation}
+
+The Core language is an intermediate language used by GHC. External-Core
+is an external representation of this language. See appendix 
+\ref{coregrammar} for a formal grammar of External-Core. For this project,
+another format was defined, called JSCore. JSCore is a version of Core
+very similar to External-Core, except that it is also in JSON format. 
+See appendix \ref{jsongrammar} for a formal definition of JSON, and 
+appendix \ref{jscoregrammar} for a formal definition of JSCore. This
+chapter discusses how JSCore is parsed and turned into Core'. The Core
+language is referred to as System $F_C$ when discussing it's theory.
+Following is a short discussion of System $F_C$ and some of it's 
+properties that are relevant to this discussion.
+
+
+\subsection{System $F_C$}
 
 System $F$ is a typed lambda calculus, very popular as an intermediate language
 for functional language compilers. System $F_C$ is a super-set of System $F$ 
@@ -23,7 +41,7 @@ data types, data constructors and case Expressions.
 Although Cast coercions have no operational effect, they serve to help the
 type system.
 
-\subsection{Classes}
+\subsubsection{Classes}
 \label{subsec:classes}
 
 A Haskell type class is generally turned into System $F$ by creating a 
@@ -32,36 +50,354 @@ Each instance is converted into a dictionary value, and passing such
 dictionaries to the functions mentioning a class in its signature. 
 \cite{sulzmann2007system}
 
-\subsection{Type erasure}
+\subsubsection{Type erasure}
 
 In System $F_C$, evidence is passed around for type equalities. However,
 since this evidence are represented in the form of types, and types are
 erased before running the program, this evidence has no effect.
 \cite{sulzmann2007system}
 
-\section{External-Core and JSCore}
-
-Both External-Core and JSCore are formal definitions of a System $F_C$ syntax.
-The Core language (as it is called in GHC), is a representation used in the 
-simplification phase of compilation. External-Core is an external representation 
-of this language, the point being that researchers can 
-\cite{tolmach2010ghc}
 
 \section{Parsing}
 
-In this section, we go through each of the constructs of Core, and describe
-how they are converted into Core'.
+In this section, we go through some of the most notable constructs of JSCore and
+describe how they are rewritten to Core'. To do this, we focus on some examples of
+JSCore pseudo code. For practical reasons, the example code is not real code, as the
+generated JSCore code tends to be too large.
 
-Since Haskell-Python had no way of dealing with packages and modules, 
-we had to implement a system for this first.
+We define the function $ToCore'(stack, construct)$ to take a stack of variables and 
+a piece of JSCore code and turn it into Core' code.
 
-\subsection{Packages and Modules}
+
+\subsection{Packages, Modules and Definitions}
 
 We don't really deal with packages, GHC handles this for us. Whenever we
 need a module, the package referred to is contained in its name.
 
 When we parse a module, we create a object of type Module. This object is
-the put in a dictionary, where we can look it up by its full identifier name.
+then put in a dictionary, where we can look it up by its full identifier name.
+In turn, the module contains dictionaries of all the definitions defined in it.
+
+So, the function "$ToCore'$(stack, {"aexp": ["ghc-prim:GHC.Types"], [Int]} )" will
+return the function placed under the name "Int" in the module "GHC.Types". And 
+the function "$ToCore'$(stack, {"qvar": "func1", "ty": ..., "exp": exp } )" will
+put the result of parsing "exp" in the module being parsed under the name "func1".
+
+\subsection{Lambda abstraction}
+
+In the following example, the names "sometype" and "anexpression" refers to a 
+type constructor and an expression in JSCore format respectively.
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=Python class implementing the Haskell Int Value.,
+label=lst:int1
+}
+\begin{lstlisting}
+{"lambda" : {"vbind" : "var1", "ty" : {"qtycon" : "sometype"} }
+ "exp" : anexpression }
+\end{lstlisting}
+\end{figure}
+
+A lambda abstraction is defined as a JSON object containing two pairs, namely 
+"lambda" and "exp". The "lambda" pair defines a variable that is in scope in the
+expression contained in the "exp" pair.
+
+Since the Core' expressions contained in Core' functions only have variables in 
+scope that are declared in the function, we keep a stack of variables as we traverse
+the JSCore program. When we encounter this specific lambda abstraction, the variable
+"var1" is added to the stack, and the expression is turned into the following Core' code. 
+Note that the variable-stack is used by our $ToCore'()$ function, and when
+the function returns, the new variable is popped from the stack.
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=Lambda abstraction in Core' format,
+label=lst:int1
+}
+\begin{lstlisting}
+func( "name", [
+    rule(stack:var1 , ToCore'(stack:var1, anexpression) )
+])
+\end{lstlisting}
+\end{figure}
+
+Also note that the "sometype" placeholder is not used, as variables in Core' does
+not have a type. If the "anexpression" placeholder is also a lambda-abstraction, the
+expression simply becomes:
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=Lambda abstraction in Core' format,
+label=lst:int1
+}
+\begin{lstlisting}
+ToCore'(stack:var1, anexpression)
+\end{lstlisting}
+\end{figure}
+
+Which becomes:
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=Lambda abstraction in Core' format,
+label=lst:int1
+}
+\begin{lstlisting}
+func( "name", [
+    rule(stack:var1:var2 , ToCore'(stack:var1:var2, subexpression) )
+])
+\end{lstlisting}
+\end{figure}
+
+where "subexpression" is a placeholder for the JSCore expression contained in the 
+lambda-abstraction of "anexpression".
+
+
+\subsection{Case expressions and alternatives}
+
+The most complicated construct in Core is the case-expression. A case-expression
+in Core can contain three different types of alternatives. A literal alternative,
+a constructor alternative or a default alternative. 
+
+Following is an excerpt from appendix \ref{jscoregrammar} defining the syntax 
+of case expressions.
+
+\begin{figure}[H]
+\scriptsize
+\begin{grammar}
+
+<exp>		  ::= 	 \{ ''\%case'' : <aty> , ''exp'' : <exp> , ''\%of'' : <vbind>, ''alt'' : [ <alt> ]$^{+}$ \}	
+
+<alt>		  ::= 	 \{ ''qdcon'' : <qdcon> , ''tbind'' : [ <tbind> ] , ''vbind'' : [ <vbind> ] , ''exp'' : <exp> \}
+		  \alt 			 \{ ''lit'' : <lit> , ''exp'' : <exp> \}
+		  \alt 			 \{ ''\%\_'' : <exp> \}	
+\end{grammar}
+
+\label{caseexpr}
+\caption{Excerpt from appendix \ref{jscoregrammar} defining the sytax of case expressions}
+\end{figure}
+
+The expression following the "exp" keyword in the case defintition is the scrutinee. This
+is usually just a variable declared in a lambda expression at a higher level.
+The scrutinee ("exp") is to be bound to the variable following the "\%of" keyword.
+This is simply done by replacing all instances of the variable following the "\%of" keyword
+by the scrutinee.
+
+The constructor alternative is used both as an ordinary case alternative, but it is
+also used to simply deconstruct constructors. Since a Haskell Int is simply a data
+constructor with name "I\#" and a value of type "Int\#", one case expression is used 
+to deconstructo the "Int" value and one is used to match on the actual "Int\#" literals.
+
+
+Following is a piece of JSCore pseudo-code that does this. 
+The names "type1", "type2", "type3", "type4", "type5" refers to some JSCore types. 
+The names "exp1", "exp2", "exp3" refer to some JSCore expressions. And "lit1", "lit2" refer
+to some JSCore literals.
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=JSCore case expression,
+label=lst:int1
+}
+\begin{lstlisting}
+{"%case": type1,
+ "exp": {"qvar": "var1"},
+ "%of": {"var": "var2", "ty": type2 },
+ "alt": [ {"qdcon": constr1,
+           "tbind": [],
+           "vbind": [{"var": "var3", "ty": type3 }],
+           "exp": {"%case": type4 },
+                   "exp": {"qvar": "var3"},
+                   "%of": {"var": "var4", "ty": type5},
+                   "alt": [{"%_": exp1}
+                           {"lit": lit1, "exp": exp2) }
+                           {"lit": lit2, "exp": exp3) }}]}]}
+
+
+
+\end{lstlisting}
+\end{figure}
+
+This JSCore code is rewritten to something like the following:
+
+\begin{figure}[H]
+\lstset{ %
+language=Haskell,
+caption=JSCore case expression in Core',
+label=lst:int1
+}
+\begin{lstlisting}
+func("case", [
+    rule( const( "constr1", var3 ):stack ,
+        func("case", [  
+            rule( lit1:stack:var3 ,  ToCore'(stack:var3, exp1))
+            rule( lit2:stack:var3 ,  ToCore'(stack:var3, exp2))
+            rule( var(_):stack:var3 , ToCore'(stack:var3, exp3))
+        ])
+    )
+])
+\end{lstlisting}
+\end{figure}
+
+Note that "var1" has allready
+been appended to the stack, most likely by a lambda abstraction. However, the constructor
+alternative declares a new variable that must be appended on the stack.
+
+And the "typeN" constructs have no place in the resulting Core'.
+
+\subsection{Other}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Module}
+
+The module construct directly corresponds to Haskell modules. The module identifier
+contains the necessary information of what package and module it belongs to, as
+well as it's name.
+
+\subsubsection{Type definitions}
+
+
+Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
+visiting its children. (A constructor is created for each constructor definition).
+% What about the type from the ADT ? and newtype ???
+
+\subsubsection{Constructor definitions}
+
+When we find a constructor definition, we make a constructor. "qdcon" is the 
+constructors name, and the repeating "aty" values are turned into Core' variables.
+
+The Core constructor definitions have the following Core' equivalent:
+
+\subsubsection{Value definitions}
+
+When encountering a recursive value definition, we simply remember that it is
+recursive by adding "True" to a stack. A stack is needed, since Value definitions
+can be non-recursive within a let statement inside the recursive definition. If
+a value-definition is non-recursive, we add "False" to the stack.
+
+When we return from creating the value definitions we pop from the stack to get
+back our initial "recursion" value.
+
+The actual value definition gets a function from visiting the Expression and adds 
+it to a dictionary with the name of "qvar".
+
+\subsubsection{Atomic Expressions}
+
+When encountering an Atomic Expression in the form of a variable or data constructor, 
+we simply look them up in the module and variable/data constructor dictionaries.
+
+When encountering a literal, we create a new literal value, and when encountering an
+Expression, we visit and return the expression.
+
+\subsubsection{Expression}
+
+When encountering an Atomic Expression without arguments, we simply visit and return
+it. When finding an Atomic Expression with arguments, we make a PartialApp object.
+A PartialApp object is simply a temporary object that contains the Expression and the
+argument. If the arity of the Expression equals the number of arguments it is turned
+into a normal Core' function application.
+
+The lambda abstraction is simply turned into a function.
+
+The let statement simply stores the current recursion variable, and restores it after
+visiting its value definition. Note that the let statement is not yet properly tested.
+
+The case statement is the most complicated of all the statements in the Core language.
+When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
+is in turn applied to the function. Note that, since the only variables that are in
+scope in a functions rules, is the pattern it matches against, we need to pass all 
+variables downwards from the top Expression.
+
+The note, external c-call, dynamic external c-call and label statements are currently
+not implemented or tested. However, some functionality for implementing them have been
+created, including a function turning a arrow-type Expression into a low-level list
+of types for interfacing with C.
+
+\subsubsection{Argument}
+
+The type arguments have no operational effect, and are ignored by our parser.
+The Atomic Expression simply finds the referenced expression and returns it.
+
+\subsubsection{Case alternative}
+
+The case alternatives all return a pair of pattern-list and Expression. The
+data constructor alternative returns a list with a single constructor element and
+the Expression. The literal alternative simply returns a Value object and the 
+Expression it matches against. The default alternative returns a newly created
+Variable and the Expression it matches for.
+
+\subsubsection{Binder}
+
+The type binder has no operational effect and is ignored by our parser. The 
+value binder simply visits its child and returns it.
+\subsubsection{Literal}
+
+The literal returns a Core' Value.
+
+
+\subsubsection{Value binder}
+
+The value binder symply returns a Core' Variable, as Core' does not have Types.
+
+
+\subsubsection{Type binder}
+
+The type binder is simply ignored.
+
+\subsubsection{The others}
+
+External-Core contains a set of other constructs. These are;
+Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
+have no operational effect, and are not tested.
+
+\begin{comment}
+\subsubsection{Atomic type}
+
+Types have no effect.
+
+\subsubsection{Basic type}
+
+Types have no effect.
+
+\subsubsection{Type}
+
+Types have no effect.
+
+\subsubsection{Atomic kind}
+
+Kinds have no effect.
+
+\subsubsection{Kind}
+
+Kinds have no effect.
+\end{comment}
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
 
 \subsection{The Program}
 
@@ -254,7 +590,6 @@ External-Core contains a set of other constructs. These are;
 Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
 have no operational effect, and are not tested.
 
-\begin{comment}
 
 \paragraph{Atomic type}
 
@@ -313,3 +648,4 @@ Kinds have no effect.
 Kinds have no effect.
 
 \end{comment}
+

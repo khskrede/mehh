@@ -1,5 +1,5 @@
 
-\documentclass{book}
+\documentclass[12pt]{book}
 
 \usepackage{verbatim}
 \usepackage{cite}
@@ -30,6 +30,10 @@
 \grammarindent10em
 %\renewcommand{\syntleft}{\normalfont\itshape}
 %\renewcommand{\syntright}{}
+\renewcommand{\sdsize}{%
+\scriptsize%
+}
+
 
 % Listings stuff
 \usepackage{xcolor}
@@ -38,7 +42,7 @@
   \parbox{\textwidth}{\colorbox{Gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
 
 \lstset{ %
-basicstyle=\small,%\scriptsize,         % the size of the fonts that are used for the code
+basicstyle=\scriptsize,         % the size of the fonts that are used for the code
 %basicstyle=\ttfamily,
 %numbers=left,                   % where to put the line-numbers
 %numberstyle=\scriptsize,        % the size of the fonts that are used for the line-numbers
