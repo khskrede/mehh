@@ -3,10 +3,44 @@
 \label{chap:conc}
 
 
+\section{Serializing and Deserializing}
+
+The current situation regarding the serialization of Haskell programs into 
+the JSCore format have several problems. It is dependent on a buggy part of GHC, 
+and on a poorly maintained package (extcore). The result of these bugs is that
+GHC exits with a panic-error when compiling some Haskell modules. And this in
+turn, means that we have been unable to create JSCore for the GHC boot libraries.
+
+Currently, the libraries necessary to run some simple Haskell programs have been
+implemented at a high level in Python. This implementation is not "correctly"
+implemented with regard to the Haskell language, but it is sufficient in order
+to test some simple programs.
+
+Some alternative methods have been investigated as solutions for this problem,
+including the use of the Cabal (Haskell package system) API in collaboration
+with the GHC API in order to create the JSCore files. However, Cabal interface
+with GHC through command line arguments. 
+It was also attempted to create the necessary functionality using just the GHC
+API, however this also turned out to be problematic. Though it now seems like
+this is the best way to move forward. By using the main module as the base for
+the serializer, it should be possible to interface with the build-system
+exactly like GHC does. This would mean that it would be possible to write a
+fairly simple Haskell function to dump the intermediate format used by GHC
+to JSCore, and since this program would function exactly like GHC, anything 
+would be possible to compile using it.
+
+The deserialization should not change much, as the JSCore intermediate format
+would not have to change very much. If anything, the JSCore format can be
+simplified, and made to match better against Core and System $F_C$ than
+External-Core does. It is however, necessary to improve the serialization
+functionality before the deserialization can be improved much as the programs
+that can be serialized is of little complexity, and therefore does not test
+very much.
 
 
 
 
+\begin{comment}
 
 \section{Primitives and Libraries}
 
@@ -104,4 +138,4 @@ current buildsystems into our program. This information includes:
 
 \end{itemize}
 
-
+\end{comment}
