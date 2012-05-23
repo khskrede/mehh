@@ -15,16 +15,20 @@ called "pyhaskell".
 
 \section{Pyhaskell toplevel}
 
-
-\subsection{main}
+The toplevel of the source tree contains 3 main programs. "main.py",
+"makegraph.py" and "runtests.py".
 
 "main.py" is the entrypoint of the compilation system. It defines
 the target for the RPython translation tool, imports the \emph{builtin}
-functionality and 
+functionality and the main function begins the interpretation of the
+JSCore program.
 
-\subsection{makegraph}
+The program "makegraph.py" contains a JSON parser and dumps the resulting
+JSON tokens to a dot file in order to generate a graph using graphviz.
 
-\subsection{runtests}
+The "runtests.py" program contains a program that executes all the programs
+in the "test/" subfolder and the prints the result of the tests.
+
 
 
 
@@ -249,8 +253,6 @@ visiting JSON constructs. Since JSCore is a description of External-Core
 compatible with JSON this lets us parse the Core programs by branching 
 on the visitor functions.
 
-\subsubsection{Module}
-
 
 \subsubsection{Algebraic type definition}
 
@@ -300,9 +302,135 @@ Constructor alternative
 
 \section{Builtin}
 
+The "builtin/" folder contains all the Haskell library functionality that
+have been implemented in Python. Most of this functionality should have been
+stored in the subfolder "ghc\_modules" as JSCore files. However, due to some 
+issues that are discussed in conclusions and future work, this is not currently
+the case.
+
+As an example, the file "num.py" contains the implementation for the generic
+Num class. Listing \ref{lst:zmnum} contains the implementation for the
+generic minus function. Currently it only supports the Int type. Note that
+it takes three arguments, the first argument is used to resolve which 
+function actually implements the minus function, and the other two are the
+arguments for this function.
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Python class implementing the Haskell Int Value.,
+label=lst:zmnum
+}
+\begin{lstlisting}
+@haskell.expose_primitive(3)
+def zm( args ):
+    ty = args[0]
+    a = args[1]
+    b = args[2]
+
+    if ty == mod.qvars["$fNumInt"]:
+        return haskell.make_partial_app(izhconstr,
+            [haskell.make_partial_app(prim.zmzh, [a.getarg(0), b.getarg(0)])])
+    else:
+        raise NotImplementedError
+
+mod.qvars["-"] = zm
+\end{lstlisting}
+\end{figure}
+
+
+
 \section{Core}
+
+The "core/" folder contains the Haskell program responsible of generating the
+JSCore intermediate format. This program is called "core2js". Currently, the
+program uses the External-Core parser from the "extcore" Haskell package and
+the JSON package to read the Haskell file in External-Core format and dump it
+in JSCore format.
 
 \section{GHC modules}
 
+The folder "ghc\_modules" contain the GHC boot libraries. And a script that 
+takes all these Haskell modules and uses GHC to create External-Core files
+using the "-fext-core" flag and "core2js" to create JSCore files from the 
+resulting External-Core files.
+
+The GHC library files are organized exactly as in the GHC source tree. Each
+folder in the "libraries/" directory corresponds to a Haskell package. These
+packages contain the Haskell modules. E.g. the module "GHC.Tuple" is located
+in "ghc-prim/GHC/Tuple.hs".
+
 \section{Tests}
 
+The "test/" directory contains one subdirectory for each test. The
+subdirectories contain a single Haskell file with the same name as the
+subdirectory (other files are created and put in the directory when running
+the test). E.g. the test "fibonacci" is located in the following path:
+"test/fibonacci/fibonacci.hs" and after running the test the "fibonacci/"
+folder should contain the additional files; "factorial.hcr", "factorial.hi",
+"factorial.o" and "factorial.hcj". ".hcj" is the extension used for JSCore
+files.
+
+
+\begin{comment}
+
+\section{Pipeline}
+\label{chap:pipe}
+
+This section contains a description of the pipeline currently implemented.
+
+\subsection{Haskell to extcore}
+
+When running a Haskell file using this system, the file is first processed
+by GHC.
+
+\subsection{Extcore to JSCore}
+
+\begin{itemize}
+\item extcore
+\item linkcore ?
+\end{itemize}
+
+\subsection{JSCore to Core'}
+
+\subsection{Parsing and interpretation}
+
+
+
+
+
+\section{Testing}
+\label{chap:test}
+
+\subsection{Current testing of interpreter}
+
+The current testing used on the project is done by a python-script that performs
+the following actions:
+
+\begin{itemize}
+
+\item For all folders in folder 'test':
+
+\begin{itemize}
+
+\item Compile haskell program with GHC and dumping to external-core
+
+\item Run the core2js program on resulting external-core file
+
+\item Run the main interpreter on the JSCore file.
+
+\end{itemize}
+
+\item Dump return-values of programs.
+
+\end{itemize}
+
+Our testing should be extended by checking if the output is correct.
+
+
+\subsection{GHC test suit}
+
+GHC uses a testsuit. Getting the interpreter to pass these tests are the
+ultimate goal, however, the project is not there yet.
+
+\end{comment}

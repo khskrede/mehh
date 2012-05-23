@@ -165,7 +165,8 @@ in Core can contain three different types of alternatives. A literal alternative
 a constructor alternative or a default alternative. 
 
 Following is an excerpt from appendix \ref{jscoregrammar} defining the syntax 
-of case expressions.
+of case expressions (see appendix \ref{jscoregrammar} for an explanation of the
+notation used).
 
 \begin{figure}[H]
 \scriptsize
@@ -253,24 +254,13 @@ And the "typeN" constructs have no place in the resulting Core'.
 
 \subsection{Other}
 
-
-
-
-
-
-
-
-
-
-
 \subsubsection{Module}
 
-The module construct directly corresponds to Haskell modules. The module identifier
+The "\%module" construct directly corresponds to Haskell modules. The module identifier
 contains the necessary information of what package and module it belongs to, as
 well as it's name.
 
 \subsubsection{Type definitions}
-
 
 Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
 visiting its children. (A constructor is created for each constructor definition).
@@ -280,8 +270,6 @@ visiting its children. (A constructor is created for each constructor definition
 
 When we find a constructor definition, we make a constructor. "qdcon" is the 
 constructors name, and the repeating "aty" values are turned into Core' variables.
-
-The Core constructor definitions have the following Core' equivalent:
 
 \subsubsection{Value definitions}
 
@@ -318,7 +306,7 @@ The let statement simply stores the current recursion variable, and restores it 
 visiting its value definition. Note that the let statement is not yet properly tested.
 
 The case statement is the most complicated of all the statements in the Core language.
-When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
+When the case statement is parsed, it is turned into a Function, the scrutinee (exp) 
 is in turn applied to the function. Note that, since the only variables that are in
 scope in a functions rules, is the pattern it matches against, we need to pass all 
 variables downwards from the top Expression.
@@ -345,6 +333,7 @@ Variable and the Expression it matches for.
 
 The type binder has no operational effect and is ignored by our parser. The 
 value binder simply visits its child and returns it.
+
 \subsubsection{Literal}
 
 The literal returns a Core' Value.
@@ -385,267 +374,5 @@ Kinds have no effect.
 \subsubsection{Kind}
 
 Kinds have no effect.
-\end{comment}
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}
-
-\subsection{The Program}
-
-% TODO ! A STACK OF VARIABLES ARE KEPT UP TO DATE !
-
-This sub section describes all the constructs of Core, what they are, how we 
-convert them to Core', and wether or not the conversion is tested.
-
-
-\paragraph{Module}
-
-\begin{grammar}
-<module> ::= \%module <mident> \{ <tdefg> ; \} \{ <vdefg> ; \}
-\end{grammar}
-
-The module construct directly corresponds to Haskell modules. The module identifier
-contains the necessary information of what package and module it belongs to, as
-well as it's name.
-
-\paragraph{Type definitions}
-
-\begin{grammar}
-<tdefg> ::= \%data <qtycon> <tbind> = <cdef>
-       \alt \%newtype <qtycon> <qtycon> <tbind> = <ty>
-\end{grammar}
-
-Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
-visiting its children. (A constructor is created for each constructor definition).
-% What about the type from the ADT ? and newtype ???
-
-\paragraph{Constructor definitions}
-
-\begin{grammar}
-<cdef> ::= <qdcon> \{ @ <tbind> \} \{ <aty> \}
-\end{grammar}
-
-When we find a constructor definition, we make a constructor. "qdcon" is the 
-constructors name, and the repeating "aty" values are turned into Core' variables.
-
-The Core constructor definitions have the following Core' equivalent:
-
-\begin{grammar}
-<cdef> ::= const( <qdcon>, [ <aty> ]
-\end{grammar}
-
-\paragraph{Value definitions}
-
-\begin{grammar}
-<vdefg> ::= \%rec \{ <vdef> \{ ; <vdef> \} \}
-       \alt <vdef>
-\end{grammar}
-
-When encountering a recursive value definition, we simply remember that it is
-recursive by adding "True" to a stack. A stack is needed, since Value definitions
-can be non-recursive within a let statement inside the recursive definition. If
-a value-definition is non-recursive, we add "False" to the stack.
-
-When we return from creating the value definitions we pop from the stack to get
-back our initial "recursion" value.
-
-\begin{grammar}
-<vdef> ::= <qvar> :: <ty> = <exp>
-\end{grammar}
-
-The actual value definition gets a function from visiting the Expression and adds 
-it to a dictionary with the name of "qvar".
-
-\begin{grammar}
-<vdef> ::= func( <qvar>, <exp> )
-\end{grammar}
-
-\paragraph{Atomic Expressions}
-
-\begin{grammar}
-<aexp> ::= <qvar>
-      \alt <qdcon>
-      \alt <lit>
-      \alt ( <exp> )
-\end{grammar}
-
-When encountering an Atomic Expression in the form of a variable or data constructor, 
-we simply look them up in the module and variable/data constructor dictionaries.
-
-When encountering a literal, we create a new literal value, and when encountering an
-Expression, we visit and return the expression.
-
-\paragraph{Expression}
-
-\begin{grammar}
-<exp> ::= <aexp>
-     \alt <aexp> \{ <arg> \}
-     \alt \textbackslash \{ <binder> \} -$>$ <exp>
-     \alt \%let <vdefg> \%in <exp>
-     \alt \%case (<aty>) <exp> \%of <vbind> \{<alt> \{ ; <alt> \}  \}
-     \alt \%cast <exp> <aty>
-     \alt \%note " \{ <char> \} " <exp>
-     \alt \%external ccall " \{ <char> " \} <aty>
-     \alt \%dynexternal ccall <aty>
-     \alt \%label " \{ <char> \} "
-\end{grammar}
-
-When encountering an Atomic Expression without arguments, we simply visit and return
-it. When finding an Atomic Expression with arguments, we make a PartialApp object.
-A PartialApp object is simply a temporary object that contains the Expression and the
-argument. If the arity of the Expression equals the number of arguments it is turned
-into a normal Core' function application.
-
-The lambda abstraction is simply turned into a function.
-
-The let statement simply stores the current recursion variable, and restores it after
-visiting its value definition. Note that the let statement is not yet properly tested.
-
-The case statement is the most complicated of all the statements in the Core language.
-When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
-is in turn applied to the function. Note that, since the only variables that are in
-scope in a functions rules, is the pattern it matches against, we need to pass all 
-variables downwards from the top Expression.
-
-The note, external c-call, dynamic external c-call and label statements are currently
-not implemented or tested. However, some functionality for implementing them have been
-created, including a function turning a arrow-type Expression into a low-level list
-of types for interfacing with C.
-
-\paragraph{Argument}
-
-\begin{grammar}
-<arg> ::= @ <aty>
-     \alt <aexp>
-\end{grammar}
-
-The type arguments have no operational effect, and are ignored by our parser.
-The Atomic Expression simply finds the referenced expression and returns it.
-
-\paragraph{Case alternative}
-
-\begin{grammar}
-<alt> ::= <qdcon> \{ @ <tbind> \} \{ <vbind> \} -$>$ <exp>
-     \alt <lit> -$>$ <exp>
-     \alt \%\_ -$>$ <exp>
-\end{grammar}
-
-The case alternatives all return a pair of pattern-list and Expression. The
-data constructor alternative returns a list with a single constructor element and
-the Expression. The literal alternative simply returns a Value object and the 
-Expression it matches against. The default alternative returns a newly created
-Variable and the Expression it matches for.
-
-\paragraph{Binder}
-
-\begin{grammar}
-<binder> ::= @ <tbind>
-        \alt <vbind>
-\end{grammar}
-
-The type binder has no operational effect and is ignored by our parser. The 
-value binder simply visits its child and returns it.
-\paragraph{Literal}
-
-\begin{grammar}
-<lit> ::= ( [-] \{ <digit> \} :: <ty> )
-     \alt ( [-] \{ <digit> \} \% \{ <digit> \} :: <ty> )
-     \alt ( <char> :: <ty> )
-     \alt ( \{ <char> \} )
-\end{grammar}
-
-The literal returns a Core' Value.
-
-
-\paragraph{Value binder}
-
-\begin{grammar}
-<vbind> ::= ( <var> :: <ty> )
-\end{grammar}
-
-The value binder symply returns a Core' Variable, as Core' does not have Types.
-
-
-\paragraph{Type binder}
-
-\begin{grammar}
-<tbind> ::= <tyvar>
-       \alt ( tyvar :: <kind> )
-\end{grammar}
-
-The type binder is simply ignored.
-
-\paragraph{Other}
-
-External-Core contains a set of other constructs. These are;
-Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
-have no operational effect, and are not tested.
-
-
-\paragraph{Atomic type}
-
-\begin{grammar}
-<aty> ::= <tyvar>
-     \alt <qtycon>
-     \alt ( <ty> )
-\end{grammar}
-
-Types have no effect.
-
-\paragraph{Basic type}
-
-\begin{grammar}
-<bty> ::= <aty>
-     \alt <bty> <aty>
-     \alt \%trans <aty> <aty>
-     \alt \%sym <aty>
-     \alt \%unsafe <aty> <aty>
-     \alt \%left <aty>
-     \alt \%right <aty>
-     \alt \%inst <aty> <aty>
-\end{grammar}
-
-Types have no effect.
-
-\paragraph{Type}
-
-\begin{grammar}
-<ty> ::= <bty>
-    \alt \%forall \{ <tbind> \} . <ty>
-    \alt <bty> -$>$ <ty>
-\end{grammar}
-
-Types have no effect.
-
-\paragraph{Atomic kind}
-
-\begin{grammar}
-<akind> ::= *
-       \alt \#
-       \alt ?
-       \alt <bty> :=: <bty>
-       \alt ( <kind> )
-\end{grammar}
-
-Kinds have no effect.
-
-\paragraph{Kind}
-
-\begin{grammar}
-<kind> ::= <akind>
-      \alt <akind> -$>$ <kind>
-\end{grammar}
-
-Kinds have no effect.
-
 \end{comment}
 
