@@ -2,6 +2,24 @@
 \chapter{Formal definition of External-Core}
 \label{coregrammar}
 
+
+The following semantics is used to define the Core grammar, 
+as seen in \cite{tolmach2010ghc}:
+
+\begin{scriptsize}
+
+\begin{longtable}{ l c l }
+
+$[$ pat $]$		& :	& optional			\\
+$\{$ pat $\}$		& :	& zero or more repetitions	\\
+$\{$ pat $\}^{+}$	& :	& one or more repetitions	\\
+$pat_{1}|pat_{2}$	& :	& choice			\\
+
+\end{longtable}
+
+
+
+
 \begin{grammar}
 <module> ::= \%module <mident> \{ <tdefg> ; \} \{ <vdefg> ; \}
 \end{grammar}
@@ -145,3 +163,43 @@
 \end{grammar}
 
 
+\paragraph{Names}
+
+\begin{grammar}
+<mident>	  ::= 	 '' <pname> : <uname> ''
+	
+<tycon>		  ::= 	 '' <uname> ''
+		
+<qtycon>	  ::= 	 '' <mident> . <tycon> ''
+
+<tyvar>		  ::= 	 '' <lname> ''
+	
+<dcon>		  ::= 	 '' <uname> ''
+	
+<qdcon>		  ::= 	 '' <mident> . <dcon> ''
+
+<var>		  ::= 	 '' <lname> ''
+
+<qvar>		  ::= 	 '' || <mident> . || <var> ''
+
+<lname>		  ::= 	 <lower> \{ <namechar> \}
+ 
+<uname>		  ::= 	 <upper> \{ <namechar> \}
+
+<pname>		  ::= 	 \{ <namechar> \}$^+$
+
+<namechar>	  ::= 	 <lower> | <upper> | <digit>
+
+<lower>		  ::= 	 a|b|...|z|\_
+
+<upper>		  ::= 	 A|B|...|Z|
+
+<digit>		  ::= 	 0|1|...|9									 
+
+
+\end{grammar}
+
+
+
+
+\end{scriptsize}
