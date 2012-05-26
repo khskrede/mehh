@@ -119,7 +119,7 @@ from Hsc is usually an assembly file that must be fed to an assembler.
 
 % TODO! THIS IS WHERE I STOPPED!
 
-\subsubsection{GHC API}
+\subsubsection*{GHC API}
 
 % TODO
 The compiler is (in addition to being a binary) itself a library that exports an API.
@@ -132,14 +132,14 @@ present in GHC. For this reason, GHC is built as a library, rather than a monoli
 program. The library is linked by a small Main module. In addition to this, GHC
 exposes an API to deal with the library.\cite{marlow2012glasgow} 
 
-\subsubsection{The Runtime System}
+\subsubsection*{The Runtime System}
 
 The RTS provides the support that is necessary for a Haskell program to run, this
 includes; memory management, scheduling and thread management, primitive operations
 and a bytecode interpreter and dynamic linker for GHCi (GHCs interactive environment).
 \cite{marlow2012glasgow} 
 
-\subsubsection{Core}
+\subsubsection*{Core}
 
 % TODO ???
 Haskell is intended to be easy to read and write by humans. For this reason, it
@@ -152,7 +152,7 @@ simpler language. This language is called Core (or system $F_C$ when referring t
 the theory).\cite{marlow2012glasgow} We discuss Core in more detail in subsection 
 \ref{chap:rewrite}.
 
-\subsubsection{External-Core and Linkcore}
+\subsubsection*{External-Core and Linkcore}
 
 % What is External-Core ?
 GHC uses an intermediate language throughout it's 
@@ -180,7 +180,7 @@ In addition to the Python implementation, PyPy implements a low-level
 hardware emulator (PyGirl), a PHP interpreter, and a Prolog interpreter. 
 Various other experiments have also been created by the PyPy team. 
 
-\subsubsection{PyPy Prolog}
+\subsubsection*{PyPy Prolog}
 
 In addition to the implementation of Python, PyPy has also shown that its techniques
 are applicable to other languages. The Prolog VM is an example of this. Implementations
@@ -192,7 +192,7 @@ which shows that other Prolog implementations can benefit from the techniques us
 PyPy. \cite{bolz2010towards}
 
 % TODO !
-\subsubsection{HappyJIT}
+\subsubsection*{HappyJIT}
 
 PHP (Hypertext Preprocessor) is a language used to develop the server-side of 
 websites. The users request for a website is received by the server, the PHP script
@@ -205,7 +205,7 @@ the techniques significantly improve the performance of several common use cases
 \cite{homescu2011happyjit}
 
 % TODO 
-\subsubsection{PyGirl}
+\subsubsection*{PyGirl}
 
 As a case study, PyGirl implements an emulater for the Nintendo Game Boy. The project 
 shows the feasibility of implementing a low-level VM for hardware in a high-level 
@@ -215,7 +215,7 @@ and that the performance loss can be insignificant.
 \cite{bruni2009pygirl}
 
 % TODO !
-\subsubsection{The GHC LLVM back-end}
+\subsubsection*{The GHC LLVM back-end}
 
 The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
 programs from the compilation phase to runtime. The LLVM provides high-level information 

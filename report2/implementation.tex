@@ -51,7 +51,7 @@ in the "test/" subfolder and the prints the result of the tests.
 The subfolder "interpreter" in "pyhaskell" contains the actuall 
 interpreter code, the parser and the module system implementation.
 
-\subsubsection{haskell}
+\subsubsection*{haskell}
 
 The file "haskell.py" in the folder "interpreter" contains the
 Haskell-Python interpreter, the base of the compilation system.
@@ -162,7 +162,7 @@ simply a wrapper for the \emph{main\_loop function}
 
 
 
-\subsubsection{primtypes}
+\subsubsection*{primtypes}
 
 The file "primtypes.py" in the folder "interpreter" contains the primitive types
 for the Haskell-Python interpreter. The types implemented inherit from the
@@ -221,7 +221,7 @@ class Int(haskell.Value):
 \end{figure}
 
 
-\subsubsection{module}
+\subsubsection*{module}
 
 The file "module.py" in the folder "interpreter" contains the basics of the
 module system. It contains a single class; \emph{CoreMod}. This class corresponds
@@ -231,7 +231,7 @@ contain \emph{qualified variables}, \emph{qualified type constructors} and
 \emph{qualified dataconstructors} respectively. When a \emph{CoreMod} object is created
 it is at once added to the list of Haskell Modules.
 
-\subsubsection{jscparser}
+\subsubsection*{jscparser}
 
 The file "jscparser.py" in the "interpreter" folder contains the parser code. 
 This code is responsible for loading JSCore files, and creating the AST based 
@@ -333,21 +333,21 @@ files.
 
 This subsection contains a description of the pipeline currently implemented.
 
-\subsubsection{Haskell to extcore}
+\subsubsection*{Haskell to extcore}
 
 When running a Haskell file using this system, the file is first processed
 by GHC.
 
-\subsubsection{Extcore to JSCore}
+\subsubsection*{Extcore to JSCore}
 
 \begin{itemize}
 \item extcore
 \item linkcore ?
 \end{itemize}
 
-\subsubsection{JSCore to Core'}
+\subsubsection*{JSCore to Core'}
 
-\subsubsection{Parsing and interpretation}
+\subsubsection*{Parsing and interpretation}
 
 
 
@@ -356,7 +356,7 @@ by GHC.
 \subsection{Testing}
 \label{chap:test}
 
-\subsubsection{Current testing of interpreter}
+\subsubsection*{Current testing of interpreter}
 
 The current testing used on the project is done by a python-script that performs
 the following actions:
@@ -382,7 +382,7 @@ the following actions:
 Our testing should be extended by checking if the output is correct.
 
 
-\subsubsection{GHC test suit}
+\subsubsection*{GHC test suit}
 
 GHC uses a testsuit. Getting the interpreter to pass these tests are the
 ultimate goal, however, the project is not there yet.

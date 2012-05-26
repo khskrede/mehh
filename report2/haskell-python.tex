@@ -25,7 +25,7 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 \begin{figure}[H]
 \centering
-
+\scriptsize
 \begin{grammar}
 <Constructor> ::= const( <Symbol>, [ <Value> ] )
 
@@ -79,26 +79,26 @@ A Core' program is evaluated by reducing the main application to WHNF
 (Weak Head Normal Form). A construct is in WHNF if it can't be
 reduced any further.
 
-\subsubsection{Value}
+\subsubsection*{Value}
 A Value can be a Literal, Constructor, or a Variable. All values are in WHNF.
 % What about the implementation of low-level types ???
 
-\subsubsection{Constructor}
+\subsubsection*{Constructor}
 A Constructor is just a Value, containing other Values.
 
-\subsubsection{Function}
+\subsubsection*{Function}
 A Function is a named collection of Rules. It must contain at least one Rule.
 
-\subsubsection{Rule}
+\subsubsection*{Rule}
 A Rule is a list of Values, followed by an Expression. Note that the only Variables
 that are in scope in the Expression, are those defined in the list of Values within 
 the Rule.
 
-\subsubsection{Expression}
+\subsubsection*{Expression}
 An Expression can be a Value, a Primitive-Function, a Function, or an Application.
 An Expression is in WHNF if it does not contain any unevaluated Applications.
 
-\subsubsection{Application}
+\subsubsection*{Application}
 An Application represents the evaluation of a function with variables applied to it.
 An Application is not in WHNF.
 
@@ -108,7 +108,7 @@ When the arguments match a Rule, the Expression contained in this rule is evalua
 The Variables in the expression are replaced by the values that matched the same-name
 Variables in the Value list. Then the Expression is evaluated, returning a new Value.
 
-\subsubsection{Literal}
+\subsubsection*{Literal}
 A Literal is a Value such as an integer, a string or a character.
 
 
@@ -150,7 +150,7 @@ linked list).
 
 A Core' program is executed by reducing a main Application to WHNF.
 
-%\subsubsection{The evaluation stack}
+%\subsubsection*{The evaluation stack}
 
 When an Application is evaluated; two things can happen. If it does not contain
 other unevaluated Applications it can be evaluated directly. However, if it does
@@ -169,7 +169,7 @@ See figure \ref{fig:sketch} for a concept sketch.
 
 % A CopyStackElement contains an Application. ?
 
-%\subsubsection{Thunk}
+%\subsubsection*{Thunk}
 
 %A Thunk is a suspended evaluation, in effect, an unevaluated function application.
 
@@ -204,7 +204,7 @@ The description of Haskell-Python can be
 logically divided into two parts; "the way programs are 
 represented", and "the way programs are evaluated".
 
-\subsubsection{Program representation}
+\subsubsection*{Program representation}
 
 Programs are represented by a set of Classes; Value, Constructor, Function, Rule, 
 PrimFunction, Var, Application (Additional classes are created for Constructor
@@ -231,7 +231,7 @@ The Function class represents a user-defined function.
 A Var is substituted with a NumberedVar when a Rule is created. This simply
 means that the new NumberedVar is only in scope within the Rule.
 
-\subsubsection{Program evaluation}
+\subsubsection*{Program evaluation}
 
 A Substitution is the body of a Function with numbered variables 
 (NumberedVar) substituted by values.
@@ -272,7 +272,7 @@ can also be reduced to a Value.
 This project involved extending Haskell-Python to a full Haskell interpreter 
 through the use of GHC.
 
-\subsubsection{GHC usage}
+\subsubsection*{GHC usage}
 
 % TODO
 
@@ -285,7 +285,7 @@ JSCore is a JSON compliant representation of external-core. This means that
 we can parse JSON and get a representation we can easily traverse when building
 the AST (Abstract Syntax Tree) for the Core' interpreter.
 
-\subsubsection{Module system}
+\subsubsection*{Module system}
 
 % TODO
 A module system was implemented for the interpreter. A module object contains
@@ -293,7 +293,7 @@ a dictionary for variables, type-constructors and data-constructors. The
 "library" contains a dictionary of modules. This structure corresponds to the
 module hierarchy used by GHC.
 
-\subsubsection{Parser}
+\subsubsection*{Parser}
 
 % TODO
 
@@ -304,7 +304,7 @@ parser and traversing the resulting datastructure, we build the AST for the
 interpreter. See subsection \ref{chap:rewrite} for a detailed description of 
 the parser and the Core to Core' mapping.
 
-\subsubsection{Primitives}
+\subsubsection*{Primitives}
 
 % TODO
 The Primitive values extend the Value class. Primitive functions handle
