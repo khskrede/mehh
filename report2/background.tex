@@ -1,8 +1,8 @@
 
-\chapter{Background}
+\section{Background}
 \label{chap:back}
 
-\section{Haskell}
+\subsection{Haskell}
 
 % What is Haskell ?
 Haskell is a lazy, pure functional language with non-strict semantics and static 
@@ -24,7 +24,7 @@ unevaluated, and only evaluated when needed. Lazy semantics also means that impu
 non-functional language features are impossible, as the two cannot work in conjunction.
 \cite{marlow2010haskell, marlow2012glasgow}
 
-\section{PyPy}
+\subsection{PyPy}
 
 % What is the PyPy project ?
 PyPy is a project that shows the feasability of constructing a VM (Virtual Machine) 
@@ -76,21 +76,21 @@ operations are then optimized and turned into machine code. Among other benefits
 result is free inlining of functions, as the functions operations are simply added to
 the trace. \cite{bolz2011runtime}
 
-\section{Haskell-Python}
+\subsection{Haskell-Python}
 
 % What is Haskell-Python ?
 Haskell-Python\cite{haskellpython}
-is an interpreter for a Haskell inspired lambda-calculs (we call it Core'). 
+is an interpreter for a Haskell inspired lambda-calculs called Core' (Core marked).
 It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
-For more on Haskell-Python, see section \ref{chap:hs}.
+For more on Haskell-Python, see subsection \ref{chap:hs}.
 
 % What is lambda-calculus ??? TODO
 
 
 
-\section{GHC}
+\subsection{GHC}
 
 GHC is a 20 years old project, and it has been under development during
 all these years. It started out with the goals of beeing a freely available
@@ -119,7 +119,7 @@ from Hsc is usually an assembly file that must be fed to an assembler.
 
 % TODO! THIS IS WHERE I STOPPED!
 
-\subsection{GHC API}
+\subsubsection{GHC API}
 
 % TODO
 The compiler is (in addition to being a binary) itself a library that exports an API.
@@ -132,14 +132,14 @@ present in GHC. For this reason, GHC is built as a library, rather than a monoli
 program. The library is linked by a small Main module. In addition to this, GHC
 exposes an API to deal with the library.\cite{marlow2012glasgow} 
 
-\subsection{The Runtime System}
+\subsubsection{The Runtime System}
 
 The RTS provides the support that is necessary for a Haskell program to run, this
 includes; memory management, scheduling and thread management, primitive operations
 and a bytecode interpreter and dynamic linker for GHCi (GHCs interactive environment).
 \cite{marlow2012glasgow} 
 
-\subsection{Core}
+\subsubsection{Core}
 
 % TODO ???
 Haskell is intended to be easy to read and write by humans. For this reason, it
@@ -149,14 +149,14 @@ defines these syntactic constructs in terms of their translation into simpler
 constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
 After removing all of the syntactic suger (desugaring) GHC is left with a much 
 simpler language. This language is called Core (or system $F_C$ when referring to
-the theory).\cite{marlow2012glasgow} We discuss Core in more detail in section 
+the theory).\cite{marlow2012glasgow} We discuss Core in more detail in subsection 
 \ref{chap:rewrite}.
 
-\subsection{External-Core and Linkcore}
+\subsubsection{External-Core and Linkcore}
 
 % What is External-Core ?
 GHC uses an intermediate language throughout it's 
-simplification phase. The extcore project presents a formal definition of the syntax 
+simplification phase. The External-COre project presents a formal definition of the syntax 
 of this language. And in addition to this, enables the representation to be exported 
 to files. The idea is that this allows compiler implementors and researchers to use GHC
 as a front-end for Haskell compilers. Before outputting External-Core files,
@@ -169,21 +169,18 @@ this, since the linker requires External-Core representation of the ghc-librarie
 it also contains instructions on how to create these. 
 
 % They have both bitrotted!
-Unfortunately, at the time of this writing, both the External-Core and linkcore 
+Unfortunately, at the time of this writing, both the External-Core functionality in
+GHC, the extcore and the linkcore 
 packages have bitrotted. Although there seems to be interest for the continued 
-maintainance of External-Core.
+maintainance of External-Core in GHC.
 
-\section{Similar work}
+\subsection{Similar work}
 
 In addition to the Python implementation, PyPy implements a low-level 
-hardware emulator (PyGirl), a PHP interpreter, a Prolog interpreter and various 
-other experiments have been created by the PyPy team. 
-%Prolog is a declarative programming language with roots in 
-%formal logic, evaluation is performed when the user asks the program a question 
-%(a query), and an evaluation algorithm  answers the question by using the program as
-%a knowledge base.
+hardware emulator (PyGirl), a PHP interpreter, and a Prolog interpreter. 
+Various other experiments have also been created by the PyPy team. 
 
-\subsection{PyPy Prolog}
+\subsubsection{PyPy Prolog}
 
 In addition to the implementation of Python, PyPy has also shown that its techniques
 are applicable to other languages. The Prolog VM is an example of this. Implementations
@@ -195,7 +192,7 @@ which shows that other Prolog implementations can benefit from the techniques us
 PyPy. \cite{bolz2010towards}
 
 % TODO !
-\subsection{HappyJIT}
+\subsubsection{HappyJIT}
 
 PHP (Hypertext Preprocessor) is a language used to develop the server-side of 
 websites. The users request for a website is received by the server, the PHP script
@@ -208,7 +205,7 @@ the techniques significantly improve the performance of several common use cases
 \cite{homescu2011happyjit}
 
 % TODO 
-\subsection{PyGirl}
+\subsubsection{PyGirl}
 
 As a case study, PyGirl implements an emulater for the Nintendo Game Boy. The project 
 shows the feasibility of implementing a low-level VM for hardware in a high-level 
@@ -218,7 +215,7 @@ and that the performance loss can be insignificant.
 \cite{bruni2009pygirl}
 
 % TODO !
-\subsection{The GHC LLVM back-end}
+\subsubsection{The GHC LLVM back-end}
 
 The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
 programs from the compilation phase to runtime. The LLVM provides high-level information 

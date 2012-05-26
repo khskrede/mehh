@@ -1,12 +1,12 @@
 
 
-\chapter{Core to Core' mapping}
+\section{Core to Core' mapping}
 \label{chap:rewrite}
 
 
-\section{Core}
+\subsection{Core}
 
-\subsection{External representation}
+\subsubsection{External representation}
 
 The Core language is an intermediate language used by GHC. External-Core
 is an external representation of this language. See appendix 
@@ -21,8 +21,10 @@ Following is a short discussion of System $F_C$ and some of it's
 properties that are relevant to this discussion.
 
 
-\subsection{System $F_C$}
+\subsubsection{System $F_C$}
 
+
+\begin{comment}
 System $F$ is a typed lambda calculus, very popular as an intermediate language
 for functional language compilers. System $F_C$ is a super-set of System $F$ 
 that uses explicit type-equality coercions as witnesses to justify explicit
@@ -41,8 +43,8 @@ data types, data constructors and case Expressions.
 Although Cast coercions have no operational effect, they serve to help the
 type system.
 
-\subsubsection{Classes}
-\label{subsec:classes}
+%\subsubsubsection{Classes}
+%\label{subsec:classes}
 
 A Haskell type class is generally turned into System $F$ by creating a 
 record type for each class, called a dictionary, containing the class methods.
@@ -50,17 +52,18 @@ Each instance is converted into a dictionary value, and passing such
 dictionaries to the functions mentioning a class in its signature. 
 \cite{sulzmann2007system}
 
-\subsubsection{Type erasure}
+%\subsubsubsection{Type erasure}
 
 In System $F_C$, evidence is passed around for type equalities. However,
 since this evidence are represented in the form of types, and types are
 erased before running the program, this evidence has no effect.
 \cite{sulzmann2007system}
 
+\end{comment}
 
-\section{Parsing}
+\subsection{Parsing}
 
-In this section, we go through some of the most notable constructs of JSCore and
+In this subsection, we go through some of the most notable constructs of JSCore and
 describe how they are rewritten to Core'. To do this, we focus on some examples of
 JSCore pseudo code. For practical reasons, the example code is not real code, as the
 generated JSCore code tends to be too large.
@@ -69,7 +72,7 @@ We define the function $ToCore'(stack, construct)$ to take a stack of variables 
 a piece of JSCore code and turn it into Core' code.
 
 
-\subsection{Packages, Modules and Definitions}
+\subsubsection{Packages, Modules and Definitions}
 
 We don't really deal with packages, GHC handles this for us. Whenever we
 need a module, the package referred to is contained in its name.
@@ -83,7 +86,7 @@ return the function placed under the name "Int" in the module "GHC.Types". And
 the function "$ToCore'$(stack, {"qvar": "func1", "ty": ..., "exp": exp } )" will
 put the result of parsing "exp" in the module being parsed under the name "func1".
 
-\subsection{Lambda abstraction}
+\subsubsection{Lambda abstraction}
 
 In the following example, the names "sometype" and "anexpression" refers to a 
 type constructor and an expression in JSCore format respectively.
@@ -158,7 +161,7 @@ where "subexpression" is a placeholder for the JSCore expression contained in th
 lambda-abstraction of "anexpression".
 
 
-\subsection{Case expressions and alternatives}
+\subsubsection{Case expressions and alternatives}
 
 The most complicated construct in Core is the case-expression. A case-expression
 in Core can contain three different types of alternatives. A literal alternative,
@@ -252,26 +255,26 @@ alternative declares a new variable that must be appended on the stack.
 
 And the "typeN" constructs have no place in the resulting Core'.
 
-\subsection{Other}
+\subsubsection{Other}
 
-\subsubsection{Module}
+%\subsubsubsection{Module}
 
 The "\%module" construct directly corresponds to Haskell modules. The module identifier
 contains the necessary information of what package and module it belongs to, as
 well as it's name.
 
-\subsubsection{Type definitions}
+%\subsubsubsection{Type definitions}
 
 Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
 visiting its children. (A constructor is created for each constructor definition).
 % What about the type from the ADT ? and newtype ???
 
-\subsubsection{Constructor definitions}
+%\subsubsubsection{Constructor definitions}
 
 When we find a constructor definition, we make a constructor. "qdcon" is the 
 constructors name, and the repeating "aty" values are turned into Core' variables.
 
-\subsubsection{Value definitions}
+%\subsubsubsection{Value definitions}
 
 When encountering a recursive value definition, we simply remember that it is
 recursive by adding "True" to a stack. A stack is needed, since Value definitions
@@ -284,7 +287,7 @@ back our initial "recursion" value.
 The actual value definition gets a function from visiting the Expression and adds 
 it to a dictionary with the name of "qvar".
 
-\subsubsection{Atomic Expressions}
+%\subsubsubsection{Atomic Expressions}
 
 When encountering an Atomic Expression in the form of a variable or data constructor, 
 we simply look them up in the module and variable/data constructor dictionaries.
@@ -292,7 +295,7 @@ we simply look them up in the module and variable/data constructor dictionaries.
 When encountering a literal, we create a new literal value, and when encountering an
 Expression, we visit and return the expression.
 
-\subsubsection{Expression}
+%\subsubsubsection{Expression}
 
 When encountering an Atomic Expression without arguments, we simply visit and return
 it. When finding an Atomic Expression with arguments, we make a PartialApp object.
@@ -316,12 +319,12 @@ not implemented or tested. However, some functionality for implementing them hav
 created, including a function turning a arrow-type Expression into a low-level list
 of types for interfacing with C.
 
-\subsubsection{Argument}
+%\subsubsubsection{Argument}
 
 The type arguments have no operational effect, and are ignored by our parser.
 The Atomic Expression simply finds the referenced expression and returns it.
 
-\subsubsection{Case alternative}
+%\subsubsubsection{Case alternative}
 
 The case alternatives all return a pair of pattern-list and Expression. The
 data constructor alternative returns a list with a single constructor element and
@@ -329,49 +332,49 @@ the Expression. The literal alternative simply returns a Value object and the
 Expression it matches against. The default alternative returns a newly created
 Variable and the Expression it matches for.
 
-\subsubsection{Binder}
+%\subsubsubsection{Binder}
 
 The type binder has no operational effect and is ignored by our parser. The 
 value binder simply visits its child and returns it.
 
-\subsubsection{Literal}
+%\subsubsubsection{Literal}
 
 The literal returns a Core' Value.
 
 
-\subsubsection{Value binder}
+%\subsubsubsection{Value binder}
 
 The value binder symply returns a Core' Variable, as Core' does not have Types.
 
 
-\subsubsection{Type binder}
+%\subsubsubsection{Type binder}
 
 The type binder is simply ignored.
 
-\subsubsection{The others}
+%\subsubsubsection{The others}
 
 External-Core contains a set of other constructs. These are;
 Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
 have no operational effect, and are not tested.
 
 \begin{comment}
-\subsubsection{Atomic type}
+\subsubsubsection{Atomic type}
 
 Types have no effect.
 
-\subsubsection{Basic type}
+\subsubsubsection{Basic type}
 
 Types have no effect.
 
-\subsubsection{Type}
+\subsubsubsection{Type}
 
 Types have no effect.
 
-\subsubsection{Atomic kind}
+\subsubsubsection{Atomic kind}
 
 Kinds have no effect.
 
-\subsubsection{Kind}
+\subsubsubsection{Kind}
 
 Kinds have no effect.
 \end{comment}

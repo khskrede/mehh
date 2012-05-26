@@ -1,5 +1,5 @@
 
-\documentclass[12pt]{book}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage{verbatim}
 \usepackage{cite}
@@ -75,6 +75,9 @@ rulecolor=\color{Grey}
 \title{Just-In-Time compilation of\\Haskell with PyPy and GHC}
 \author{Knut Halvor Skrede}
 
+%\pagestyle{}
+\pagenumbering{roman}
+
 \begin{titlepage}
 \maketitle
 \end{titlepage}
@@ -84,12 +87,17 @@ rulecolor=\color{Grey}
 \input{preface.tex}
 \clearpage
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 %\clearpage
 %\listoffigures
 %\listoftables
 %\clearpage
 \clearpage
+
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{arabic}
 
 \input{intro.tex}
 \clearpage
