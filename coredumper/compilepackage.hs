@@ -10,6 +10,7 @@ import HscTypes
 import CoreSyn
 import DynFlags
 import Outputable
+import Module
 
 -- Cabal stuff
 
@@ -39,56 +40,96 @@ main = do
         (inFile1:_) <- getArgs
 
         -- Parse cabal file
-
         desc <- readPackageDescription normal inFile1
+        let 
+            -- TODO: Can we flatten like this?
+            packageDescription = flattenPackageDescription desc 
 
-        let packageDescription = flattenPackageDescription desc -- TODO: Can we do this?
+        -- Get DynFlags
+        dflags <- runGhc (Just libdir) $ do 
+            getSessionDynFlags
 
-            -- Get ghc flags from cabal file and convert to ExtensionFlags
-            -- for use with the GHC API
+        -- Set GHC Mode
+        let 
+            dflags2 = dflags{ ghcMode = CompManager }
+
+        -- _______________________________________
+        -- Set package name and version from cabal file
+        -- to DynFlags
+
+        let
+            -- Get package name and version
+            pkgid = PD.package packageDescription
+            pkgname = pkgNameToString $ pkgName pkgid where
+                pkgNameToString (PackageName a) = a
+            pkgversion = pkgVersion pkgid
+            dflags3 = dflags2{thisPackage=stringToPackageId pkgname}
+
+        putStrLn ("Compiling package: " ++ pkgname)
+        putStrLn ""
+
+        -- _______________________________________
+        -- Add extension flags from cabal file to DynFlags
+
+        let
+            -- Get ghc flags from cabal file and convert to 
+            -- ExtensionFlags for use with the GHC API
             buildinfo = PD.allBuildInfo packageDescription
             extensions = foldl (++) [] (map PD.allExtensions buildinfo)
             extflags = extsToExtFlags extensions
+            dflags4 = foldl xopt_set dflags3 extflags
 
-            -- Preludes
 
+
+        -- _______________________________________
+        -- Set dependencies from cabal file to DynFlags
+
+        let
+            -- Get package dependency names
+            deps = PD.buildDepends packageDescription
+            depnames = map f deps where
+                f (Dependency (PackageName n) _) = n
+            pkgflags = map HidePackage depnames
+            dflags5 = dflags4--{packageFlags=pkgflags}
+
+
+
+        -- _______________________________________
+        -- Set include dir
+
+        let
+            incs = foldl (++) [] (map PD.includeDirs buildinfo)
+            dflags6 = dflags5{ importPaths=incs }
+                              --libraryPaths=["../../"] }
+
+        putStrLn $ show incs
+        putStrLn ""
+        putStrLn ""
+
+        -- _______________________________________
+        -- Create list of Haskell module file names to be compiled
+
+        let prel = ["./"] ++ (map ((++) "../") depnames)
+            mods = PD.exposedModules $ getLib $ PD.library $ packageDescription
+            paths = map ModName.toFilePath mods
+
+        fsearch <- mapM (findModuleFile prel ["hs", "lhs", "hsc"]) mods
+        let files = map getFilePath fsearch
             
 
- 
-        -- Create GHC DynFlags from info on extensions in cabal file
-
-        putStrLn $ show $ extensions
+        putStrLn $ show $ files --paths
         putStrLn ""
         putStrLn ""
 
 
-        -- Create list of Haskell modules to be compiled
 
-        let prel = ["./base/", "./ghc-prim/", "./integer-simple/"]
-            mods = PD.libModules $ getLib $ PD.library $ packageDescription
-            paths = removeUnwantedFiles $ map ModName.toFilePath mods
-
-        files <- mapM (findModuleFile prel ["hs", "lhs", "hsc"]) mods
-        let files2 = map getFilePath files
-
-
-        putStrLn $ show $ mods
-        putStrLn ""
-        putStrLn ""
-        putStrLn $ show $ files2 --paths
-        putStrLn ""
-        putStrLn ""
-
-
+        -- _______________________________________
+        --
         -- Compile all Haskell modules
 
+        mapM (compile dflags6) files
 
-        mapM (compile extflags) files2
 
-removeUnwantedFiles :: [FilePath] -> [FilePath]
-removeUnwantedFiles [] = []
-removeUnwantedFiles ("GHC.PrimopWrappers":xs) = removeUnwantedFiles xs
-removeUnwantedFiles (x:xs) = x : (removeUnwantedFiles xs)
 
 getFilePath :: (String, String) -> String
 getFilePath (a, b) = a++b
@@ -197,20 +238,20 @@ extToExtFlag LHE.DeriveFoldable = Opt_DeriveFoldable
 -- Compile to Core and Generate JSCore for single Haskell file
 
 
-compile extflags inFile = do 
+compile dflags inFile = do 
     core <- runGhc (Just libdir) $ do
-        sdflags <- getSessionDynFlags
-        let sdflags' = foldl xopt_set sdflags extflags
-        setSessionDynFlags sdflags'
+        setSessionDynFlags dflags
+
         core <- compileToCoreSimplified inFile
         return core
-    putStrLn $ show $ pp_value $ coreModToJS core
 
+    putStrLn $ show $ pp_value $ coreModToJS core
+    putStrLn "bleh"
 
 coreModToJS :: CoreModule -> JSValue
 coreModToJS (CoreModule name types binds) = 
     JSObject $ toJSObject $
-    [( "%module", toJSON $ showSDoc $ ppr name )]
+    [( "%module", toJSON $ showSDoc $ ppr name )]--,
 --     ( "tdefg", typesToJS types),
 --     ( "binds", bindsToJS binds)]
 
