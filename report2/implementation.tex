@@ -1,6 +1,7 @@
 
 
 \chapter{System description}
+\label{chap:impl}
 
 This section discusses the implementation of the project with
 references to the source tree. See figure \ref{fig:overview}.
@@ -29,9 +30,6 @@ JSON tokens to a dot file in order to generate a graph using graphviz.
 The "runtests.py" program contains a program that executes all the programs
 in the "test/" subfolder and the prints the result of the tests.
 
-
-
-
 \begin{sidewaysfigure}
 \begin{figure}[H]
 \centering
@@ -42,9 +40,6 @@ in the "test/" subfolder and the prints the result of the tests.
 
 \end{figure}
 \end{sidewaysfigure}
-
-
-
 
 \section{Interpreter}
 
@@ -325,6 +320,28 @@ folder should contain the additional files; "factorial.hcr", "factorial.hi",
 "factorial.o" and "factorial.hcj". ".hcj" is the extension used for JSCore
 files.
 
+The output from running the test script is:
+
+\begin{figure}[H]
+\lstset{ %
+language=Python,
+caption=Output from running the test script,
+label=lst:testoutput
+}
+\begin{lstlisting}
+-----------------------
+Results (29.96 seconds)
+-----------------------
+case :  Success
+data :  Success
+factorial :  Success
+fibonacci :  Success
+helloworld :  Success
+let :  Success
+multiply :  Success
+partialapp :  Success
+\end{lstlisting}
+\end{figure}
 
 \begin{comment}
 

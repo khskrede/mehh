@@ -9,8 +9,8 @@ Haskell is a lazy, pure functional language with non-strict semantics and static
 polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
 list comprehensions, a system for modules, a system for monadic I/O, and a large 
 standard library. In addition to beeing strongly typed, Haskell supports type
-inference, which means type annotations are seldom required. We do not go into 
-too much detail here, for a full description 
+inference, which means type annotations are seldom required. Haskell is not described
+in too much detail here, for a full description 
 of Haskell, see "the Haskell 2010 language report"\cite{marlow2010haskell}. 
 Or for a complete history of Haskell, see "A history of Haskell: being lazy 
 with class"\cite{hudak2007history}.
@@ -80,15 +80,13 @@ the trace. \cite{bolz2011runtime}
 
 % What is Haskell-Python ?
 Haskell-Python\cite{haskellpython}
-is an interpreter for a Haskell inspired lambda-calculs (we call it Core'). 
+is an interpreter for a Haskell inspired lambda-calculs called Core'. 
 It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
 For more on Haskell-Python, see section \ref{chap:hs}.
 
 % What is lambda-calculus ??? TODO
-
-
 
 \section{GHC}
 
@@ -149,7 +147,7 @@ defines these syntactic constructs in terms of their translation into simpler
 constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
 After removing all of the syntactic suger (desugaring) GHC is left with a much 
 simpler language. This language is called Core (or system $F_C$ when referring to
-the theory).\cite{marlow2012glasgow} We discuss Core in more detail in section 
+the theory).\cite{marlow2012glasgow} Core is discussed in more detail in chapter 
 \ref{chap:rewrite}.
 
 \subsection{External-Core and Linkcore}

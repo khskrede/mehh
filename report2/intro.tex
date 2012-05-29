@@ -15,7 +15,7 @@ To test this, the techniques
 used by the PyPy (Python in Python) project is applied to the Haskell 
 programming language. By implementing the back-end for a Haskell compiler 
 in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
-as a front-end, we can effectively implement a full Haskell JIT compiler. An 
+as a front-end, a full Haskell JIT compiler can be implement. An 
 interpreter for a language very similar to the intermediate language used
 by GHC was allready implemented, and this is the base for our work.
 Although it is already possible to have JIT compilation with GHC through
@@ -40,6 +40,64 @@ presents a description of the full compilation system in its current state,
 and a plan for the future development of the system based on the 
 successes and failures so far.
 
+Following is some lists describing how the work in this project has been
+partitioned.
+
+The following work had allready been done:
+\begin{itemize}
+
+\item The Haskell-Python\cite{haskellpython} interpreter was written.
+
+\end{itemize}
+
+These parts was the result of an earlier stage of the project:
+\begin{itemize}
+
+\item An investigation into the use of GHC as a front-end for the compiler.
+This resulted in the JSCore intermediate language. But was unsuccessfull
+at creating JSCore files from the GHC Haskell libraries.
+
+\item A parser for the JSCore language was implemented, however, this 
+parser was only successfull for very few programs.
+
+\item A simple system for testing functionality was implemented.
+
+\end{itemize}
+
+For this project, the following has been done:
+\begin{itemize}
+
+\item Another attempt was given at the creation of JSCore for the GHC 
+Haskell libraries, but was still unsuccessfull. The reason for this beeing
+bugs in GHC. Specifically, bugs in the code that dumps the External-Core
+files.
+
+\item Various Haskell values and functions has been implemented at a higher
+level. Due to the fact that we could not successfully create intermediate
+files for the Haskell
+libraries we had to implement the functionality at a higher level, i.e. 
+Python.
+
+\item Based on the gained understanding of the Core language from the
+previously mentioned work, the parser has been improved. The result of 
+the improvements to the parser, with the implementation of the libraries,
+has resulted in the successfull execution of some less trivial programs,
+such as a naive recursive implementation of fibonacci.
+
+\end{itemize}
+
+In addition to this, some work has been done in parallell by E.W.Thomassen,
+most notably:
+\begin{itemize}
+
+\item A refactoring of the code written previously, in order to make it better 
+match other PyPy projects.
+
+\item Rewriting the Python code into RPython, such that it can be translated by
+the PyPy toolchain.
+
+\end{itemize}
+
 % Write about the use-cases of laguages like Haskell, and the benefits of 
 % Jit compilation
 
@@ -47,22 +105,24 @@ successes and failures so far.
 
 % Structure of the paper. TODO
 \section{Structure of the paper}
-In section \ref{chap:back} we present background information, including 
+In chapter \ref{chap:back} some background information is presented, including 
 some terms and concepts and similar work. 
 %
 A description of the 
-Haskell-Python interpreter is given in section \ref{chap:hs}.
+Haskell-Python interpreter is given in chapter \ref{chap:hs}.
 %
 Chapter \ref{chap:rewrite} goes into detail regarding the intermediate 
 languages, and the mapping between them.
 %
-In section \ref{chap:prims} the Haskell libraries and necessary primitives
-are discussed.
+%In chapter \ref{chap:prims} the Haskell libraries and necessary primitives
+%are discussed.
 %
-Chapter \ref{chap:pipe} describes the entire pipeline of the compilation system 
-at a high level.
+%Chapter \ref{chap:pipe} describes the entire pipeline of the compilation system 
+%at a high level.
 %
-Chapter \ref{chap:test} describes the test-system used.
+%Chapter \ref{chap:test} describes the test-system used.
+%
+Chapter \ref{chap:impl} contains a description of the compilation system.
 %
 Everything is wrapped up in section \ref{chap:conc}, which discusses the 
 results and future work.
