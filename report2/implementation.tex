@@ -3,21 +3,25 @@
 \chapter{System description}
 \label{chap:impl}
 
-This section discusses the implementation of the project with
-references to the source tree. See figure \ref{fig:overview}.
+This chapter discusses the implementation of the project with
+references to the source tree (figure \ref{fig:overview}).
 Note that the source tree has been refactored by E.W. Thomassen
-to better fit with other PyPy projects. This section discusses how
+to better fit with other PyPy projects. This subsection discusses how
 and where the specific functionality is implemented. Note that there
 are a number of problems with the current implementation, and that
-these are discussed in chapter \ref{chap:conc}
+these are discussed in chapter \ref{chap:conc}.
 
-The toplevel of the source tree contains a README file and a folder
-called "pyhaskell".
+\section{Toplevel}
 
-\section{Pyhaskell toplevel}
+The toplevel of the source tree contains a "readme" file, a folder
+called "pyhaskell" where the main interpreter functionality is 
+implemented, and a file called "targethaskellstandalone.py" that 
+defines the target and entry point for the PyPy translation tool.
 
-The toplevel of the source tree contains 3 main programs. "main.py",
-"makegraph.py" and "runtests.py".
+\section{The main functionality}
+
+The pyhaskel folder contains 3 main programs. "main.py",
+"makegraph.py" and "run\_tests.py".
 
 "main.py" is the entrypoint of the compilation system. It defines
 the target for the RPython translation tool, imports the \emph{builtin}
@@ -25,10 +29,11 @@ functionality and the main function begins the interpretation of the
 JSCore program.
 
 The program "makegraph.py" contains a JSON parser and dumps the resulting
-JSON tokens to a dot file in order to generate a graph using graphviz.
+JSON tokens to a dot file in order to generate a graph using the graphviz
+tool.
 
 The "runtests.py" program contains a program that executes all the programs
-in the "test/" subfolder and the prints the result of the tests.
+in the subfolder "test" and then prints the result of the tests.
 
 \begin{sidewaysfigure}
 \begin{figure}[H]
@@ -41,16 +46,15 @@ in the "test/" subfolder and the prints the result of the tests.
 \end{figure}
 \end{sidewaysfigure}
 
-\section{Interpreter}
+The subfolder "interpreter" contains the actuall 
+interpreter code, the parser and the module system implementation. These are
+discussed in the following sectionions.
 
-The subfolder "interpreter" in "pyhaskell" contains the actuall 
-interpreter code, the parser and the module system implementation.
-
-\subsection{haskell}
+\subsection*{Interpreter}
 
 The file "haskell.py" in the folder "interpreter" contains the
 Haskell-Python interpreter, the base of the compilation system.
-This section describes the keys of the Haskell-Python implementation.
+This subsection describes the keys of the Haskell-Python implementation.
 See figure \ref{fig:coreinterp} for a class diagram.
 
 Haskell-Python consists of a few base classes; 
@@ -143,6 +147,8 @@ simply a wrapper for the \emph{main\_loop function}
 
 \end{itemize}
 
+This section has described the Haskell-Python implementation in detail, based
+on the classes and functions implemented.
 
 \begin{sidewaysfigure}
 \begin{figure}[H]
@@ -155,9 +161,7 @@ simply a wrapper for the \emph{main\_loop function}
 \end{figure}
 \end{sidewaysfigure}
 
-
-
-\subsection{primtypes}
+\subsection*{Primitive types}
 
 The file "primtypes.py" in the folder "interpreter" contains the primitive types
 for the Haskell-Python interpreter. The types implemented inherit from the
@@ -216,7 +220,7 @@ class Int(haskell.Value):
 \end{figure}
 
 
-\subsection{module}
+\subsection*{Modules}
 
 The file "module.py" in the folder "interpreter" contains the basics of the
 module system. It contains a single class; \emph{CoreMod}. This class corresponds
@@ -226,7 +230,7 @@ contain \emph{qualified variables}, \emph{qualified type constructors} and
 \emph{qualified dataconstructors} respectively. When a \emph{CoreMod} object is created
 it is at once added to the list of Haskell Modules.
 
-\subsection{jscparser}
+\subsection*{JSCore parser}
 
 The file "jscparser.py" in the "interpreter" folder contains the parser code. 
 This code is responsible for loading JSCore files, and creating the AST based 
@@ -234,7 +238,7 @@ on the interpreter and module-system implementations.
 
 The parser implementation takes advantage of some of the parsing tools 
 available from
-the PyPy codebase. By creating a EBNF grammar for JSON, and giving it to a 
+the PyPy codebase. By writing an EBNF grammar for JSON, and giving it to a 
 function called \emph{parse\_ebnf}, a JSON parser is created.
 
 The resulting parser is a base class called \emph{RPythonVisitor}. The 
@@ -248,8 +252,9 @@ visiting JSON constructs. Since JSCore is a description of External-Core
 compatible with JSON this lets us parse the Core programs by branching 
 on the visitor functions.
 
+This way, the mapping described in \ref{chap:rewrite} is implemented.
 
-\section{Builtin}
+\section{Built-in functionality}
 
 The "builtin/" folder contains all the Haskell library functionality that
 have been implemented in Python. Most of this functionality should have been
@@ -287,11 +292,9 @@ mod.qvars["-"] = zm
 \end{lstlisting}
 \end{figure}
 
+\section{External-Core to JSCore}
 
-
-\section{Core}
-
-The "core/" folder contains the Haskell program responsible of generating the
+The "core/" folder contains the Haskell program responsible for generating the
 JSCore intermediate format. This program is called "core2js". Currently, the
 program uses the External-Core parser from the "extcore" Haskell package and
 the JSON package to read the Haskell file in External-Core format and dump it
@@ -345,35 +348,35 @@ partialapp :  Success
 
 \begin{comment}
 
-\section{Pipeline}
+\subsection{Pipeline}
 \label{chap:pipe}
 
-This section contains a description of the pipeline currently implemented.
+This subsection contains a description of the pipeline currently implemented.
 
-\subsection{Haskell to extcore}
+\subsubsection*{Haskell to extcore}
 
 When running a Haskell file using this system, the file is first processed
 by GHC.
 
-\subsection{Extcore to JSCore}
+\subsubsection*{Extcore to JSCore}
 
 \begin{itemize}
 \item extcore
 \item linkcore ?
 \end{itemize}
 
-\subsection{JSCore to Core'}
+\subsubsection*{JSCore to Core'}
 
-\subsection{Parsing and interpretation}
-
-
+\subsubsection*{Parsing and interpretation}
 
 
 
-\section{Testing}
+
+
+\subsection{Testing}
 \label{chap:test}
 
-\subsection{Current testing of interpreter}
+\subsubsection*{Current testing of interpreter}
 
 The current testing used on the project is done by a python-script that performs
 the following actions:
@@ -399,7 +402,7 @@ the following actions:
 Our testing should be extended by checking if the output is correct.
 
 
-\subsection{GHC test suit}
+\subsubsection*{GHC test suit}
 
 GHC uses a testsuit. Getting the interpreter to pass these tests are the
 ultimate goal, however, the project is not there yet.

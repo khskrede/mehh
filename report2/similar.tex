@@ -1,0 +1,61 @@
+\chapter{Similar work}
+\label{chap:similar}
+
+In addition to the Python implementation, PyPy implements a low-level 
+hardware emulator (PyGirl), a PHP interpreter, and a Prolog interpreter. 
+Various other experiments have also been created by the PyPy team. This
+chapter is a brief discussion of these projects and experiments. 
+
+Some work has also been done on the GHC side, among others, a LLVM
+(Low Level Virtual Macine) back-end has been implemented.
+
+% TODO !
+\section{The GHC LLVM back-end}
+
+The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
+programs from the compilation phase to runtime. The LLVM provides high-level information 
+to the compilation system during compile-time, run-time and in idle time between
+runs. By creating codegenerators for the virtual instruction set supported by
+LLVM, implementors can take full advantage of its features.
+\cite{lattner2004llvm}
+
+GHC can generate LLVM code from Cmm (C minus minus; is a low-level imperative
+language with an explicit stack). In some cases the 
+LLVM back-end can produce significantly faster code than the traditional route. 
+\cite{marlow2012glasgow, terei2010llvm}
+
+\section{PyPy Prolog}
+
+In addition to the implementation of Python, PyPy has also shown that its techniques
+are applicable to other languages. The Prolog VM is an example of this. Implementations
+of Prolog are usually written in low-level languages such as C, this usually results in
+good performance, but means they are difficult to write and maintain. The PyPy Prolog 
+interpreter clearly outperforms other Prolog interpreters written in other high-level
+languages, and it also outperforms state-of-the-art Prolog VMs at specific benchmarks,
+which shows that other Prolog implementations can benefit from the techniques used by
+PyPy. \cite{bolz2010towards}
+
+% TODO !
+\section{HappyJIT}
+
+PHP (Hypertext Preprocessor) is a language used to develop the server-side of 
+websites. The users request for a website is received by the server, the PHP script
+then executes the request, often involving querying a database and then generating 
+the actual HTML for the user. Increasing the effectiveness of this process would
+reduce the time it takes for a user to have a website request answered. 
+The HappyJIT project implements a PHP interpreter in RPython, this interpreter is 
+translated by the PyPy translator into a tracing-JIT. The approach show that 
+the techniques significantly improve the performance of several common use cases.
+\cite{homescu2011happyjit}
+
+% TODO 
+\section{PyGirl}
+
+As a case study, PyGirl implements an emulater for the Nintendo Game Boy. The project 
+shows the feasibility of implementing a low-level VM for hardware in a high-level 
+language to improve portability, and reduce complexity. The project shows that the
+reduction in implementation complexity with this approach is substantial, 
+and that the performance loss can be insignificant.
+\cite{bruni2009pygirl}
+
+

@@ -1,6 +1,10 @@
 
 \chapter{Introduction}
 
+This chapter discusses the motivation behind the project. A description
+of the project, and a description of the work done. It is concluded by 
+introducing the following chapters.
+
 \section{Motivation and project description}
 
 % Why are we doing what we are doing?
@@ -24,7 +28,7 @@ its LLVM backend, the PyPy approach will interpret code at a much higher level.
 % What are we doing?
 We focus on implementing a serializer from Haskell to an intermediate
 format using GHC, and a deserializer from that format to the interpreter. The 
-interpreter is for a language similar to Core (an intermediate format used by GHC.)
+interpreter is for a language similar to Core (the intermediate format used by GHC.)
 By implementing some simple programs in Haskell, and running them through our 
 compilation system, 
 we hope to show that the methods of the PyPy project can be successfully applied 
@@ -40,7 +44,7 @@ presents a description of the full compilation system in its current state,
 and a plan for the future development of the system based on the 
 successes and failures so far.
 
-Following is some lists describing how the work in this project has been
+Following is a listing describing how the work in this project has been
 partitioned.
 
 The following work had allready been done:
@@ -58,7 +62,7 @@ This resulted in the JSCore intermediate language. But was unsuccessfull
 at creating JSCore files from the GHC Haskell libraries.
 
 \item A parser for the JSCore language was implemented, however, this 
-parser was only successfull for very few programs.
+parser was only successfull for a very small subset of the JSCore language.
 
 \item A simple system for testing functionality was implemented.
 
@@ -90,11 +94,14 @@ In addition to this, some work has been done in parallell by E.W.Thomassen,
 most notably:
 \begin{itemize}
 
-\item A refactoring of the code written previously, in order to make it better 
+\item Refactoring of the code written previously, in order to make it better 
 match other PyPy projects.
 
 \item Rewriting the Python code into RPython, such that it can be translated by
 the PyPy toolchain.
+
+\item He has also changed quite a bit of the functionality for the better,
+but details of this work can be found in his report.
 
 \end{itemize}
 
@@ -106,7 +113,7 @@ the PyPy toolchain.
 % Structure of the paper. TODO
 \section{Structure of the paper}
 In chapter \ref{chap:back} some background information is presented, including 
-some terms and concepts and similar work. 
+some terms and concepts. 
 %
 A description of the 
 Haskell-Python interpreter is given in chapter \ref{chap:hs}.
@@ -124,5 +131,7 @@ languages, and the mapping between them.
 %
 Chapter \ref{chap:impl} contains a description of the compilation system.
 %
-Everything is wrapped up in section \ref{chap:conc}, which discusses the 
-results and future work.
+In chapter \ref{chap:similar} a brief discussion of similar work is presented.
+%
+Everything is wrapped up in section \ref{chap:conc}, which discusses 
+the results and future work.

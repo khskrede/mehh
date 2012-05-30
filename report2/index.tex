@@ -1,5 +1,7 @@
 
-\documentclass[12pt]{book}
+\documentclass[12pt,a4paper]{book}
+
+%\documentclass[a4paper,12pt]{article}
 
 
 \usepackage{verbatim}
@@ -80,7 +82,15 @@ rulecolor=\color{Grey}
 \begin{document}
 
 \title{Just-In-Time compilation of\\Haskell with PyPy and GHC}
-\author{Knut Halvor Skrede}
+\author{Author:\\
+Knut Halvor Skrede\\
+\\
+Supervisor:
+\\
+Magnus Lie Hetland, PhD}
+
+%\pagestyle{}
+\pagenumbering{roman}
 
 \begin{titlepage}
 \maketitle
@@ -91,6 +101,7 @@ rulecolor=\color{Grey}
 \input{preface.tex}
 \clearpage
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 %\clearpage
 %\listoffigures
@@ -98,25 +109,30 @@ rulecolor=\color{Grey}
 %\clearpage
 \clearpage
 
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
 \input{intro.tex}
-\clearpage
+%\clearpage
 \input{background.tex}
-\clearpage
+%\clearpage
 %\input{core.tex}
 %\clearpage
 
 \input{haskell-python.tex}
-\clearpage
+%\clearpage
 \input{rewriting.tex}
-\clearpage
+%\clearpage
 \input{implementation.tex}
-\clearpage
+%\clearpage
 %\input{primitives.tex}
 %\clearpage
 %\input{testing.tex}
 %\clearpage
+\input{similar.tex}
 \input{conclusion.tex}
-\clearpage
+%\clearpage
 %\input{future.tex}
 
 \clearpage

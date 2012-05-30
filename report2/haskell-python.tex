@@ -23,7 +23,7 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 \begin{figure}[H]
 \centering
-
+\scriptsize
 \begin{grammar}
 <Constructor> ::= const( <Symbol>, [ <Value> ] )
 
@@ -50,8 +50,6 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 <Symbol> ::= An identifier that can be matched against.
 
-<String> ::= A list of characters
-
 <Number> ::= A number
 
 <Character> ::= A character
@@ -77,28 +75,37 @@ A Core' program is evaluated by reducing the main application to WHNF
 (Weak Head Normal Form). A construct is in WHNF if it can't be
 reduced any further.
 
-\subsection{Value}
+\subsection*{Value}
 A Value can be a Literal, Constructor, or a Variable. All values are in WHNF.
 % What about the implementation of low-level types ???
 
-\subsection{Constructor}
+\subsection*{Constructor}
 A Constructor is just a Value, containing other Values.
 
-\subsection{Function}
+\subsection*{Function}
 A Function is a named collection of Rules. It must contain at least one Rule.
 
-\subsection{Rule}
-A Rule is a list of Values, followed by an Expression. Note that the only Variables
-that are in scope in the Expression, are those defined in the list of Values within 
-the Rule.
+\subsection*{Rule}
+A Rule is a list of Values (called pattern-list here), followed by an Expression. 
+Note that the only Variables
+that are in scope in the Expression, are those defined in the pattern-list within 
+the Rule. The Rule is used for pattern-matching. When a function needs to decide
+which Rule to apply, it matches its arguments against the pattern-list. 
+If a pattern-list is a definite match, the Expression can be safely
+applied. It is however, also possible that a pattern-list is a partial match, and
+that the arguments need to be evaluated before continuing. The Rules are matched
+against in left-to-right order, because of this, it is essential that the 
+default alternative (default Rule) is at the end of the list as it will match
+anything.
 
-\subsection{Expression}
+\subsection*{Expression}
 An Expression can be a Value, a Primitive-Function, a Function, or an Application.
-An Expression is in WHNF if it does not contain any unevaluated Applications.
+An Expression is in WHNF if it is not a fully applied Application.
 
-\subsection{Application}
+\subsection*{Application}
 An Application represents the evaluation of a function with variables applied to it.
-An Application is not in WHNF.
+A fully applied Application is not in WHNF. A partially applied Application is in 
+WHNF because reducing its arguments will not be significant to get a result.
 
 When the Application is evaluated, the arguments are matched against the list of 
 Values contained in the list of Rules. 
@@ -106,8 +113,8 @@ When the arguments match a Rule, the Expression contained in this rule is evalua
 The Variables in the expression are replaced by the values that matched the same-name
 Variables in the Value list. Then the Expression is evaluated, returning a new Value.
 
-\subsection{Literal}
-A Literal is a Value such as an integer, a string or a character.
+\subsection*{Literal}
+A Literal is a Value such as an integer, or a character.
 
 
 
@@ -137,7 +144,7 @@ and returns a new Application with one of the Applications arguments
 replaced by the value-argument. Or the Applications Function is replaced
 by the value-argument.
 
-The UpdateStackElement contains a Thunk (an unevaluated Application). The
+The UpdateStackElement contains a Thunk (an unevaluated Application).
 The step function of the UpdateStackElement returns the Application contained
 in the Thunk, and the next part of the stack (the stack is implemented as a
 linked list).
@@ -148,7 +155,7 @@ linked list).
 
 A Core' program is executed by reducing a main Application to WHNF.
 
-%\subsection{The evaluation stack}
+%\subsection*{The evaluation stack}
 
 When an Application is evaluated; two things can happen. If it does not contain
 other unevaluated Applications it can be evaluated directly. However, if it does
@@ -167,7 +174,7 @@ See figure \ref{fig:sketch} for a concept sketch.
 
 % A CopyStackElement contains an Application. ?
 
-%\subsection{Thunk}
+%\subsection*{Thunk}
 
 %A Thunk is a suspended evaluation, in effect, an unevaluated function application.
 
@@ -202,7 +209,7 @@ The description of Haskell-Python can be
 logically divided into two parts; "the way programs are 
 represented", and "the way programs are evaluated".
 
-\subsection{Program representation}
+\subsection*{Program representation}
 
 Programs are represented by a set of Classes; Value, Constructor, Function, Rule, 
 PrimFunction, Var, Application (Additional classes are created for Constructor
@@ -229,7 +236,7 @@ The Function class represents a user-defined function.
 A Var is substituted with a NumberedVar when a Rule is created. This simply
 means that the new NumberedVar is only in scope within the Rule.
 
-\subsection{Program evaluation}
+\subsection*{Program evaluation}
 
 A Substitution is the body of a Function with numbered variables 
 (NumberedVar) substituted by values.
@@ -270,7 +277,7 @@ can also be reduced to a Value.
 This project involved extending Haskell-Python to a full Haskell interpreter 
 through the use of GHC.
 
-\subsection{GHC usage}
+\subsection*{GHC usage}
 
 % TODO
 
@@ -283,7 +290,7 @@ JSCore is a JSON compliant representation of external-core. This means that
 we can parse JSON and get a representation we can easily traverse when building
 the AST (Abstract Syntax Tree) for the Core' interpreter.
 
-\subsection{Module system}
+\subsection*{Module system}
 
 % TODO
 A module system was implemented for the interpreter. A module object contains
@@ -291,7 +298,7 @@ a dictionary for variables, type-constructors and data-constructors. The
 "library" contains a dictionary of modules. This structure corresponds to the
 module hierarchy used by GHC.
 
-\subsection{Parser}
+\subsection*{Parser}
 
 % TODO
 
@@ -302,11 +309,11 @@ parser and traversing the resulting datastructure, we build the AST for the
 interpreter. See section \ref{chap:rewrite} for a detailed description of 
 the parser and the Core to Core' mapping.
 
-\subsection{Primitives}
+\subsection*{Primitives}
 
 % TODO
 The Primitive values extend the Value class. Primitive functions handle
 these values.
-See section \ref{chap:prims} for a more in-depth discussion of the
+See section \ref{chap:impl} for a more in-depth discussion of the
 library and primitives.
 
