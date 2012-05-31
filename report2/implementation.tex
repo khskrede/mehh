@@ -256,7 +256,7 @@ This way, the mapping described in \ref{chap:rewrite} is implemented.
 
 \section{Built-in functionality}
 
-The "builtin/" folder contains all the Haskell library functionality that
+The "builtin" folder contains all the Haskell library functionality that
 have been implemented in Python. Most of this functionality should have been
 stored in the subfolder "ghc\_modules" as JSCore files. However, due to some 
 issues that are discussed in conclusions and future work, this is not currently
@@ -294,7 +294,7 @@ mod.qvars["-"] = zm
 
 \section{External-Core to JSCore}
 
-The "core/" folder contains the Haskell program responsible for generating the
+The "core" folder contains the Haskell program responsible for generating the
 JSCore intermediate format. This program is called "core2js". Currently, the
 program uses the External-Core parser from the "extcore" Haskell package and
 the JSON package to read the Haskell file in External-Core format and dump it
@@ -308,17 +308,17 @@ using the "-fext-core" flag and "core2js" to create JSCore files from the
 resulting External-Core files.
 
 The GHC library files are organized exactly as in the GHC source tree. Each
-folder in the "libraries/" directory corresponds to a Haskell package. These
+folder in the "libraries" directory corresponds to a Haskell package. These
 packages contain the Haskell modules. E.g. the module "GHC.Tuple" is located
 in "ghc-prim/GHC/Tuple.hs".
 
 \section{Tests}
 
-The "test/" directory contains one subdirectory for each test. The
+The "test" directory contains one subdirectory for each test. The
 subdirectories contain a single Haskell file with the same name as the
 subdirectory (other files are created and put in the directory when running
 the test). E.g. the test "fibonacci" is located in the following path:
-"test/fibonacci/fibonacci.hs" and after running the test the "fibonacci/"
+"test/fibonacci/fibonacci.hs" and after running the test the "fibonacci"
 folder should contain the additional files; "factorial.hcr", "factorial.hi",
 "factorial.o" and "factorial.hcj". ".hcj" is the extension used for JSCore
 files.
