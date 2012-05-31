@@ -4,7 +4,7 @@
 
 Haskell-Python\cite{haskellpython}
 is an interpreter for a language similar to Core, we call it Core' here.
-This interpreter is the base for our JIT compiler. In this section we descripe a 
+This interpreter is the base for our JIT compiler. In this section we describe a 
 syntax and an informal semantics for Core', as well as a description of the 
 interpreter.
 
@@ -38,8 +38,7 @@ See figure \ref{gr:coresyn} for the full syntax.
 
 <Application> ::= app( <Exp>, [ <Value> ] )
 
-<Literal> ::= str( <String> )
-	 \alt num( <Number> )
+<Literal> ::= num( <Number> )
 	 \alt char( <Character> )
 
 <Value> ::= <Literal>
@@ -162,7 +161,7 @@ other unevaluated Applications it can be evaluated directly. However, if it does
 contain unevaluated Applications, it is added to the evaluation stack, and its 
 arguments are added on top of it, with any Applications turned into a Thunk 
 (a suspended evaluation). Evaluation proceeds from the top of the stack.
-untill its unevaluated parts have become evaluated (reduced to WHNF), and the
+until its unevaluated parts have become evaluated (reduced to WHNF), and the
 Application itself is ready to be evaluated.
 See figure \ref{fig:sketch} for a concept sketch.
 
@@ -243,7 +242,7 @@ A Substitution is the body of a Function with numbered variables
 
 The evaluation of a program is done by a function, main\_loop. The function
 takes a variable 'expr' as argument, and reduces it to WHNF. The reduction is done
-by continously pushing/popping from the evaluation stack. 
+by continuously pushing/popping from the evaluation stack. 
 
 The evaluation stack is represented by a base class, StackElement. Two other
 classes inherits from this class, UpdateStackElement and CopyStackElement. Note that
@@ -260,7 +259,7 @@ when the first Application is to be evaluated, it is discovered that it
 contains unevaluated expressions. The Application is turned into a Thunk.
 The Thunk is then popped from the stack, and the Application is added to
 the stack, the Application arguments are popped on the stack with any 
-Applications turned into thunks. The top of the stack is again a Thunk.
+Applications turned into Thunks. The top of the stack is again a Thunk.
 The same routine is performed on the new Thunk, until the expression top
 Application can be reduced to a Value. After this, the initial Application
 can also be reduced to a Value.
@@ -305,7 +304,7 @@ module hierarchy used by GHC.
 The parser is implemented using some of the PyPy parsing tools. A simple 
 JSON grammar is described in EBNF form in a Python string. This string
 is then parsed by the PyPy tool and a parser is created. By using this JSON
-parser and traversing the resulting datastructure, we build the AST for the 
+parser and traversing the resulting data structure, we build the AST for the 
 interpreter. See section \ref{chap:rewrite} for a detailed description of 
 the parser and the Core to Core' mapping.
 

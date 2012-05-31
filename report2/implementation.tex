@@ -23,7 +23,7 @@ defines the target and entry point for the PyPy translation tool.
 The pyhaskel folder contains 3 main programs. "main.py",
 "makegraph.py" and "run\_tests.py".
 
-"main.py" is the entrypoint of the compilation system. It defines
+"main.py" is the entry point of the compilation system. It defines
 the target for the RPython translation tool, imports the \emph{builtin}
 functionality and the main function begins the interpretation of the
 JSCore program.
@@ -33,7 +33,7 @@ JSON tokens to a dot file in order to generate a graph using the graphviz
 tool.
 
 The "runtests.py" program contains a program that executes all the programs
-in the subfolder "test" and then prints the result of the tests.
+in the sub folder "test" and then prints the result of the tests.
 
 \begin{sidewaysfigure}
 \begin{figure}[H]
@@ -46,9 +46,9 @@ in the subfolder "test" and then prints the result of the tests.
 \end{figure}
 \end{sidewaysfigure}
 
-The subfolder "interpreter" contains the actuall 
+The sub folder "interpreter" contains the actual
 interpreter code, the parser and the module system implementation. These are
-discussed in the following sectionions.
+discussed in the following sections.
 
 \subsection*{Interpreter}
 
@@ -91,8 +91,8 @@ Haskell-Python function, it contains a name and a list of \emph{Rules}
 an expression. If the function is applied and its arguments matches a pattern, the
 expression is evaluated.
 
-\item \emph{Substitution} inhertis from HaskellObject and is the body of a function 
-with its numbered variables substitutet by values.
+\item \emph{Substitution} inherits from HaskellObject and is the body of a function 
+with its numbered variables substituted by values.
 
 \item \emph{PrimFunction} inherits from \emph{AbstractFunction} and describes a function
 implemented at the machine level. A function called \emph{expose\_primitive} is
@@ -130,7 +130,7 @@ In addition to these classes, the most important functions are;
 
 \begin{itemize}
 
-\item \emph{expose\_primitive} and the following two functions have allready been 
+\item \emph{expose\_primitive} and the following two functions have already been 
 mentioned. \emph{expose\_primitive} can be used as a python-decorator.
 
 \item \emph{constr} creates a \emph{Constructor} object by looking up the "name" in
@@ -227,7 +227,7 @@ module system. It contains a single class; \emph{CoreMod}. This class correspond
 to a Haskell Module. A \emph{CoreMod} object contains a name, and three dictionaries.
 These dictionaries are called \emph{qvars}, \emph{qtycons} and \emph{qdcons} and they
 contain \emph{qualified variables}, \emph{qualified type constructors} and 
-\emph{qualified dataconstructors} respectively. When a \emph{CoreMod} object is created
+\emph{qualified data constructors} respectively. When a \emph{CoreMod} object is created
 it is at once added to the list of Haskell Modules.
 
 \subsection*{JSCore parser}
@@ -238,7 +238,7 @@ on the interpreter and module-system implementations.
 
 The parser implementation takes advantage of some of the parsing tools 
 available from
-the PyPy codebase. By writing an EBNF grammar for JSON, and giving it to a 
+the PyPy code base. By writing an EBNF grammar for JSON, and giving it to a 
 function called \emph{parse\_ebnf}, a JSON parser is created.
 
 The resulting parser is a base class called \emph{RPythonVisitor}. The 
@@ -258,7 +258,7 @@ This way, the mapping described in \ref{chap:rewrite} is implemented.
 
 The "builtin" folder contains all the Haskell library functionality that
 have been implemented in Python. Most of this functionality should have been
-stored in the subfolder "ghc\_modules" as JSCore files. However, due to some 
+stored in the sub folder "ghc\_modules" as JSCore files. However, due to some 
 issues that are discussed in conclusions and future work, this is not currently
 the case.
 

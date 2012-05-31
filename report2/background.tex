@@ -12,9 +12,9 @@ and Haskell-Python, the base interpreter for the project.
 
 % What is Haskell ?
 Haskell is a lazy, pure functional language with non-strict semantics and static 
-polymorphic typing. It provides user-defined algebraic datatypes, pattern-matching, 
+polymorphic typing. It provides user-defined algebraic data types, pattern-matching, 
 list comprehensions, a system for modules, a system for monadic I/O, and a large 
-standard library. In addition to beeing strongly typed, Haskell supports type
+standard library. In addition to being strongly typed, Haskell supports type
 inference, which means type annotations are seldom required. Haskell is not described
 in too much detail here, for a full description 
 of Haskell, see "the Haskell 2010 language report"\cite{marlow2010haskell}. 
@@ -33,7 +33,7 @@ non-functional language features are impossible, as the two cannot work in conju
 \section{GHC}
 
 GHC is a 20 years old project, and it has been under development during
-all these years. It started out with the goals of beeing a freely available,
+all these years. It started out with the goals of being a freely available,
 robust and portable compiler for Haskell, to provide a modular framework that
 could be extended and developed by other researchers, and to learn how real
 Haskell programs behave. \cite{marlow2012glasgow}
@@ -45,7 +45,7 @@ that turns Haskell source code into executable code. The boot libraries are the
 libraries that the compiler itself depends on. The RTS is a large library
 of C code that is responsible for running the Haskell programs, such as the 
 GC (Garbage Collector) implementation. The RTS system is linked into all 
-Haskell programs compiled by GHC. These three parts corresponds to subdirectries
+Haskell programs compiled by GHC. These three parts corresponds to subdirectories
 in the GHC source, namely "compiler", "libraries" and "rts".
 \cite{marlow2012glasgow}
 
@@ -87,7 +87,7 @@ incorporates a lot of syntactic constructs. This means that there are
 usually many ways to write the same program. The definition of the Haskell language
 defines these syntactic constructs in terms of their translation into simpler
 constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
-After removing all of the syntactic suger (desugaring) GHC is left with a much 
+After removing all of the syntactic sugar (desugaring) GHC is left with a much 
 simpler language. This language is called Core (or system $F_C$ when referring to
 the theory).\cite{marlow2012glasgow} Core is discussed in more detail in chapter 
 \ref{chap:rewrite}.
@@ -112,13 +112,13 @@ it also contains instructions on how to create these.
 Unfortunately, at the time of this writing, both the External-Core functionality in
 GHC, the extcore and the linkcore 
 packages have bitrotted. Although there seems to be interest for the continued 
-maintainance of External-Core in GHC.
+maintenance of External-Core in GHC.
 
 
 \section{PyPy}
 
 % What is the PyPy project ?
-PyPy is a project that shows the feasability of constructing a VM (Virtual Machine) 
+PyPy is a project that shows the feasibility of constructing a VM (Virtual Machine) 
 for a dynamic  language in a dynamic language, specifically, Python. The PyPy 
 environment aims to translate (i.e. compile) the VM into arbitrary targets. This 
 means that an interpreter constructed in the PyPy environment will be able to 
@@ -171,7 +171,7 @@ the trace. \cite{bolz2011runtime}
 
 % What is Haskell-Python ?
 Haskell-Python\cite{haskellpython}
-is an interpreter for a Haskell inspired lambda-calculs called Core'. 
+is an interpreter for a Haskell inspired lambda-calculus called Core'. 
 It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.

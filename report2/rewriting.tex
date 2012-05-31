@@ -64,7 +64,7 @@ erased before running the program, this evidence has no effect.
 
 The following content is an introduction to the actual implementation
 of the parser without becoming too technical. Its purpose is to communicate
-the similarties and differences between JSCore 
+the similarities and differences between JSCore 
 and Core', as well as defining a mapping from the former to the latter.
 
 The most notable constructs of JSCore are described and it is shown how they
@@ -226,16 +226,16 @@ notation used).
 \caption{Excerpt from appendix \ref{jscoregrammar} defining the sytax of case expressions}
 \end{figure}
 
-The expression following the "exp" keyword in the case defintition is the scrutinee. This
+The expression following the "exp" keyword in the case-definition is the scrutiny. This
 is usually just a variable declared in a lambda expression at a higher level.
-The scrutinee ("exp") is to be bound to the variable following the "\%of" keyword.
+The scrutiny ("exp") is to be bound to the variable following the "\%of" keyword.
 This is simply done by replacing all instances of the variable following the "\%of" keyword
-by the scrutinee.
+by the scrutiny.
 
 The constructor alternative is used both as an ordinary case alternative, but it is
 also used to deconstruct constructors. Since a Haskell Int is a data
 constructor with name "I\#" and a value of type "Int\#", one case expression is used 
-to deconstructo the "Int" value and one is used to match on the actual "Int\#" literals.
+to deconstruct the "Int" value and one is used to match on the actual "Int\#" literals.
 
 Following is a piece of JSCore pseudo-code that does this. 
 The names "type1", "type2", "type3", "type4", "type5" refers to JSCore types. 
@@ -289,7 +289,7 @@ func("case", [
 \end{figure}
 
 Note that the literals in the case-alternatives are added to the bottom of the stack,
-the reason for this is that they are matched against, and the scrutinee is the first
+the reason for this is that they are matched against, and the scrutiny is the first
 argument in the function.
 Also note that "var1" has allready
 been appended to the stack, most likely by a lambda abstraction. However, 
@@ -307,7 +307,7 @@ well as it's name.
 
 \subsubsection*{Type definitions}
 
-Nothing is done when visiting an algebraic datatype definition, rather, it is done when 
+Nothing is done when visiting an algebraic data type definition, rather, it is done when 
 visiting its children. (A constructor is created for each constructor definition).
 % What about the type from the ADT ? and newtype ???
 
@@ -351,7 +351,7 @@ The let statement simply stores the current recursion variable, and restores it 
 visiting its value definition. Note that the let statement is not yet properly tested.
 
 The case statement is the most complicated of all the statements in the Core language.
-When the case statement is parsed, it is turned into a Function, the scrutinee (exp) 
+When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
 is in turn applied to the function. Note that, since the only variables that are in
 scope in a functions rules, is the pattern it matches against, we need to pass all 
 variables downwards from the top Expression.
@@ -386,7 +386,7 @@ The literal returns a Core' Value.
 
 \subsubsection*{Value binder}
 
-The value binder symply returns a Core' Variable, as Core' does not have Types.
+The value binder simply returns a Core' Variable, as Core' does not have Types.
 
 
 \subsubsection*{Type binder}

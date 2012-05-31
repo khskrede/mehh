@@ -21,9 +21,9 @@ programming language. By implementing the back-end for a Haskell compiler
 in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
 as a front-end, a full Haskell JIT compiler can be implement. An 
 interpreter for a language very similar to the intermediate language used
-by GHC was allready implemented, and this is the base for our work.
+by GHC was already implemented, and this is the base for our work.
 Although it is already possible to have JIT compilation with GHC through
-its LLVM backend, the PyPy approach will interpret code at a much higher level.
+its LLVM back-end, the PyPy approach will interpret code at a much higher level.
 
 % What are we doing?
 We focus on implementing a serializer from Haskell to an intermediate
@@ -47,7 +47,7 @@ successes and failures so far.
 Following is a listing describing how the work in this project has been
 partitioned.
 
-The following work had allready been done:
+The following work had already been done:
 \begin{itemize}
 
 \item The Haskell-Python\cite{haskellpython} interpreter was written.
@@ -58,11 +58,11 @@ These parts was the result of an earlier stage of the project:
 \begin{itemize}
 
 \item An investigation into the use of GHC as a front-end for the compiler.
-This resulted in the JSCore intermediate language. But was unsuccessfull
+This resulted in the JSCore intermediate language. But was unsuccessful
 at creating JSCore files from the GHC Haskell libraries.
 
 \item A parser for the JSCore language was implemented, however, this 
-parser was only successfull for a very small subset of the JSCore language.
+parser was only successful for a very small subset of the JSCore language.
 
 \item A simple system for testing functionality was implemented.
 
@@ -72,7 +72,7 @@ For this project, the following has been done:
 \begin{itemize}
 
 \item Another attempt was given at the creation of JSCore for the GHC 
-Haskell libraries, but was still unsuccessfull. The reason for this beeing
+Haskell libraries, but was still unsuccessful. The reason for this being
 bugs in GHC. Specifically, bugs in the code that dumps the External-Core
 files.
 
@@ -85,7 +85,7 @@ Python.
 \item Based on the gained understanding of the Core language from the
 previously mentioned work, the parser has been improved. The result of 
 the improvements to the parser, with the implementation of the libraries,
-has resulted in the successfull execution of some less trivial programs,
+has resulted in the successful execution of some less trivial programs,
 such as a naive recursive implementation of fibonacci.
 
 \end{itemize}
