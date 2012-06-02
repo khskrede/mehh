@@ -65,7 +65,7 @@ PyHaskell JIT      & 1m 20.638s \\
 \end{tabular}
 
 \caption{Timing results for running the naive fibonacci implementation with n=40. Results
-are from the "user" output of the time linux command.}
+are from the "user" output of the "time" linux command.}
 \label{tab:benchmarks}
 
 
@@ -75,9 +75,12 @@ The testing performed has been described in chapter \ref{chap:impl}. The results
 testing is that the current implementation is sufficient for simple programs taking 
 advantage of various Haskell constructs. It is also clear that this is not sufficient
 to run any more complicated programs, but it serves well for the future development of
-the system.
+the system. Eventually, the interpreter should run the GHC benchmarking suite (NoFib) and 
+the GHC testsuit.
 
-\section{Final remarks}
+\section{Concluding remarks}
+
+%NoFib GHC benchmark
 
 The goals of this project was to investigate whether Haskell could benefit from JIT 
 compilation. Unfortunately, this question remains unanswered at this stage, as the
