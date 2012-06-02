@@ -4,6 +4,7 @@
 
 
 \section{Serializing and deserializing}
+\label{serdes}
 
 The current situation regarding the serialization of Haskell programs into 
 the JSCore format have several problems. It is dependent on a buggy part of GHC, 
@@ -83,7 +84,15 @@ the GHC testsuit.
 %NoFib GHC benchmark
 
 The goals of this project was to investigate whether Haskell could benefit from JIT 
-compilation. Unfortunately, this question remains unanswered at this stage, as the
+compilation, specifically; the techniques applied by the PyPy project. 
+To answer this, it was attempted to implement a full Haskell compilation
+system, using an interpreter called Haskell-Python\cite{haskellpython} as the back-end,
+and GHC as the front-end, and translate it into a JIT compiler using the PyPy translation
+toolchain. The work involved in this project has mostly been the implementation of the necessary
+tools to get Haskell programs from GHC into Haskell-Python. This has only been partially
+successful, as discussed in section \ref{serdes}.
+
+Unfortunately, the original question remains unanswered at this stage, as the
 approach taken to test the hypothesis has not been successfully completed. However,
 based on the results from this partially implemented system, its continued
 development may result in a fast Haskell compilation system, and may eventually prove
