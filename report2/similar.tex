@@ -7,7 +7,7 @@ Various other experiments have also been created by the PyPy team. This
 chapter is a brief discussion of these projects and experiments. 
 
 Some work has also been done on the GHC side, among others, a LLVM
-(Low Level Virtual Macine) back-end has been implemented.
+(Low Level Virtual Machine) back-end has been implemented.
 
 % TODO !
 \section{The GHC LLVM back-end}
@@ -15,7 +15,7 @@ Some work has also been done on the GHC side, among others, a LLVM
 The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
 programs from the compilation phase to runtime. The LLVM provides high-level information 
 to the compilation system during compile-time, run-time and in idle time between
-runs. By creating codegenerators for the virtual instruction set supported by
+runs. By creating code generators for the virtual instruction set supported by
 LLVM, implementors can take full advantage of its features.
 \cite{lattner2004llvm}
 
@@ -51,7 +51,7 @@ the techniques significantly improve the performance of several common use cases
 % TODO 
 \section{PyGirl}
 
-As a case study, PyGirl implements an emulater for the Nintendo Game Boy. The project 
+As a case study, PyGirl implements an emulator for the Nintendo Game Boy. The project 
 shows the feasibility of implementing a low-level VM for hardware in a high-level 
 language to improve portability, and reduce complexity. The project shows that the
 reduction in implementation complexity with this approach is substantial, 

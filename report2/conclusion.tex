@@ -40,103 +40,50 @@ very much.
 
 \section{Benchmarking and testing}
 
+Some simple benchmarking and testing was done. The benchmarking was done by
+running the naive fibonacci program with $n=40$, the results can be seen in
+table \ref{tab:benchmarks}.
+It is clear that the interpreter must be optimized 
+further if it is to compete with GHC. A significant increase in execution 
+time with the JIT as opposed to without the JIT was observed. In addition,
+for this benchmark, the interpreter with JIT was approximately $3.3$ times faster than
+$runhaskell$ (an interpreter that comes with GHC).
 
-\begin{comment}
+\begin{table}[H]
 
-\section{Primitives and Libraries}
+\centering
+\begin{tabular}{l|l}
+\hline
+\hline
+Compilation System & Time \\
+\hline
+GHC               & 0m 11.296s  \\
+runhaskell        & 4m 23.803s \\ 
+PyHaskell no JIT   & 12m 57.254s \\
+PyHaskell JIT      & 1m 20.638s \\
+\hline
+\end{tabular}
 
-\section{The initial plan}
-
-GHC uses a module called GHC.Prim, located in the ghc-prim package. This
-module is generated automatically from a file called "primops.txt.pp", this file
-contains information about the machine representations of the various types, as
-well as the operations that can be performed on them.
-
-Initially, it was assumed that it would be trivial to translate the Haskell
-libraries used by GHC into External-Core using GHC. This way, it would only 
-be necessary to implement the primitive types and functions.
-
-The External-Core functionality of GHC has bitrotted, and because of this, it can't be
-used to create External-Core files for all the GHC libraries. This is a GHC bug. 
-Although it produces correct
-External-Core for some Haskell code, it does not for all. Since many crucial library files
-can not be created External-Core for, we can not continue to use this approach.
-
-\subsection*{Our approach}
-
-Currently, GHC is used to parse, typecheck, desugar and generate the 
-External-Core representation of our program. By implementing the
-primitive types and library functionality in Python, we are able to
-get some simple programs running.
-
-
-\subsection*{Why it does not work}
-
-% TODO: Libraries use Haskell code not supported by the External-Core libraries.
-
-The initial reasoning for using External-Core was as follows;
-it has a clearly defined syntax that is easy to work with, and it was 
-assumed that it was decently supported. Unfortunately, there are bugs in
-the parts of GHC responsible for generating External-Core, this in turn
-results in the fact that we are unable to create External-Core files for the
-necessary libraries.
+\caption{Timing results for running the naive fibonacci implementation with n=40. Results
+are from the "user" output of the time linux command.}
+\label{tab:benchmarks}
 
 
-\subsection*{How to fix it}
+\end{table}
 
-% TODO: Should i link to the bugs ???
+The testing performed has been described in chapter \ref{chap:impl}. The results of the 
+testing is that the current implementation is sufficient for simple programs taking 
+advantage of various Haskell constructs. It is also clear that this is not sufficient
+to run any more complicated programs, but it serves well for the future development of
+the system.
 
-GHC includes a library, it should be doable to use this library to get
-GHCs own internal Core representation when compiling a file. Using this 
-representation, it should be easy to create a JSCore-like format to use.
+\section{Final remarks}
 
-However, to do this, the step performing this must be a linked into the
-actual GHC binary, as it is not possible to compile the Base package without
-actually compiling GHC. This is also due to a bug in GHC.
-
-
-
-
-
-
-
+The goals of this project was to investigate whether Haskell could benefit from JIT 
+compilation. Unfortunately, this question remains unanswered at this stage, as the
+approach taken to test the hypothesis has not been successfully completed. However,
+based on the results from this partially implemented system, its continued
+development may result in a fast Haskell compilation system, and may eventually prove
+the hypothesis true.
 
 
-
-
-
-
-\section{Implementation}
-
-Writing interpreters in RPython is efficient.... Most of the time was spent on
-trying to figure out how to deal with the issues of interpreting Core, and the
-primitives.
-
-What has been the key choices ??? How did these choices we made work out ???
-
-\section{Benchmarks}
-
-Can we do any kind of benchmarking ??? If not, how far along of some 
-benchmarking are we ???
-
-\section{Future work}
-
-\begin{itemize}
-
-\item Drop the use of External-Core. Use the GHC API to compile Haskell programs
-into JSCore (or something similar). The difficult part will be how to compile
-multiple Haskell source files. And figuring out how to get information from the
-current buildsystems into our program. This information includes:
-
-\begin{itemize}
-
-\item Language extensions
-\item Dependencies
-\item Packages
-\item And any other information necessary to build the program.
-
-\end{itemize}
-
-\end{itemize}
-
-\end{comment}

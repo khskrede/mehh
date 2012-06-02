@@ -272,7 +272,7 @@ arguments for this function.
 \begin{figure}[H]
 \lstset{ %
 language=Python,
-caption=Python class implementing the Haskell Int Value.,
+caption=Python function implementing the generic minus function.,
 label=lst:zmnum
 }
 \begin{lstlisting}
@@ -314,6 +314,7 @@ in "ghc-prim/GHC/Tuple.hs".
 
 \section{Tests}
 
+The tests have been designed to test different parts of the interpreter.
 The "test" directory contains one subdirectory for each test. The
 subdirectories contain a single Haskell file with the same name as the
 subdirectory (other files are created and put in the directory when running
@@ -346,65 +347,3 @@ partialapp :  Success
 \end{lstlisting}
 \end{figure}
 
-\begin{comment}
-
-\subsection{Pipeline}
-\label{chap:pipe}
-
-This subsection contains a description of the pipeline currently implemented.
-
-\subsubsection*{Haskell to extcore}
-
-When running a Haskell file using this system, the file is first processed
-by GHC.
-
-\subsubsection*{Extcore to JSCore}
-
-\begin{itemize}
-\item extcore
-\item linkcore ?
-\end{itemize}
-
-\subsubsection*{JSCore to Core'}
-
-\subsubsection*{Parsing and interpretation}
-
-
-
-
-
-\subsection{Testing}
-\label{chap:test}
-
-\subsubsection*{Current testing of interpreter}
-
-The current testing used on the project is done by a python-script that performs
-the following actions:
-
-\begin{itemize}
-
-\item For all folders in folder 'test':
-
-\begin{itemize}
-
-\item Compile haskell program with GHC and dumping to external-core
-
-\item Run the core2js program on resulting external-core file
-
-\item Run the main interpreter on the JSCore file.
-
-\end{itemize}
-
-\item Dump return-values of programs.
-
-\end{itemize}
-
-Our testing should be extended by checking if the output is correct.
-
-
-\subsubsection*{GHC test suit}
-
-GHC uses a testsuit. Getting the interpreter to pass these tests are the
-ultimate goal, however, the project is not there yet.
-
-\end{comment}
