@@ -50,27 +50,7 @@ time with the JIT as opposed to without the JIT was observed. In addition,
 for this benchmark, the interpreter with JIT was approximately $3.3$ times faster than
 $runhaskell$ (an interpreter that comes with GHC).
 
-\begin{table}[H]
 
-\centering
-\begin{tabular}{l|l}
-\hline
-\hline
-Compilation System & Time \\
-\hline
-GHC               & 0m 11.296s  \\
-runhaskell        & 4m 23.803s \\ 
-PyHaskell no JIT   & 12m 57.254s \\
-PyHaskell JIT      & 1m 20.638s \\
-\hline
-\end{tabular}
-
-\caption{Timing results for running the naive fibonacci implementation with n=40. Results
-are from the "user" output of the "time" linux command.}
-\label{tab:benchmarks}
-
-
-\end{table}
 
 The testing performed has been described in chapter \ref{chap:impl}. The results of the 
 testing is that the current implementation is sufficient for simple programs taking 

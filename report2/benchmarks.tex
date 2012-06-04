@@ -1,0 +1,83 @@
+
+\chapter{Preliminary benchmarks}
+
+This chapter briefly discusses the benchmarking that was done.
+
+\section{Specifications}
+
+The benchmarking was done on the following setup;
+
+\begin{table}[H]
+
+\centering
+\begin{tabular}{l|l}
+
+\hline
+\hline
+Processor & Intel Core i7-640M (2x2.8GHz) \\
+Memory    & 2x2GB DDR3-1333 \\
+Chipset   & Intel PM55 \\
+OS        & Arch Linux (3.3.7-1-ARCH) \\
+\hline
+\end{tabular}
+
+\caption{Relevant system specifications}
+
+\end{table}
+
+\section{Test program}
+
+\ref{lst:naivfib}
+
+\lstset{ %
+language=Python,
+caption=Naive fibonacci implementation in Haskell,
+label=lst:naivfib
+}
+\begin{lstlisting}
+main = do 
+    let n = 40
+    putStrLn $ "Fib(" ++ (show n) 
+               ++ ") = " ++ (show $ fib n)
+
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+\end{lstlisting}
+
+\section{Results}
+
+The benchmarking was done by running the naive fibonacci program with $n=40$ 
+on the Intel Core i7-640M processor. The results can be seen in table 
+\ref{tab:benchmarks}. GHC version 7.4.1 was used. 
+
+\begin{table}[H]
+
+\centering
+\begin{tabular}{l|l}
+\hline
+\hline
+Compilation System & Time \\
+\hline
+GHC               & 0m 11.296s  \\
+runhaskell        & 4m 23.803s \\ 
+PyHaskell no JIT  & 12m 57.254s \\
+PyHaskell JIT     & 1m 20.638s \\
+\hline
+\end{tabular}
+
+\caption{Timing results for running the naive fibonacci implementation with n=40. Results
+are from the "user" output of the "time" linux command.}
+\label{tab:benchmarks}
+
+\end{table}
+
+From these results it is clear that the interpreter must be optimized further if
+it is to compete with GHC. A significant decrease in execution time with the JIT
+as opposed to without the JIT was observed. In addition, for this benchmark, the
+interpreter with JIT was approximately $3.3$ times faster than $runhaskell$ 
+(an interpreter that comes with GHC).
+
+
+
