@@ -1,0 +1,2417 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10em
+
+
+
+
+
+
+
+
+
+listing
+  
+
+ 
+basicstyle=,         
+
+
+
+
+frame=single,
+framerule=1pt,
+frameround=tttt,
+
+showstringspaces=false,
+tabsize=2,                      
+captionpos=b,                   
+breaklines=true,                
+breakatwhitespace=false,        
+
+xleftmargin=5pt,
+xrightmargin=5pt,
+
+
+
+
+
+
+
+
+
+
+
+
+Just-In-Time compilation of
+Haskell with PyPy and GHC
+Author:
+
+Knut Halvor Skrede
+
+
+
+Supervisor:
+
+
+Dr. Magnus Lie Hetland
+
+
+roman
+
+
+
+
+
+
+*Abstract
+
+PyPy is a project that implements Virtual Machines in a proper subset of
+the Python language called RPython. Virtual Machines written in RPython
+can be translated into efficient C code. An interpreter for a lambda-calculus inspired by
+Haskell has been written in this language.
+This project aims to extend this interpreter to use GHC as a front-end for
+a full Haskell JIT compiler. Effectively investigating the feasibility
+of applying the JIT compilation techniques of the PyPy project on functional
+languages like Haskell.
+
+
+
+
+*Preface
+
+Acknowledgements
+
+I would like to thank the following people;
+
+
+
+Carl Friedrich Bolz, for his help on both the technical parts
+of the project, and on the formulation of this report.
+
+My supervisor, Magnus Lie Hetland, for all his help.
+
+Even Wiik Thomassen, for his help and hard work.
+
+My friends and family for their support during these years of study.
+
+
+
+
+Disclaimer
+
+This is a collaboration project. Two people are working on this
+project at the same time; me, and Even Wiik Thomassen. Since I am working
+on my master thesis and he is working on his specialization project, we 
+write separate reports. We attempt to present our work in such a way that
+it is clear who has done what. Some parts may however look similar,
+especially the introduction and background parts, as they are based on 
+some of the same papers.
+
+
+
+
+
+2
+
+
+
+
+
+
+
+
+1
+arabic
+
+
+Introduction
+
+This chapter discusses the motivation behind the project and 
+presents a description of the project and of the work done. It 
+is concluded by introducing the remaining chapters.
+
+Motivation and project description
+
+The project aims to investigate the feasibility of JIT (Just-in-time) 
+compilation of a strongly-typed purely-functional language. Since
+programs written in such a language can be heavily optimized at 
+compile time, it us uncertain whether such programs can benefit from
+JIT compilation. However, a JIT compiler has a lot more information to
+work with than a static compiler. 
+
+To test this, the techniques 
+used by the PyPy (Python in Python) project is applied to the Haskell 
+programming language. By implementing the back-end for a Haskell compiler 
+in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
+as a front-end, a full Haskell JIT compiler can be implemented. An 
+interpreter for a language very similar to the intermediate language used
+by GHC was already implemented, and this is the base for this project.
+Although it is already possible to have JIT compilation with GHC through
+its LLVM back-end, the PyPy approach will interpret code at a much higher level.
+
+We focus on implementing a serializer from Haskell to an intermediate
+format using GHC, and a deserializer from that format to the interpreter. The 
+interpreter is for a language similar to Core (the intermediate format used by GHC.)
+By implementing some simple programs in Haskell, and running them through our 
+compilation system, 
+we hope to show that the methods of the PyPy project can be successfully applied 
+to pure functional languages such as Haskell.
+
+Contributions
+The contributions of this paper is a description of Haskell-Python (an
+interpreter for Core' (a lambda-calculus inspired by Haskell)), and a system for
+translating Haskell programs into Core'. In addition to this, the paper 
+presents a description of the full compilation system in its current state,
+and a plan for the future development of the system based on the 
+successes and failures so far.
+
+Following is a listing describing how the work in this project has been
+partitioned.
+
+The following work had already been done:
+
+
+The Haskell-Python interpreter was written.
+
+
+
+These parts was the result of an earlier stage of the project:
+
+
+An investigation into the use of GHC as a front-end for the compiler.
+This resulted in the JSCore intermediate language, but was unsuccessful
+at creating JSCore files from the GHC Haskell libraries.
+
+A parser for the JSCore language was implemented, however, this 
+parser was only successful for a very small subset of the JSCore language.
+
+A simple system for testing functionality was implemented.
+
+
+
+For this project, the following has been done:
+
+
+Another attempt was given at the creation of JSCore for the GHC 
+Haskell libraries, but was still unsuccessful. The reason for this being
+bugs in GHC. Specifically, bugs in the code that dumps the External-Core
+files.
+
+Various Haskell values and functions has been implemented at a higher
+level. Due to the fact that we could not successfully create intermediate
+files for the Haskell
+libraries we had to implement the functionality at a higher level, i.e. 
+Python.
+
+Based on the gained understanding of the Core language from the
+previously mentioned work, the parser has been improved. The result of 
+the improvements to the parser, with the implementation of the libraries,
+has resulted in the successful execution of some less trivial programs,
+such as a naive recursive implementation of fibonacci.
+
+
+
+In addition to this, some work has been done in parallell by E.W.Thomassen,
+most notably:
+
+
+Refactoring of the code written previously, in order to make it better 
+match other PyPy projects.
+
+Rewriting the Python code into RPython, such that it can be translated by
+the PyPy toolchain.
+
+He has also changed quite a bit of the functionality for the better,
+but details of this work can be found in his report.
+
+
+
+
+
+
+
+
+
+Structure of the paper
+In chapter  some background information is presented, including 
+some terms and concepts. 
+
+A description of the 
+Haskell-Python interpreter is given in chapter .
+
+Chapter  goes into detail regarding the intermediate 
+languages, and the mapping between them.
+
+
+
+
+
+
+
+
+
+Chapter  contains a description of the compilation system.
+
+In chapter  a brief discussion of similar work is presented.
+
+Everything is wrapped up in section , which discusses 
+the results and future work.
+
+
+
+Background
+
+
+This chapter contains short introductions to projects and concepts. These are;
+the Haskell programming language,
+the Glasgow Haskell Compiler (GHC) and it's intermediate language,
+the PyPy project and it's methods,
+and Haskell-Python, the base interpreter for the project.
+
+Haskell
+
+
+Haskell is a lazy, pure functional language with non-strict semantics and static 
+polymorphic typing. It provides user-defined algebraic data types, pattern-matching, 
+list comprehensions, a system for modules, a system for monadic I/O, and a large 
+standard library. In addition to being strongly typed, Haskell supports type
+inference, which means type annotations are seldom required. Haskell is not described
+in too much detail here, for a full description 
+of Haskell, see "the Haskell 2010 language report". 
+Or for a complete history of Haskell, see "A history of Haskell: being lazy 
+with class".
+
+Two specific features
+of Haskell stand out: it is purely functional; this means that the functions 
+can not have side-effects, or mutate data. For equal arguments, a function 
+must provide equal results. The fact that Haskell is lazy refers to the techniques
+used to evaluate a Haskell program, meaning that the arguments to a function are passed
+unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
+non-functional language features are impossible, as the two cannot work in conjunction.
+
+
+GHC
+
+GHC is a 20 years old project, and it has been under development during
+all these years. It started out with the goals of being a freely available,
+robust and portable compiler for Haskell, to provide a modular framework that
+could be extended and developed by other researchers, and to learn how real
+Haskell programs behave. 
+
+GHC can be divided into three parts, the compiler, the boot libraries
+(libraries the compiler itself depends on) and the RTS (Runtime System). 
+The compiler is the part
+that turns Haskell source code into executable code. The boot libraries are the 
+libraries that the compiler itself depends on. The RTS is a large library
+of C code that is responsible for running the Haskell programs, such as the 
+GC (Garbage Collector) implementation. The RTS system is linked into all 
+Haskell programs compiled by GHC. These three parts corresponds to subdirectories
+in the GHC source, namely "compiler", "libraries" and "rts".
+
+
+The compiler can also be divided into three parts. The Compilation Manager is 
+responsible for the compilation of multiple Haskell source files. Its job is to
+determine the order in which the files must be compiled. The Haskell Compiler 
+(abbreviated "Hsc" inside GHC), handles the compilation of a single Haskell source
+file. The Pipeline handles any preprocessing that is necessary, and the output
+from Hsc is usually an assembly file that must be fed to an assembler.
+
+
+
+
+GHC API
+
+
+The compiler is (in addition to being a binary) itself a library that exports an API.
+The GHC API was a goal from the beginning of its development, in the wording of
+"being modular". A few notable projects have taken advantage of this modularity,
+including a version of GHC containing a Lisp front-end, and a version that generates
+Java code. With the growing popularity of Haskell, interest in tools that deal with
+the language has increased. These tools need a lot of the functionality that is already
+present in GHC. For this reason, GHC is built as a library, rather than a monolithic
+program. The library is linked by a small Main module. In addition to this, GHC
+exposes an API to deal with the library. 
+
+The Runtime System
+
+The RTS provides the support that is necessary for a Haskell program to run, this
+includes; memory management, scheduling and thread management, primitive operations
+and a bytecode interpreter and dynamic linker for GHCi (GHCs interactive environment).
+ 
+
+Core
+
+
+Haskell is intended to be easy to read and write by humans. For this reason, it
+incorporates a lot of syntactic constructs. This means that there are
+usually many ways to write the same program. The definition of the Haskell language
+defines these syntactic constructs in terms of their translation into simpler
+constructs. Many of these syntactic constructs are thus in effect syntactic sugar.
+After removing all of the syntactic sugar (desugaring) GHC is left with a much 
+simpler language. This language is called Core (or system  when referring to
+the theory). Core is discussed in more detail in chapter 
+.
+
+External-Core and Linkcore
+
+
+GHC uses an intermediate language throughout it's 
+simplification phase. The External-Core project presents a formal definition of the syntax 
+of this language. And in addition to this, enables the representation to be exported 
+to files. The idea is that this allows compiler implementors and researchers to use GHC
+as a front-end for Haskell compilers. Before outputting External-Core files,
+the Haskell files are typechecked, desugared and simplified. 
+
+
+The linkcore project implements a linker for Core programs, i.e. it transforms
+a single Haskell module into a single closed External-Core module. In addition to
+this, since the linker requires External-Core representation of the ghc-libraries,
+it also contains instructions on how to create these. 
+
+
+Unfortunately, at the time of this writing, both the External-Core functionality in
+GHC, the extcore and the linkcore 
+packages have bitrotted. Although there seems to be interest for the continued 
+maintenance of External-Core in GHC.
+
+
+PyPy
+
+
+PyPy is a project that shows the feasibility of constructing a VM (Virtual Machine) 
+for a dynamic  language in a dynamic language, specifically, Python. The PyPy 
+environment aims to translate (i.e. compile) the VM into arbitrary targets. This 
+means that an interpreter constructed in the PyPy environment will be able to 
+run on any target supported by PyPy. Instead of writing multiple versions of 
+the interpreter (one for C/Posix, JAVA, and one for CLI/.NET), it can be 
+written in RPython, and translated to those back-ends. PyPy uses the 
+"meta-programming" argument, if the VM can be written at a level of abstraction 
+high enough, then it can be translated to any lower level platform. Implementing 
+programming languages using a direct encoding approach is a complex task, and it 
+usually results in an implementation that is specifically designed for a target platform. 
+In effect this means that the implementation is not generic, and it is difficult to 
+reuse the code for anything other than it's specific purpose. In contrast, 
+PyPy's approach puts weight on portability and reusability. Although the
+PyPy project puts most of its effort into its Python implementation, other projects
+(such as a Prolog implementation ) clearly shows the benefits of
+such a generic approach.
+
+
+The methods used by PyPy is to implement interpreters in RPython. RPython is a proper 
+subset of Python (a RPython program can be executed by a Python interpreter) 
+chosen such that it is possible to perform type inference on it. This
+means that RPython programs can be translated into efficient C programs. Translating a 
+program to C adds a number of implementation details that are not present in the RPython
+implementation, such as a garbage collector. In addition to this, a tracing-JIT compiler 
+can be added semi-automatically. This means that writing an interpreter in RPython containing
+a tracing-JIT is much easier and less error-prone than implementing a specialized tracing-JIT
+would be. 
+
+
+
+PyPys tracing JIT is used to trace the execution of a number of languages implemented 
+in RPython.
+This JIT works on the meta-level, tracing the execution of the interpreter, and not the 
+execution of the program being interpreted. The approach is called meta-tracing. In addition
+to just tracing the meta-level, the RPython translator (the Python program that translates
+RPython to C) allows for some annotations, speeding up the JIT. The efficiency of the 
+resulting dynamic compiler relies on information fetched during runtime. Slowly changing 
+variables is an example of such information, as it can be exploited by the compiler at 
+runtime by compiling multiple instances of code (one for each value of the variable),
+resulting in faster code. 
+
+
+A tracing-JIT works by recording the execution of a program. The result is a set of 
+traces of concrete execution, these traces are linear lists of operations. The lists of
+operations are then optimized and turned into machine code. Among other benefits, the
+result is free inlining of functions, as the functions operations are simply added to
+the trace. 
+
+Haskell-Python
+
+
+Haskell-Python
+is an interpreter for a Haskell inspired lambda-calculus called Core'. 
+It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
+of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
+and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
+For more on Haskell-Python, see section .
+
+
+
+
+
+
+
+Haskell-Python
+
+
+Haskell-Python
+is an interpreter for a language similar to Core, we call it Core' here.
+This interpreter is the base for our JIT compiler. In this section we describe a 
+syntax and an informal semantics for Core', as well as a description of the 
+interpreter.
+
+
+Syntax
+
+
+Although Core' does not have a syntax, we define one here, as we use it later 
+to show how Core is translated to Core'.
+
+In the following grammar, the '[' and ']' symbols are used to mean that
+anything between can be repeated, 0 or more times. We use '[' and '' to 
+mean that the pattern can be repeated 1 or more times. Non-terminals are 
+written with italic font throughout the paper.
+See figure  for the full syntax.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Informal semantics
+
+The Launchbury semantics is an operational semantics for 
+lazy evaluation, which the Core' interpreter follows rather closely. 
+This section will be a brief introduction to the semantics of the interpreter.
+For a introduction to 
+the Launchbury semantics, see . 
+
+A Core' program is evaluated by reducing the main application to WHNF 
+(Weak Head Normal Form). A construct is in WHNF if it can't be
+reduced any further.
+
+Value
+A Value can be a Literal, Constructor, or a Variable. All values are in WHNF.
+
+
+Constructor
+A Constructor is just a Value, containing other Values.
+
+Function
+A Function is a named collection of Rules. It must contain at least one Rule.
+
+Rule
+A Rule is a list of Values (called pattern-list here), followed by an Expression. 
+Note that the only Variables
+that are in scope in the Expression, are those defined in the pattern-list within 
+the Rule. The Rule is used for pattern-matching. When a function needs to decide
+which Rule to apply, it matches its arguments against the pattern-list. 
+If a pattern-list is a definite match, the Expression can be safely
+applied. It is however, also possible that a pattern-list is a partial match, and
+that the arguments need to be evaluated before continuing. The Rules are matched
+against in left-to-right order, because of this, it is essential that the 
+default alternative (default Rule) is at the end of the list as it will match
+anything.
+
+Expression
+An Expression can be a Value, a Primitive-Function, a Function, or an Application.
+An Expression is in WHNF if it is not a fully applied Application.
+
+Application
+An Application represents the evaluation of a function with variables applied to it.
+A fully applied Application is not in WHNF. A partially applied Application is in 
+WHNF because reducing its arguments will not be significant to get a result.
+
+When the Application is evaluated, the arguments are matched against the list of 
+Values contained in the list of Rules. 
+When the arguments match a Rule, the Expression contained in this rule is evaluated. 
+The Variables in the expression are replaced by the values that matched the same-name
+Variables in the Value list. Then the Expression is evaluated, returning a new Value.
+
+Literal
+A Literal is a Value such as an integer, or a character.
+
+
+
+
+
+Evaluation
+
+The evaluation of a Core' Application is performed on a stack called the
+todo-stack. All the objects handled by the interpreter has a function called
+step. This function takes the todo-stack as an argument, and performs an
+interpretation step, with the goal of moving the object towards a state
+closer to evaluated. The step-function returns a new Value object and a
+stack object. The todo-stack can grow or shrink, depending on the state of
+the object "stepping".
+
+The todo-stack consists of two types of objects, the UpdateStackElement,
+and the CopyStackElement. 
+
+The CopyStackElement is created by an Applications evalafter function. The
+evalafter function is called when an Application is attempted applied, but
+the arguments need to be evaluated first. Alternatively, the evalafter
+function is called when an Application is evaluated and returns a new
+Application (A higher-order function). 
+
+The step function of the CopyStackElement takes a argument called value,
+and returns a new Application with one of the Applications arguments
+replaced by the value-argument. Or the Applications Function is replaced
+by the value-argument.
+
+The UpdateStackElement contains a Thunk (an unevaluated Application).
+The step function of the UpdateStackElement returns the Application contained
+in the Thunk, and the next part of the stack (the stack is implemented as a
+linked list).
+
+
+
+Evaluation
+
+A Core' program is executed by reducing a main Application to WHNF.
+
+
+
+When an Application is evaluated; two things can happen. If it does not contain
+other unevaluated Applications it can be evaluated directly. However, if it does
+contain unevaluated Applications, it is added to the evaluation stack, and its 
+arguments are added on top of it, with any Applications turned into a Thunk 
+(a suspended evaluation). Evaluation proceeds from the top of the stack.
+until its unevaluated parts have become evaluated (reduced to WHNF), and the
+Application itself is ready to be evaluated.
+See figure  for a concept sketch.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Example Core' program
+
+Fibonacci:
+
+
+func( "fib", [
+	rule( lit(0) = num(1) )
+	rule( lit(1) = num(1) )
+	rule( var(x) = 
+		app( +, [
+				app( fib, [ app( -, [var(x), num(1)] ) ] ), 
+				app( fib, [ app( -. [var(x), num(2)] ) ] )
+			])
+		)
+	])
+
+
+Note that "+" and "-" refers to the primitive implementations of addition 
+and subtraction respectively.
+
+
+
+
+Implementation
+
+The description of Haskell-Python can be 
+logically divided into two parts; "the way programs are 
+represented", and "the way programs are evaluated".
+
+Program representation
+
+Programs are represented by a set of Classes; Value, Constructor, Function, Rule, 
+PrimFunction, Var, Application (Additional classes are created for Constructor
+and Application for various number of arguments through the classes ConstructorN 
+and ApplicationN). The syntax defined in  corresponds very much
+to the organization of classes in the interpreter. 
+
+A Value is a base class for objects in WHNF. A Constructor inherits from Value.
+The Function and PrimFunction also inherits from Value (indirectly 
+via inheritance of AbstractFunction). Functions are Values because they can't 
+be reduced any further (they are already in WHNF).
+
+
+The Constructor classes can contain Values as their arguments, however, since
+a Constructor is itself a Value, it can not have unevaluated applications as
+arguments. The Constructor is characterized by a Symbol. A Symbol is simply
+a name that can be matched by identity.
+
+The PrimFunction class represents a function that is not implemented in 
+Haskell, but is implemented at the machine level.
+
+The Function class represents a user-defined function.
+
+A Var is substituted with a NumberedVar when a Rule is created. This simply
+means that the new NumberedVar is only in scope within the Rule.
+
+Program evaluation
+
+A Substitution is the body of a Function with numbered variables 
+(NumberedVar) substituted by values.
+
+The evaluation of a program is done by a function, mainloop. The function
+takes a variable 'expr' as argument, and reduces it to WHNF. The reduction is done
+by continuously pushing/popping from the evaluation stack. 
+
+The evaluation stack is represented by a base class, StackElement. Two other
+classes inherits from this class, UpdateStackElement and CopyStackElement. Note that
+the stack is implemented by a linked list (each StackElement points to the next).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Extensions
+
+This project involved extending Haskell-Python to a full Haskell interpreter 
+through the use of GHC.
+
+GHC usage
+
+
+
+By using GHC to compile the Haskell programs and dump its intermediate
+format to a file, we can effectively turn Haskell-Python into a full
+Haskell compiler. However, the format dumped by GHC is External-Core.
+
+We turn External-Core into JSCore with a Haskell program called "core2js".
+JSCore is a JSON compliant representation of external-core. This means that
+we can parse JSON and get a representation we can easily traverse when building
+the AST (Abstract Syntax Tree) for the Core' interpreter.
+
+Module system
+
+
+A module system was implemented for the interpreter. A module object contains
+a dictionary for variables, type-constructors and data-constructors. The 
+"library" contains a dictionary of modules. This structure corresponds to the
+module hierarchy used by GHC.
+
+Parser
+
+
+
+The parser is implemented using some of the PyPy parsing tools. A simple 
+JSON grammar is described in EBNF form in a Python string. This string
+is then parsed by the PyPy tool and a parser is created. By using this JSON
+parser and traversing the resulting data structure, we build the AST for the 
+interpreter. See section  for a detailed description of 
+the parser and the Core to Core' mapping.
+
+Primitives
+
+
+The Primitive values extend the Value class. Primitive functions handle
+these values.
+See section  for a more in-depth discussion of the
+library and primitives.
+
+
+
+
+Core to Core' mapping
+
+
+An in-depth description of the intermediate languages and the mapping from
+Core to Core' is presented in this chapter. 
+Starting with a description of the Core language, and continuing with a 
+description of the parsing. 
+
+Core
+
+External representation
+
+The Core language is an intermediate language used by GHC. External-Core
+is an external representation of this language. See appendix 
+ for a formal grammar of External-Core. For this project,
+another format was defined, called JSCore. JSCore is a version of Core
+very similar to External-Core, except that it is also in JSON format. 
+See appendix  for a formal definition of JSON, and 
+appendix  for a formal definition of JSCore. This
+chapter discusses how JSCore is parsed and turned into Core'. The Core
+language is referred to as System  when discussing it's theory.
+Following is a short discussion of System  and some of it's 
+properties that are relevant to this discussion.
+
+System 
+
+System  is a typed lambda calculus, very popular as an intermediate language
+for functional language compilers. System  is a super-set of System  
+that uses explicit type-equality coercions as witnesses to justify explicit
+type-cast operations. System  is currently GHCs intermediate language.
+
+
+Both types and coercions are eliminated before running the program, so they have
+no operational effect and no run-time cost.
+
+
+No compilers use a pure System  as its intermediate language as this would
+require very heavy encoding. Most compilers extend System  with algebraic
+data types, data constructors and case-expressions.
+
+
+Although Cast coercions have no operational effect, they serve to help the
+GHC type-system.
+
+
+
+
+A Haskell type-class is generally turned into System  by creating a 
+record type for each class, called a dictionary, containing the class methods.
+Each instance is converted into a dictionary value, and passing such 
+dictionaries to the generic functions mentioning a class in its signature,
+lets the generic function find which specific function to apply.
+
+
+
+
+In System , evidence is passed around for type equalities. However,
+since this evidence are represented in the form of types, and types are
+erased before running the program, this evidence has no effect.
+
+
+Parsing
+
+The following content is an introduction to the actual implementation
+of the parser without becoming too technical. Its purpose is to communicate
+the similarities and differences between JSCore 
+and Core', as well as defining a mapping from the former to the latter.
+
+The most notable constructs of JSCore are described and it is shown how they
+are converted into Core'. The focus is on some examples of JSCore pseudo code.
+Pseudo code is used for practical reasons, as real code is too large to be 
+presented.
+
+The following content utilizes a function to describe the mapping:
+
+
+
+*
+
+which is defined to take a stack of variables and a piece of JSCore code 
+as arguments and return Core' code. 
+
+Variables are added to the stack with the concatenation operator (":"). 
+So, the code 
+ 
+language=Haskell,
+
+
+stack:variable 
+
+simply returns the original  with  appended to it.
+
+Packages, Modules and Definitions
+
+GHC deals with packages by simply naming the loaded module by its full identifier
+name, which includes the package name. This means that it is not necessary to deal
+with the package system. It suffices to resolve what package to load from the name
+of the module.
+
+When we parse a module, we create a object of type Module. This object is
+then put in a dictionary, where we can look it up by its full identifier name.
+The module object contains dictionaries of all the definitions defined in it.
+
+So, the function call:
+ 
+language=Haskell,
+
+
+ToCore'(stack, "aexp": ["ghc-prim:GHC.Types"], [Int] )" 
+
+
+will return the function placed under the name "Int" in the module "ghc-prim:GHC.Types" 
+where "ghc-prim" refers to the package containing the module. 
+
+The function 
+ 
+language=Haskell,
+
+
+ToCore'(stack, "qvar": "func1", "ty": ..., "exp": exp  )
+
+will
+put the result of parsing "exp" in the module being parsed under the name "func1".
+
+Lambda abstraction
+
+In the following example, the names "sometype" and "anexpression" refers to a 
+type constructor and an expression in JSCore format respectively.
+
+
+
+
+
+
+
+
+
+
+
+
+A lambda abstraction is defined as a JSON object containing two pairs, namely 
+"lambda" and "exp". The "lambda" pair defines a variable that is in scope in the
+expression contained in the "exp" pair.
+
+Since the Core' expressions contained in Core' functions only have variables in 
+scope that are declared in the function, we keep a stack of variables as we traverse
+the JSCore program. When we encounter this specific lambda abstraction, the variable
+"var1" is added to the stack, and the expression is turned into the following Core' code. 
+Note that the variable-stack is used by our  function, and when
+the function returns, the new variable is popped from the stack.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Also note that the "sometype" placeholder is not used, as variables in Core' does
+not have a type. If the "anexpression" placeholder is also a lambda-abstraction, the
+expression simply becomes:
+
+
+
+
+
+
+
+
+
+
+
+Which becomes:
+
+
+
+
+
+
+
+
+
+
+
+
+
+where "subexpression" is a placeholder for the JSCore expression contained in the 
+lambda-abstraction of "anexpression".
+
+
+Case expressions and alternatives
+
+The most complicated construct in Core is the case-expression. A case-expression
+in Core can contain three different types of alternatives. A literal alternative,
+a constructor alternative or a default alternative. 
+
+Following is an excerpt from appendix  defining the syntax 
+of case expressions (see appendix  for an explanation of the
+notation used).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The expression following the "exp" keyword in the case-definition is the scrutiny. This
+is usually just a variable declared in a lambda expression at a higher level.
+The scrutiny ("exp") is to be bound to the variable following the "of" keyword.
+This is simply done by replacing all instances of the variable following the "of" keyword
+by the scrutiny.
+
+The constructor alternative is used both as an ordinary case alternative, but it is
+also used to deconstruct constructors. Since a Haskell Int is a data
+constructor with name "I" and a value of type "Int", one case expression is used 
+to deconstruct the "Int" value and one is used to match on the actual "Int" literals.
+
+Following is a piece of JSCore pseudo-code that does this. 
+The names "type1", "type2", "type3", "type4", "type5" refers to JSCore types. 
+The names "exp1", "exp2", "exp3" refer to JSCore expressions. And "lit1", "lit2" refer
+to JSCore literals.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This JSCore code is rewritten to something like the following:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Note that the literals in the case-alternatives are added to the bottom of the stack,
+the reason for this is that they are matched against, and the scrutiny is the first
+argument in the function.
+Also note that "var1" has allready
+been appended to the stack, most likely by a lambda abstraction. However, 
+the constructor
+alternative declares a new variable that must be appended on the stack.
+The JSCore types have no place in the resulting Core'.
+
+Other constructs
+
+Module
+
+The "module" construct directly corresponds to Haskell modules. The module identifier
+contains the necessary information of what package and module it belongs to, as
+well as it's name.
+
+Type definitions
+
+Nothing is done when visiting an algebraic data type definition, rather, it is done when 
+visiting its children. (A constructor is created for each constructor definition).
+
+
+Constructor definitions
+
+When we find a constructor definition, we make a constructor. "qdcon" is the 
+constructors name, and the repeating "aty" values are turned into Core' variables.
+
+Value definitions
+
+When encountering a recursive value definition, we simply remember that it is
+recursive by adding "True" to a stack. A stack is needed, since Value definitions
+can be non-recursive within a let statement inside the recursive definition. If
+a value-definition is non-recursive, we add "False" to the stack.
+
+When we return from creating the value definitions we pop from the stack to get
+back our initial "recursion" value.
+
+The actual value definition gets a function from visiting the Expression and adds 
+it to a dictionary with the name of "qvar".
+
+Atomic Expressions
+
+When encountering an Atomic Expression in the form of a variable or data constructor, 
+we simply look them up in the module and variable/data constructor dictionaries.
+
+When encountering a literal, we create a new literal value, and when encountering an
+Expression, we visit and return the expression.
+
+Expression
+
+When encountering an Atomic Expression without arguments, we simply visit and return
+it. When finding an Atomic Expression with arguments, we make a PartialApp object.
+A PartialApp object is simply a temporary object that contains the Expression and the
+argument. If the arity of the Expression equals the number of arguments it is turned
+into a normal Core' function application.
+
+The lambda abstraction is simply turned into a function.
+
+The let statement simply stores the current recursion variable, and restores it after
+visiting its value definition. Note that the let statement is not yet properly tested.
+
+The case statement is the most complicated of all the statements in the Core language.
+When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
+is in turn applied to the function. Note that, since the only variables that are in
+scope in a functions rules, is the pattern it matches against, we need to pass all 
+variables downwards from the top Expression.
+
+The note, external c-call, dynamic external c-call and label statements are currently
+not implemented or tested. However, some functionality for implementing them have been
+created, including a function turning a arrow-type Expression into a low-level list
+of types for interfacing with C.
+
+Argument
+
+The type arguments have no operational effect, and are ignored by our parser.
+The Atomic Expression simply finds the referenced expression and returns it.
+
+Case alternative
+
+The case alternatives all return a pair of pattern-list and Expression. The
+data constructor alternative returns a list with a single constructor element and
+the Expression. The literal alternative simply returns a Value object and the 
+Expression it matches against. The default alternative returns a newly created
+Variable and the Expression it matches for.
+
+Binder
+
+The type binder has no operational effect and is ignored by our parser. The 
+value binder simply visits its child and returns it.
+
+Literal
+
+The literal returns a Core' Value.
+
+
+Value binder
+
+The value binder simply returns a Core' Variable, as Core' does not have Types.
+
+
+Type binder
+
+The type binder is simply ignored.
+
+The others
+
+External-Core contains a set of other constructs. These are;
+Atomic type, Basic-type, Type, Atomic-kind and Kind. These construct
+have no operational effect, and are not tested.
+
+
+Atomic type
+
+Types have no effect.
+
+Basic type
+
+Types have no effect.
+
+Type
+
+Types have no effect.
+
+Atomic kind
+
+Kinds have no effect.
+
+Kind
+
+Kinds have no effect.
+
+
+
+
+
+
+System description
+
+
+This chapter discusses the implementation of the project with
+references to the source tree (figure ).
+Note that the source tree has been refactored by E.W. Thomassen
+to better fit with other PyPy projects. This subsection discusses how
+and where the specific functionality is implemented. Note that there
+are a number of problems with the current implementation, and that
+these are discussed in chapter .
+
+Toplevel
+
+The toplevel of the source tree contains a "readme" file, a folder
+called "pyhaskell" where the main interpreter functionality is 
+implemented, and a file called "targethaskellstandalone.py" that 
+defines the target and entry point for the PyPy translation tool.
+
+The main functionality
+
+The pyhaskel folder contains 3 main programs. "main.py",
+"makegraph.py" and "runtests.py".
+
+"main.py" is the entry point of the compilation system. It defines
+the target for the RPython translation tool, imports the builtin
+functionality and the main function begins the interpretation of the
+JSCore program.
+
+The program "makegraph.py" contains a JSON parser and dumps the resulting
+JSON tokens to a dot file in order to generate a graph using the graphviz
+tool.
+
+The "runtests.py" program contains a program that executes all the programs
+in the sub folder "test" and then prints the result of the tests.
+
+
+
+
+
+
+
+
+
+
+
+
+The sub folder "interpreter" contains the actual
+interpreter code, the parser and the module system implementation. These are
+discussed in the following sections.
+
+Interpreter
+
+The file "haskell.py" in the folder "interpreter" contains the
+Haskell-Python interpreter, the base of the compilation system.
+This subsection describes the keys of the Haskell-Python implementation.
+See figure  for a class diagram.
+
+Haskell-Python consists of a few base classes; 
+
+
+
+Symbol contains a static dictionary of all Symbols. This is 
+simply used to compare "names" by their object identity.
+
+HaskellObject is a base class for all objects handled by the
+interpreter.
+
+Value is a base class for evaluated values.
+
+Constructor inherits from Value and implements an abstract 
+base class for constructors with different number of arguments.
+
+ConstructorN inherits from Constructor and is used as the 
+base for a number of other Constructor classes created by a function called 
+makeargsubclass. This function is again called by another function
+called makeconstructor that creates a Constructor based on the length
+of the list it receives as argument. And this function (makeconstructor)
+is called by another function constr takes the name-argument (a string)
+and looks it up in the list of symbols to create the actual Constructor. So the
+actual Constructor is created by a coll to the function constr(name, *args).
+
+AbstractFunction inherits from Value and is the base class for 
+the functions of Haskell-Python. 
+
+Function inherits from AbstractFunction and defines a user-defined 
+Haskell-Python function, it contains a name and a list of Rules
+
+Rule is a field of the Function. It consists of a list of patterns and
+an expression. If the function is applied and its arguments matches a pattern, the
+expression is evaluated.
+
+Substitution inherits from HaskellObject and is the body of a function 
+with its numbered variables substituted by values.
+
+PrimFunction inherits from AbstractFunction and describes a function
+implemented at the machine level. A function called exposeprimitive is
+can be used as a python-decorator to create PrimFunction objects.
+
+Var inherits from HaskellObject and describes a Haskell variable. 
+
+NumberedVar inherits from HaskellObject. A Var is replaced
+by a NumberedVar by a call object-function enumeratehead inherited from
+HaskellObject when creating a Rule.
+
+Application inherits from HaskellObject and describes an
+abstract base class for Haskell-Python function application. Like the constructor,
+classes are created by a function for various number of arguments.
+
+ApplicationN inherits from Application and is used by the function
+makeapplication to create Application classes with various number of arguments.
+This function, like makeconstructor is used by the function 
+makeargsubclasses to create Applications with various number of arguments.
+
+Thunk inherits from HaskellObject and represents an unevaluated
+function application. 
+
+StackElement is a base class for the elements of the evaluation stack.
+
+CopyStackElement inherits from StackElement and contains a
+Application.
+
+UpdateStackElement inherits from StackElement and contains a
+Thunk. The Thunk contained in the object is updated after its 
+content has been evaluated.
+
+
+In addition to these classes, the most important functions are;
+
+
+
+exposeprimitive and the following two functions have already been 
+mentioned. exposeprimitive can be used as a python-decorator.
+
+constr creates a Constructor object by looking up the "name" in
+the dictionary of the Symbol class, and selecting the correct sub-class from the
+sub-classes generated for Constructor.
+
+makeapplication is similar to makeconstructor, there is no
+need for a wrapper function as it does not have to look up a Symbol.
+
+mainloop is the main function, it reduces a Haskell-Python 
+Application to a Value. The function evaluatehnf is
+simply a wrapper for the mainloop function
+mainloop.
+
+
+
+This section has described the Haskell-Python implementation in detail, based
+on the classes and functions implemented.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Primitive types
+
+The file "primtypes.py" in the folder "interpreter" contains the primitive types
+for the Haskell-Python interpreter. The types implemented inherit from the
+Value class in "haskell.py".
+
+The following primitive types are implemented;
+
+
+Char represents a single Haskell character-value.
+Int represents a Haskell Int value.
+Addr is a memory address. Among other it is used to represent
+the String type.
+
+Double is simply a double precision floating point value.
+Float is simply a single precision floating point value
+
+
+Since these classes all inherit from the Value type of Haskell-Python, 
+they have a common interface; they all contain a variable called value that
+contain its actual contents. This is currently implemented as a python
+variable, so it is not represented like its Haskell equivalent at the low-level.
+See listing  for an example of how a primitive value is implemented.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Modules
+
+The file "module.py" in the folder "interpreter" contains the basics of the
+module system. It contains a single class; CoreMod. This class corresponds
+to a Haskell Module. A CoreMod object contains a name, and three dictionaries.
+These dictionaries are called qvars, qtycons and qdcons and they
+contain qualified variables, qualified type constructors and 
+qualified data constructors respectively. When a CoreMod object is created
+it is at once added to the list of Haskell Modules.
+
+JSCore parser
+
+The file "jscparser.py" in the "interpreter" folder contains the parser code. 
+This code is responsible for loading JSCore files, and creating the AST based 
+on the interpreter and module-system implementations.
+
+The parser implementation takes advantage of some of the parsing tools 
+available from
+the PyPy code base. By writing an EBNF grammar for JSON, and giving it to a 
+function called parseebnf, a JSON parser is created.
+
+The resulting parser is a base class called RPythonVisitor. The 
+RPythonVisitor
+class implements visit functions for the constructs created by the 
+EBNF grammar. For JSON this becomes visitobject, 
+visitnumber etc.
+
+The result of this is that we have a set of functions that get called when 
+visiting JSON constructs. Since JSCore is a description of External-Core 
+compatible with JSON this lets us parse the Core programs by branching 
+on the visitor functions.
+
+This way, the mapping described in  is implemented.
+
+Built-in functionality
+
+The "builtin" folder contains all the Haskell library functionality that
+have been implemented in Python. Most of this functionality should have been
+stored in the sub folder "ghcmodules" as JSCore files. However, due to some 
+issues that are discussed in conclusions and future work, this is not currently
+the case.
+
+As an example, the file "num.py" contains the implementation for the generic
+Num class. Listing  contains the implementation for the
+generic minus function. Currently it only supports the Int type. Note that
+it takes three arguments, the first argument is used to resolve which 
+function actually implements the minus function, and the other two are the
+arguments for this function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+External-Core to JSCore
+
+The "core" folder contains the Haskell program responsible for generating the
+JSCore intermediate format. This program is called "core2js". Currently, the
+program uses the External-Core parser from the "extcore" Haskell package and
+the JSON package to read the Haskell file in External-Core format and dump it
+in JSCore format.
+
+GHC modules
+
+The folder "ghcmodules" contain the GHC boot libraries. And a script that 
+takes all these Haskell modules and uses GHC to create External-Core files
+using the "-fext-core" flag and "core2js" to create JSCore files from the 
+resulting External-Core files.
+
+The GHC library files are organized exactly as in the GHC source tree. Each
+folder in the "libraries" directory corresponds to a Haskell package. These
+packages contain the Haskell modules. E.g. the module "GHC.Tuple" is located
+in "ghc-prim/GHC/Tuple.hs".
+
+Tests
+
+The tests have been designed to test different parts of the interpreter.
+The "test" directory contains one subdirectory for each test. The
+subdirectories contain a single Haskell file with the same name as the
+subdirectory (other files are created and put in the directory when running
+the test). E.g. the test "fibonacci" is located in the following path:
+"test/fibonacci/fibonacci.hs" and after running the test the "fibonacci"
+folder should contain the additional files; "factorial.hcr", "factorial.hi",
+"factorial.o" and "factorial.hcj". ".hcj" is the extension used for JSCore
+files.
+
+The output from running the test script is:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Similar work
+
+
+In addition to the Python implementation, PyPy implements a low-level 
+hardware emulator (PyGirl), a PHP interpreter, and a Prolog interpreter. 
+Various other experiments have also been created by the PyPy team. This
+chapter is a brief discussion of these projects and experiments. 
+
+Some work has also been done on the GHC side, among others, a LLVM
+(Low Level Virtual Machine) back-end has been implemented.
+
+
+The GHC LLVM back-end
+
+The LLVM (Low Level Virtual Machine) is a framework for the optimization of 
+programs from the compilation phase to runtime. The LLVM provides high-level information 
+to the compilation system during compile-time, run-time and in idle time between
+runs. By creating code generators for the virtual instruction set supported by
+LLVM, implementors can take full advantage of its features.
+
+
+GHC can generate LLVM code from Cmm (C minus minus; is a low-level imperative
+language with an explicit stack). In some cases the 
+LLVM back-end can produce significantly faster code than the traditional route. 
+
+
+PyPy Prolog
+
+In addition to the implementation of Python, PyPy has also shown that its techniques
+are applicable to other languages. The Prolog VM is an example of this. Implementations
+of Prolog are usually written in low-level languages such as C, this usually results in
+good performance, but means they are difficult to write and maintain. The PyPy Prolog 
+interpreter clearly outperforms other Prolog interpreters written in other high-level
+languages, and it also outperforms state-of-the-art Prolog VMs at specific benchmarks,
+which shows that other Prolog implementations can benefit from the techniques used by
+PyPy. 
+
+
+HappyJIT
+
+PHP (Hypertext Preprocessor) is a language used to develop the server-side of 
+websites. The users request for a website is received by the server, the PHP script
+then executes the request, often involving querying a database and then generating 
+the actual HTML for the user. Increasing the effectiveness of this process would
+reduce the time it takes for a user to have a website request answered. 
+The HappyJIT project implements a PHP interpreter in RPython, this interpreter is 
+translated by the PyPy translator into a tracing-JIT. The approach show that 
+the techniques significantly improve the performance of several common use cases.
+
+
+
+PyGirl
+
+As a case study, PyGirl implements an emulator for the Nintendo Game Boy. The project 
+shows the feasibility of implementing a low-level VM for hardware in a high-level 
+language to improve portability, and reduce complexity. The project shows that the
+reduction in implementation complexity with this approach is substantial, 
+and that the performance loss can be insignificant.
+
+
+
+
+
+
+Preliminary benchmarks
+
+
+Since the interpreter can be successfully translated by the RPython toolchain, 
+it is possible to do some simple preliminary benchmarking. This chapter briefly 
+discusses how the benchmarking was done and the results it gave.
+
+Specifications
+
+The benchmarking was done on a Compal NBLB2 laptop, see relevant specifications
+in table 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Translation
+
+The translation of the interpreter was done with the current head of the 
+PyPy repository (branch: default, revision 04e2b329ede5). The version of the interpreter that has
+been benchmarked are from the current head of the Haskell-Python repository (branch: khs,
+revision: 53b7f6b71cd1).
+
+Translating to C is done by running the PyPy translator tool with the path to the
+file defining the target as argument:
+
+
+
+
+
+
+
+
+
+
+
+Translating with the JIT is done by feeding the translator tool with the argument "--opt=JIT":
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Test program
+
+The application used to do the benchmarking was a naive implementation of the 
+fibonacci program, see listing .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Results
+
+The benchmarking was done by running the naive fibonacci program with . 
+The results can be seen in table 
+. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+From these results it is clear that the interpreter must be optimized further if
+it is to compete with GHC. A significant decrease in execution time with the JIT
+as opposed to without the JIT was observed. In addition, for this benchmark, the
+interpreter with JIT was approximately  times faster than  
+(an interpreter that comes with GHC).
+
+
+
+
+
+
+Conclusion and Future Work
+
+
+
+Serializing and deserializing
+
+
+The current situation regarding the serialization of Haskell programs into 
+the JSCore format have several problems. It is dependent on a buggy part of GHC, 
+and on a poorly maintained package (extcore). The result of these bugs is that
+GHC exits with a panic-error when compiling some Haskell modules. And this in
+turn, means that we have been unable to create JSCore for the GHC boot libraries.
+
+Currently, the libraries necessary to run some simple Haskell programs have been
+implemented at a high level in Python. This implementation is not "correctly"
+implemented with regard to the Haskell language, but it is sufficient in order
+to test some simple programs.
+
+Some alternative methods have been investigated as solutions for this problem,
+including the use of the Cabal (Haskell package system) API in collaboration
+with the GHC API in order to create the JSCore files. However, Cabal interface
+with GHC through command line arguments. 
+It was also attempted to create the necessary functionality using just the GHC
+API, however this also turned out to be problematic. Though it now seems like
+this is the best way to move forward. By using the main module as the base for
+the serializer, it should be possible to interface with the build-system
+exactly like GHC does. This would mean that it would be possible to write a
+fairly simple Haskell function to dump the intermediate format used by GHC
+to JSCore, and since this program would function exactly like GHC, anything 
+would be possible to compile using it.
+
+The deserialization should not change much, as the JSCore intermediate format
+would not have to change very much. If anything, the JSCore format can be
+simplified, and made to match better against Core and System  than
+External-Core does. It is however, necessary to improve the serialization
+functionality before the deserialization can be improved much as the programs
+that can be serialized is of little complexity, and therefore does not test
+very much.
+
+
+Benchmarking and testing
+
+
+Some simple benchmarking and testing was done. The benchmarking was done by
+running the naive fibonacci program with , the results can be seen in
+table .
+It is clear that the interpreter must be optimized 
+further if it is to compete with GHC. A significant increase in execution 
+time with the JIT as opposed to without the JIT was observed. In addition,
+for this benchmark, the interpreter with JIT was approximately  times faster than
+ (an interpreter that comes with GHC).
+
+
+The preliminary benchmarking that was done was described in chapter . 
+The results
+show a significant decrease in the execution time with the JIT compared to without it.
+The interpreter also outperforms the "runhaskell" interpreter that comes with GHC. It
+is however slower than GHC, though that is to be expected, as there is a lot of 
+development and optimization left.
+
+The testing performed has been described in chapter . The results of the 
+testing is that the current implementation is sufficient for simple programs taking 
+advantage of various Haskell constructs. It is also clear that this is not sufficient
+to run any more complicated programs, but it serves well for the future development of
+the system. Eventually, the interpreter should run the GHC benchmarking suite 
+(NoFib ) and the GHC testsuit.
+
+Concluding remarks
+
+
+
+The goals of this project was to investigate whether Haskell could benefit from JIT 
+compilation, specifically; the techniques applied by the PyPy project. 
+To answer this, it was attempted to implement a full Haskell compilation
+system, using an interpreter called Haskell-Python as the back-end,
+and GHC as the front-end, and translate it into a JIT compiler using the PyPy translation
+toolchain. The work involved in this project has mostly been the implementation of the necessary
+tools to get Haskell programs from GHC into Haskell-Python. This has only been partially
+successful, as discussed in section .
+
+Unfortunately, since so much time went into trying to get GHC to cooperate, 
+the original question remains unanswered at this stage. This is due to the fact that the
+approach taken to test the hypothesis has not been successfully completed. However,
+based on the results from this partially implemented system, its continued
+development may result in a fast Haskell compilation system, and may eventually prove
+the hypothesis true.
+
+
+
+
+
+
+plain
+
+
+
+
+
+
+Formal definition of External-Core
+
+
+
+The following semantics is used to define the Core grammar, 
+as seen in :
+
+
+
+ l c l 
+
+ pat 		& :	& optional			
+
+ pat 		& :	& zero or more repetitions	
+
+ pat 	& :	& one or more repetitions	
+
+	& :	& choice			
+
+
+
+
+
+
+
+
+<module> ::= module <mident>  <tdefg> ;   <vdefg> ; 
+
+
+Type definitions
+
+
+<tdefg> ::= data <qtycon> <tbind> = <cdef>
+       newtype <qtycon> <qtycon> <tbind> = <ty>
+
+
+Constructor definitions
+
+
+<cdef> ::= <qdcon>  @ <tbind>   <aty> 
+
+
+Value definitions
+
+
+<vdefg> ::= rec  <vdef>  ; <vdef>  
+       <vdef>
+
+
+
+<vdef> ::= <qvar> :: <ty> = <exp>
+
+
+Atomic Expressions
+
+
+<aexp> ::= <qvar>
+      <qdcon>
+      <lit>
+      ( <exp> )
+
+
+Expression
+
+
+<exp> ::= <aexp>
+     <aexp>  <arg> 
+      <binder>  - <exp>
+     let <vdefg> in <exp>
+     case (<aty>) <exp> of <vbind> <alt>  ; <alt>   
+     cast <exp> <aty>
+     note "  <char>  " <exp>
+     external ccall "  <char> "  <aty>
+     dynexternal ccall <aty>
+     label "  <char>  "
+
+
+Argument
+
+
+<arg> ::= @ <aty>
+     <aexp>
+
+
+Case alternative
+
+
+<alt> ::= <qdcon>  @ <tbind>   <vbind>  - <exp>
+     <lit> - <exp>
+      - <exp>
+
+
+Binder
+
+
+<binder> ::= @ <tbind>
+        <vbind>
+
+
+Literal
+
+
+<lit> ::= ( [-]  <digit>  :: <ty> )
+     ( [-]  <digit>    <digit>  :: <ty> )
+     ( <char> :: <ty> )
+     (  <char>  )
+
+
+Value binder
+
+
+<vbind> ::= ( <var> :: <ty> )
+
+
+Type binder
+
+
+<tbind> ::= <tyvar>
+       ( tyvar :: <kind> )
+
+
+Atomic type
+
+
+<aty> ::= <tyvar>
+     <qtycon>
+     ( <ty> )
+
+
+Basic type
+
+
+<bty> ::= <aty>
+     <bty> <aty>
+     trans <aty> <aty>
+     sym <aty>
+     unsafe <aty> <aty>
+     left <aty>
+     right <aty>
+     inst <aty> <aty>
+
+
+Type
+
+
+<ty> ::= <bty>
+    forall  <tbind>  . <ty>
+    <bty> - <ty>
+
+
+Atomic kind
+
+
+<akind> ::= *
+       
+       ?
+       <bty> :=: <bty>
+       ( <kind> )
+
+
+Kind
+
+
+<kind> ::= <akind>
+      <akind> - <kind>
+
+
+
+Names
+
+
+<mident>	  ::= 	 '' <pname> : <uname> ''
+	
+<tycon>		  ::= 	 '' <uname> ''
+		
+<qtycon>	  ::= 	 '' <mident> . <tycon> ''
+
+<tyvar>		  ::= 	 '' <lname> ''
+	
+<dcon>		  ::= 	 '' <uname> ''
+	
+<qdcon>		  ::= 	 '' <mident> . <dcon> ''
+
+<var>		  ::= 	 '' <lname> ''
+
+<qvar>		  ::= 	 ''  <mident> .  <var> ''
+
+<lname>		  ::= 	 <lower>  <namechar> 
+ 
+<uname>		  ::= 	 <upper>  <namechar> 
+
+<pname>		  ::= 	  <namechar> 
+
+<namechar>	  ::= 	 <lower>  <upper>  <digit>
+
+<lower>		  ::= 	 ab...z
+
+<upper>		  ::= 	 AB...Z
+
+<digit>		  ::= 	 01...9									 
+
+
+
+
+
+
+
+
+
+
+Formal definition of JSCore
+
+
+
+
+
+ c c l 
+
+
+   		& : 	& Zero or more repetitions of  surrounded by   and comma separated (A JSON Array). 	
+
+   	& : 	& One or more repetitions of  surrounded by   and comma separated (A JSON Array). 	
+ 
+  		& :	& Represents a JSON Object,  is a JSON .						
+
+  	& :	& Choice.											
+
+   	& :	& Optional											
+
+
+
+
+
+
+
+
+
+<module> 	::=  ''module'' : <mident> , ''tdefg'' : [ <tdefg> ] , ''vdefg'' : [ <vdefg> ] 
+
+
+Type definitions
+
+
+<tdefg> 	  ::= 	  ''data'' : <qtycon> , ''tbind'' : [ <tbind> ], ''cdef'' : [ <cdef> ] 						
+		   ''newtype'' : <qtycon> , ''qtycon'' : <qtycon> , ''tbind'' : [ <tbind> ] , ''ty'' : <ty>  	
+
+
+
+Constructor definitions
+
+
+
+
+<cdef>		  ::= 	  ''qdcon'' : <qdcon> , ''tbind'' : [ <tbind>  ] , ''aty'' : [<aty>]  				 			
+
+
+
+Value definitions
+
+
+
+<vdefg>		  ::= 	 ''rec'' : [ <vdef> ]     							
+		  <vdef>
+<vdef> 		  ::= 	 ''qvar'' : <qvar> , ''ty'' : <ty> , ''exp'' : <exp> 
+
+
+
+Atomic Expressions
+
+
+
+<aexp>		  ::= 	  ''qvar'' : <qvar> 
+		   ''qdcon'' : <qdcon> 
+		   ''lit'' : <lit> 
+		   ''exp'' : <exp>  
+
+
+
+
+Expressions
+
+
+
+<exp>		  ::= 	 <aexp>
+		   ''aexp'' : <aexp> , ''args'' : [ <arg> ]  				
+		   ''lambda'' : [ <binder> ] , ''exp'' : <exp> 		
+		   ''let'' : <vdefg> , ''in'' : <exp> 				
+		   ''case'' : <aty> , ''exp'' : <exp> , ''of'' : <vbind>, ''alt'' : [ <alt> ] 	
+		   ''cast'' : <exp> , ''aty'' : <aty>			
+		   ''note'' : ''   <char>  '' , ''exp'' : <exp>		
+		   ''external ccal'' : ''  <char>  '' , ''aty'' : <aty> 	
+		   ''dynexternal ccal'' : <aty> 
+		   ''label'' : ''  <char>  '' 
+
+
+
+
+Argument
+
+
+
+<arg>		  ::= 	  ''aty'' : <aty> 											 
+		   ''aexp'' : <aexp> 										
+
+
+
+
+Case alternative
+
+
+<alt>		  ::= 	  ''qdcon'' : <qdcon> , ''tbind'' : [ <tbind> ] , ''vbind'' : [ <vbind> ] , ''exp'' : <exp> 
+		   ''lit'' : <lit> , ''exp'' : <exp> 
+		   '''' : <exp> 	
+
+
+
+
+Binder
+
+
+
+<binder>	  ::= 	 ''tbind'' : <tbind> 		
+		   ''vbind'' : <vbind> 	
+
+
+
+
+Type binder
+
+
+
+<tbind>		  ::= 	  ''tyvar'' : <tyvar> 
+		   ''tyvar'' : <tyvar> , ''kind'' : <kind> 	
+
+
+
+
+Value binder
+
+
+
+<vbind>		  ::= 	  ''var'' : <var> , ''ty'' <ty>  										 
+
+
+
+Literal
+
+
+
+
+<lit>		  ::= 	<jsstring>		 
+		  <jsnumber>
+
+
+<jsstring>	  ::= 	 ''''														 
+		  '' <jschars> ''		
+											 
+<jschars>	  ::= 	<jschar>
+		  <jschar> <jschars>
+												 
+<jschar>	  ::= 	 See definition below
+
+<jsnumber>	  ::=  	<jsint>
+		  <jsint> <jsfrac>
+		  <jsint> <jsexp>
+		  <jsint> <jsfrac> <jsexp>
+											 
+<jsint>		  ::= 	<jsdigit>
+		  <jsdigit1-9> <jsdigits> 
+		  - <jsdigit>
+		  - <jsdigit1-9> <jsdigits>
+
+<jsfrac> 	  ::=  	. <jsdigits>
+
+<jsexp>		  ::=  	<jse> <jsdigits>
+
+<jsdigits>	  ::=  	<jsdigit> 
+		  <jsdigit> <jsdigits>
+
+<jse>		  ::=  	e
+		  e+		 
+		  e- 		 
+		  E		 
+		  E+		 
+		  E-
+
+
+
+Atomic Type
+
+
+<aty>		  ::= 	  ''tyvar'' : <tyvar> 
+		   ''qtycon'' : <qtycon> 
+		   ''ty'' : <ty> 
+
+
+
+Basic Type
+
+
+<bty>		  ::= 	 <aty>
+		   ''bty'' : <bty> , ''aty'' , <aty> 
+		   ''trans'' : <aty> , ''aty'' : <aty> 
+		   ''sym'' : <aty> 
+		   ''unsafe'' : <aty> , ''aty'' : <aty> 	
+		   ''left'' : <aty> 
+		   ''right'' : <aty> 	
+		   ''inst'' : <aty> , ''aty'' : <aty> 
+
+
+
+
+Type
+
+
+
+<ty>		  ::= 	 <bty>
+		   ''forall'' :  [ <tbind> ] , ''ty'' : <ty> 	
+		   ''bty'' <bty> , ''ty'' : <ty>  
+
+
+
+
+Atomic Kind
+
+
+
+<akind>		  ::= 	 *	
+		  
+		  ?	
+		   ''bty'' : <bty< , ''bty'' : <bty> 
+		   ''kind'' : <kind> 	
+
+
+
+
+Kind
+
+
+
+<kind>		  ::= 	 ''akind'' : <akind> 					
+		   ''akind'' : <akind> , ''kind'' : <kind> 		
+
+
+
+Names
+
+
+<mident>	  ::= 	 '' <pname> : <uname> ''
+	
+<tycon>		  ::= 	 '' <uname> ''
+		
+<qtycon>	  ::= 	 '' <mident> . <tycon> ''
+
+<tyvar>		  ::= 	 '' <lname> ''
+	
+<dcon>		  ::= 	 '' <uname> ''
+	
+<qdcon>		  ::= 	 '' <mident> . <dcon> ''
+
+<var>		  ::= 	 '' <lname> ''
+
+<qvar>		  ::= 	 ''  <mident> .  <var> ''
+
+<lname>		  ::= 	 <lower>  <namechar> 
+ 
+<uname>		  ::= 	 <upper>  <namechar> 
+
+<pname>		  ::= 	  <namechar> 
+
+<namechar>	  ::= 	 <lower>  <upper>  <digit>
+
+<lower>		  ::= 	 ab...z
+
+<upper>		  ::= 	 AB...Z
+
+<digit>		  ::= 	 01...9									 
+
+
+
+
+
+
+
+
+Formal definition of JSON
+
+
+
+
+
+
+<object> ::=  
+	 <members> 
+
+<members> ::= <pair>
+	<pair> , <members>
+
+<pair> ::= <string> : <value>
+
+<array> ::= [ ]
+	[ <elements> ]
+
+<elements> ::= <value>
+	<vale> , <elements>
+
+<value> ::= <string>
+	<number>
+	<object>
+	<array>
+	true
+	false
+	null
+
+<string> ::= '' ''
+	'' <chars> ''
+
+<chars> ::= <char>
+	<char>, <chars>
+
+<char> ::= Any unicode character except  or control characters (escaped characters)<>
+
+<number> ::= <int>
+	<int> <frac>
+	<int> <exp>
+	<int> <frac> <exp>
+
+<int> ::= <digit>
+	<digit1-9> <digits>
+	- <digit>
+	- <digit1-9> <digits>
+
+<frac> ::= . <digits>
+
+<exp> ::= <e> <digits>
+
+<digits> ::= <digit>
+	<digit> <digits>
+
+<e> ::=  e
+	e+
+	e-
+	E
+	E+
+	E-
+
+
+
+
+
+
+
