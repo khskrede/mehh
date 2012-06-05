@@ -41,6 +41,7 @@ very much.
 
 \section{Benchmarking and testing}
 
+\begin{comment}
 Some simple benchmarking and testing was done. The benchmarking was done by
 running the naive fibonacci program with $n=40$, the results can be seen in
 table \ref{tab:benchmarks}.
@@ -49,15 +50,21 @@ further if it is to compete with GHC. A significant increase in execution
 time with the JIT as opposed to without the JIT was observed. In addition,
 for this benchmark, the interpreter with JIT was approximately $3.3$ times faster than
 $runhaskell$ (an interpreter that comes with GHC).
+\end{comment}
 
-
+The preliminary benchmarking that was done was described in chapter \ref{chap:bench}. 
+The results
+show a significant decrease in the execution time with the JIT compared to without it.
+The interpreter also outperforms the "runhaskell" interpreter that comes with GHC. It
+is however slower than GHC, though that is to be expected, as there is a lot of 
+development and optimization left.
 
 The testing performed has been described in chapter \ref{chap:impl}. The results of the 
 testing is that the current implementation is sufficient for simple programs taking 
 advantage of various Haskell constructs. It is also clear that this is not sufficient
 to run any more complicated programs, but it serves well for the future development of
-the system. Eventually, the interpreter should run the GHC benchmarking suite (NoFib) and 
-the GHC testsuit.
+the system. Eventually, the interpreter should run the GHC benchmarking suite 
+(NoFib \cite{partain1992nofib}) and the GHC testsuit.
 
 \section{Concluding remarks}
 
@@ -72,10 +79,10 @@ toolchain. The work involved in this project has mostly been the implementation 
 tools to get Haskell programs from GHC into Haskell-Python. This has only been partially
 successful, as discussed in section \ref{serdes}.
 
-Unfortunately, the original question remains unanswered at this stage, as the
+Unfortunately, since so much time went into trying to get GHC to cooperate, 
+the original question remains unanswered at this stage. This is due to the fact that the
 approach taken to test the hypothesis has not been successfully completed. However,
 based on the results from this partially implemented system, its continued
 development may result in a fast Haskell compilation system, and may eventually prove
 the hypothesis true.
-
 

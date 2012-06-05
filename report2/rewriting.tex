@@ -85,7 +85,6 @@ Variables are added to the stack with the concatenation operator (":").
 So, the code 
 \lstset{ %
 language=Haskell,
-%label=lst:int1
 }
 \begin{lstlisting}
 stack:variable 
@@ -106,7 +105,6 @@ The module object contains dictionaries of all the definitions defined in it.
 So, the function call:
 \lstset{ %
 language=Haskell,
-%label=lst:int1
 }
 \begin{lstlisting}
 ToCore'(stack, {"aexp": ["ghc-prim:GHC.Types"], [Int]} )" 
@@ -118,7 +116,6 @@ where "ghc-prim" refers to the package containing the module.
 The function 
 \lstset{ %
 language=Haskell,
-%label=lst:int1
 }
 \begin{lstlisting}
 ToCore'(stack, {"qvar": "func1", "ty": ..., "exp": exp } )
@@ -135,7 +132,6 @@ type constructor and an expression in JSCore format respectively.
 \lstset{ %
 language=Haskell,
 %caption=Python class implementing the Haskell Int Value.,
-%label=lst:int1
 }
 \begin{lstlisting}
 {"lambda" : {"vbind" : "var1", "ty" : {"qtycon" : "sometype"} }
@@ -158,7 +154,6 @@ the function returns, the new variable is popped from the stack.
 \lstset{ %
 language=Haskell,
 %caption=Lambda abstraction in Core' format,
-%label=lst:int1
 }
 \begin{lstlisting}
 func( "name", [
@@ -175,7 +170,6 @@ expression simply becomes:
 \lstset{ %
 language=Haskell,
 %caption=Lambda abstraction in Core' format,
-%label=lst:int1
 }
 \begin{lstlisting}
 ToCore'(stack:var1, anexpression)
@@ -188,7 +182,6 @@ Which becomes:
 \lstset{ %
 language=Haskell,
 %caption=Lambda abstraction in Core' format,
-%label=lst:int1
 }
 \begin{lstlisting}
 func( "name", [
@@ -246,7 +239,6 @@ to JSCore literals.
 \lstset{ %
 language=Haskell,
 caption=JSCore case expression,
-label=lst:int1
 }
 \begin{lstlisting}
 {"%case": type1,
@@ -273,7 +265,6 @@ This JSCore code is rewritten to something like the following:
 \lstset{ %
 language=Haskell,
 caption=JSCore case expression in Core',
-label=lst:int1
 }
 \begin{lstlisting}
 func("case", [

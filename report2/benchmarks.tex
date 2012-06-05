@@ -1,33 +1,73 @@
 
 \chapter{Preliminary benchmarks}
+\label{chap:bench}
 
-This chapter briefly discusses the benchmarking that was done.
+Since the interpreter can be successfully translated by the RPython toolchain, 
+it is possible to do some simple preliminary benchmarking. This chapter briefly 
+discusses how the benchmarking was done and the results it gave.
 
 \section{Specifications}
 
-The benchmarking was done on the following setup;
+The benchmarking was done on a Compal NBLB2 laptop, see relevant specifications
+in table \ref{tab:specs}
 
 \begin{table}[H]
-
 \centering
 \begin{tabular}{l|l}
-
 \hline
 \hline
-Processor & Intel Core i7-640M (2x2.8GHz) \\
-Memory    & 2x2GB DDR3-1333 \\
-Chipset   & Intel PM55 \\
-OS        & Arch Linux (3.3.7-1-ARCH) \\
+Processor   & Intel Core i7-640M (2x2.8GHz) \\
+Memory      & 2x2GB DDR3-1333 \\
+Chipset     & Intel PM55 \\
+OS          & Arch Linux (3.3.7-1-ARCH) \\
+GHC version & 7.4.1 \\
 \hline
 \end{tabular}
-
 \caption{Relevant system specifications}
-
+\label{tab:specs}
 \end{table}
+
+\section{Translation}
+
+The translation of the interpreter was done with the current head of the 
+PyPy repository (branch: default, revision 04e2b329ede5). The version of the interpreter that has
+been benchmarked are from the current head of the Haskell-Python repository (branch: khs,
+revision: 53b7f6b71cd1).
+
+Translating to C is done by running the PyPy translator tool with the path to the
+file defining the target as argument:
+
+\begin{figure}[H]
+\lstset{ %
+language=bash,
+}
+\begin{lstlisting}
+$ pypy <pypy-repo>/pypy/translator/goal/translate.py <pyhaskell-repo>/targethaskellstandalone.py
+\end{lstlisting}
+
+\end{figure}
+
+Translating with the JIT is done by feeding the translator tool with the argument "--opt=JIT":
+
+\begin{figure}[H]
+\lstset{ %
+language=bash,
+}
+\begin{lstlisting}
+$ pypy <pypy-repo>/pypy/translator/goal/translate.py --opt=JIT <pyhaskell-repo>/targethaskellstandalone.py
+\end{lstlisting}
+
+\end{figure}
+
+
+
 
 \section{Test program}
 
-\ref{lst:naivfib}
+The application used to do the benchmarking was a naive implementation of the 
+fibonacci program, see listing \ref{lst:naivfib}.
+
+\begin{figure}[H]
 
 \lstset{ %
 language=Python,
@@ -46,11 +86,13 @@ fib 1 = 1
 fib n = fib (n-1) + fib (n-2)
 \end{lstlisting}
 
+\end{figure}
+
 \section{Results}
 
-The benchmarking was done by running the naive fibonacci program with $n=40$ 
-on the Intel Core i7-640M processor. The results can be seen in table 
-\ref{tab:benchmarks}. GHC version 7.4.1 was used. 
+The benchmarking was done by running the naive fibonacci program with $n=40$. 
+The results can be seen in table 
+\ref{tab:benchmarks}. 
 
 \begin{table}[H]
 

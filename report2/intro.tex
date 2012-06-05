@@ -1,13 +1,12 @@
 
 \chapter{Introduction}
 
-This chapter discusses the motivation behind the project. A description
-of the project, and a description of the work done. It is concluded by 
-introducing the following chapters.
+This chapter discusses the motivation behind the project and 
+presents a description of the project and of the work done. It 
+is concluded by introducing the remaining chapters.
 
 \section{Motivation and project description}
 
-% Why are we doing what we are doing?
 The project aims to investigate the feasibility of JIT (Just-in-time) 
 compilation of a strongly-typed purely-functional language. Since
 programs written in such a language can be heavily optimized at 
@@ -19,13 +18,12 @@ To test this, the techniques
 used by the PyPy (Python in Python) project is applied to the Haskell 
 programming language. By implementing the back-end for a Haskell compiler 
 in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
-as a front-end, a full Haskell JIT compiler can be implement. An 
+as a front-end, a full Haskell JIT compiler can be implemented. An 
 interpreter for a language very similar to the intermediate language used
-by GHC was already implemented, and this is the base for our work.
+by GHC was already implemented, and this is the base for this project.
 Although it is already possible to have JIT compilation with GHC through
 its LLVM back-end, the PyPy approach will interpret code at a much higher level.
 
-% What are we doing?
 We focus on implementing a serializer from Haskell to an intermediate
 format using GHC, and a deserializer from that format to the interpreter. The 
 interpreter is for a language similar to Core (the intermediate format used by GHC.)
@@ -33,8 +31,6 @@ By implementing some simple programs in Haskell, and running them through our
 compilation system, 
 we hope to show that the methods of the PyPy project can be successfully applied 
 to pure functional languages such as Haskell.
-
-% What are the contributions of this paper?
 
 \section{Contributions}
 The contributions of this paper is a description of Haskell-Python (an
@@ -58,7 +54,7 @@ These parts was the result of an earlier stage of the project:
 \begin{itemize}
 
 \item An investigation into the use of GHC as a front-end for the compiler.
-This resulted in the JSCore intermediate language. But was unsuccessful
+This resulted in the JSCore intermediate language, but was unsuccessful
 at creating JSCore files from the GHC Haskell libraries.
 
 \item A parser for the JSCore language was implemented, however, this 
