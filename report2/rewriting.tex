@@ -3,8 +3,8 @@
 \label{chap:rewrite}
 
 An in-depth description of the intermediate languages and the mapping from
-Core to Core' is presented in this chapter. 
-Starting with a description of the Core language, and continuing with a 
+Core to Core' is presented in this chapter, 
+starting with a description of the Core language, and continuing with a 
 description of the parsing. 
 
 \section{Core}
@@ -19,8 +19,8 @@ very similar to External-Core, except that it is also in JSON format.
 See appendix \ref{jsongrammar} for a formal definition of JSON, and 
 appendix \ref{jscoregrammar} for a formal definition of JSCore. This
 chapter discusses how JSCore is parsed and turned into Core'. The Core
-language is referred to as System $F_C$ when discussing it's theory.
-Following is a short discussion of System $F_C$ and some of it's 
+language is referred to as System $F_C$ when discussing its theory.
+Following is a short discussion of System $F_C$ and some of its 
 properties that are relevant to this discussion.
 
 \subsection*{System $F_C$}
@@ -56,7 +56,7 @@ lets the generic function find which specific function to apply.
 %\subsubsection*{Type erasure}
 
 In System $F_C$, evidence is passed around for type equalities. However,
-since this evidence are represented in the form of types, and types are
+since this evidence is represented in the form of types, and types are
 erased before running the program, this evidence has no effect.
 \cite{sulzmann2007system}
 
@@ -102,7 +102,7 @@ When we parse a module, we create a object of type Module. This object is
 then put in a dictionary, where we can look it up by its full identifier name.
 The module object contains dictionaries of all the definitions defined in it.
 
-So, the function call:
+So, the function-call:
 \lstset{ %
 language=Haskell,
 }
@@ -282,7 +282,7 @@ func("case", [
 Note that the literals in the case-alternatives are added to the bottom of the stack,
 the reason for this is that they are matched against, and the scrutiny is the first
 argument in the function.
-Also note that "var1" has allready
+Also note that "var1" has already
 been appended to the stack, most likely by a lambda abstraction. However, 
 the constructor
 alternative declares a new variable that must be appended on the stack.
@@ -294,7 +294,7 @@ The JSCore types have no place in the resulting Core'.
 
 The "\%module" construct directly corresponds to Haskell modules. The module identifier
 contains the necessary information of what package and module it belongs to, as
-well as it's name.
+well as its name.
 
 \subsubsection*{Type definitions}
 
@@ -342,14 +342,14 @@ The let statement simply stores the current recursion variable, and restores it 
 visiting its value definition. Note that the let statement is not yet properly tested.
 
 The case statement is the most complicated of all the statements in the Core language.
-When the case statement is parsed, it is turned into a Function, the scrutiny (exp) 
+When the case statement is parsed, it is turned into a Function; the scrutiny (exp) 
 is in turn applied to the function. Note that, since the only variables that are in
-scope in a functions rules, is the pattern it matches against, we need to pass all 
+scope in a functions' rules, is the pattern it matches against, we need to pass all 
 variables downwards from the top Expression.
 
 The note, external c-call, dynamic external c-call and label statements are currently
 not implemented or tested. However, some functionality for implementing them have been
-created, including a function turning a arrow-type Expression into a low-level list
+created, including a function turning an arrow-type Expression into a low-level list
 of types for interfacing with C.
 
 \subsubsection*{Argument}

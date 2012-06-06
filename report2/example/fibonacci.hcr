@@ -1,0 +1,43 @@
+%module main:Main
+  %rec
+  {main:Main.fib :: ghczmprim:GHCziTypes.Int ->
+                    ghczmprim:GHCziTypes.Int =
+     \ (dsdmY::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int dsdmY
+         %of (wildB1::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (ds1dmZZ::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int ds1dmZZ
+              %of (ds2Xn4::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   base:GHCziNum.zp @ ghczmprim:GHCziTypes.Int base:GHCziNum.zdfNumInt
+                   (main:Main.fib
+                    (base:GHCziNum.zm @ ghczmprim:GHCziTypes.Int
+                     base:GHCziNum.zdfNumInt wildB1
+                     (ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh))))
+                   (main:Main.fib
+                    (base:GHCziNum.zm @ ghczmprim:GHCziTypes.Int
+                     base:GHCziNum.zdfNumInt wildB1
+                     (ghczmprim:GHCziTypes.Izh (2::ghczmprim:GHCziPrim.Intzh))));
+                 (0::ghczmprim:GHCziPrim.Intzh) ->
+                   ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+                 (1::ghczmprim:GHCziPrim.Intzh) ->
+                   ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh)}}};
+  main:Main.main :: (ghczmprim:GHCziTypes.IO
+                     ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziBase.zd
+    @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+    @ ((ghczmprim:GHCziTypes.IO ghczmprim:GHCziUnit.Z0T))
+    base:SystemziIO.putStrLn
+    (base:GHCziBase.zpzp @ ghczmprim:GHCziTypes.Char
+     (base:GHCziBase.unpackCStringzh
+      ("The 10. fibonacci number is: "::ghczmprim:GHCziPrim.Addrzh))
+     (base:GHCziBase.zd @ ghczmprim:GHCziTypes.Int
+      @ ((ghczmprim:GHCziTypes.ZMZN ghczmprim:GHCziTypes.Char))
+      (base:GHCziShow.show @ ghczmprim:GHCziTypes.Int
+       base:GHCziShow.zdfShowInt)
+      (main:Main.fib
+       (ghczmprim:GHCziTypes.Izh (10::ghczmprim:GHCziPrim.Intzh)))));
+  main:ZCMain.main :: (ghczmprim:GHCziTypes.IO
+                       ghczmprim:GHCziUnit.Z0T) =
+    base:GHCziTopHandler.runMainIO @ ghczmprim:GHCziUnit.Z0T
+    main:Main.main;

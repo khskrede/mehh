@@ -3,6 +3,8 @@
 \label{chap:conc}
 
 
+% Write some stuffs here
+
 \section{Serializing and deserializing}
 \label{serdes}
 
@@ -56,11 +58,11 @@ The preliminary benchmarking that was done was described in chapter \ref{chap:be
 The results
 show a significant decrease in the execution time with the JIT compared to without it.
 The interpreter also outperforms the "runhaskell" interpreter that comes with GHC. It
-is however slower than GHC, though that is to be expected, as there is a lot of 
-development and optimization left.
+is however slower than GHC, though that is to be expected, as a lot of 
+development and optimization is left.
 
 The testing performed has been described in chapter \ref{chap:impl}. The results of the 
-testing is that the current implementation is sufficient for simple programs taking 
+testing are that the current implementation is sufficient for simple programs taking 
 advantage of various Haskell constructs. It is also clear that this is not sufficient
 to run any more complicated programs, but it serves well for the future development of
 the system. Eventually, the interpreter should run the GHC benchmarking suite 
@@ -70,7 +72,7 @@ the system. Eventually, the interpreter should run the GHC benchmarking suite
 
 %NoFib GHC benchmark
 
-The goals of this project was to investigate whether Haskell could benefit from JIT 
+The goal of this project was to investigate whether Haskell could benefit from JIT 
 compilation, specifically; the techniques applied by the PyPy project. 
 To answer this, it was attempted to implement a full Haskell compilation
 system, using an interpreter called Haskell-Python\cite{haskellpython} as the back-end,

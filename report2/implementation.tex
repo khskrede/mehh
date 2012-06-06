@@ -55,7 +55,6 @@ discussed in the following sections.
 The file "haskell.py" in the folder "interpreter" contains the
 Haskell-Python interpreter, the base of the compilation system.
 This subsection describes the keys of the Haskell-Python implementation.
-See figure \ref{fig:coreinterp} for a class diagram.
 
 Haskell-Python consists of a few base classes; 
 
@@ -85,7 +84,7 @@ actual Constructor is created by a coll to the function \emph{constr(name, *args
 the functions of Haskell-Python. 
 
 \item \emph{Function} inherits from AbstractFunction and defines a user-defined 
-Haskell-Python function, it contains a name and a list of \emph{Rules}
+Haskell-Python function; it contains a name and a list of \emph{Rules}
 
 \item \emph{Rule} is a field of the Function. It consists of a list of patterns and
 an expression. If the function is applied and its arguments matches a pattern, the
@@ -106,10 +105,10 @@ by a \emph{NumberedVar} by a call object-function \emph{enumerate\_head} inherit
 
 \item \emph{Application} inherits from \emph{HaskellObject} and describes an
 abstract base class for Haskell-Python function application. Like the constructor,
-classes are created by a function for various number of arguments.
+classes are created by a function for various numbers of arguments.
 
 \item \emph{ApplicationN} inherits from \emph{Application} and is used by the function
-\emph{make\_application} to create Application classes with various number of arguments.
+\emph{make\_application} to create Application classes with various numbers of arguments.
 This function, like \emph{make\_constructor} is used by the function 
 \emph{make\_arg\_subclasses} to create Applications with various number of arguments.
 
@@ -118,7 +117,7 @@ function application.
 
 \item \emph{StackElement} is a base class for the elements of the evaluation stack.
 
-\item \emph{CopyStackElement} inherits from \emph{StackElement} and contains a
+\item \emph{CopyStackElement} inherits from \emph{StackElement} and contains an
 \emph{Application}.
 
 \item \emph{UpdateStackElement} inherits from \emph{StackElement} and contains a
@@ -150,20 +149,6 @@ simply a wrapper for the \emph{main\_loop function}
 This section has described the Haskell-Python implementation in detail, based
 on the classes and functions implemented.
 
-\begin{comment}
-
-\begin{sidewaysfigure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textheight]{../diags/core-interp.pdf}
-
-\caption{Haskell-Python class diagram}
-\label{fig:coreinterp}
-
-\end{figure}
-\end{sidewaysfigure}
-
-\end{comment}
 
 \subsection*{Primitive types}
 
@@ -178,9 +163,8 @@ The following primitive types are implemented;
 \item \emph{Int} represents a Haskell Int value.
 \item \emph{Addr} is a memory address. Among other it is used to represent
 the String type.
-
 \item \emph{Double} is simply a double precision floating point value.
-\item \emph{Float} is simply a single precision floating point value
+\item \emph{Float} is simply a single precision floating point value.
 \end{itemize}
 
 Since these classes all inherit from the Value type of Haskell-Python, 
@@ -261,7 +245,7 @@ This way, the mapping described in \ref{chap:rewrite} is implemented.
 \section{Built-in functionality}
 
 The "builtin" folder contains all the Haskell library functionality that
-have been implemented in Python. Most of this functionality should have been
+has been implemented in Python. Most of this functionality should have been
 stored in the sub folder "ghc\_modules" as JSCore files. However, due to some 
 issues that are discussed in conclusions and future work, this is not currently
 the case.

@@ -6,7 +6,7 @@ hardware emulator (PyGirl), a PHP interpreter, and a Prolog interpreter.
 Various other experiments have also been created by the PyPy team. This
 chapter is a brief discussion of these projects and experiments. 
 
-Some work has also been done on the GHC side, among others, a LLVM
+Some work has also been done on the GHC side, among others; a LLVM
 (Low Level Virtual Machine) back-end has been implemented.
 
 % TODO !
@@ -16,7 +16,7 @@ The LLVM (Low Level Virtual Machine) is a framework for the optimization of
 programs from the compilation phase to runtime. The LLVM provides high-level information 
 to the compilation system during compile-time, run-time and in idle time between
 runs. By creating code generators for the virtual instruction set supported by
-LLVM, implementors can take full advantage of its features.
+LLVM, implementers can take full advantage of its features.
 \cite{lattner2004llvm}
 
 GHC can generate LLVM code from Cmm (C minus minus; is a low-level imperative
@@ -44,7 +44,7 @@ then executes the request, often involving querying a database and then generati
 the actual HTML for the user. Increasing the effectiveness of this process would
 reduce the time it takes for a user to have a website request answered. 
 The HappyJIT project implements a PHP interpreter in RPython, this interpreter is 
-translated by the PyPy translator into a tracing-JIT. The approach show that 
+translated by the PyPy translator into a tracing-JIT. The approach shows that 
 the techniques significantly improve the performance of several common use cases.
 \cite{homescu2011happyjit}
 

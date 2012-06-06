@@ -23,7 +23,7 @@ with class"\cite{hudak2007history}.
 
 Two specific features
 of Haskell stand out: it is purely functional; this means that the functions 
-can not have side-effects, or mutate data. For equal arguments, a function 
+cannot have side-effects, or mutate data. For equal arguments, a function 
 must provide equal results. The fact that Haskell is lazy refers to the techniques
 used to evaluate a Haskell program, meaning that the arguments to a function are passed
 unevaluated, and only evaluated when needed. Lazy semantics also means that impure 
@@ -95,12 +95,12 @@ the theory).\cite{marlow2012glasgow} Core is discussed in more detail in chapter
 \subsection*{External-Core and Linkcore}
 
 % What is External-Core ?
-GHC uses an intermediate language throughout it's 
+GHC uses an intermediate language throughout its 
 simplification phase. The External-Core project presents a formal definition of the syntax 
 of this language. And in addition to this, enables the representation to be exported 
-to files. The idea is that this allows compiler implementors and researchers to use GHC
+to files. The idea is that this allows compiler implementers and researchers to use GHC
 as a front-end for Haskell compilers. Before outputting External-Core files,
-the Haskell files are typechecked, desugared and simplified. \cite{tolmach2010ghc}
+the Haskell files are type checked, desugared and simplified. \cite{tolmach2010ghc}
 
 % What is linkcore ?
 The linkcore project implements a linker for Core programs, i.e. it transforms
@@ -109,9 +109,9 @@ this, since the linker requires External-Core representation of the ghc-librarie
 it also contains instructions on how to create these. 
 
 % They have both bitrotted!
-Unfortunately, at the time of this writing, both the External-Core functionality in
+Unfortunately, at the time of this writing, the External-Core functionality in
 GHC, the extcore and the linkcore 
-packages have bitrotted. Although there seems to be interest for the continued 
+packages have bitrotted, though there seems to be interest for the continued 
 maintenance of External-Core in GHC.
 
 
@@ -137,7 +137,7 @@ PyPy project puts most of its effort into its Python implementation, other proje
 such a generic approach.
 
 % What is RPython and why is it used ?
-The methods used by PyPy is to implement interpreters in RPython. RPython is a proper 
+The methods used by PyPy are to implement interpreters in RPython. RPython is a proper 
 subset of Python (a RPython program can be executed by a Python interpreter) 
 chosen such that it is possible to perform type inference on it. This
 means that RPython programs can be translated into efficient C programs. Translating a 
@@ -162,7 +162,7 @@ resulting in faster code. \cite{bolz2011runtime}
 
 % What is a tracing JIT ?
 A tracing-JIT works by recording the execution of a program. The result is a set of 
-traces of concrete execution, these traces are linear lists of operations. The lists of
+traces of concrete execution; these traces are linear lists of operations. The lists of
 operations are then optimized and turned into machine code. Among other benefits, the
 result is free inlining of functions, as the functions operations are simply added to
 the trace. \cite{bolz2011runtime}

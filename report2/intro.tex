@@ -10,12 +10,12 @@ is concluded by introducing the remaining chapters.
 The project aims to investigate the feasibility of JIT (Just-in-time) 
 compilation of a strongly-typed purely-functional language. Since
 programs written in such a language can be heavily optimized at 
-compile time, it us uncertain whether such programs can benefit from
+compile time, it is uncertain whether such programs can benefit from
 JIT compilation. However, a JIT compiler has a lot more information to
 work with than a static compiler. 
 
 To test this, the techniques 
-used by the PyPy (Python in Python) project is applied to the Haskell 
+used by the PyPy (Python in Python) project are applied to the Haskell 
 programming language. By implementing the back-end for a Haskell compiler 
 in RPython (restricted Python), and using GHC (the Glasgow Haskell Compiler) 
 as a front-end, a full Haskell JIT compiler can be implemented. An 
@@ -50,14 +50,14 @@ The following work had already been done:
 
 \end{itemize}
 
-These parts was the result of an earlier stage of the project:
+These parts were the result of an earlier stage of the project:
 \begin{itemize}
 
 \item An investigation into the use of GHC as a front-end for the compiler.
 This resulted in the JSCore intermediate language, but was unsuccessful
 at creating JSCore files from the GHC Haskell libraries.
 
-\item A parser for the JSCore language was implemented, however, this 
+\item A parser for the JSCore language was implemented; however, this 
 parser was only successful for a very small subset of the JSCore language.
 
 \item A simple system for testing functionality was implemented.
@@ -72,7 +72,7 @@ Haskell libraries, but was still unsuccessful. The reason for this being
 bugs in GHC. Specifically, bugs in the code that dumps the External-Core
 files.
 
-\item Various Haskell values and functions has been implemented at a higher
+\item Various Haskell values and functions have been implemented at a higher
 level. Due to the fact that we could not successfully create intermediate
 files for the Haskell
 libraries we had to implement the functionality at a higher level, i.e. 
