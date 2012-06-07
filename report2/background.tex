@@ -63,14 +63,14 @@ from Hsc is usually an assembly file that must be fed to an assembler.
 
 % TODO
 The compiler is (in addition to being a binary) itself a library that exports an API.
-The GHC API was a goal from the beginning of its development, in the wording of
-"being modular". A few notable projects have taken advantage of this modularity,
+A goal of the GHC project was modularity, the GHC API is a result of this. 
+A few notable projects have taken advantage of this modularity,
 including a version of GHC containing a Lisp front-end, and a version that generates
 Java code. With the growing popularity of Haskell, interest in tools that deal with
 the language has increased. These tools need a lot of the functionality that is already
 present in GHC. For this reason, GHC is built as a library, rather than a monolithic
 program. The library is linked by a small Main module. In addition to this, GHC
-exposes an API to deal with the library.\cite{marlow2012glasgow} 
+exposes an API to interact with the library.\cite{marlow2012glasgow} 
 
 \subsection*{The Runtime System}
 
@@ -97,7 +97,7 @@ the theory).\cite{marlow2012glasgow} Core is discussed in more detail in chapter
 % What is External-Core ?
 GHC uses an intermediate language throughout its 
 simplification phase. The External-Core project presents a formal definition of the syntax 
-of this language. And in addition to this, enables the representation to be exported 
+of this language and enables the representation to be exported 
 to files. The idea is that this allows compiler implementers and researchers to use GHC
 as a front-end for Haskell compilers. Before outputting External-Core files,
 the Haskell files are type checked, desugared and simplified. \cite{tolmach2010ghc}
@@ -111,7 +111,7 @@ it also contains instructions on how to create these.
 % They have both bitrotted!
 Unfortunately, at the time of this writing, the External-Core functionality in
 GHC, the extcore and the linkcore 
-packages have bitrotted, though there seems to be interest for the continued 
+packages have bitrotted. However, there seems to be interest for the continued 
 maintenance of External-Core in GHC.
 
 
@@ -175,5 +175,4 @@ is an interpreter for a Haskell inspired lambda-calculus called Core'.
 It is meant to serve as the back-end for a complete Haskell compiler, after taking advantage 
 of the front-end abilities of GHC. The interpreter notably has support for pattern matching 
 and constructors. Our intent is to extend this interpreter into a full Haskell interpreter.
-For more on Haskell-Python, see section \ref{chap:hs}.
 

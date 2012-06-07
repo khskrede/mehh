@@ -2,8 +2,8 @@
 \chapter{Conclusion and Future Work}
 \label{chap:conc}
 
-
-% Write some stuffs here
+This is the final chapter of the report, it briefly discusses the future work that 
+is to be done, and a conclusion.
 
 \section{Serializing and deserializing}
 \label{serdes}
@@ -11,8 +11,8 @@
 The current situation regarding the serialization of Haskell programs into 
 the JSCore format have several problems. It is dependent on a buggy part of GHC, 
 and on a poorly maintained package (extcore). The result of these bugs is that
-GHC exits with a panic-error when compiling some Haskell modules. And this in
-turn, means that we have been unable to create JSCore for the GHC boot libraries.
+GHC exits with a panic-error when compiling some Haskell modules. This
+means that we have been unable to create JSCore for all the GHC boot libraries.
 
 Currently, the libraries necessary to run some simple Haskell programs have been
 implemented at a high level in Python. This implementation is not "correctly"
@@ -21,11 +21,13 @@ to test some simple programs.
 
 Some alternative methods have been investigated as solutions for this problem,
 including the use of the Cabal (Haskell package system) API in collaboration
-with the GHC API in order to create the JSCore files. However, Cabal interface
+with the GHC API in order to create the JSCore files. However, Cabal interacts
 with GHC through command line arguments. 
 It was also attempted to create the necessary functionality using just the GHC
-API, however this also turned out to be problematic. Though it now seems like
-this is the best way to move forward. By using the main module as the base for
+API, however this also turned out to be problematic due to the limited Haskell 
+experience and the overall complexity of GHC. Though it now seems like
+using the GHC API is the best way to move forward. By using the main module of GHC
+as the base for
 the serializer, it should be possible to interface with the build-system
 exactly like GHC does. This would mean that it would be possible to write a
 fairly simple Haskell function to dump the intermediate format used by GHC
@@ -33,33 +35,22 @@ to JSCore, and since this program would function exactly like GHC, anything
 would be possible to compile using it.
 
 The deserialization should not change much, as the JSCore intermediate format
-would not have to change very much. If anything, the JSCore format can be
+would not have to change much. If anything, the JSCore format can be
 simplified, and made to match better against Core and System $F_C$ than
-External-Core does. It is however, necessary to improve the serialization
-functionality before the deserialization can be improved much as the programs
-that can be serialized is of little complexity, and therefore does not test
-very much.
+External-Core does. It is however necessary to improve the serialization
+functionality before the deserialization can be improved. As the programs
+that can be serialized is of little complexity, and the deserializer can only be
+tested by these programs.
 
 
 \section{Benchmarking and testing}
 
-\begin{comment}
-Some simple benchmarking and testing was done. The benchmarking was done by
-running the naive fibonacci program with $n=40$, the results can be seen in
-table \ref{tab:benchmarks}.
-It is clear that the interpreter must be optimized 
-further if it is to compete with GHC. A significant increase in execution 
-time with the JIT as opposed to without the JIT was observed. In addition,
-for this benchmark, the interpreter with JIT was approximately $3.3$ times faster than
-$runhaskell$ (an interpreter that comes with GHC).
-\end{comment}
-
-The preliminary benchmarking that was done was described in chapter \ref{chap:bench}. 
+Some preliminary benchmarking was done and described in chapter \ref{chap:bench}. 
 The results
 show a significant decrease in the execution time with the JIT compared to without it.
 The interpreter also outperforms the "runhaskell" interpreter that comes with GHC. It
-is however slower than GHC, though that is to be expected, as a lot of 
-development and optimization is left.
+is however slower than GHC, though that is to be expected as the interpreter is still 
+at an early stage of development.
 
 The testing performed has been described in chapter \ref{chap:impl}. The results of the 
 testing are that the current implementation is sufficient for simple programs taking 
@@ -73,18 +64,17 @@ the system. Eventually, the interpreter should run the GHC benchmarking suite
 %NoFib GHC benchmark
 
 The goal of this project was to investigate whether Haskell could benefit from JIT 
-compilation, specifically; the techniques applied by the PyPy project. 
+compilation, specifically the techniques applied by the PyPy project. 
 To answer this, it was attempted to implement a full Haskell compilation
 system, using an interpreter called Haskell-Python\cite{haskellpython} as the back-end,
 and GHC as the front-end, and translate it into a JIT compiler using the PyPy translation
 toolchain. The work involved in this project has mostly been the implementation of the necessary
 tools to get Haskell programs from GHC into Haskell-Python. This has only been partially
-successful, as discussed in section \ref{serdes}.
+successful, as discussed in section \ref{serdes}. 
 
-Unfortunately, since so much time went into trying to get GHC to cooperate, 
-the original question remains unanswered at this stage. This is due to the fact that the
-approach taken to test the hypothesis has not been successfully completed. However,
-based on the results from this partially implemented system, its continued
-development may result in a fast Haskell compilation system, and may eventually prove
-the hypothesis true.
+Since so much time went into trying to get GHC to cooperate, this thesis work never reached the
+maturity that was aimed for. The consequence of this is that the original hypothesis remains
+unanswered. It cannot be said that Haskell can benefit from the JIT approach as opposed to a
+statically optimizing approach. It can be said however, that the interpreter implemented here 
+clearly benefits from the JIT compiler, and that future development may prove the hypothesis true.
 

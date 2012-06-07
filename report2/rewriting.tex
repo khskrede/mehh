@@ -25,7 +25,7 @@ properties that are relevant to this discussion.
 
 \subsection*{System $F_C$}
 
-System $F$ is a typed lambda calculus, very popular as an intermediate language
+System $F$ is a typed lambda calculus, and is very popular as an intermediate language
 for functional language compilers. System $F_C$ is a super-set of System $F$ 
 that uses explicit type-equality coercions as witnesses to justify explicit
 type-cast operations. System $F_C$ is currently GHCs intermediate language.
@@ -37,7 +37,7 @@ no operational effect and no run-time cost.
 
 No compilers use a pure System $F$ as its intermediate language as this would
 require very heavy encoding. Most compilers extend System $F$ with algebraic
-data types, data constructors and case-expressions.
+data types, data constructors, and case-expressions.
 \cite{sulzmann2007system}
 
 Although Cast coercions have no operational effect, they serve to help the
@@ -62,8 +62,8 @@ erased before running the program, this evidence has no effect.
 
 \section{Parsing}
 
-The following content is an introduction to the actual implementation
-of the parser without becoming too technical. Its purpose is to communicate
+The following is an introduction to the actual implementation
+of the parser without being too technical. Its purpose is to communicate
 the similarities and differences between JSCore 
 and Core', as well as defining a mapping from the former to the latter.
 
@@ -176,7 +176,7 @@ ToCore'(stack:var1, anexpression)
 \end{lstlisting}
 \end{figure}
 
-Which becomes:
+This becomes:
 
 \begin{figure}[H]
 \lstset{ %
@@ -232,7 +232,7 @@ to deconstruct the "Int" value and one is used to match on the actual "Int\#" li
 
 Following is a piece of JSCore pseudo-code that does this. 
 The names "type1", "type2", "type3", "type4", "type5" refers to JSCore types. 
-The names "exp1", "exp2", "exp3" refer to JSCore expressions. And "lit1", "lit2" refer
+The names "exp1", "exp2", "exp3" refer to JSCore expressions and "lit1", "lit2" refer
 to JSCore literals.
 
 \begin{figure}[H]
@@ -280,8 +280,8 @@ func("case", [
 \end{figure}
 
 Note that the literals in the case-alternatives are added to the bottom of the stack,
-the reason for this is that they are matched against, and the scrutiny is the first
-argument in the function.
+the reason for this is that they are matched against the scrutiny, which is the first
+argument to the function.
 Also note that "var1" has already
 been appended to the stack, most likely by a lambda abstraction. However, 
 the constructor
@@ -298,8 +298,8 @@ well as its name.
 
 \subsubsection*{Type definitions}
 
-Nothing is done when visiting an algebraic data type definition, rather, it is done when 
-visiting its children. (A constructor is created for each constructor definition).
+Nothing is done when visiting an algebraic data type definition, it is done when 
+visiting its children. A constructor is created for each constructor definition.
 % What about the type from the ADT ? and newtype ???
 
 \subsubsection*{Constructor definitions}
@@ -344,8 +344,8 @@ visiting its value definition. Note that the let statement is not yet properly t
 The case statement is the most complicated of all the statements in the Core language.
 When the case statement is parsed, it is turned into a Function; the scrutiny (exp) 
 is in turn applied to the function. Note that, since the only variables that are in
-scope in a functions' rules, is the pattern it matches against, we need to pass all 
-variables downwards from the top Expression.
+scope in a functions' rules are those present in the pattern-list it matches against, 
+we need to pass all variables downwards from the top Expression.
 
 The note, external c-call, dynamic external c-call and label statements are currently
 not implemented or tested. However, some functionality for implementing them have been

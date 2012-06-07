@@ -38,7 +38,7 @@ in the sub folder "test" and then prints the result of the tests.
 \begin{sidewaysfigure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textheight]{../diags/overview.pdf}
+\includegraphics[width=\textheight]{../diags/overview.png}
 
 \caption{Overview of source tree}
 \label{fig:overview}
@@ -75,8 +75,8 @@ base class for constructors with different number of arguments.
 base for a number of other Constructor classes created by a function called 
 \emph{make\_arg\_subclass}. This function is again called by another function
 called \emph{make\_constructor} that creates a Constructor based on the length
-of the list it receives as argument. And this function (\emph{make\_constructor})
-is called by another function \emph{constr} takes the name-argument (a string)
+of the list it receives as argument. This function (\emph{make\_constructor})
+is called by another function \emph{constr} that takes the name-argument (a string)
 and looks it up in the list of symbols to create the actual Constructor. So the
 actual Constructor is created by a coll to the function \emph{constr(name, *args)}.
 
@@ -95,7 +95,7 @@ with its numbered variables substituted by values.
 
 \item \emph{PrimFunction} inherits from \emph{AbstractFunction} and describes a function
 implemented at the machine level. A function called \emph{expose\_primitive} is
-can be used as a python-decorator to create \emph{PrimFunction} objects.
+be used as a python-decorator to create \emph{PrimFunction} objects.
 
 \item \emph{Var} inherits from \emph{HaskellObject} and describes a Haskell variable. 
 
@@ -161,7 +161,7 @@ The following primitive types are implemented;
 \begin{itemize}
 \item \emph{Char} represents a single Haskell character-value.
 \item \emph{Int} represents a Haskell Int value.
-\item \emph{Addr} is a memory address. Among other it is used to represent
+\item \emph{Addr} is a memory address. Among other things it is used to represent
 the String type.
 \item \emph{Double} is simply a double precision floating point value.
 \item \emph{Float} is simply a single precision floating point value.
@@ -239,8 +239,7 @@ The result of this is that we have a set of functions that get called when
 visiting JSON constructs. Since JSCore is a description of External-Core 
 compatible with JSON this lets us parse the Core programs by branching 
 on the visitor functions.
-
-This way, the mapping described in \ref{chap:rewrite} is implemented.
+This way, the mapping described in chapter \ref{chap:rewrite} is implemented.
 
 \section{Built-in functionality}
 
@@ -290,23 +289,23 @@ in JSCore format.
 
 \section{GHC modules}
 
-The folder "ghc\_modules" contain the GHC boot libraries. And a script that 
-takes all these Haskell modules and uses GHC to create External-Core files
-using the "-fext-core" flag and "core2js" to create JSCore files from the 
+The folder "ghc\_modules" contain the GHC boot libraries. It also contains a 
+script that goes through all these Haskell modules and uses GHC to create External-Core files
+using the "-fext-core" flag. Then it uses "core2js" to create JSCore files from the 
 resulting External-Core files.
 
 The GHC library files are organized exactly as in the GHC source tree. Each
 folder in the "libraries" directory corresponds to a Haskell package. These
-packages contain the Haskell modules. E.g. the module "GHC.Tuple" is located
+packages contain the Haskell modules, e.g. the module "GHC.Tuple" is located
 in "ghc-prim/GHC/Tuple.hs".
 
 \section{Tests}
 
-The tests have been designed to test different parts of the interpreter.
-The "test" directory contains one subdirectory for each test. The
+Tests have been designed to test different parts of the interpreter.
+The "test" directory contains one subdirectory for each test and the
 subdirectories contain a single Haskell file with the same name as the
 subdirectory (other files are created and put in the directory when running
-the test). E.g. the test "fibonacci" is located in the following path:
+the test). The test "fibonacci" is located in the following path:
 "test/fibonacci/fibonacci.hs" and after running the test the "fibonacci"
 folder should contain the additional files; "factorial.hcr", "factorial.hi",
 "factorial.o" and "factorial.hcj". ".hcj" is the extension used for JSCore
